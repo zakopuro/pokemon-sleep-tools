@@ -13,25 +13,31 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # ❶ リポジトリをチェックアウト
       - uses: actions/checkout@v4
 
+      # ❷ pnpm を先にインストール（ここがポイント）
+      - uses: pnpm/action-setup@v2             # ← これが無いと pnpm コマンドが無い
+        with:
+          version: 9                           # 10 や latest でも可
+          cache: true                          # 内部で pnpm store をキャッシュ
+
+      # ❸ Node をセットアップ（cache: 'pnpm' で lockfile もキャッシュ）
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: 'pnpm'
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 'latest'
-          cache: pnpm
-
+      # ❹ 依存インストール & ビルド
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
 
+      # ❺ Pages 用アーティファクトをアップロード
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist        # ← Vite の出力先
 
   deploy:
     needs: build
