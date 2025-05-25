@@ -27,6 +27,11 @@ jobs:
           path: dist
           name: github-pages
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 'latest'
+          cache: 'pnpm'
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
