@@ -63,12 +63,12 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
             </span>
             {/* きのみ画像 */}
             <img
-              src={`/image/berry/${getBerryImageName(getBerry(selectedPokemon.berryId)?.name || '')}.png`}
+              src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(getBerry(selectedPokemon.berryId)?.name || '')}.png`}
               alt={getBerry(selectedPokemon.berryId)?.name || '不明'}
               style={{ width: 24, height: 24, objectFit: 'contain' }}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-                target.src = '/image/berry/cheriberry.png';
+                target.src = `${import.meta.env.BASE_URL}image/berry/cheriberry.png`;
               }}
             />
           </div>

@@ -150,10 +150,10 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
               return (
                 <div key={`${id}-${index}`} style={{ position: 'relative' }}>
                   <img
-                    src={`/image/ing/${getIngredientImageName(ing?.name || '')}.png`}
+                    src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(ing?.name || '')}.png`}
                     alt={ing?.name || ''}
                     style={{ width: 28, height: 28, objectFit: 'contain' }}
-                    onError={e => ((e.target as HTMLImageElement).src = '/image/ing/honey.png')}
+                    onError={e => ((e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}image/ing/honey.png`)}
                   />
                   {/* 個数バッジ */}
                   <span
@@ -227,10 +227,10 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
                   return (
                     <div key={`${p.id}-${pidx}`} style={{ position: 'relative' }}>
                       <img
-                        src={`/image/ing/${getIngredientImageName(ing?.name || '')}.png`}
+                        src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(ing?.name || '')}.png`}
                         alt=""
                         style={{ width: 24, height: 24 }}
-                        onError={e => ((e.target as HTMLImageElement).src = '/image/ing/honey.png')}
+                        onError={e => ((e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}image/ing/honey.png`)}
                       />
                       <span
                         style={{

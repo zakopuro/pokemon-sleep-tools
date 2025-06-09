@@ -125,7 +125,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             }}
           >
             <img
-              src={`/image/pokemon/${pokemon.id.toString().padStart(3, '0')}.png`}
+              src={`${import.meta.env.BASE_URL}image/pokemon/${pokemon.id.toString().padStart(3, '0')}.png`}
               alt={pokemon.name}
               style={{
                 width: '100%',
