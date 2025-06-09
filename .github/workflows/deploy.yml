@@ -22,7 +22,6 @@ jobs:
       - uses: pnpm/action-setup@v2             # ← これが無いと pnpm コマンドが無い
         with:
           version: 9                           # 10 や latest でも可
-          cache: true                          # 内部で pnpm store をキャッシュ
 
       # ❸ Node をセットアップ（cache: 'pnpm' で lockfile もキャッシュ）
       - uses: actions/setup-node@v4
