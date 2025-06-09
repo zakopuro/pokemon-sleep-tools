@@ -1,0 +1,67 @@
+- id: 1
+  name: ふといながねぎ
+  energy: 185
+
+- id: 2
+  name: あじわいキノコ
+  energy: 167
+
+- id: 3
+  name: とくせんエッグ
+  energy: 115
+
+- id: 4
+  name: ほっこりポテト
+  energy: 124
+
+- id: 5
+  name: とくせんリンゴ
+  energy: 90
+
+- id: 6
+  name: げきからハーブ
+  energy: 130
+
+- id: 7
+  name: マメミート
+  energy: 103
+
+- id: 8
+  name: モーモーミルク
+  energy: 98
+
+- id: 9
+  name: あまいミツ
+  energy: 101
+
+- id: 10
+  name: ピュアなオイル
+  energy: 121
+
+- id: 11
+  name: あったかジンジャー
+  energy: 109
+
+- id: 12
+  name: あんみんトマト
+  energy: 110
+
+- id: 13
+  name: リラックスカカオ
+  energy: 151
+
+- id: 14
+  name: おいしいシッポ
+  energy: 342
+
+- id: 15
+  name: ワカクサ大豆
+  energy: 100
+
+- id: 16
+  name: ワカクサコーン
+  energy: 140
+
+- id: 17
+  name: めざましコーヒー
+  energy: 153

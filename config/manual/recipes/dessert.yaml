@@ -1,0 +1,212 @@
+- id: 1
+  name: ごちゃまぜジュース
+  category: デザート・ドリンク
+  energy: 0
+  ingredients: []
+
+- id: 2
+  name: じゅくせいスイートポテト
+  category: デザート・ドリンク
+  energy: 1907
+  ingredients:
+    - { ingredientId: 4, quantity: 9 }
+    - { ingredientId: 8, quantity: 5 }
+
+- id: 3
+  name: ふくつのジンジャークッキー
+  category: デザート・ドリンク
+  energy: 4921
+  ingredients:
+    - { ingredientId: 9,  quantity: 14 }
+    - { ingredientId: 11, quantity: 12 }
+    - { ingredientId: 13, quantity: 5 }
+    - { ingredientId: 3,  quantity: 4 }
+
+- id: 4
+  name: とくせんリンゴジュース
+  category: デザート・ドリンク
+  energy: 855
+  ingredients: [{ ingredientId: 5, quantity: 8 }]
+
+- id: 5
+  name: クラフトサイコソーダ
+  category: デザート・ドリンク
+  energy: 1079
+  ingredients: [{ ingredientId: 9, quantity: 9 }]
+
+- id: 6
+  name: ひのこのジンジャーティー
+  category: デザート・ドリンク
+  energy: 1913
+  ingredients:
+    - { ingredientId: 5,  quantity: 7 }
+    - { ingredientId: 11, quantity: 9 }
+
+- id: 7
+  name: プリンのプリンアラモード
+  category: デザート・ドリンク
+  energy: 7594
+  ingredients:
+    - { ingredientId: 9,  quantity: 20 }
+    - { ingredientId: 3,  quantity: 15 }
+    - { ingredientId: 5,  quantity: 10 }
+    - { ingredientId: 8,  quantity: 10 }
+
+- id: 8
+  name: あくまのキッスフルーツオレ
+  category: デザート・ドリンク
+  energy: 4734
+  ingredients:
+    - { ingredientId: 5,  quantity: 11 }
+    - { ingredientId: 8,  quantity: 9 }
+    - { ingredientId: 9,  quantity: 7 }
+    - { ingredientId: 13, quantity: 8 }
+
+- id: 9
+  name: ねがいごとアップルパイ
+  category: デザート・ドリンク
+  energy: 1748
+  ingredients:
+    - { ingredientId: 5, quantity: 12 }
+    - { ingredientId: 8, quantity: 4 }
+
+- id: 10
+  name: ネロリのデトックスティー
+  category: デザート・ドリンク
+  energy: 5065
+  ingredients:
+    - { ingredientId: 11, quantity: 11 }
+    - { ingredientId: 5,  quantity: 15 }
+    - { ingredientId: 2,  quantity: 9 }
+
+- id: 11
+  name: あまいかおりチョコケーキ
+  category: デザート・ドリンク
+  energy: 3378
+  ingredients:
+    - { ingredientId: 9,  quantity: 9 }
+    - { ingredientId: 13, quantity: 8 }
+    - { ingredientId: 8,  quantity: 7 }
+
+- id: 12
+  name: モーモーホットミルク
+  category: デザート・ドリンク
+  energy: 814
+  ingredients: [{ ingredientId: 8, quantity: 7 }]
+
+- id: 13
+  name: かるわざソイケーキ
+  category: デザート・ドリンク
+  energy: 1924
+  ingredients:
+    - { ingredientId: 3,  quantity: 8 }
+    - { ingredientId: 15, quantity: 7 }
+
+- id: 14
+  name: はりきりプロテインスムージー
+  category: デザート・ドリンク
+  energy: 3263
+  ingredients:
+    - { ingredientId: 15, quantity: 15 }
+    - { ingredientId: 13, quantity: 8 }
+
+- id: 15
+  name: マイペースやさいジュース
+  category: デザート・ドリンク
+  energy: 1924
+  ingredients:
+    - { ingredientId: 5,  quantity: 7 }
+    - { ingredientId: 12, quantity: 9 }
+
+- id: 16
+  name: おおきいマラサダ
+  category: デザート・ドリンク
+  energy: 3015
+  ingredients:
+    - { ingredientId: 10, quantity: 10 }
+    - { ingredientId: 8,  quantity: 7 }
+    - { ingredientId: 9,  quantity: 6 }
+
+- id: 17
+  name: ちからもちソイドーナッツ
+  category: デザート・ドリンク
+  energy: 5547
+  ingredients:
+    - { ingredientId: 10, quantity: 12 }
+    - { ingredientId: 13, quantity: 7 }
+    - { ingredientId: 15, quantity: 16 }
+
+- id: 18
+  name: だいばくはつポップコーン
+  category: デザート・ドリンク
+  energy: 6048
+  ingredients:
+    - { ingredientId: 16, quantity: 15 }
+    - { ingredientId: 10, quantity: 14 }
+    - { ingredientId: 8,  quantity: 7 }
+
+- id: 19
+  name: おちゃかいコーンスコーン
+  category: デザート・ドリンク
+  energy: 10925
+  ingredients:
+    - { ingredientId: 5,  quantity: 20 }
+    - { ingredientId: 11, quantity: 20 }
+    - { ingredientId: 16, quantity: 18 }
+    - { ingredientId: 8,  quantity: 9 }
+
+- id: 20
+  name: はなびらのまいチョコタルト
+  category: デザート・ドリンク
+  energy: 3314
+  ingredients:
+    - { ingredientId: 13, quantity: 11 }
+    - { ingredientId: 5,  quantity: 11 }
+
+- id: 21
+  name: フラワーギフトマカロン
+  category: デザート・ドリンク
+  energy: 13834
+  ingredients:
+    - { ingredientId: 13, quantity: 25 }
+    - { ingredientId: 3,  quantity: 25 }
+    - { ingredientId: 9,  quantity: 17 }
+    - { ingredientId: 8,  quantity: 10 }
+
+- id: 22
+  name: はやおきコーヒーゼリー
+  category: デザート・ドリンク
+  energy: 6793
+  ingredients:
+    - { ingredientId: 17, quantity: 16 }
+    - { ingredientId: 8,  quantity: 14 }
+    - { ingredientId: 9,  quantity: 12 }
+
+- id: 23
+  name: スパークスパイスコーラ
+  category: デザート・ドリンク
+  energy: 17494
+  ingredients:
+    - { ingredientId: 5,  quantity: 35 }
+    - { ingredientId: 11, quantity: 20 }
+    - { ingredientId: 1,  quantity: 20 }
+    - { ingredientId: 17, quantity: 12 }
+
+- id: 24
+  name: かたやぶりコーンティラミス
+  category: デザート・ドリンク
+  energy: 7125
+  ingredients:
+    - { ingredientId: 17, quantity: 14 }
+    - { ingredientId: 16, quantity: 14 }
+    - { ingredientId: 8,  quantity: 12 }
+
+- id: 25
+  name: ドオーのエクレア
+  category: デザート・ドリンク
+  energy: 20885
+  ingredients:
+    - { ingredientId: 13, quantity: 30 }
+    - { ingredientId: 8,  quantity: 26 }
+    - { ingredientId: 17, quantity: 24 }
+    - { ingredientId: 9,  quantity: 22 }

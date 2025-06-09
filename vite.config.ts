@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/pokemon-sleep-tools/',
+  base: process.env.NODE_ENV === 'production' ? '/pokemon-sleep-tools/' : '/',
   plugins: [react()],
 })

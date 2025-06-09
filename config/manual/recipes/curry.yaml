@@ -1,0 +1,173 @@
+- id: 1
+  name: ごちゃまぜカレー
+  category: カレー・シチュー
+  energy: 0
+  ingredients: []
+
+- id: 2
+  name: とくせんリンゴカレー
+  category: カレー・シチュー
+  energy: 748
+  ingredients: [{ ingredientId: 5,  quantity: 7 }]
+
+- id: 3
+  name: あぶりテールカレー
+  category: カレー・シチュー
+  energy: 7483
+  ingredients:
+    - { ingredientId: 14, quantity: 8 }
+    - { ingredientId: 6,  quantity: 25 }
+
+- id: 4
+  name: サンパワートマトカレー
+  category: カレー・シチュー
+  energy: 2078
+  ingredients:
+    - { ingredientId: 12, quantity: 10 }
+    - { ingredientId: 6,  quantity: 5 }
+
+- id: 5
+  name: ぜったいねむりバターカレー
+  category: カレー・シチュー
+  energy: 9010
+  ingredients:
+    - { ingredientId: 4,  quantity: 18 }
+    - { ingredientId: 13, quantity: 12 }
+    - { ingredientId: 12, quantity: 15 }
+    - { ingredientId: 8,  quantity: 10 }
+
+- id: 6
+  name: からくちネギもりカレー
+  category: カレー・シチュー
+  energy: 5900
+  ingredients:
+    - { ingredientId: 1,  quantity: 14 }
+    - { ingredientId: 11, quantity: 10 }
+    - { ingredientId: 6,  quantity: 8 }
+
+- id: 7
+  name: キノコのほうしカレー
+  category: カレー・シチュー
+  energy: 4162
+  ingredients:
+    - { ingredientId: 2, quantity: 14 }
+    - { ingredientId: 4, quantity: 9 }
+
+- id: 8
+  name: おやこあいカレー
+  category: カレー・シチュー
+  energy: 4523
+  ingredients:
+    - { ingredientId: 9, quantity: 12 }
+    - { ingredientId: 3, quantity: 8 }
+    - { ingredientId: 5, quantity: 11 }
+    - { ingredientId: 4, quantity: 4 }
+
+- id: 9
+  name: 満腹チーズバーグカレー
+  category: カレー・シチュー
+  energy: 1910
+  ingredients:
+    - { ingredientId: 8, quantity: 8 }
+    - { ingredientId: 7, quantity: 8 }
+
+- id: 10
+  name: ほっこりホワイトシチュー
+  category: カレー・シチュー
+  energy: 3181
+  ingredients:
+    - { ingredientId: 8, quantity: 10 }
+    - { ingredientId: 4, quantity: 8 }
+    - { ingredientId: 2, quantity: 4 }
+
+- id: 11
+  name: たんじゅんホワイトシチュー
+  category: カレー・シチュー
+  energy: 814
+  ingredients: [{ ingredientId: 8, quantity: 7 }]
+
+- id: 12
+  name: マメバーグカレー
+  category: カレー・シチュー
+  energy: 856
+  ingredients: [{ ingredientId: 7, quantity: 7 }]
+
+- id: 13
+  name: ベイビィハニーカレー
+  category: カレー・シチュー
+  energy: 839
+  ingredients: [{ ingredientId: 9, quantity: 7 }]
+
+- id: 14
+  name: ニンジャカレー
+  category: カレー・シチュー
+  energy: 9445
+  ingredients:
+    - { ingredientId: 15, quantity: 24 }
+    - { ingredientId: 1,  quantity: 12 }
+    - { ingredientId: 7,  quantity: 9 }
+    - { ingredientId: 2,  quantity: 5 }
+
+- id: 15
+  name: ひでりカツレツカレー
+  category: カレー・シチュー
+  energy: 1942
+  ingredients:
+    - { ingredientId: 7,  quantity: 10 }
+    - { ingredientId: 10, quantity: 5 }
+
+- id: 16
+  name: とけるオムカレー
+  category: カレー・シチュー
+  energy: 2150
+  ingredients:
+    - { ingredientId: 3,  quantity: 10 }
+    - { ingredientId: 12, quantity: 6 }
+
+- id: 17
+  name: ビルドアップマメカレー
+  category: カレー・シチュー
+  energy: 3372
+  ingredients:
+    - { ingredientId: 15, quantity: 12 }
+    - { ingredientId: 7,  quantity: 6 }
+    - { ingredientId: 3,  quantity: 4 }
+    - { ingredientId: 6,  quantity: 4 }
+
+- id: 18
+  name: じゅうなんコーンシチュー
+  category: カレー・シチュー
+  energy: 4670
+  ingredients:
+    - { ingredientId: 16, quantity: 14 }
+    - { ingredientId: 8,  quantity: 8 }
+    - { ingredientId: 4,  quantity: 8 }
+
+- id: 19
+  name: れんごくコーンキーマカレー
+  category: カレー・シチュー
+  energy: 13690
+  ingredients:
+    - { ingredientId: 6,  quantity: 27 }
+    - { ingredientId: 7,  quantity: 24 }
+    - { ingredientId: 16, quantity: 14 }
+    - { ingredientId: 11, quantity: 12 }
+
+- id: 20
+  name: ピヨピヨパンチ辛口カレー
+  category: カレー・シチュー
+  energy: 5702
+  ingredients:
+    - { ingredientId: 17, quantity: 11 }
+    - { ingredientId: 6,  quantity: 11 }
+    - { ingredientId: 9,  quantity: 11 }
+
+- id: 21
+  name: めざめるパワーシチュー
+  category: カレー・シチュー
+  energy: 19061
+  ingredients:
+    - { ingredientId: 15, quantity: 28 }
+    - { ingredientId: 12, quantity: 25 }
+    - { ingredientId: 2,  quantity: 23 }
+    - { ingredientId: 17, quantity: 16 }

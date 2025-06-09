@@ -1,0 +1,20 @@
+export const SUBSKILLS = [
+    { id: 1, name: 'きのみの数S', description: 'きのみの数+1',color: 'gold' },
+    { id: 2, name: 'おてつだいボーナス', description: 'チーム全員のおてつだい+5%',color: 'gold' },
+    { id: 3, name: 'げんき回復ボーナス', description: 'チーム全員のげんき回復量+14%',color: 'gold' },
+    { id: 4, name: '睡眠EXPボーナス', description: 'チーム全員の睡眠EXP+14%',color: 'gold' },
+    { id: 5, name: 'リサーチEXPボーナス', description: 'チーム全員のリサーチEXP+6%',color: 'gold' },
+    { id: 6, name: 'ゆめのかけらボーナス', description: 'ゆめのかけら獲得量+6%',color: 'gold' },
+    { id: 7, name: 'スキルレベルアップM', description: 'スキルレベル+2',color: 'gold' },
+    { id: 8, name: 'スキルレベルアップS', description: 'スキルレベル+1',color:'light blue' },
+    { id: 9, name: 'おてつだいスピードM', description: 'おてつだい時間-14%',color:'light blue' },
+    { id: 10, name: 'おてつだいスピードS', description: 'おてつだい時間-7%',color:'gray' },
+    { id: 11, name: '食材確率アップM', description: '食材確率+36%',color:'light blue' },
+    { id: 12, name: '食材確率アップS', description: '食材確率+18%',color:'gray' },
+    { id: 13, name: 'スキル確率アップM', description: 'スキル確率+36%',color:'light blue' },
+    { id: 14, name: 'スキル確率アップS', description: 'スキル確率+18%',color:'gray' },
+    { id: 15, name: '最大所持数アップL', description: '最大所持数+18',color:'light blue' },
+    { id: 16, name: '最大所持数アップM', description: '最大所持数+12',color:'light blue' },
+    { id: 17, name: '最大所持数アップS', description: '最大所持数+6',color:'gray' },
+
+  ] as const;

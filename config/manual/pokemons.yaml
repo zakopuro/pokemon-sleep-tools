@@ -1,0 +1,3503 @@
+- id: 1
+  name: フシギダネ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 14
+  fp: 5
+  frequency: 4400
+  berryId: 5
+  ing1:
+    ingredientId: 9
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 12
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 4
+    c1: 6
+- id: 2
+  name: フシギソウ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 14
+  fp: 12
+  frequency: 3300
+  berryId: 5
+  ing1:
+    ingredientId: 9
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 12
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 4
+    c1: 6
+- id: 3
+  name: フシギバナ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 14
+  fp: 20
+  frequency: 2800
+  berryId: 5
+  ing1:
+    ingredientId: 9
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 12
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 4
+    c1: 6
+- id: 4
+  name: ヒトカゲ
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 14
+  fp: 5
+  frequency: 3500
+  berryId: 2
+  ing1:
+    ingredientId: 7
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 11
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 6
+    c1: 6
+- id: 5
+  name: リザード
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 14
+  fp: 12
+  frequency: 3000
+  berryId: 2
+  ing1:
+    ingredientId: 7
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 11
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 6
+    c1: 6
+- id: 6
+  name: リザードン
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 14
+  fp: 20
+  frequency: 2400
+  berryId: 2
+  ing1:
+    ingredientId: 7
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 11
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 6
+    c1: 6
+- id: 7
+  name: ゼニガメ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 14
+  fp: 5
+  frequency: 4500
+  berryId: 3
+  ing1:
+    ingredientId: 8
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 13
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 7
+    c1: 7
+- id: 8
+  name: カメール
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 14
+  fp: 12
+  frequency: 3400
+  berryId: 3
+  ing1:
+    ingredientId: 8
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 13
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 7
+    c1: 7
+- id: 9
+  name: カメックス
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 14
+  fp: 20
+  frequency: 2800
+  berryId: 3
+  ing1:
+    ingredientId: 8
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 13
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 7
+    c1: 7
+- id: 10
+  name: キャタピー
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 5
+  frequency: 4400
+  berryId: 12
+  ing1:
+    ingredientId: 9
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 12
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 4
+- id: 11
+  name: トランセル
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 7
+  frequency: 4200
+  berryId: 12
+  ing1:
+    ingredientId: 9
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 12
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 4
+- id: 12
+  name: バタフリー
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 15
+  frequency: 2600
+  berryId: 12
+  ing1:
+    ingredientId: 9
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 12
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 4
+- id: 19
+  name: コラッタ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 5
+  frequency: 4900
+  berryId: 1
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 15
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 20
+  name: ラッタ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 12
+  frequency: 2950
+  berryId: 1
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 15
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 23
+  name: アーボ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 5
+  frequency: 5000
+  berryId: 8
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 3
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 6
+    c1: 3
+- id: 24
+  name: アーボック
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 12
+  frequency: 3400
+  berryId: 8
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 3
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 6
+    c1: 3
+- id: 25
+  name: ピカチュウ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 1
+  fp: 7
+  frequency: 2700
+  berryId: 4
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 3
+    c1: 3
+- id: 25
+  name: ピカチュウ(ハロウィン)
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 7
+  frequency: 2500
+  berryId: 4
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 3
+    c1: 3
+- id: 25
+  name: ピカチュウ(ハロウィン)
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 7
+  frequency: 2500
+  berryId: 4
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 3
+    c1: 3
+- id: 25
+  name: ピカチュウ(ホリデー)
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 6
+  fp: 7
+  frequency: 2500
+  berryId: 4
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 3
+    c1: 3
+- id: 26
+  name: ライチュウ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 1
+  fp: 18
+  frequency: 2200
+  berryId: 4
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 3
+    c1: 3
+- id: 35
+  name: ピッピ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 16
+  fp: 7
+  frequency: 4000
+  berryId: 18
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 3
+- id: 36
+  name: ピクシー
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 16
+  fp: 20
+  frequency: 2800
+  berryId: 18
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 3
+- id: 37
+  name: ロコン
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 8
+  fp: 5
+  frequency: 4700
+  berryId: 2
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 4
+    c1: 3
+- id: 37
+  name: ロコン(アローラ)
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 13
+  fp: 5
+  frequency: 5600
+  berryId: 6
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 4
+    c1: 3
+- id: 38
+  name: キュウコン
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 8
+  fp: 20
+  frequency: 2600
+  berryId: 2
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 4
+    c1: 3
+- id: 38
+  name: キュウコン(アローラ)
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 13
+  fp: 20
+  frequency: 2900
+  berryId: 6
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 4
+    c1: 3
+- id: 39
+  name: プリン
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 7
+  frequency: 3900
+  berryId: 18
+  ing1:
+    ingredientId: 9
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 13
+    c1: 2
+- id: 40
+  name: プクリン
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 16
+  frequency: 2900
+  berryId: 18
+  ing1:
+    ingredientId: 9
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 13
+    c1: 2
+- id: 50
+  name: ディグダ
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 1
+  fp: 5
+  frequency: 4300
+  berryId: 9
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 1
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 15
+    c1: 8
+- id: 51
+  name: ダグトリオ
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 1
+  fp: 12
+  frequency: 2800
+  berryId: 9
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 1
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 15
+    c1: 8
+- id: 52
+  name: ニャース
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 6
+  fp: 5
+  frequency: 4400
+  berryId: 1
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 2
+    c2: 3
+- id: 53
+  name: ペルシアン
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 6
+  fp: 12
+  frequency: 2800
+  berryId: 1
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 2
+    c2: 3
+- id: 54
+  name: コダック
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 2
+  fp: 5
+  frequency: 5400
+  berryId: 3
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 5
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 7
+    c1: 5
+- id: 55
+  name: ゴルダック
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 2
+  fp: 12
+  frequency: 3400
+  berryId: 3
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 5
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 7
+    c1: 5
+- id: 56
+  name: マンキー
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 5
+  frequency: 4200
+  berryId: 7
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 9
+    c1: 4
+- id: 57
+  name: オコリザル
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 12
+  frequency: 2800
+  berryId: 7
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 9
+    c1: 4
+- id: 58
+  name: ガーディ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 13
+  fp: 5
+  frequency: 4300
+  berryId: 2
+  ing1:
+    ingredientId: 6
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 8
+    c1: 5
+- id: 59
+  name: ウインディ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 13
+  fp: 20
+  frequency: 2500
+  berryId: 2
+  ing1:
+    ingredientId: 6
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 8
+    c1: 5
+- id: 69
+  name: マダツボミ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 5
+  frequency: 5200
+  berryId: 5
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 1
+    c1: 4
+- id: 70
+  name: ウツドン
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 12
+  frequency: 3800
+  berryId: 5
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 1
+    c1: 4
+- id: 71
+  name: ウツボット
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 20
+  frequency: 2800
+  berryId: 5
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 1
+    c1: 4
+- id: 74
+  name: イシツブテ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 2
+  fp: 5
+  frequency: 5700
+  berryId: 13
+  ing1:
+    ingredientId: 15
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 2
+    c1: 4
+- id: 75
+  name: ゴローン
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 2
+  fp: 12
+  frequency: 4000
+  berryId: 13
+  ing1:
+    ingredientId: 15
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 2
+    c1: 4
+- id: 76
+  name: ゴローニャ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 2
+  fp: 22
+  frequency: 3100
+  berryId: 13
+  ing1:
+    ingredientId: 15
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 2
+    c1: 4
+- id: 79
+  name: ヤドン
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 8
+  fp: 5
+  frequency: 5700
+  berryId: 3
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 14
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 12
+    c1: 5
+- id: 80
+  name: ヤドラン
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 8
+  fp: 12
+  frequency: 3800
+  berryId: 3
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 14
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 12
+    c1: 5
+- id: 81
+  name: コイル
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 15
+  fp: 5
+  frequency: 5800
+  berryId: 17
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 6
+    c1: 2
+    c2: 3
+- id: 82
+  name: レアコイル
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 15
+  fp: 12
+  frequency: 4000
+  berryId: 17
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 6
+    c1: 2
+    c2: 3
+- id: 84
+  name: ドードー
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 5
+  frequency: 3800
+  berryId: 10
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 85
+  name: ドードリオ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 12
+  frequency: 2400
+  berryId: 10
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 92
+  name: ゴース
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 2
+  fp: 5
+  frequency: 3800
+  berryId: 14
+  ing1:
+    ingredientId: 6
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 2
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 10
+    c1: 8
+- id: 93
+  name: ゴースト
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 2
+  fp: 12
+  frequency: 3000
+  berryId: 14
+  ing1:
+    ingredientId: 6
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 2
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 10
+    c1: 8
+- id: 94
+  name: ゲンガー
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 2
+  fp: 22
+  frequency: 2200
+  berryId: 14
+  ing1:
+    ingredientId: 6
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 2
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 10
+    c1: 8
+- id: 95
+  name: イワーク
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 16
+  frequency: 3100
+  berryId: 13
+  ing1:
+    ingredientId: 12
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 4
+    c1: 3
+- id: 104
+  name: カラカラ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 5
+  frequency: 4800
+  berryId: 9
+  ing1:
+    ingredientId: 11
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 2
+    c2: 3
+- id: 105
+  name: ガラガラ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 12
+  frequency: 3500
+  berryId: 9
+  ing1:
+    ingredientId: 11
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 2
+    c2: 3
+- id: 113
+  name: ラッキー
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 11
+  fp: 16
+  frequency: 3300
+  berryId: 1
+  ing1:
+    ingredientId: 3
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 9
+    c1: 8
+- id: 115
+  name: ガルーラ
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 14
+  fp: 16
+  frequency: 2650
+  berryId: 1
+  ing1:
+    ingredientId: 11
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 15
+    c1: 8
+- id: 122
+  name: バリヤード
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 24
+  fp: 12
+  frequency: 2800
+  berryId: 11
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 1
+    c1: 4
+- id: 127
+  name: カイロス
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 1
+  fp: 16
+  frequency: 2400
+  berryId: 12
+  ing1:
+    ingredientId: 9
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 5
+    c1: 5
+    c2: 8
+  ing3:
+    ingredientId: 7
+    c1: 7
+- id: 132
+  name: メタモン
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 23
+  fp: 16
+  frequency: 3500
+  berryId: 1
+  ing1:
+    ingredientId: 10
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 1
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 14
+    c1: 3
+- id: 133
+  name: イーブイ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 14
+  fp: 5
+  frequency: 3700
+  berryId: 1
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 133
+  name: イーブイ(ホリデー)
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 6
+  fp: 5
+  frequency: 3100
+  berryId: 1
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 134
+  name: シャワーズ
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 14
+  fp: 20
+  frequency: 3100
+  berryId: 3
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 135
+  name: サンダース
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 13
+  fp: 20
+  frequency: 2200
+  berryId: 4
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 136
+  name: ブースター
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 15
+  fp: 20
+  frequency: 2700
+  berryId: 2
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 147
+  name: ミニリュウ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 5
+  frequency: 5000
+  berryId: 15
+  ing1:
+    ingredientId: 6
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 16
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 10
+    c1: 8
+- id: 148
+  name: ハクリュー
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 12
+  frequency: 3800
+  berryId: 15
+  ing1:
+    ingredientId: 6
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 16
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 10
+    c1: 8
+- id: 149
+  name: カイリュー
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 25
+  frequency: 2600
+  berryId: 15
+  ing1:
+    ingredientId: 6
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 16
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 10
+    c1: 8
+- id: 152
+  name: チコリータ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 5
+  frequency: 4400
+  berryId: 5
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 1
+    c1: 3
+- id: 153
+  name: ベイリーフ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 12
+  frequency: 3300
+  berryId: 5
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 1
+    c1: 3
+- id: 154
+  name: メガニウム
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 20
+  frequency: 2800
+  berryId: 5
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 1
+    c1: 3
+- id: 155
+  name: ヒノアラシ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 5
+  frequency: 3500
+  berryId: 2
+  ing1:
+    ingredientId: 11
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 6
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 10
+    c1: 3
+- id: 156
+  name: マグマラシ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 12
+  frequency: 3000
+  berryId: 2
+  ing1:
+    ingredientId: 11
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 6
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 10
+    c1: 3
+- id: 157
+  name: バクフーン
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 20
+  frequency: 2400
+  berryId: 2
+  ing1:
+    ingredientId: 11
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 6
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 10
+    c1: 3
+- id: 158
+  name: ワニノコ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 5
+  frequency: 4500
+  berryId: 3
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 2
+    c2: 3
+- id: 159
+  name: アリゲイツ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 12
+  frequency: 3400
+  berryId: 3
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 2
+    c2: 3
+- id: 160
+  name: オーダイル
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 20
+  frequency: 2800
+  berryId: 3
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 2
+    c2: 3
+- id: 172
+  name: ピチュー
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 1
+  fp: 5
+  frequency: 4300
+  berryId: 4
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 3
+    c1: 3
+- id: 173
+  name: ピィ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 16
+  fp: 5
+  frequency: 5600
+  berryId: 18
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 3
+- id: 174
+  name: ププリン
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 11
+  fp: 5
+  frequency: 5200
+  berryId: 18
+  ing1:
+    ingredientId: 9
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 13
+    c1: 2
+- id: 175
+  name: トゲピー
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 16
+  fp: 5
+  frequency: 4800
+  berryId: 18
+  ing1:
+    ingredientId: 3
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 13
+    c1: 3
+- id: 176
+  name: トゲチック
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 16
+  fp: 12
+  frequency: 3800
+  berryId: 18
+  ing1:
+    ingredientId: 3
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 13
+    c1: 3
+- id: 179
+  name: メリープ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 4
+  fp: 5
+  frequency: 4600
+  berryId: 4
+  ing1:
+    ingredientId: 6
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 3
+    c1: 3
+    c2: 4
+- id: 180
+  name: モココ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 4
+  fp: 12
+  frequency: 3300
+  berryId: 4
+  ing1:
+    ingredientId: 6
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 3
+    c1: 3
+    c2: 4
+- id: 181
+  name: デンリュウ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 4
+  fp: 20
+  frequency: 2500
+  berryId: 4
+  ing1:
+    ingredientId: 6
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 3
+    c1: 3
+    c2: 4
+- id: 185
+  name: ウソッキー
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 4
+  fp: 7
+  frequency: 4000
+  berryId: 13
+  ing1:
+    ingredientId: 12
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 15
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 2
+    c1: 2
+- id: 194
+  name: ウパー
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 9
+  fp: 5
+  frequency: 5900
+  berryId: 3
+  ing1:
+    ingredientId: 2
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 6
+    c2: 10
+  ing3:
+    ingredientId: 7
+    c1: 12
+- id: 194
+  name: ウパー(パルデア)
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 5
+  frequency: 6400
+  berryId: 8
+  ing1:
+    ingredientId: 13
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 17
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 4
+    c1: 9
+- id: 195
+  name: ヌオー
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 9
+  fp: 12
+  frequency: 3400
+  berryId: 3
+  ing1:
+    ingredientId: 2
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 6
+    c2: 10
+  ing3:
+    ingredientId: 7
+    c1: 12
+- id: 196
+  name: エーフィ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 4
+  fp: 20
+  frequency: 2400
+  berryId: 11
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 197
+  name: ブラッキー
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 10
+  fp: 20
+  frequency: 3200
+  berryId: 16
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 199
+  name: ヤドキング
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 8
+  fp: 20
+  frequency: 3400
+  berryId: 3
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 14
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 12
+    c1: 5
+- id: 202
+  name: ソーナンス
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 8
+  fp: 7
+  frequency: 3500
+  berryId: 11
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 10
+    c1: 3
+- id: 208
+  name: ハガネール
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 20
+  frequency: 3000
+  berryId: 17
+  ing1:
+    ingredientId: 12
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 4
+    c1: 3
+- id: 214
+  name: ヘラクロス
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 14
+  fp: 16
+  frequency: 2300
+  berryId: 12
+  ing1:
+    ingredientId: 9
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 4
+- id: 215
+  name: ニューラ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 17
+  fp: 16
+  frequency: 3200
+  berryId: 16
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 3
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 4
+- id: 225
+  name: デリバード
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 14
+  fp: 16
+  frequency: 2500
+  berryId: 10
+  ing1:
+    ingredientId: 3
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 5
+    c1: 6
+    c2: 9
+  ing3:
+    ingredientId: 13
+    c1: 5
+- id: 228
+  name: デルビル
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 4
+  fp: 5
+  frequency: 4900
+  berryId: 16
+  ing1:
+    ingredientId: 6
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 1
+    c1: 3
+- id: 229
+  name: ヘルガー
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 4
+  fp: 12
+  frequency: 3300
+  berryId: 16
+  ing1:
+    ingredientId: 6
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 1
+    c1: 3
+- id: 242
+  name: ハピナス
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 11
+  fp: 20
+  frequency: 3100
+  berryId: 1
+  ing1:
+    ingredientId: 3
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 9
+    c1: 8
+- id: 243
+  name: ライコウ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 18
+  fp: 30
+  frequency: 2100
+  berryId: 4
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 6
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 1
+    c1: 2
+- id: 244
+  name: エンテイ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 19
+  fp: 30
+  frequency: 2400
+  berryId: 2
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 12
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 2
+    c1: 3
+- id: 245
+  name: スイクン
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 20
+  fp: 30
+  frequency: 2700
+  berryId: 3
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 16
+    c1: 2
+- id: 246
+  name: ヨーギラス
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 9
+  fp: 5
+  frequency: 4800
+  berryId: 13
+  ing1:
+    ingredientId: 11
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 15
+    c1: 5
+    c2: 8
+  ing3:
+    ingredientId: 7
+    c1: 8
+- id: 247
+  name: サナギラス
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 9
+  fp: 12
+  frequency: 3600
+  berryId: 13
+  ing1:
+    ingredientId: 11
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 15
+    c1: 5
+    c2: 8
+  ing3:
+    ingredientId: 7
+    c1: 8
+- id: 248
+  name: バンギラス
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 25
+  frequency: 2700
+  berryId: 16
+  ing1:
+    ingredientId: 11
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 15
+    c1: 5
+    c2: 8
+  ing3:
+    ingredientId: 7
+    c1: 8
+- id: 280
+  name: ラルトス
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 5
+  frequency: 4800
+  berryId: 11
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 1
+    c1: 2
+- id: 281
+  name: キルリア
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 12
+  frequency: 3500
+  berryId: 11
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 1
+    c1: 2
+- id: 282
+  name: サーナイト
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 20
+  frequency: 2400
+  berryId: 11
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 1
+    c1: 2
+- id: 287
+  name: ナマケロ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 5
+  frequency: 4900
+  berryId: 1
+  ing1:
+    ingredientId: 12
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 5
+    c1: 4
+- id: 288
+  name: ヤルキモノ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 12
+  frequency: 3200
+  berryId: 1
+  ing1:
+    ingredientId: 12
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 5
+    c1: 4
+- id: 289
+  name: ケッキング
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 22
+  frequency: 3600
+  berryId: 1
+  ing1:
+    ingredientId: 12
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 5
+    c1: 4
+- id: 302
+  name: ヤミラミ
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 7
+  fp: 16
+  frequency: 3600
+  berryId: 16
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 13
+    c1: 3
+- id: 304
+  name: ココドラ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 9
+  fp: 5
+  frequency: 5700
+  berryId: 17
+  ing1:
+    ingredientId: 7
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 17
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 15
+    c1: 7
+- id: 305
+  name: コドラ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 9
+  fp: 12
+  frequency: 4200
+  berryId: 17
+  ing1:
+    ingredientId: 7
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 17
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 15
+    c1: 7
+- id: 306
+  name: ボスゴドラ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 9
+  fp: 20
+  frequency: 3000
+  berryId: 17
+  ing1:
+    ingredientId: 7
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 17
+    c1: 3
+    c2: 5
+  ing3:
+    ingredientId: 15
+    c1: 7
+- id: 316
+  name: ゴクリン
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 7
+  fp: 5
+  frequency: 5900
+  berryId: 8
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 9
+    c1: 4
+- id: 317
+  name: マルノーム
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 7
+  fp: 12
+  frequency: 3500
+  berryId: 8
+  ing1:
+    ingredientId: 15
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 9
+    c1: 4
+- id: 333
+  name: チルット
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 5
+  frequency: 4200
+  berryId: 10
+  ing1:
+    ingredientId: 3
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 15
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 5
+    c1: 5
+- id: 334
+  name: チルタリス
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 9
+  fp: 12
+  frequency: 3700
+  berryId: 15
+  ing1:
+    ingredientId: 3
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 15
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 5
+    c1: 5
+- id: 353
+  name: カゲボウズ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 5
+  frequency: 3900
+  berryId: 14
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 2
+    c1: 3
+- id: 354
+  name: ジュペッタ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 2
+  fp: 16
+  frequency: 2600
+  berryId: 14
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 2
+    c1: 3
+- id: 359
+  name: アブソル
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 1
+  fp: 16
+  frequency: 2950
+  berryId: 16
+  ing1:
+    ingredientId: 13
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 5
+    c1: 8
+    c2: 12
+  ing3:
+    ingredientId: 2
+    c1: 7
+- id: 360
+  name: ソーナノ
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 8
+  fp: 5
+  frequency: 5800
+  berryId: 11
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 2
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 10
+    c1: 3
+- id: 363
+  name: タマザラシ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 5
+  frequency: 5600
+  berryId: 6
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 11
+    c1: 4
+- id: 364
+  name: トドグラー
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 12
+  frequency: 4000
+  berryId: 6
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 11
+    c1: 4
+- id: 365
+  name: トドゼルガ
+  sleepType: ぐっすり
+  specialty: きのみ
+  mainSkillId: 14
+  fp: 20
+  frequency: 3000
+  berryId: 6
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 7
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 11
+    c1: 4
+- id: 403
+  name: コリンク
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 15
+  fp: 5
+  frequency: 4400
+  berryId: 4
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 10
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 17
+    c1: 5
+- id: 404
+  name: ルクシオ
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 15
+  fp: 12
+  frequency: 3200
+  berryId: 4
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 10
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 17
+    c1: 5
+- id: 405
+  name: レントラー
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 15
+  fp: 20
+  frequency: 2400
+  berryId: 4
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 10
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 17
+    c1: 5
+- id: 425
+  name: フワンテ
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 3
+  fp: 5
+  frequency: 4800
+  berryId: 14
+  ing1:
+    ingredientId: 16
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 4
+    c1: 4
+- id: 426
+  name: フワライド
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 3
+  fp: 12
+  frequency: 2500
+  berryId: 14
+  ing1:
+    ingredientId: 16
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 10
+    c1: 3
+    c2: 4
+  ing3:
+    ingredientId: 4
+    c1: 4
+- id: 438
+  name: ウソハチ
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 4
+  fp: 5
+  frequency: 6300
+  berryId: 13
+  ing1:
+    ingredientId: 12
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 15
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 2
+    c1: 2
+- id: 439
+  name: マネネ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 24
+  fp: 5
+  frequency: 4300
+  berryId: 11
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 1
+    c1: 4
+- id: 440
+  name: ピンプク
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 11
+  fp: 5
+  frequency: 4500
+  berryId: 1
+  ing1:
+    ingredientId: 3
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 9
+    c1: 8
+- id: 447
+  name: リオル
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 6
+  fp: 5
+  frequency: 4200
+  berryId: 7
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 4
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 3
+    c1: 4
+- id: 448
+  name: ルカリオ
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 6
+  fp: 20
+  frequency: 2600
+  berryId: 7
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 4
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 3
+    c1: 4
+- id: 453
+  name: グレッグル
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 1
+  fp: 5
+  frequency: 5600
+  berryId: 8
+  ing1:
+    ingredientId: 10
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 7
+    c1: 5
+    c2: 8
+- id: 454
+  name: ドクロッグ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 1
+  fp: 12
+  frequency: 3400
+  berryId: 8
+  ing1:
+    ingredientId: 10
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 7
+    c1: 5
+    c2: 8
+- id: 459
+  name: ユキカブリ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 2
+  fp: 5
+  frequency: 5600
+  berryId: 6
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 3
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 2
+    c1: 5
+- id: 460
+  name: ユキノオー
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 2
+  fp: 12
+  frequency: 3000
+  berryId: 6
+  ing1:
+    ingredientId: 12
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 3
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 2
+    c1: 5
+- id: 461
+  name: マニューラ
+  sleepType: うとうと
+  specialty: きのみ
+  mainSkillId: 17
+  fp: 20
+  frequency: 2700
+  berryId: 16
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 3
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 15
+    c1: 4
+- id: 462
+  name: ジバコイル
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 15
+  fp: 22
+  frequency: 3100
+  berryId: 17
+  ing1:
+    ingredientId: 10
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 6
+    c1: 2
+    c2: 3
+- id: 468
+  name: トゲキッス
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 16
+  fp: 22
+  frequency: 2600
+  berryId: 18
+  ing1:
+    ingredientId: 3
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 11
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 13
+    c1: 3
+- id: 470
+  name: リーフィア
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 8
+  fp: 20
+  frequency: 3000
+  berryId: 5
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 471
+  name: グレイシア
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 15
+  fp: 20
+  frequency: 3200
+  berryId: 6
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 475
+  name: エルレイド
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 13
+  fp: 22
+  frequency: 2400
+  berryId: 7
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 1
+    c1: 2
+- id: 488
+  name: クレセリア
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 12
+  fp: 30
+  frequency: 2300
+  berryId: 11
+  ing1:
+    ingredientId: 11
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 12
+    c1: 4
+- id: 491
+  name: ダークライ
+  sleepType: うとうと
+  specialty: オール
+  mainSkillId: 5
+  fp: 25
+  frequency: 2900
+  berryId: 16
+- id: 517
+  name: ムンナ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 7
+  fp: 5
+  frequency: 5700
+  berryId: 11
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 17
+    c1: 2
+- id: 518
+  name: ムシャーナ
+  sleepType: すやすや
+  specialty: きのみ
+  mainSkillId: 7
+  fp: 20
+  frequency: 2800
+  berryId: 11
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 9
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 17
+    c1: 2
+- id: 627
+  name: ワシボン
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 21
+  fp: 5
+  frequency: 3800
+  berryId: 10
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 17
+    c1: 2
+- id: 628
+  name: ウォーグル
+  sleepType: ぐっすり
+  specialty: スキル
+  mainSkillId: 21
+  fp: 12
+  frequency: 2400
+  berryId: 10
+  ing1:
+    ingredientId: 7
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 16
+    c1: 2
+    c2: 3
+  ing3:
+    ingredientId: 17
+    c1: 2
+- id: 700
+  name: ニンフィア
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 20
+  frequency: 2600
+  berryId: 18
+  ing1:
+    ingredientId: 8
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 7
+    c1: 3
+- id: 702
+  name: デデンネ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 17
+  fp: 16
+  frequency: 2500
+  berryId: 4
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 16
+    c1: 2
+- id: 736
+  name: アゴジムシ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 1
+  fp: 5
+  frequency: 4600
+  berryId: 12
+  ing1:
+    ingredientId: 17
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 2
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 9
+    c1: 11
+- id: 737
+  name: デンヂムシ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 1
+  fp: 12
+  frequency: 3300
+  berryId: 12
+  ing1:
+    ingredientId: 17
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 2
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 9
+    c1: 11
+- id: 738
+  name: クワガノン
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 1
+  fp: 22
+  frequency: 2800
+  berryId: 12
+  ing1:
+    ingredientId: 17
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 2
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 9
+    c1: 11
+- id: 759
+  name: ヌイコグマ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 2
+  fp: 5
+  frequency: 4100
+  berryId: 7
+  ing1:
+    ingredientId: 16
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 7
+    c1: 6
+    c2: 10
+  ing3:
+    ingredientId: 3
+    c1: 9
+- id: 760
+  name: キテルグマ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 2
+  fp: 12
+  frequency: 2800
+  berryId: 7
+  ing1:
+    ingredientId: 16
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 7
+    c1: 6
+    c2: 10
+  ing3:
+    ingredientId: 3
+    c1: 9
+- id: 764
+  name: キュワワー
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 8
+  fp: 16
+  frequency: 2500
+  berryId: 18
+  ing1:
+    ingredientId: 16
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 11
+    c1: 6
+    c2: 9
+  ing3:
+    ingredientId: 13
+    c1: 7
+- id: 778
+  name: ミミッキュ
+  sleepType: うとうと
+  specialty: スキル
+  mainSkillId: 22
+  fp: 16
+  frequency: 2500
+  berryId: 14
+  ing1:
+    ingredientId: 5
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 17
+    c1: 1
+    c2: 2
+  ing3:
+    ingredientId: 2
+    c1: 2
+- id: 845
+  name: ウッウ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 17
+  fp: 16
+  frequency: 2700
+  berryId: 10
+  ing1:
+    ingredientId: 10
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 4
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 3
+    c1: 8
+- id: 906
+  name: ニャオハ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 15
+  fp: 5
+  frequency: 4600
+  berryId: 5
+  ing1:
+    ingredientId: 4
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 8
+    c1: 6
+    c2: 9
+  ing3:
+    ingredientId: 11
+    c1: 8
+- id: 907
+  name: ニャローテ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 15
+  fp: 12
+  frequency: 3500
+  berryId: 5
+  ing1:
+    ingredientId: 4
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 8
+    c1: 6
+    c2: 9
+  ing3:
+    ingredientId: 11
+    c1: 8
+- id: 908
+  name: マスカーニャ
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 15
+  fp: 20
+  frequency: 2600
+  berryId: 16
+  ing1:
+    ingredientId: 4
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 8
+    c1: 6
+    c2: 9
+  ing3:
+    ingredientId: 11
+    c1: 8
+- id: 909
+  name: ホゲータ
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 9
+  fp: 5
+  frequency: 4200
+  berryId: 2
+  ing1:
+    ingredientId: 5
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 7
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 6
+    c1: 5
+- id: 910
+  name: アチゲータ
+  sleepType: すやすや
+  specialty: 食材
+  mainSkillId: 9
+  fp: 12
+  frequency: 3100
+  berryId: 2
+  ing1:
+    ingredientId: 5
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 7
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 6
+    c1: 5
+- id: 911
+  name: ラウドボーン
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 20
+  frequency: 2700
+  berryId: 14
+  ing1:
+    ingredientId: 5
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 7
+    c1: 4
+    c2: 6
+  ing3:
+    ingredientId: 6
+    c1: 5
+- id: 912
+  name: クワッス
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 4
+  fp: 5
+  frequency: 4800
+  berryId: 3
+  ing1:
+    ingredientId: 15
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 1
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 10
+    c1: 6
+- id: 913
+  name: ウェルカモ
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 4
+  fp: 12
+  frequency: 3600
+  berryId: 3
+  ing1:
+    ingredientId: 15
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 1
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 10
+    c1: 6
+- id: 914
+  name: ウェーニバル
+  sleepType: ぐっすり
+  specialty: 食材
+  mainSkillId: 4
+  fp: 20
+  frequency: 2600
+  berryId: 7
+  ing1:
+    ingredientId: 15
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 1
+    c1: 2
+    c2: 4
+  ing3:
+    ingredientId: 10
+    c1: 6
+- id: 921
+  name: パモ
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 5
+  frequency: 4600
+  berryId: 4
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 8
+    c1: 3
+    c2: 6
+  ing3:
+    ingredientId: 3
+    c1: 5
+- id: 922
+  name: パモット
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 12
+  frequency: 3300
+  berryId: 4
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 8
+    c1: 3
+    c2: 6
+  ing3:
+    ingredientId: 3
+    c1: 5
+- id: 923
+  name: パーモット
+  sleepType: すやすや
+  specialty: スキル
+  mainSkillId: 11
+  fp: 22
+  frequency: 2400
+  berryId: 4
+  ing1:
+    ingredientId: 13
+    c1: 1
+    c2: 2
+    c3: 4
+  ing2:
+    ingredientId: 8
+    c1: 3
+    c2: 6
+  ing3:
+    ingredientId: 3
+    c1: 5
+- id: 980
+  name: ドオー
+  sleepType: うとうと
+  specialty: 食材
+  mainSkillId: 9
+  fp: 12
+  frequency: 3500
+  berryId: 8
+  ing1:
+    ingredientId: 13
+    c1: 2
+    c2: 5
+    c3: 7
+  ing2:
+    ingredientId: 17
+    c1: 4
+    c2: 7
+  ing3:
+    ingredientId: 4
+    c1: 9
