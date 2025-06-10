@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { POKEMONS } from './config';
 import PokemonFilters, { type FilterOptions } from './components/PokemonFilters';
-import BreedingList from './components/breeding/BreedingList';
 import LevelSelector from './components/level/LevelSelector';
 import PokemonSelector from './components/pokemon/PokemonSelector';
 import IngredientSelector from './components/ingredient/IngredientSelector';
 import SubskillSelector from './components/subskill/SubskillSelector';
 import NatureSelector from './components/nature/NatureSelector';
 import StatusDisplay from './components/status/StatusDisplay';
-import { useBreedingData } from './hooks/useBreedingData';
 import { SUBSKILL_LEVELS } from './constants/pokemon';
 import type { SubskillByLevel } from './types/pokemon';
 import './App.css';
@@ -26,7 +24,6 @@ function App() {
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const [managementStatus, setManagementStatus] = useState<string>('未設定');
   const [showFilters, setShowFilters] = useState(false);
-  const [showBreeding, setShowBreeding] = useState(false);
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(null);
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
   const [filters, setFilters] = useState<FilterOptions>({
@@ -39,7 +36,6 @@ function App() {
     sortOrder: 'asc',
   });
 
-  const { data: breedingData, updateStatus, deleteBreedingPokemon } = useBreedingData();
 
   return (
     <div style={{
@@ -67,60 +63,49 @@ function App() {
             ポケモンスリープ管理ツール
           </h1>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+            {/* 詳細開閉ボタン */}
             <button
               onClick={() => setShowPokemonDetails(prev => !prev)}
               style={{
-                background: showPokemonDetails ? '#4299e1' : '#e2e8f0',
-                color: showPokemonDetails ? '#fff' : '#2d3748',
-                border: 'none',
+                background: '#f8f9fa',
+                border: '1px solid #e9ecef',
                 borderRadius: 6,
-                padding: '4px 8px',
-                fontSize: 12,
+                padding: '6px 12px',
+                fontSize: 13,
                 fontWeight: 600,
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 4
+                gap: 6,
+                color: '#495057',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#e9ecef';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#f8f9fa';
               }}
             >
-              {showPokemonDetails ? '詳細を隠す' : '詳細を表示'}
-              <span style={{ fontSize: 10 }}>
-                {showPokemonDetails ? '▲' : '▼'}
-              </span>
-            </button>
-            <button
-              onClick={() => setShowBreeding(true)}
-              style={{
-                background: '#48bb78',
-                color: '#fff',
-                border: 'none',
-                borderRadius: 6,
-                padding: '6px 12px',
-                fontSize: 12,
-                fontWeight: 600,
-                cursor: 'pointer',
-                position: 'relative'
-              }}
-            >
-              育成リスト
-              {breedingData.pokemons.length > 0 && (
-                <span style={{
-                  position: 'absolute',
-                  top: -4,
-                  right: -4,
-                  background: '#e53e3e',
-                  color: '#fff',
-                  borderRadius: '50%',
-                  width: 16,
-                  height: 16,
-                  fontSize: 10,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  {breedingData.pokemons.length}
-                </span>
-              )}
+              詳細
+              <svg 
+                width="12" 
+                height="12" 
+                viewBox="0 0 24 24" 
+                fill="none"
+                style={{
+                  transform: showPokemonDetails ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s ease'
+                }}
+              >
+                <path 
+                  d="M7 10l5 5 5-5" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </div>
@@ -278,60 +263,6 @@ function App() {
         </div>
       )}
 
-      {/* 育成リストモーダル */}
-      {showBreeding && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          zIndex: 2000,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 20
-        }}>
-          <div style={{
-            backgroundColor: '#fff',
-            borderRadius: 12,
-            width: '100%',
-            maxWidth: 600,
-            maxHeight: '90vh',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: 20,
-              borderBottom: '1px solid #e2e8f0'
-            }}>
-              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>育成リスト</h3>
-              <button
-                onClick={() => setShowBreeding(false)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  fontSize: 24,
-                  cursor: 'pointer',
-                  color: '#666',
-                }}
-              >
-                ×
-              </button>
-            </div>
-            <BreedingList
-              breedingPokemons={breedingData.pokemons}
-              onUpdateStatus={updateStatus}
-              onDelete={deleteBreedingPokemon}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

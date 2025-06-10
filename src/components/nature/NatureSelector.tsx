@@ -417,6 +417,7 @@ const NatureSelector: React.FC<NatureSelectorProps> = ({
           </div>
         </div>
       )}
+
     </div>
   );
 };
