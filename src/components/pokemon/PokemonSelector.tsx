@@ -86,9 +86,9 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       </h2>
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
-        gap: 8,
-        maxHeight: '50vh',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(60px, 1fr))',
+        gap: 6,
+        maxHeight: '60vh',
         overflowY: 'auto',
         border: '1px solid #e2e8f0',
         borderRadius: 6,
@@ -102,8 +102,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             style={{
               background: selectedPokemon.id === pokemon.id ? '#4299e1' : '#fff',
               border: selectedPokemon.id === pokemon.id ? '2px solid #2b6cb0' : '1px solid #e2e8f0',
-              borderRadius: 6,
-              padding: 6,
+              borderRadius: 4,
+              padding: 4,
               cursor: 'pointer',
               textAlign: 'center',
               transition: 'all 0.2s',
@@ -129,19 +129,16 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               alt={pokemon.name}
               style={{
                 width: '100%',
-                height: 60,
+                height: 40,
                 objectFit: 'contain',
-                marginBottom: 3
+                marginBottom: 2
               }}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = '/vite.svg';
               }}
             />
-            <div style={{ fontSize: 8, fontWeight: 600, marginBottom: 1 }}>
-              No.{pokemon.id}
-            </div>
-            <div style={{ fontSize: 9, fontWeight: 700, lineHeight: 1.2 }}>
+            <div style={{ fontSize: 8, fontWeight: 700, lineHeight: 1.1, wordBreak: 'break-word' }}>
               {pokemon.name}
             </div>
           </div>
