@@ -2,6 +2,7 @@ import React from 'react';
 import { POKEMONS } from '../../config';
 import type { FilterOptions } from '../PokemonFilters';
 import type { Pokemon } from '../../../config/schema';
+import { loadPokemonSettings } from '../../utils/pokemon-storage';
 
 interface PokemonSelectorProps {
   selectedPokemon: Pokemon;
@@ -75,6 +76,73 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
     return filtered;
   }, [filters]);
 
+  // ポケモンの管理状態をメモ化
+  const pokemonStatuses = React.useMemo(() => {
+    const statuses: { [pokemonId: number]: string } = {};
+    filteredPokemons.forEach(pokemon => {
+      const settings = loadPokemonSettings(pokemon.id, pokemon);
+      statuses[pokemon.id] = settings.managementStatus;
+    });
+    return statuses;
+  }, [filteredPokemons]);
+
+  // 管理状態アイコンを返す関数
+  const getStatusIcon = (status: string) => {
+    const iconStyle = {
+      position: 'absolute' as const,
+      top: -2,
+      left: -2,
+      width: 16,
+      height: 16,
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      border: '1px solid #fff',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+      zIndex: 10
+    };
+
+    switch (status) {
+      case '完了':
+        return (
+          <div style={{ ...iconStyle, background: '#22c55e' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        );
+      case '保留':
+        return (
+          <div style={{ ...iconStyle, background: '#f59e0b' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <rect x="6" y="4" width="4" height="16" fill="white"/>
+              <rect x="14" y="4" width="4" height="16" fill="white"/>
+            </svg>
+          </div>
+        );
+      case '中止':
+        return (
+          <div style={{ ...iconStyle, background: '#ef4444' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <path d="M18 6L6 18M6 6l12 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        );
+      case '対象外':
+        return (
+          <div style={{ ...iconStyle, background: '#6b7280' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2"/>
+              <path d="M4.93 4.93l14.14 14.14" stroke="white" strokeWidth="2"/>
+            </svg>
+          </div>
+        );
+      default:
+        return null; // 未設定の場合は何も表示しない
+    }
+  };
+
   return (
     <div style={{
       height: '100%',
@@ -124,20 +192,23 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               }
             }}
           >
-            <img
-              src={`${import.meta.env.BASE_URL}image/pokemon/${pokemon.id.toString().padStart(3, '0')}.png`}
-              alt={pokemon.name}
-              style={{
-                width: '100%',
-                height: 40,
-                objectFit: 'contain',
-                marginBottom: 2
-              }}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/vite.svg';
-              }}
-            />
+            <div style={{ position: 'relative', marginBottom: 2 }}>
+              <img
+                src={`${import.meta.env.BASE_URL}image/pokemon/${pokemon.id.toString().padStart(3, '0')}.png`}
+                alt={pokemon.name}
+                style={{
+                  width: '100%',
+                  height: 40,
+                  objectFit: 'contain'
+                }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/vite.svg';
+                }}
+              />
+              {/* 管理状態アイコン */}
+              {getStatusIcon(pokemonStatuses[pokemon.id])}
+            </div>
             <div style={{ fontSize: 8, fontWeight: 700, lineHeight: 1.1, wordBreak: 'break-word' }}>
               {pokemon.name}
             </div>
