@@ -69,7 +69,7 @@ function App() {
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: 0,
-          padding: 8,
+          padding: 0,
           margin: 0,
           width: '100%',
           minHeight: 'calc(100vh - 60px)',
