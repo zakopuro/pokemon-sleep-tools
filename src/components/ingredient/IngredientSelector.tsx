@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { INGREDIENTS } from '../../config';
 import { getIngredient, getIngredientImageName } from '../../utils/pokemon';
 import type { Pokemon } from '../../../config/schema';
@@ -15,6 +15,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
   onIngredientsChange
 }) => {
   const [showIngredientDropdown, setShowIngredientDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // ポケモンの所持食材を取得（重複排除）
   const getPokemonIngredients = (pokemon: Pokemon) => {
@@ -95,6 +96,23 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
     onIngredientsChange(uniqueIngredients);
   }, [selectedPokemon]);
 
+  // 外側クリックでドロップダウンを閉じる
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowIngredientDropdown(false);
+      }
+    };
+
+    if (showIngredientDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showIngredientDropdown]);
+
   return (
     <div style={{ marginTop: -2 }}>
       {/* 食材セクション見出し */}
@@ -113,7 +131,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
           食材
         </span>
         {/* 食材プルダウン */}
-        <div style={{ background: '#fff', borderRadius: 8, padding: 4, flex: 1 }}>
+        <div ref={dropdownRef} style={{ background: '#fff', borderRadius: 8, padding: 4, flex: 1, position: 'relative' }}>
         {/* ── 折りたたみヘッダー ── */}
         <button
           onClick={() => setShowIngredientDropdown(prev => !prev)}
@@ -188,12 +206,19 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
         {showIngredientDropdown && (
           <div
             style={{
-              marginTop: 6,
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              marginTop: 2,
               maxHeight: 220,
               overflowY: 'auto',
               border: '1px solid #e2e8f0',
               borderRadius: 6,
               padding: 4,
+              backgroundColor: '#ffffff',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              zIndex: 1000,
             }}
           >
             {getPokemonIngredientPatterns(selectedPokemon).map((pattern, idx) => (
