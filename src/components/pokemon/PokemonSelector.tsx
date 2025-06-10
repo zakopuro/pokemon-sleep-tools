@@ -77,18 +77,18 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
 
   return (
     <div style={{
-      borderTop: '1px solid #e2e8f0',
-      paddingTop: 8,
-      marginTop: 8
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
     }}>
-      <h2 style={{ margin: '0 0 12px 0', color: '#2d3748', fontSize: 16, fontWeight: 700 }}>
+      <h2 style={{ margin: '0 0 12px 0', color: '#2d3748', fontSize: 16, fontWeight: 700, flexShrink: 0 }}>
         ポケモン一覧 ({filteredPokemons.length}匹)
       </h2>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(60px, 1fr))',
         gap: 6,
-        maxHeight: '60vh',
+        flex: 1,
         overflowY: 'auto',
         border: '1px solid #e2e8f0',
         borderRadius: 6,
