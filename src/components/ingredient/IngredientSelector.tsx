@@ -118,24 +118,24 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
   }, [showIngredientDropdown]);
 
   return (
-    <div style={{ marginTop: -2 }}>
-      {/* 食材セクション見出し */}
-      <div style={{ display:'flex', alignItems:'center', gap:6, margin:'0 0 4px 0' }}>
+    <div style={{ marginTop: -2, position: 'relative' }}>
+      {/* 食材プルダウン */}
+      <div ref={dropdownRef} style={{ background: '#fff', borderRadius: 8, padding: 4, position: 'relative' }}>
+        {/* 食材ラベル（左上に被るように配置） */}
         <span style={{
+          position: 'absolute',
+          top: -6,
+          left: 4,
           background:'#4ade80',
           color:'#fff',
-          padding:'4px 24px',
-          borderRadius:20,
-          fontSize:12,
+          padding:'2px 8px',
+          borderRadius:8,
+          fontSize:10,
           fontWeight:700,
-          minWidth:80,
-          display:'inline-block',
-          textAlign:'center'
+          zIndex: 10
         }}>
           食材
         </span>
-        {/* 食材プルダウン */}
-        <div ref={dropdownRef} style={{ background: '#fff', borderRadius: 8, padding: 4, flex: 1, position: 'relative' }}>
         {/* ── 折りたたみヘッダー ── */}
         <button
           onClick={() => setShowIngredientDropdown(prev => !prev)}
@@ -284,7 +284,6 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
             ))}
           </div>
         )}
-        </div>
       </div>
     </div>
   );

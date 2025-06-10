@@ -169,28 +169,35 @@ function App() {
               {/* レベル設定 */}
               <LevelSelector level={level} onLevelChange={setLevel} />
 
-              {/* 食材選択 */}
-              <IngredientSelector
-                selectedPokemon={selectedPokemon}
-                selectedIngredients={selectedIngredients}
-                onIngredientsChange={setSelectedIngredients}
-                skipAutoInit={true}
-              />
+              {/* 食材選択とせいかく選択を横並び */}
+              <div style={{ display: 'flex', gap: 8 }}>
+                {/* 食材選択 */}
+                <div style={{ flex: 1 }}>
+                  <IngredientSelector
+                    selectedPokemon={selectedPokemon}
+                    selectedIngredients={selectedIngredients}
+                    onIngredientsChange={setSelectedIngredients}
+                    skipAutoInit={true}
+                  />
+                </div>
+
+                {/* せいかく選択 */}
+                <div style={{ flex: 1 }}>
+                  <NatureSelector
+                    upParam={upParam}
+                    downParam={downParam}
+                    selectedNeutralNature={selectedNeutralNature}
+                    onUpParamChange={setUpParam}
+                    onDownParamChange={setDownParam}
+                    onNeutralNatureChange={setSelectedNeutralNature}
+                  />
+                </div>
+              </div>
 
               {/* サブスキル選択 */}
               <SubskillSelector
                 subskillByLevel={subskillByLevel}
                 onSubskillChange={setSubskillByLevel}
-              />
-
-              {/* せいかく選択 */}
-              <NatureSelector
-                upParam={upParam}
-                downParam={downParam}
-                selectedNeutralNature={selectedNeutralNature}
-                onUpParamChange={setUpParam}
-                onDownParamChange={setDownParam}
-                onNeutralNatureChange={setSelectedNeutralNature}
               />
             </div>
           </div>

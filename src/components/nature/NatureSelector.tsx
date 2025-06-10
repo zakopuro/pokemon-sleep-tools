@@ -86,23 +86,23 @@ const NatureSelector: React.FC<NatureSelectorProps> = ({
   }, [selectedNature, isNeutralMode, upParam, downParam]);
 
   return (
-    <div>
-      {/* 性格カードの直前へ置換 */}
-      <div style={{ position:'relative', margin:'4px 0 4px' }}>
-        <div style={{
-          background:'#38a169',
-          height:20,
-          width:'100%',
-          clipPath:'polygon(0 0, 100% 0, 97% 100%, 0% 100%)'
-        }}/>
+    <div style={{ marginTop: -2, position: 'relative' }}>
+      <div style={{ background: '#fff', borderRadius: 8, padding: 6, border: '1px solid #e2e8f0', position: 'relative' }}>
+        {/* せいかくラベル（左上に被るように配置） */}
         <span style={{
-          position:'absolute', top:0, left:8,
-          color:'#fff', fontSize:12, fontWeight:700, lineHeight:'20px'
+          position: 'absolute',
+          top: -6,
+          left: 4,
+          background:'#a855f7',
+          color:'#fff',
+          padding:'2px 8px',
+          borderRadius:8,
+          fontSize:10,
+          fontWeight:700,
+          zIndex: 10
         }}>
-          詳細ステータス
+          せいかく
         </span>
-      </div>
-      <div style={{ background: '#fff', borderRadius: 8, padding: 6, border: '1px solid #e2e8f0' }}>
         {/* せいかくカード */}
         <div
           onClick={() => {
