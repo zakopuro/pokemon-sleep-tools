@@ -7,12 +7,14 @@ interface IngredientSelectorProps {
   selectedPokemon: Pokemon;
   selectedIngredients: number[];
   onIngredientsChange: (ingredients: number[]) => void;
+  skipAutoInit?: boolean;
 }
 
 const IngredientSelector: React.FC<IngredientSelectorProps> = ({
   selectedPokemon,
   selectedIngredients,
-  onIngredientsChange
+  onIngredientsChange,
+  skipAutoInit = false
 }) => {
   const [showIngredientDropdown, setShowIngredientDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -87,14 +89,16 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
     return patterns;
   };
 
-  // 初期化: ポケモンが変更された時はポケモンの所持食材を重複なしで表示
+  // 初期化: ポケモンが変更された時はポケモンの所持食材を重複なしで表示（保存された設定がない場合のみ）
   useEffect(() => {
+    if (skipAutoInit) return;
+    
     const ingredientIds = getPokemonIngredients(selectedPokemon)
       .map(ing => ing?.id)
       .filter((id): id is number => id !== undefined);
     const uniqueIngredients = [...new Set(ingredientIds)];
     onIngredientsChange(uniqueIngredients);
-  }, [selectedPokemon]);
+  }, [selectedPokemon, skipAutoInit]);
 
   // 外側クリックでドロップダウンを閉じる
   useEffect(() => {

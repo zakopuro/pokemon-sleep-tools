@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { POKEMONS } from './config';
 import PokemonFilters, { type FilterOptions } from './components/PokemonFilters';
 import LevelSelector from './components/level/LevelSelector';
@@ -7,24 +7,24 @@ import IngredientSelector from './components/ingredient/IngredientSelector';
 import SubskillSelector from './components/subskill/SubskillSelector';
 import NatureSelector from './components/nature/NatureSelector';
 import StatusDisplay from './components/status/StatusDisplay';
-import { SUBSKILL_LEVELS } from './constants/pokemon';
 import type { SubskillByLevel } from './types/pokemon';
+import { loadPokemonSettings, savePokemonSettings } from './utils/pokemon-storage';
+import type { Pokemon } from '../config/schema';
 import './App.css';
 
 function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(POKEMONS[0]);
-  const [level, setLevel] = useState(50);
-
-  // 5枠用の状態を追加
-  const [subskillByLevel, setSubskillByLevel] = useState<SubskillByLevel>(
-    Object.fromEntries(SUBSKILL_LEVELS.map(lv => [lv, null]))
-  );
-  const [upParam, setUpParam] = useState<string>('なし');
-  const [downParam, setDownParam] = useState<string>('なし');
-  const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
-  const [managementStatus, setManagementStatus] = useState<string>('未設定');
+  
+  // 初期設定を読み込み
+  const initialSettings = loadPokemonSettings(POKEMONS[0].id, POKEMONS[0]);
+  const [level, setLevel] = useState(initialSettings.level);
+  const [subskillByLevel, setSubskillByLevel] = useState<SubskillByLevel>(initialSettings.subskillByLevel);
+  const [upParam, setUpParam] = useState<string>(initialSettings.upParam);
+  const [downParam, setDownParam] = useState<string>(initialSettings.downParam);
+  const [selectedIngredients, setSelectedIngredients] = useState<number[]>(initialSettings.selectedIngredients);
+  const [managementStatus, setManagementStatus] = useState<string>(initialSettings.managementStatus);
+  const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
   const [showFilters, setShowFilters] = useState(false);
-  const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(null);
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
   const [filters, setFilters] = useState<FilterOptions>({
     specialty: 'すべて',
@@ -36,6 +36,41 @@ function App() {
     sortOrder: 'asc',
   });
 
+  // 現在の設定を保存する関数
+  const saveCurrentSettings = useCallback(() => {
+    const settings = {
+      level,
+      selectedIngredients,
+      subskillByLevel,
+      upParam,
+      downParam,
+      selectedNeutralNature,
+      managementStatus
+    };
+    savePokemonSettings(selectedPokemon.id, settings);
+  }, [selectedPokemon.id, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus]);
+
+  // ポケモン選択時の処理
+  const handlePokemonSelect = useCallback((pokemon: Pokemon) => {
+    // 現在の設定を保存
+    saveCurrentSettings();
+    
+    // 新しいポケモンの設定を読み込み
+    const newSettings = loadPokemonSettings(pokemon.id, pokemon);
+    setSelectedPokemon(pokemon);
+    setLevel(newSettings.level);
+    setSelectedIngredients(newSettings.selectedIngredients);
+    setSubskillByLevel(newSettings.subskillByLevel);
+    setUpParam(newSettings.upParam);
+    setDownParam(newSettings.downParam);
+    setSelectedNeutralNature(newSettings.selectedNeutralNature);
+    setManagementStatus(newSettings.managementStatus);
+  }, [saveCurrentSettings]);
+
+  // 設定変更時に自動保存
+  useEffect(() => {
+    saveCurrentSettings();
+  }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus]);
 
   return (
     <div style={{
@@ -136,6 +171,7 @@ function App() {
                 selectedPokemon={selectedPokemon}
                 selectedIngredients={selectedIngredients}
                 onIngredientsChange={setSelectedIngredients}
+                skipAutoInit={true}
               />
 
               {/* サブスキル選択 */}
@@ -167,7 +203,7 @@ function App() {
       }}>
         <PokemonSelector
           selectedPokemon={selectedPokemon}
-          onPokemonSelect={setSelectedPokemon}
+          onPokemonSelect={handlePokemonSelect}
           filters={filters}
         />
       </div>
