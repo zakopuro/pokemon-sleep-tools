@@ -147,7 +147,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
             </span>
             {/* きのみ画像 */}
             <img
-              src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(getBerry(selectedPokemon.berryId)?.name || '')}.png`}
+              src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(getBerry(selectedPokemon.berryId))}.png`}
               alt={getBerry(selectedPokemon.berryId)?.name || '不明'}
               style={{ width: 24, height: 24, objectFit: 'contain' }}
               onError={(e) => {

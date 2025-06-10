@@ -29,29 +29,37 @@ export const getIngredientImageName = (ingredientName: string) => {
   return imageMap[ingredientName] || 'honey';
 };
 
-// きのみ名から画像ファイル名のマッピング
-export const getBerryImageName = (berryName: string) => {
-  const berryImageMap: Record<string, string> = {
-    // 実際にゲームに存在し、画像ファイルがあるきのみのみ
-    'チーゴのみ': 'cheriberry',
-    'オレンのみ': 'oranberry', 
-    'オボンのみ': 'sitrusberry',  // sitrusberryが正しい画像ファイル名
-    'ヒメリのみ': 'leppaberry',
-    'カゴのみ': 'chestoberry',
-    'フィラのみ': 'figyberry',
-    'ウイのみ': 'wikiberry',
-    'マゴのみ': 'magoberry',
-    'ラムのみ': 'lumberry',
-    'ヤチェのみ': 'yacheberry',
-    'ウブのみ': 'grepaberry',
-    'ベリブのみ': 'belueberry',
-    'ドリのみ': 'durinberry',
-    'シーヤのみ': 'pamtreberry',
-    // 画像ファイルがない場合のフォールバック用
-    'クラボのみ': 'rawstberry',    // クラボ → rawstberry
-    'ブリーのみ': 'blukberry',     // ブリー → blukberry  
-    'モモンのみ': 'persimberry',   // モモン → persimberry
-    'キーのみ': 'cheriberry',      // キー → cheriberry（似た色）
-  };
-  return berryImageMap[berryName] || 'cheriberry';
+// きのみの画像ファイル名を取得（Berryオブジェクトのeng_nameを使用）
+export const getBerryImageName = (berry: any) => {
+  // Berryオブジェクトが渡された場合はeng_nameを使用
+  if (berry && typeof berry === 'object' && berry.eng_name) {
+    return berry.eng_name;
+  }
+  
+  // 後方互換性のため、文字列が渡された場合の従来のマッピング
+  if (typeof berry === 'string') {
+    const berryImageMap: Record<string, string> = {
+      'チーゴのみ': 'rawstberry',
+      'オレンのみ': 'oranberry', 
+      'オボンのみ': 'sitrusberry',
+      'ヒメリのみ': 'leppaberry',
+      'カゴのみ': 'chestoberry',
+      'フィラのみ': 'figyberry',
+      'ウイのみ': 'wikiberry',
+      'マゴのみ': 'magoberry',
+      'ラムのみ': 'lumberry',
+      'ヤチェのみ': 'yacheberry',
+      'ウブのみ': 'grepaberry',
+      'ベリブのみ': 'belueberry',
+      'ドリのみ': 'durinberry',
+      'シーヤのみ': 'pamtreberry',
+      'クラボのみ': 'cheriberry',
+      'ブリーのみ': 'blukberry',
+      'モモンのみ': 'pechaberry',
+      'キーのみ': 'persimberry',
+    };
+    return berryImageMap[berry] || 'cheriberry';
+  }
+  
+  return 'cheriberry'; // デフォルト
 };

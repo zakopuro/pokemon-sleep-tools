@@ -3,6 +3,7 @@
 export interface Berry {
     id: number
     name: string
+    eng_name: string        // 英語名（画像ファイル名に使用）
     energy: number          // 基礎エナジー
   }
 
