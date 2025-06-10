@@ -104,6 +104,24 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
     };
 
     switch (status) {
+      case '厳選前':
+        return (
+          <div style={{ ...iconStyle, background: '#8b5cf6' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <path d="M8 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        );
+      case '厳選中':
+        return (
+          <div style={{ ...iconStyle, background: '#3b82f6' }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="2" fill="white"/>
+              <path d="m14 10-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="m10 10 4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          </div>
+        );
       case '完了':
         return (
           <div style={{ ...iconStyle, background: '#22c55e' }}>

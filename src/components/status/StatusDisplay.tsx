@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { getBerry, getBerryImageName } from '../../utils/pokemon';
 import { sleepTypeColors } from '../../constants/colors';
 import type { Pokemon } from '../../../config/schema';
@@ -14,6 +14,90 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   managementStatus,
   onManagementStatusChange
 }) => {
+  const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // 管理状態の選択肢
+  const statusOptions = ['未設定', '厳選前', '厳選中', '完了', '保留', '中止', '対象外'];
+
+  // 外側クリックでドロップダウンを閉じる
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowStatusDropdown(false);
+      }
+    };
+
+    if (showStatusDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showStatusDropdown]);
+
+  // 管理状態アイコンを返す関数
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case '未設定':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#6b7280" strokeWidth="2"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 17h.01" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        );
+      case '厳選前':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#8b5cf6" strokeWidth="2" fill="#8b5cf6"/>
+            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        );
+      case '厳選中':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#3b82f6" strokeWidth="2" fill="#3b82f6"/>
+            <circle cx="12" cy="12" r="3" fill="white"/>
+            <path d="m15 9-6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="m9 9 6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+        );
+      case '完了':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="2" fill="#22c55e"/>
+            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        );
+      case '保留':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#f59e0b" strokeWidth="2" fill="#f59e0b"/>
+            <rect x="8" y="7" width="2" height="10" fill="white"/>
+            <rect x="14" y="7" width="2" height="10" fill="white"/>
+          </svg>
+        );
+      case '中止':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#ef4444" strokeWidth="2" fill="#ef4444"/>
+            <path d="M15 9l-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9 9l6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        );
+      case '対象外':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#6b7280" strokeWidth="2" fill="#6b7280"/>
+            <path d="M4.93 4.93l14.14 14.14" stroke="white" strokeWidth="2"/>
+          </svg>
+        );
+      default:
+        return null;
+    }
+  };
   return (
     <div style={{ marginBottom: 8 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 6px 0' }}>
@@ -75,12 +159,15 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
         </div>
         {/* 育成状態管理プルダウンと詳細開閉ボタン */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ position: 'relative' }}>
-            <select
-              value={managementStatus}
-              onChange={(e) => onManagementStatusChange(e.target.value)}
+          <div ref={dropdownRef} style={{ position: 'relative' }}>
+            {/* プルダウンボタン */}
+            <button
+              onClick={() => setShowStatusDropdown(prev => !prev)}
               style={{
-                padding: '4px 24px 4px 28px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '4px 8px 4px 6px',
                 borderRadius: 6,
                 border: '1px solid #e2e8f0',
                 fontSize: 12,
@@ -90,68 +177,73 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                     case '保留': return '#fffbeb';
                     case '中止': return '#fef2f2';
                     case '対象外': return '#f9fafb';
+                    case '厳選前': return '#fef7ff';
+                    case '厳選中': return '#eff6ff';
                     default: return '#fff';
                   }
                 })(),
                 color: '#2d3748',
-                appearance: 'none'
+                cursor: 'pointer',
+                minWidth: 80
               }}
             >
-              <option value="未設定">未設定</option>
-              <option value="完了">完了</option>
-              <option value="保留">保留</option>
-              <option value="中止">中止</option>
-              <option value="対象外">対象外</option>
-            </select>
-            {/* ステータスアイコン */}
-            <div style={{
-              position: 'absolute',
-              left: '6px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              pointerEvents: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              {managementStatus === '未設定' && (
-                <svg width="16" height="16" viewBox="0 0 512 512">
-                  <path fill="#6b7280" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM232 256a24 24 0 1 1 48 0v128a24 24 0 1 1 -48 0V256z"/>
-                </svg>
-              )}
-              {managementStatus === '完了' && (
-                <svg width="16" height="16" viewBox="0 0 512 512">
-                  <path fill="#22c55e" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
-                </svg>
-              )}
-              {managementStatus === '保留' && (
-                <svg width="16" height="16" viewBox="0 0 512 512">
-                  <path fill="#f59e0b" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM224 192V320c0 17.7 14.3 32 32 32s32-14.3 32-32V192c0-17.7-14.3-32-32-32s-32 14.3-32 32zm64 0V320c0 17.7 14.3 32 32 32s32-14.3 32-32V192c0-17.7-14.3-32-32-32s-32 14.3-32 32z"/>
-                </svg>
-              )}
-              {managementStatus === '中止' && (
-                <svg width="16" height="16" viewBox="0 0 512 512">
-                  <path fill="#ef4444" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
-                </svg>
-              )}
-              {managementStatus === '対象外' && (
-                <svg width="16" height="16" viewBox="0 0 512 512">
-                  <path fill="#6b7280" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c23.4 0 45.1 9.5 60.6 25L361 197.4c15.5 15.5 25 37.2 25 60.6s-9.5 45.1-25 60.6L317.7 361c-15.5 15.5-37.2 25-60.6 25s-45.1-9.5-60.6-25L151 317.7c-15.5-15.5-25-37.2-25-60.6s9.5-45.1 25-60.6L194.3 153c15.5-15.5 37.2-25 60.6-25z"/>
-                </svg>
-              )}
-            </div>
-            {/* ドロップダウン矢印 */}
-            <div style={{
-              position: 'absolute',
-              right: '6px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              pointerEvents: 'none'
-            }}>
+              {getStatusIcon(managementStatus)}
+              <span>{managementStatus}</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
-            </div>
+            </button>
+            {/* ドロップダウンメニュー */}
+            {showStatusDropdown && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: 0,
+                  marginTop: 2,
+                  border: '1px solid #e2e8f0',
+                  borderRadius: 6,
+                  padding: 4,
+                  backgroundColor: '#ffffff',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                  zIndex: 1000,
+                }}
+              >
+                {statusOptions.map((status) => (
+                  <button
+                    key={status}
+                    onClick={() => {
+                      onManagementStatusChange(status);
+                      setShowStatusDropdown(false);
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      width: '100%',
+                      padding: '6px 8px',
+                      background: 'transparent',
+                      border: 'none',
+                      cursor: 'pointer',
+                      borderRadius: 4,
+                      fontSize: 12,
+                      color: '#2d3748',
+                      transition: 'background 0.2s',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = '#f1f5f9';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = 'transparent';
+                    }}
+                  >
+                    {getStatusIcon(status)}
+                    <span>{status}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           
         </div>
