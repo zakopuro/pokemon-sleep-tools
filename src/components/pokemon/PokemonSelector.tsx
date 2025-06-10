@@ -4,6 +4,28 @@ import type { FilterOptions } from '../PokemonFilters';
 import type { Pokemon } from '../../../config/schema';
 import { loadPokemonSettings } from '../../utils/pokemon-storage';
 
+// 特別な姿のポケモンの画像ファイル名を取得
+const getPokemonImageName = (pokemon: Pokemon) => {
+  const baseId = pokemon.id.toString().padStart(3, '0');
+  
+  // 名前に特別な形状が含まれている場合
+  if (pokemon.name.includes('(ハロウィン)')) {
+    return `${baseId}-halloween`;
+  }
+  if (pokemon.name.includes('(ホリデー)')) {
+    return `${baseId}-holiday`;
+  }
+  if (pokemon.name.includes('(アローラ)')) {
+    return `${baseId}-alolan`;
+  }
+  if (pokemon.name.includes('(パルデア)')) {
+    return `${baseId}-paldean`;
+  }
+  
+  // 通常の姿
+  return baseId;
+};
+
 interface PokemonSelectorProps {
   selectedPokemon: Pokemon;
   onPokemonSelect: (pokemon: Pokemon) => void;
@@ -212,7 +234,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           >
             <div style={{ position: 'relative', marginBottom: 2 }}>
               <img
-                src={`${import.meta.env.BASE_URL}image/pokemon/${pokemon.id.toString().padStart(3, '0')}.png`}
+                src={`${import.meta.env.BASE_URL}image/pokemon/${getPokemonImageName(pokemon)}.png`}
                 alt={pokemon.name}
                 style={{
                   width: '100%',
@@ -221,7 +243,13 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 }}
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = '/vite.svg';
+                  // 特別な姿の画像が見つからない場合は通常の姿にフォールバック
+                  const baseId = pokemon.id.toString().padStart(3, '0');
+                  target.src = `${import.meta.env.BASE_URL}image/pokemon/${baseId}.png`;
+                  // それでも見つからない場合はデフォルト画像
+                  target.onerror = () => {
+                    target.src = '/vite.svg';
+                  };
                 }}
               />
               {/* 管理状態アイコン */}
