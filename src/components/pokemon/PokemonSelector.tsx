@@ -4,6 +4,21 @@ import type { FilterOptions } from '../PokemonFilters';
 import type { Pokemon } from '../../../config/schema';
 import { loadPokemonSettings, getPokemonKey } from '../../utils/pokemon-storage';
 
+// ポケモン名を分離（メイン名と特別な姿の説明）
+const splitPokemonName = (name: string) => {
+  const match = name.match(/^(.+?)\((.+)\)$/);
+  if (match) {
+    return {
+      mainName: match[1],
+      formName: `(${match[2]})`
+    };
+  }
+  return {
+    mainName: name,
+    formName: ''
+  };
+};
+
 // 特別な姿のポケモンの画像ファイル名を取得
 const getPokemonImageName = (pokemon: Pokemon) => {
   const baseId = pokemon.id.toString().padStart(3, '0');
@@ -237,6 +252,10 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               color: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '#fff' : '#2d3748',
               transform: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? 'scale(1.05)' : 'scale(1)',
               boxShadow: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '0 2px 8px rgba(66, 153, 225, 0.3)' : 'none',
+              minHeight: 68, // 固定最小高さで統一（画像40px + 名前20px + padding8px）
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
             }}
             onMouseEnter={(e) => {
               if (getPokemonKey(selectedPokemon) !== getPokemonKey(pokemon)) {
@@ -274,8 +293,30 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               {/* 管理状態アイコン */}
               {getStatusIcon(pokemonStatuses[getPokemonKey(pokemon)])}
             </div>
-            <div style={{ fontSize: 8, fontWeight: 700, lineHeight: 1.1, wordBreak: 'break-word' }}>
-              {pokemon.name}
+            <div style={{ 
+              fontSize: 8, 
+              fontWeight: 700, 
+              lineHeight: 1.1, 
+              wordBreak: 'break-word',
+              height: 20, // 固定高さで統一
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <div style={{ textAlign: 'center' }}>
+                {splitPokemonName(pokemon.name).mainName}
+              </div>
+              {splitPokemonName(pokemon.name).formName && (
+                <div style={{ 
+                  fontSize: 6, 
+                  color: '#666', 
+                  lineHeight: 1.0,
+                  textAlign: 'center'
+                }}>
+                  {splitPokemonName(pokemon.name).formName}
+                </div>
+              )}
             </div>
           </div>
         ))}

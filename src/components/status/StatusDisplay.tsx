@@ -3,6 +3,21 @@ import { getBerry, getBerryImageName } from '../../utils/pokemon';
 import { sleepTypeColors } from '../../constants/colors';
 import type { Pokemon } from '../../../config/schema';
 
+// ポケモン名を分離（メイン名と特別な姿の説明）
+const splitPokemonName = (name: string) => {
+  const match = name.match(/^(.+?)\((.+)\)$/);
+  if (match) {
+    return {
+      mainName: match[1],
+      formName: `(${match[2]})`
+    };
+  }
+  return {
+    mainName: name,
+    formName: ''
+  };
+};
+
 interface StatusDisplayProps {
   selectedPokemon: Pokemon;
   managementStatus: string;
@@ -102,9 +117,22 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
     <div style={{ marginBottom: 8 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 6px 0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700 }}>
-            {selectedPokemon.name}
-          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2 }}>
+              {splitPokemonName(selectedPokemon.name).mainName}
+            </h2>
+            {splitPokemonName(selectedPokemon.name).formName && (
+              <div style={{ 
+                fontSize: 12, 
+                color: '#666', 
+                lineHeight: 1.0,
+                marginTop: -2,
+                textAlign: 'center'
+              }}>
+                {splitPokemonName(selectedPokemon.name).formName}
+              </div>
+            )}
+          </div>
           <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
             {/* 睡眠タイプ */}
             <span style={{
