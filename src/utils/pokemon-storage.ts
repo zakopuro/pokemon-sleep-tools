@@ -5,6 +5,14 @@ import { getIngredient } from './pokemon';
 
 const STORAGE_KEY = 'pokemon-sleep-settings';
 
+// ポケモンの一意キーを生成（ID + 名前の組み合わせ）
+export const getPokemonKey = (pokemon: any): string => {
+  if (typeof pokemon === 'object' && pokemon.id && pokemon.name) {
+    return `${pokemon.id}-${pokemon.name}`;
+  }
+  return String(pokemon);
+};
+
 // ポケモンの所持食材を取得（重複排除）
 const getPokemonIngredients = (pokemon: any) => {
   return [
@@ -51,16 +59,18 @@ export const loadAllPokemonSettings = (): PokemonSettingsStore => {
 };
 
 // 特定のポケモンの設定を読み込み
-export const loadPokemonSettings = (pokemonId: number, pokemon?: any): PokemonSettings => {
+export const loadPokemonSettings = (pokemon: any): PokemonSettings => {
   const allSettings = loadAllPokemonSettings();
-  return allSettings[pokemonId] || createDefaultSettings(pokemon);
+  const pokemonKey = getPokemonKey(pokemon);
+  return allSettings[pokemonKey] || createDefaultSettings(pokemon);
 };
 
 // 特定のポケモンの設定を保存
-export const savePokemonSettings = (pokemonId: number, settings: PokemonSettings): void => {
+export const savePokemonSettings = (pokemon: any, settings: PokemonSettings): void => {
   try {
     const allSettings = loadAllPokemonSettings();
-    allSettings[pokemonId] = settings;
+    const pokemonKey = getPokemonKey(pokemon);
+    allSettings[pokemonKey] = settings;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(allSettings));
   } catch (error) {
     console.warn('Failed to save pokemon settings:', error);
@@ -68,10 +78,11 @@ export const savePokemonSettings = (pokemonId: number, settings: PokemonSettings
 };
 
 // 特定のポケモンの設定を削除
-export const deletePokemonSettings = (pokemonId: number): void => {
+export const deletePokemonSettings = (pokemon: any): void => {
   try {
     const allSettings = loadAllPokemonSettings();
-    delete allSettings[pokemonId];
+    const pokemonKey = getPokemonKey(pokemon);
+    delete allSettings[pokemonKey];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(allSettings));
   } catch (error) {
     console.warn('Failed to delete pokemon settings:', error);

@@ -11,5 +11,5 @@ export interface PokemonSettings {
 }
 
 export interface PokemonSettingsStore {
-  [pokemonId: number]: PokemonSettings;
+  [pokemonKey: string]: PokemonSettings;
 }

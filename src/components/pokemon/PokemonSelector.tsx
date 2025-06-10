@@ -2,7 +2,7 @@ import React from 'react';
 import { POKEMONS } from '../../config';
 import type { FilterOptions } from '../PokemonFilters';
 import type { Pokemon } from '../../../config/schema';
-import { loadPokemonSettings } from '../../utils/pokemon-storage';
+import { loadPokemonSettings, getPokemonKey } from '../../utils/pokemon-storage';
 
 // 特別な姿のポケモンの画像ファイル名を取得
 const getPokemonImageName = (pokemon: Pokemon) => {
@@ -60,50 +60,69 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       // 性格フィルタリングは育成情報で設定されたもののみ
     }
 
+    // ソート前に特別な姿のポケモンを正しい順序に配置
     filtered.sort((a, b) => {
-      let aValue, bValue;
-
-      switch (filters.sortBy) {
-        case 'id':
-          aValue = a.id;
-          bValue = b.id;
-          break;
-        case 'name':
-          aValue = a.name;
-          bValue = b.name;
-          break;
-        case 'specialty':
-          aValue = a.specialty;
-          bValue = b.specialty;
-          break;
-        case 'frequency':
-          aValue = a.frequency;
-          bValue = b.frequency;
-          break;
-        default:
-          return 0;
+      // まずIDでソート
+      if (a.id !== b.id) {
+        return a.id - b.id;
       }
-
-      if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return filters.sortOrder === 'asc'
-          ? aValue.localeCompare(bValue, 'ja')
-          : bValue.localeCompare(aValue, 'ja');
+      
+      // 同じIDの場合、通常の姿を先に、特別な姿を後に
+      const aIsSpecial = a.name.includes('(');
+      const bIsSpecial = b.name.includes('(');
+      
+      if (aIsSpecial !== bIsSpecial) {
+        return aIsSpecial ? 1 : -1; // 通常の姿が先
       }
-
-      return filters.sortOrder === 'asc'
-        ? (aValue as number) - (bValue as number)
-        : (bValue as number) - (aValue as number);
+      
+      // 両方特別な姿の場合は名前順
+      return a.name.localeCompare(b.name, 'ja');
     });
+
+    // ユーザー指定のソートを適用
+    if (filters.sortBy !== 'id') {
+      filtered.sort((a, b) => {
+        let aValue, bValue;
+
+        switch (filters.sortBy) {
+          case 'name':
+            aValue = a.name;
+            bValue = b.name;
+            break;
+          case 'specialty':
+            aValue = a.specialty;
+            bValue = b.specialty;
+            break;
+          case 'frequency':
+            aValue = a.frequency;
+            bValue = b.frequency;
+            break;
+          default:
+            return 0;
+        }
+
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          return filters.sortOrder === 'asc'
+            ? aValue.localeCompare(bValue, 'ja')
+            : bValue.localeCompare(aValue, 'ja');
+        }
+
+        return filters.sortOrder === 'asc'
+          ? (aValue as number) - (bValue as number)
+          : (bValue as number) - (aValue as number);
+      });
+    }
 
     return filtered;
   }, [filters]);
 
   // ポケモンの管理状態をメモ化
   const pokemonStatuses = React.useMemo(() => {
-    const statuses: { [pokemonId: number]: string } = {};
+    const statuses: { [pokemonKey: string]: string } = {};
     filteredPokemons.forEach(pokemon => {
-      const settings = loadPokemonSettings(pokemon.id, pokemon);
-      statuses[pokemon.id] = settings.managementStatus;
+      const settings = loadPokemonSettings(pokemon);
+      const pokemonKey = getPokemonKey(pokemon);
+      statuses[pokemonKey] = settings.managementStatus;
     });
     return statuses;
   }, [filteredPokemons]);
@@ -205,28 +224,28 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       }}>
         {filteredPokemons.map(pokemon => (
           <div
-            key={pokemon.id}
+            key={getPokemonKey(pokemon)}
             onClick={() => onPokemonSelect(pokemon)}
             style={{
-              background: selectedPokemon.id === pokemon.id ? '#4299e1' : '#fff',
-              border: selectedPokemon.id === pokemon.id ? '2px solid #2b6cb0' : '1px solid #e2e8f0',
+              background: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '#4299e1' : '#fff',
+              border: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '2px solid #2b6cb0' : '1px solid #e2e8f0',
               borderRadius: 4,
               padding: 4,
               cursor: 'pointer',
               textAlign: 'center',
               transition: 'all 0.2s',
-              color: selectedPokemon.id === pokemon.id ? '#fff' : '#2d3748',
-              transform: selectedPokemon.id === pokemon.id ? 'scale(1.05)' : 'scale(1)',
-              boxShadow: selectedPokemon.id === pokemon.id ? '0 2px 8px rgba(66, 153, 225, 0.3)' : 'none',
+              color: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '#fff' : '#2d3748',
+              transform: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? 'scale(1.05)' : 'scale(1)',
+              boxShadow: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '0 2px 8px rgba(66, 153, 225, 0.3)' : 'none',
             }}
             onMouseEnter={(e) => {
-              if (selectedPokemon.id !== pokemon.id) {
+              if (getPokemonKey(selectedPokemon) !== getPokemonKey(pokemon)) {
                 e.currentTarget.style.transform = 'scale(1.02)';
                 e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
               }
             }}
             onMouseLeave={(e) => {
-              if (selectedPokemon.id !== pokemon.id) {
+              if (getPokemonKey(selectedPokemon) !== getPokemonKey(pokemon)) {
                 e.currentTarget.style.transform = 'scale(1)';
                 e.currentTarget.style.boxShadow = 'none';
               }
@@ -253,7 +272,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 }}
               />
               {/* 管理状態アイコン */}
-              {getStatusIcon(pokemonStatuses[pokemon.id])}
+              {getStatusIcon(pokemonStatuses[getPokemonKey(pokemon)])}
             </div>
             <div style={{ fontSize: 8, fontWeight: 700, lineHeight: 1.1, wordBreak: 'break-word' }}>
               {pokemon.name}

@@ -16,7 +16,7 @@ function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(POKEMONS[0]);
   
   // 初期設定を読み込み
-  const initialSettings = loadPokemonSettings(POKEMONS[0].id, POKEMONS[0]);
+  const initialSettings = loadPokemonSettings(POKEMONS[0]);
   const [level, setLevel] = useState(initialSettings.level);
   const [subskillByLevel, setSubskillByLevel] = useState<SubskillByLevel>(initialSettings.subskillByLevel);
   const [upParam, setUpParam] = useState<string>(initialSettings.upParam);
@@ -47,8 +47,8 @@ function App() {
       selectedNeutralNature,
       managementStatus
     };
-    savePokemonSettings(selectedPokemon.id, settings);
-  }, [selectedPokemon.id, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus]);
+    savePokemonSettings(selectedPokemon, settings);
+  }, [selectedPokemon, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus]);
 
   // ポケモン選択時の処理
   const handlePokemonSelect = useCallback((pokemon: Pokemon) => {
@@ -56,7 +56,7 @@ function App() {
     saveCurrentSettings();
     
     // 新しいポケモンの設定を読み込み
-    const newSettings = loadPokemonSettings(pokemon.id, pokemon);
+    const newSettings = loadPokemonSettings(pokemon);
     setSelectedPokemon(pokemon);
     setLevel(newSettings.level);
     setSelectedIngredients(newSettings.selectedIngredients);

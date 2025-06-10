@@ -453,31 +453,6 @@ export const POKEMONS: readonly Pokemon[] = [
   },
   {
     "id": 25,
-    "name": "ピカチュウ(ハロウィン)",
-    "sleepType": "すやすや",
-    "specialty": "きのみ",
-    "mainSkillId": 2,
-    "fp": 7,
-    "frequency": 2500,
-    "berryId": 4,
-    "ing1": {
-      "ingredientId": 5,
-      "c1": 1,
-      "c2": 2,
-      "c3": 4
-    },
-    "ing2": {
-      "ingredientId": 11,
-      "c1": 2,
-      "c2": 3
-    },
-    "ing3": {
-      "ingredientId": 3,
-      "c1": 3
-    }
-  },
-  {
-    "id": 25,
     "name": "ピカチュウ(ホリデー)",
     "sleepType": "すやすや",
     "specialty": "スキル",
