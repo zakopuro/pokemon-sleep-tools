@@ -45,12 +45,14 @@ interface PokemonSelectorProps {
   selectedPokemon: Pokemon;
   onPokemonSelect: (pokemon: Pokemon) => void;
   filters: FilterOptions;
+  refreshTrigger?: number; // 状態更新のトリガー
 }
 
 const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   selectedPokemon,
   onPokemonSelect,
-  filters
+  filters,
+  refreshTrigger
 }) => {
   const filteredPokemons = React.useMemo(() => {
     let filtered = [...POKEMONS];
@@ -131,7 +133,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
     return filtered;
   }, [filters]);
 
-  // ポケモンの管理状態をメモ化
+  // ポケモンの管理状態をメモ化（リアルタイム更新対応）
   const pokemonStatuses = React.useMemo(() => {
     const statuses: { [pokemonKey: string]: string } = {};
     filteredPokemons.forEach(pokemon => {
@@ -140,7 +142,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       statuses[pokemonKey] = settings.managementStatus;
     });
     return statuses;
-  }, [filteredPokemons]);
+  }, [filteredPokemons, refreshTrigger]);
 
   // 管理状態アイコンを返す関数
   const getStatusIcon = (status: string) => {

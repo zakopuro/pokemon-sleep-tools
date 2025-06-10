@@ -26,6 +26,7 @@ function App() {
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
   const [showFilters, setShowFilters] = useState(false);
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // ポケモン状態更新用トリガー
   const [filters, setFilters] = useState<FilterOptions>({
     specialty: 'すべて',
     berry: '',
@@ -67,9 +68,11 @@ function App() {
     setManagementStatus(newSettings.managementStatus);
   }, [saveCurrentSettings]);
 
-  // 設定変更時に自動保存
+  // 設定変更時に自動保存とリアルタイム更新
   useEffect(() => {
     saveCurrentSettings();
+    // ポケモン状態更新をトリガー
+    setRefreshTrigger(prev => prev + 1);
   }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus]);
 
   return (
@@ -205,6 +208,7 @@ function App() {
           selectedPokemon={selectedPokemon}
           onPokemonSelect={handlePokemonSelect}
           filters={filters}
+          refreshTrigger={refreshTrigger}
         />
       </div>
 
