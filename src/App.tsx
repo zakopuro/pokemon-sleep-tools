@@ -69,11 +69,11 @@ function App() {
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: 0,
-          padding: 0,
+          padding: '8px 8px 80px 8px',
           margin: 0,
           width: '100%',
           minHeight: 'calc(100vh - 60px)',
-          paddingBottom: 60
+          boxSizing: 'border-box'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
             <h1 style={{ margin: 0, color: '#2d3748', fontSize: 20, fontWeight: 700 }}>
@@ -167,17 +167,17 @@ function App() {
                 onDownParamChange={setDownParam}
                 onNeutralNatureChange={setSelectedNeutralNature}
               />
+
+              {/* ポケモン一覧 */}
+              <PokemonSelector
+                selectedPokemon={selectedPokemon}
+                onPokemonSelect={setSelectedPokemon}
+                filters={filters}
+              />
             </div>
 
           </div>
         </div>
-
-          {/* ポケモン一覧 */}
-          <PokemonSelector
-            selectedPokemon={selectedPokemon}
-            onPokemonSelect={setSelectedPokemon}
-            filters={filters}
-          />
 
         {/* 下部フィルターバー */}
         <div style={{
