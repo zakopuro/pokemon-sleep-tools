@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { POKEMONS } from './config';
-import PokemonFilters, { type FilterOptions } from './components/PokemonFilters';
+import { type FilterOptions } from './components/PokemonFilters';
 import LevelSelector from './components/level/LevelSelector';
 import PokemonSelector from './components/pokemon/PokemonSelector';
 import IngredientSelector from './components/ingredient/IngredientSelector';
@@ -26,7 +26,6 @@ function App() {
   const [managementStatus, setManagementStatus] = useState<string>(initialSettings.managementStatus);
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
   const [mainSkillLevel, setMainSkillLevel] = useState<number>(initialSettings.mainSkillLevel || 1);
-  const [showFilters, setShowFilters] = useState(false);
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
   const [refreshTrigger, setRefreshTrigger] = useState(0); // ポケモン状態更新用トリガー
   const [filters, setFilters] = useState<FilterOptions>({
@@ -37,6 +36,7 @@ function App() {
     nature: '',
     sortBy: 'id',
     sortOrder: 'asc',
+    finalEvolution: 'すべて',
   });
 
   // 現在の設定を保存する関数
@@ -218,107 +218,18 @@ function App() {
       <div style={{
         flex: 1,
         overflow: 'hidden',
-        padding: '8px',
-        paddingBottom: '80px'
+        padding: '8px'
       }}>
         <PokemonSelector
           selectedPokemon={selectedPokemon}
           onPokemonSelect={handlePokemonSelect}
           filters={filters}
+          onFiltersChange={setFilters}
           refreshTrigger={refreshTrigger}
         />
       </div>
 
-      {/* 下部フィルターバー */}
-      <div style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#ffffff',
-        borderTop: '1px solid #e2e8f0',
-        padding: '8px 16px',
-        display: 'flex',
-        justifyContent: 'center',
-        gap: 16,
-        zIndex: 1000,
-        width: '100%'
-      }}>
-        <button
-          onClick={() => setShowFilters(true)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            cursor: 'pointer',
-            padding: '4px 8px',
-            borderRadius: 8,
-            color: '#4a5568'
-          }}
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" />
-          </svg>
-          <span style={{ fontSize: 10, marginTop: 2 }}>フィルター</span>
-        </button>
-      </div>
 
-      {/* フィルターモーダル */}
-      {showFilters && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          zIndex: 2000,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 20
-        }}>
-          <div style={{
-            backgroundColor: '#fff',
-            borderRadius: 12,
-            width: '100%',
-            maxWidth: 400,
-            maxHeight: '90vh',
-            overflow: 'hidden',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: 20,
-              borderBottom: '1px solid #e2e8f0'
-            }}>
-              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>フィルター</h3>
-              <button
-                onClick={() => setShowFilters(false)}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  fontSize: 24,
-                  cursor: 'pointer',
-                  color: '#666',
-                }}
-              >
-                ×
-              </button>
-            </div>
-            <PokemonFilters
-              filters={filters}
-              onFiltersChange={setFilters}
-              onClose={() => setShowFilters(false)}
-            />
-          </div>
-        </div>
-      )}
 
     </div>
   );

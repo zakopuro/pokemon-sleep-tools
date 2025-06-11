@@ -49,6 +49,7 @@ export interface Berry {
     pokedexId: number         // 図鑑番号
     name: string              // 日本語名
     form: 'normal' | 'halloween' | 'holiday' | 'alolan' | 'paldean' // 姿の種類
+    isFinalEvolution: boolean // 最終進化かどうか
     sleepType: 'うとうと' | 'すやすや' | 'ぐっすり'
     specialty: '食材' | 'きのみ' | 'スキル' | 'オール'
     mainSkillId: number

@@ -11,6 +11,7 @@ export interface FilterOptions {
   nature: string;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
+  finalEvolution: 'すべて' | '最終進化のみ' | '進化前のみ';
 }
 
 interface PokemonFiltersProps {
@@ -227,6 +228,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                 nature: '',
                 sortBy: 'id',
                 sortOrder: 'asc',
+                finalEvolution: 'すべて',
               });
             }}
             style={{

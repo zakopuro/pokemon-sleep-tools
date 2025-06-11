@@ -26,6 +26,7 @@ interface PokemonSelectorProps {
   selectedPokemon: Pokemon;
   onPokemonSelect: (pokemon: Pokemon) => void;
   filters: FilterOptions;
+  onFiltersChange: (filters: FilterOptions) => void;
   refreshTrigger?: number; // 状態更新のトリガー
 }
 
@@ -33,6 +34,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   selectedPokemon,
   onPokemonSelect,
   filters,
+  onFiltersChange,
   refreshTrigger
 }) => {
   const [activeTab, setActiveTab] = useState('すべて');
@@ -81,6 +83,15 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
 
     if (filters.nature) {
       // 性格フィルタリングは育成情報で設定されたもののみ
+    }
+
+    // 最終進化フィルタリング
+    if (filters.finalEvolution !== 'すべて') {
+      if (filters.finalEvolution === '最終進化のみ') {
+        filtered = filtered.filter(pokemon => pokemon.isFinalEvolution);
+      } else if (filters.finalEvolution === '進化前のみ') {
+        filtered = filtered.filter(pokemon => !pokemon.isFinalEvolution);
+      }
     }
 
     // ソート前に特別な姿のポケモンを正しい順序に配置
@@ -275,9 +286,45 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
         ))}
       </div>
       
-      {/* ポケモン数表示 */}
-      <div style={{ margin: '0 0 8px 0', color: '#6b7280', fontSize: 12, flexShrink: 0 }}>
-        {filteredPokemons.length}匹
+      {/* ポケモン数表示と最終進化フィルター */}
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        margin: '0 0 8px 0', 
+        flexShrink: 0 
+      }}>
+        <div style={{ color: '#6b7280', fontSize: 12 }}>
+          {filteredPokemons.length}匹
+        </div>
+        
+        {/* 最終進化フィルター */}
+        <div style={{ display: 'flex', gap: 4 }}>
+          {(['すべて', '最終進化のみ', '進化前のみ'] as const).map((option) => (
+            <button
+              key={option}
+              onClick={() => {
+                if (filters.finalEvolution !== option) {
+                  const newFilters = { ...filters, finalEvolution: option };
+                  onFiltersChange(newFilters);
+                }
+              }}
+              style={{
+                padding: '2px 6px',
+                borderRadius: 12,
+                border: filters.finalEvolution === option ? 'none' : '1px solid #d1d5db',
+                background: filters.finalEvolution === option ? '#4f46e5' : '#fff',
+                color: filters.finalEvolution === option ? '#fff' : '#374151',
+                fontSize: 10,
+                cursor: 'pointer',
+                fontWeight: filters.finalEvolution === option ? 600 : 400,
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {option === 'すべて' ? '全て' : option === '最終進化のみ' ? '最終' : '進化前'}
+            </button>
+          ))}
+        </div>
       </div>
       
       {/* きのみタブの場合はきのみ別にグルーピング表示 */}
