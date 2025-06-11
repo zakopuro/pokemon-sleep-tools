@@ -18,6 +18,8 @@ export interface Berry {
     majorclass: string
     minorclass: string
     name: string
+    maxlevel: number
+    imagename: string
   }
 
   /*────────── レシピ ──────────*/

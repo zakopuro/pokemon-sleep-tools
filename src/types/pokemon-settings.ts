@@ -8,6 +8,7 @@ export interface PokemonSettings {
   downParam: string;
   selectedNeutralNature: any;
   managementStatus: string;
+  mainSkillLevel: number;
 }
 
 export interface PokemonSettingsStore {

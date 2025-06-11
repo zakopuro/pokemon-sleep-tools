@@ -40,7 +40,8 @@ export const createDefaultSettings = (pokemon?: any): PokemonSettings => {
     upParam: 'なし',
     downParam: 'なし',
     selectedNeutralNature: null,
-    managementStatus: '未設定'
+    managementStatus: '未設定',
+    mainSkillLevel: 1
   };
 };
 

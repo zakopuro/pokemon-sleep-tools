@@ -195,6 +195,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
+                flexShrink: 0,
                 padding: '4px 8px 4px 6px',
                 borderRadius: 6,
                 border: '1px solid #e2e8f0',
@@ -212,11 +213,12 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                 })(),
                 color: '#2d3748',
                 cursor: 'pointer',
-                minWidth: 80
+                minWidth: 100,
+                whiteSpace: 'nowrap'
               }}
             >
               {getStatusIcon(managementStatus)}
-              <span>{managementStatus}</span>
+              <span style={{ whiteSpace: 'nowrap' }}>{managementStatus}</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>

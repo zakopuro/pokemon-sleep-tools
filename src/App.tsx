@@ -5,6 +5,7 @@ import LevelSelector from './components/level/LevelSelector';
 import PokemonSelector from './components/pokemon/PokemonSelector';
 import IngredientSelector from './components/ingredient/IngredientSelector';
 import SubskillSelector from './components/subskill/SubskillSelector';
+import MainSkillSelector from './components/mainskill/MainSkillSelector';
 import NatureSelector from './components/nature/NatureSelector';
 import StatusDisplay from './components/status/StatusDisplay';
 import type { SubskillByLevel } from './types/pokemon';
@@ -24,6 +25,7 @@ function App() {
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>(initialSettings.selectedIngredients);
   const [managementStatus, setManagementStatus] = useState<string>(initialSettings.managementStatus);
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
+  const [mainSkillLevel, setMainSkillLevel] = useState<number>(initialSettings.mainSkillLevel || 1);
   const [showFilters, setShowFilters] = useState(false);
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
   const [refreshTrigger, setRefreshTrigger] = useState(0); // ポケモン状態更新用トリガー
@@ -46,10 +48,11 @@ function App() {
       upParam,
       downParam,
       selectedNeutralNature,
-      managementStatus
+      managementStatus,
+      mainSkillLevel
     };
     savePokemonSettings(selectedPokemon, settings);
-  }, [selectedPokemon, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus]);
+  }, [selectedPokemon, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
 
   // ポケモン選択時の処理
   const handlePokemonSelect = useCallback((pokemon: Pokemon) => {
@@ -66,6 +69,7 @@ function App() {
     setDownParam(newSettings.downParam);
     setSelectedNeutralNature(newSettings.selectedNeutralNature);
     setManagementStatus(newSettings.managementStatus);
+    setMainSkillLevel(newSettings.mainSkillLevel || 1);
   }, [saveCurrentSettings]);
 
   // 設定変更時に自動保存とリアルタイム更新
@@ -73,7 +77,7 @@ function App() {
     saveCurrentSettings();
     // ポケモン状態更新をトリガー
     setRefreshTrigger(prev => prev + 1);
-  }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus]);
+  }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
 
   return (
     <div style={{
@@ -198,7 +202,13 @@ function App() {
               <SubskillSelector
                 subskillByLevel={subskillByLevel}
                 onSubskillChange={setSubskillByLevel}
-              />
+              >
+                <MainSkillSelector
+                  selectedPokemon={selectedPokemon}
+                  mainSkillLevel={mainSkillLevel}
+                  onMainSkillLevelChange={setMainSkillLevel}
+                />
+              </SubskillSelector>
             </div>
           </div>
         )}

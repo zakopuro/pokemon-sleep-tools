@@ -6,11 +6,13 @@ import type { SubskillByLevel } from '../../types/pokemon';
 interface SubskillSelectorProps {
   subskillByLevel: SubskillByLevel;
   onSubskillChange: (subskillByLevel: SubskillByLevel) => void;
+  children?: React.ReactNode;
 }
 
 const SubskillSelector: React.FC<SubskillSelectorProps> = ({
   subskillByLevel,
-  onSubskillChange
+  onSubskillChange,
+  children
 }) => {
   const [editingLevel, setEditingLevel] = useState<number | null>(null);
 
@@ -31,6 +33,14 @@ const SubskillSelector: React.FC<SubskillSelectorProps> = ({
           メインスキル・サブスキル
         </span>
       </div>
+      
+      {/* メインスキル表示エリア */}
+      {children && (
+        <div style={{ marginBottom: 4 }}>
+          {children}
+        </div>
+      )}
+      
       <div style={{ background: '#fff', borderRadius: 8, padding: 6, border: '1px solid #e2e8f0' }}>
 
         {/* 2列2×3行=5枠レイアウト */}
