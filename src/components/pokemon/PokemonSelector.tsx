@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { POKEMONS, BERRIES, INGREDIENTS, MAINSKILLS } from '../../config';
+import { POKEMONS, MAINSKILLS } from '../../config';
 import type { FilterOptions } from '../PokemonFilters';
 import type { Pokemon } from '../../../config/schema';
 import { loadPokemonSettings, getPokemonKey } from '../../utils/pokemon-storage';
