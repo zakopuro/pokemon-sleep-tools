@@ -118,7 +118,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
   }, [showIngredientDropdown]);
 
   return (
-    <div style={{ marginTop: -2, position: 'relative' }}>
+    <div style={{ marginTop: 4, position: 'relative' }}>
       {/* 食材プルダウン */}
       <div ref={dropdownRef} style={{ background: '#fff', borderRadius: 8, padding: 4, position: 'relative' }}>
         {/* 食材ラベル（左上に被るように配置） */}
@@ -148,6 +148,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
             border: 'none',
             cursor: 'pointer',
             padding: 4,
+            paddingLeft: 12,
           }}
         >
           {/* 重複のない3種だけを表示するヘッダー用配列 */}

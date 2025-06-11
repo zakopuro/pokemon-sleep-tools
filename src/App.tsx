@@ -170,9 +170,9 @@ function App() {
               <LevelSelector level={level} onLevelChange={setLevel} />
 
               {/* 食材選択とせいかく選択を横並び */}
-              <div style={{ display: 'flex', gap: 8 }}>
+              <div style={{ display: 'flex', gap: 6, width: '100%' }}>
                 {/* 食材選択 */}
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <IngredientSelector
                     selectedPokemon={selectedPokemon}
                     selectedIngredients={selectedIngredients}
@@ -182,7 +182,7 @@ function App() {
                 </div>
 
                 {/* せいかく選択 */}
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <NatureSelector
                     upParam={upParam}
                     downParam={downParam}

@@ -86,14 +86,14 @@ const NatureSelector: React.FC<NatureSelectorProps> = ({
   }, [selectedNature, isNeutralMode, upParam, downParam]);
 
   return (
-    <div style={{ marginTop: -2, position: 'relative' }}>
-      <div style={{ background: '#fff', borderRadius: 8, padding: 6, border: '1px solid #e2e8f0', position: 'relative' }}>
+    <div style={{ marginTop: 4, position: 'relative' }}>
+      <div style={{ background: '#fff', borderRadius: 8, padding: 4, position: 'relative' }}>
         {/* せいかくラベル（左上に被るように配置） */}
         <span style={{
           position: 'absolute',
           top: -6,
           left: 4,
-          background:'#a855f7',
+          background:'#4ade80',
           color:'#fff',
           padding:'2px 8px',
           borderRadius:8,
@@ -115,72 +115,58 @@ const NatureSelector: React.FC<NatureSelectorProps> = ({
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 8,
+            gap: 6,
             cursor: 'pointer',
             width: '100%',
             flexWrap: 'nowrap',
+            overflow: 'hidden',
+            padding: 4,
           }}
         >
-          {/* 左：緑枠＋せいかく名 */}
-          <div style={{ position: 'relative', whiteSpace: 'nowrap' }}>
-            <span
-              style={{
-                position: 'absolute',
-                top: -10,
-                left: 16,
-                background: '#4ade80',
-                color: '#fff',
-                borderRadius: 8,
-                padding: '2px 8px',
-                fontSize: 10,
-                fontWeight: 700,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              せいかく
-            </span>
+          {/* 左：せいかく名 */}
+          <div style={{ position: 'relative', flex: 1, minWidth: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div
               style={{
                 border: '2px solid #4ade80',
                 borderRadius: 9999,
-                padding: '6px 30px',
-                minWidth: 100,
+                padding: '4px 12px',
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
-                overflow: 'hidden',
+                minWidth: 'fit-content',
+                width: 'fit-content',
               }}
             >
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#2d3748' }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: '#2d3748' }}>
                 {selectedNature.name}
               </span>
             </div>
           </div>
 
           {/* 右：上昇/下降パラメータ表示 */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, whiteSpace: 'nowrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2, justifyContent: 'center', flex: 1.3, minWidth: 0 }}>
             {(!upParam || upParam === 'なし') && (!downParam || downParam === 'なし') ? (
               // 補正なしの場合は1つのテキストを中央に表示
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#6b7280', whiteSpace: 'nowrap' }}>
-                  せいかくによる特徴なし
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#6b7280', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  特徴なし
                 </span>
               </div>
             ) : (
               // 補正ありの場合は上昇/下降を表示
               <>
                 {/* 上昇 */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#2d3748', whiteSpace: 'nowrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <span style={{ fontSize: 8, fontWeight: 700, color: '#2d3748', whiteSpace: 'nowrap' }}>
                     {upParam && upParam !== 'なし' ? upParam : '補正なし'}
                   </span>
-                  {upParam && upParam !== 'なし' && <span style={{ color: '#fb923c', fontSize: 14, lineHeight: 1 }}>▲▲</span>}
+                  {upParam && upParam !== 'なし' && <span style={{ color: '#fb923c', fontSize: 10, lineHeight: 1 }}>▲▲</span>}
                 </div>
                 {/* 下降 */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#2d3748', whiteSpace: 'nowrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <span style={{ fontSize: 8, fontWeight: 700, color: '#2d3748', whiteSpace: 'nowrap' }}>
                     {downParam && downParam !== 'なし' ? downParam : '補正なし'}
                   </span>
-                  {downParam && downParam !== 'なし' && <span style={{ color: '#60a5fa', fontSize: 14, lineHeight: 1 }}>▼▼</span>}
+                  {downParam && downParam !== 'なし' && <span style={{ color: '#60a5fa', fontSize: 10, lineHeight: 1 }}>▼▼</span>}
                 </div>
               </>
             )}
