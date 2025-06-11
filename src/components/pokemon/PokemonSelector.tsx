@@ -27,6 +27,8 @@ interface PokemonSelectorProps {
   onPokemonSelect: (pokemon: Pokemon) => void;
   filters: FilterOptions;
   onFiltersChange: (filters: FilterOptions) => void;
+  onOpenFilters: () => void;
+  onOpenSort: () => void;
   refreshTrigger?: number; // 状態更新のトリガー
 }
 
@@ -35,6 +37,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   onPokemonSelect,
   filters,
   onFiltersChange,
+  onOpenFilters,
+  onOpenSort,
   refreshTrigger
 }) => {
   const [activeTab, setActiveTab] = useState('すべて');
@@ -145,6 +149,26 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           ? (aValue as number) - (bValue as number)
           : (bValue as number) - (aValue as number);
       });
+    } else {
+      // 図鑑番号ソートの場合も昇順/降順に対応
+      if (filters.sortOrder === 'desc') {
+        filtered.sort((a, b) => {
+          // 図鑑番号で降順ソート
+          if (a.pokedexId !== b.pokedexId) {
+            return b.pokedexId - a.pokedexId;
+          }
+          
+          // 同じ図鑑番号の場合、通常の姿を先に、特別な姿を後に
+          const aIsSpecial = a.name.includes('(');
+          const bIsSpecial = b.name.includes('(');
+          
+          if (aIsSpecial !== bIsSpecial) {
+            return aIsSpecial ? 1 : -1;
+          }
+          
+          return a.name.localeCompare(b.name, 'ja');
+        });
+      }
     }
 
     return filtered;
@@ -294,12 +318,143 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
         margin: '0 0 8px 0', 
         flexShrink: 0 
       }}>
-        <div style={{ color: '#6b7280', fontSize: 12 }}>
-          {filteredPokemons.length}匹
+        {/* 左側：ポケモン数とコントロールボタン */}
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          {/* ポケモン数表示 */}
+          <div style={{ color: '#6b7280', fontSize: 12 }}>
+            {filteredPokemons.length}匹
+          </div>
+          
+          {/* コントロールボタン */}
+          <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+            {/* 虫眼鏡ボタン（フィルター） */}
+            <button
+              onClick={onOpenFilters}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 50,
+                height: 24,
+                background: '#fff',
+                border: '1px solid #d1d5db',
+                borderRadius: 12,
+                cursor: 'pointer',
+                padding: 0,
+                gap: 3
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2">
+                <circle cx="10" cy="10" r="7"/>
+                <path d="M21 21l-6-6"/>
+              </svg>
+              
+              {/* フィルターON/OFF表示 */}
+              <span style={{ 
+                fontSize: 8, 
+                color: '#000', 
+                fontWeight: 600,
+                lineHeight: 1
+              }}>
+                {(() => {
+                  // フィルターが設定されているかチェック
+                  const hasFilters = 
+                    filters.specialty !== 'すべて' ||
+                    filters.berry !== '' ||
+                    filters.ingredient !== '' ||
+                    filters.subskill !== '' ||
+                    filters.nature !== '' ||
+                    filters.sortBy !== 'id' ||
+                    filters.sortOrder !== 'asc';
+                  
+                  return hasFilters ? 'ON' : 'OFF';
+                })()}
+              </span>
+            </button>
+            
+            {/* ソートボタン */}
+            <button
+              onClick={onOpenSort}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 60,
+                height: 24,
+                background: '#fff',
+                border: '1px solid #d1d5db',
+                borderRadius: 12,
+                cursor: 'pointer',
+                padding: 0,
+                gap: 3
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2">
+                <path d="M3 6h18"/>
+                <path d="M7 12h10"/>
+                <path d="M10 18h4"/>
+              </svg>
+              
+              {/* ソート基準表示 */}
+              <span style={{ 
+                fontSize: 8, 
+                color: '#000', 
+                fontWeight: 600,
+                lineHeight: 1
+              }}>
+                {(() => {
+                  switch (filters.sortBy) {
+                    case 'id':
+                      return '図鑑番号';
+                    case 'name':
+                      return '名前';
+                    case 'specialty':
+                      return '得意分野';
+                    case 'frequency':
+                      return '頻度';
+                    default:
+                      return '図鑑番号';
+                  }
+                })()}
+              </span>
+            </button>
+            
+            {/* ソート順序ボタン */}
+            <button
+              onClick={() => {
+                const newOrder = filters.sortOrder === 'asc' ? 'desc' : 'asc';
+                onFiltersChange({ ...filters, sortOrder: newOrder });
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 20,
+                height: 20,
+                background: '#fff',
+                border: '1px solid #d1d5db',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                padding: 0
+              }}
+            >
+              {filters.sortOrder === 'asc' ? (
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2">
+                  <path d="m7 14 5-5 5 5"/>
+                  <path d="M12 19V5"/>
+                </svg>
+              ) : (
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4ade80" strokeWidth="2">
+                  <path d="m7 10 5 5 5-5"/>
+                  <path d="M12 5v14"/>
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
         
-        {/* 最終進化フィルター */}
-        <div style={{ display: 'flex', gap: 4 }}>
+        {/* 右側：最終進化フィルター */}
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
           {(['すべて', '最終進化のみ', '進化前のみ'] as const).map((option) => (
             <button
               key={option}

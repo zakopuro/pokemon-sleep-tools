@@ -36,27 +36,16 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
   return (
     <div
       style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(0,0,0,0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 3000,
+        background: '#fff',
+        borderRadius: 12,
+        width: '100%',
+        maxWidth: 400,
+        maxHeight: '90vh',
+        overflowY: 'auto',
+        color: '#000',
+        padding: 20,
       }}
     >
-      <div
-        style={{
-          background: '#fff',
-          borderRadius: 8,
-          width: '95%',
-          maxWidth: 500,
-          maxHeight: '90vh',
-          overflowY: 'auto',
-          color: '#000',
-          padding: 20,
-        }}
-      >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>フィルター・ソート</h3>
           <button
@@ -183,38 +172,23 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
 
         <div style={{ marginBottom: 16 }}>
           <label style={{ display: 'block', marginBottom: 4, fontWeight: 600 }}>ソート</label>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <select
-              value={filters.sortBy}
-              onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-              style={{
-                flex: 1,
-                padding: '6px 8px',
-                border: '1px solid #d1d5db',
-                borderRadius: 4,
-                fontSize: 14,
-              }}
-            >
-              {sortOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <select
-              value={filters.sortOrder}
-              onChange={(e) => handleFilterChange('sortOrder', e.target.value as 'asc' | 'desc')}
-              style={{
-                padding: '6px 8px',
-                border: '1px solid #d1d5db',
-                borderRadius: 4,
-                fontSize: 14,
-              }}
-            >
-              <option value="asc">昇順</option>
-              <option value="desc">降順</option>
-            </select>
-          </div>
+          <select
+            value={filters.sortBy}
+            onChange={(e) => handleFilterChange('sortBy', e.target.value)}
+            style={{
+              width: '100%',
+              padding: '6px 8px',
+              border: '1px solid #d1d5db',
+              borderRadius: 4,
+              fontSize: 14,
+            }}
+          >
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
@@ -261,6 +235,5 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
           </button>
         </div>
       </div>
-    </div>
   );
 }

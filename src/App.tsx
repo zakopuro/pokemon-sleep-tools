@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { POKEMONS } from './config';
-import { type FilterOptions } from './components/PokemonFilters';
+import PokemonFilters, { type FilterOptions } from './components/PokemonFilters';
 import LevelSelector from './components/level/LevelSelector';
 import PokemonSelector from './components/pokemon/PokemonSelector';
 import IngredientSelector from './components/ingredient/IngredientSelector';
@@ -27,6 +27,8 @@ function App() {
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
   const [mainSkillLevel, setMainSkillLevel] = useState<number>(initialSettings.mainSkillLevel || 1);
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
+  const [showSortModal, setShowSortModal] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0); // ポケモン状態更新用トリガー
   const [filters, setFilters] = useState<FilterOptions>({
     specialty: 'すべて',
@@ -225,11 +227,134 @@ function App() {
           onPokemonSelect={handlePokemonSelect}
           filters={filters}
           onFiltersChange={setFilters}
+          onOpenFilters={() => setShowFilters(true)}
+          onOpenSort={() => setShowSortModal(true)}
           refreshTrigger={refreshTrigger}
         />
       </div>
 
+      {/* フィルターモーダル */}
+      {showFilters && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 2000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20
+          }}
+          onClick={(e) => {
+            // 背景クリックでモーダルを閉じる
+            if (e.target === e.currentTarget) {
+              setShowFilters(false);
+            }
+          }}
+        >
+          <PokemonFilters
+            filters={filters}
+            onFiltersChange={setFilters}
+            onClose={() => setShowFilters(false)}
+          />
+        </div>
+      )}
 
+      {/* ソートモーダル */}
+      {showSortModal && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 2000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 20
+          }}
+          onClick={(e) => {
+            // 背景クリックでモーダルを閉じる
+            if (e.target === e.currentTarget) {
+              setShowSortModal(false);
+            }
+          }}
+        >
+          <div style={{
+            backgroundColor: '#fff',
+            borderRadius: 12,
+            width: '100%',
+            maxWidth: 300,
+            padding: 20
+          }}>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 20
+            }}>
+              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>ソート</h3>
+              <button
+                onClick={() => setShowSortModal(false)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: 24,
+                  cursor: 'pointer',
+                  color: '#666',
+                }}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: 'block', marginBottom: 8, fontSize: 14, fontWeight: 600 }}>
+                ソート基準
+              </label>
+              <select
+                value={filters.sortBy}
+                onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '8px 12px',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: 6,
+                  fontSize: 14
+                }}
+              >
+                <option value="id">図鑑番号</option>
+                <option value="name">名前</option>
+                <option value="specialty">得意分野</option>
+                <option value="frequency">頻度</option>
+              </select>
+            </div>
+            
+            <button
+              onClick={() => setShowSortModal(false)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                background: '#4f46e5',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 6,
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              適用
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );
