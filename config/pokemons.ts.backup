@@ -3,7 +3,7 @@ import type { Pokemon } from './schema';
 export const POKEMONS: readonly Pokemon[] = [
   {
     "id": "0010001",
-    "name": "フシギダネ",
+    "name": "Bulbasaur",
     "sleepType": "うとうと",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -26,11 +26,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 1,
+    "nameJp": "フシギダネ",
     "form": "normal"
   },
   {
     "id": "0010002",
-    "name": "フシギソウ",
+    "name": "Ivysaur",
     "sleepType": "うとうと",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -53,11 +54,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 2,
+    "nameJp": "フシギソウ",
     "form": "normal"
   },
   {
     "id": "0010003",
-    "name": "フシギバナ",
+    "name": "Venusaur",
     "sleepType": "うとうと",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -80,11 +82,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 3,
+    "nameJp": "フシギバナ",
     "form": "normal"
   },
   {
     "id": "0010004",
-    "name": "ヒトカゲ",
+    "name": "Charmander",
     "sleepType": "すやすや",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -107,11 +110,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 4,
+    "nameJp": "ヒトカゲ",
     "form": "normal"
   },
   {
     "id": "0010005",
-    "name": "リザード",
+    "name": "Charmeleon",
     "sleepType": "すやすや",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -134,11 +138,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 5,
+    "nameJp": "リザード",
     "form": "normal"
   },
   {
     "id": "0010006",
-    "name": "リザードン",
+    "name": "Charizard",
     "sleepType": "すやすや",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -161,11 +166,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 6,
+    "nameJp": "リザードン",
     "form": "normal"
   },
   {
     "id": "0010007",
-    "name": "ゼニガメ",
+    "name": "Squirtle",
     "sleepType": "ぐっすり",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -188,11 +194,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 7,
+    "nameJp": "ゼニガメ",
     "form": "normal"
   },
   {
     "id": "0010008",
-    "name": "カメール",
+    "name": "Wartortle",
     "sleepType": "ぐっすり",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -215,11 +222,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 8,
+    "nameJp": "カメール",
     "form": "normal"
   },
   {
     "id": "0010009",
-    "name": "カメックス",
+    "name": "Blastoise",
     "sleepType": "ぐっすり",
     "specialty": "食材",
     "mainSkillId": 14,
@@ -242,11 +250,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 9,
+    "nameJp": "カメックス",
     "form": "normal"
   },
   {
     "id": "0010010",
-    "name": "キャタピー",
+    "name": "Caterpie",
     "sleepType": "うとうと",
     "specialty": "きのみ",
     "mainSkillId": 14,
@@ -269,11 +278,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 10,
+    "nameJp": "キャタピー",
     "form": "normal"
   },
   {
     "id": "0010011",
-    "name": "トランセル",
+    "name": "Metapod",
     "sleepType": "うとうと",
     "specialty": "きのみ",
     "mainSkillId": 14,
@@ -296,11 +306,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 11,
+    "nameJp": "トランセル",
     "form": "normal"
   },
   {
     "id": "0010012",
-    "name": "バタフリー",
+    "name": "Butterfree",
     "sleepType": "うとうと",
     "specialty": "きのみ",
     "mainSkillId": 14,
@@ -323,11 +334,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 12,
+    "nameJp": "バタフリー",
     "form": "normal"
   },
   {
     "id": "0010019",
-    "name": "コラッタ",
+    "name": "Rattata",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -350,11 +362,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 19,
+    "nameJp": "コラッタ",
     "form": "normal"
   },
   {
     "id": "0010020",
-    "name": "ラッタ",
+    "name": "Raticate",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -377,11 +390,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 20,
+    "nameJp": "ラッタ",
     "form": "normal"
   },
   {
     "id": "0010023",
-    "name": "アーボ",
+    "name": "Ekans",
     "sleepType": "うとうと",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -404,11 +418,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 23,
+    "nameJp": "アーボ",
     "form": "normal"
   },
   {
     "id": "0010024",
-    "name": "アーボック",
+    "name": "Arbok",
     "sleepType": "うとうと",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -431,11 +446,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 24,
+    "nameJp": "アーボック",
     "form": "normal"
   },
   {
     "id": "0010025",
-    "name": "ピカチュウ",
+    "name": "Pikachu",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 1,
@@ -458,11 +474,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 25,
+    "nameJp": "ピカチュウ",
     "form": "normal"
   },
   {
     "id": "0020025",
-    "name": "ピカチュウ(ハロウィン)",
+    "name": "Pikachu",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 2,
@@ -485,11 +502,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 25,
+    "nameJp": "ピカチュウ(ハロウィン)",
     "form": "halloween"
   },
   {
     "id": "0030025",
-    "name": "ピカチュウ(ホリデー)",
+    "name": "Pikachu",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 6,
@@ -512,11 +530,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 25,
+    "nameJp": "ピカチュウ(ホリデー)",
     "form": "holiday"
   },
   {
     "id": "0010026",
-    "name": "ライチュウ",
+    "name": "Raichu",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 1,
@@ -539,6 +558,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 26,
+    "nameJp": "ライチュウ",
     "form": "normal"
   },
   {
@@ -566,6 +586,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 35,
+    "nameJp": "ピッピ",
     "form": "normal"
   },
   {
@@ -593,11 +614,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 36,
+    "nameJp": "ピクシー",
     "form": "normal"
   },
   {
     "id": "0010037",
-    "name": "ロコン",
+    "name": "Vulpix",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 8,
@@ -620,11 +642,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 37,
+    "nameJp": "ロコン",
     "form": "normal"
   },
   {
     "id": "0040037",
-    "name": "ロコン(アローラ)",
+    "name": "Vulpix",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 13,
@@ -647,11 +670,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 37,
+    "nameJp": "ロコン(アローラ)",
     "form": "alolan"
   },
   {
     "id": "0010038",
-    "name": "キュウコン",
+    "name": "Ninetales",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 8,
@@ -674,11 +698,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 38,
+    "nameJp": "キュウコン",
     "form": "normal"
   },
   {
     "id": "0040038",
-    "name": "キュウコン(アローラ)",
+    "name": "Ninetales",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 13,
@@ -701,11 +726,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 38,
+    "nameJp": "キュウコン(アローラ)",
     "form": "alolan"
   },
   {
     "id": "0010039",
-    "name": "プリン",
+    "name": "Jigglypuff",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 11,
@@ -728,11 +754,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 39,
+    "nameJp": "プリン",
     "form": "normal"
   },
   {
     "id": "0010040",
-    "name": "プクリン",
+    "name": "Wigglytuff",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 11,
@@ -755,11 +782,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 40,
+    "nameJp": "プクリン",
     "form": "normal"
   },
   {
     "id": "0010050",
-    "name": "ディグダ",
+    "name": "Diglett",
     "sleepType": "すやすや",
     "specialty": "食材",
     "mainSkillId": 1,
@@ -782,11 +810,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 50,
+    "nameJp": "ディグダ",
     "form": "normal"
   },
   {
     "id": "0010051",
-    "name": "ダグトリオ",
+    "name": "Dugtrio",
     "sleepType": "すやすや",
     "specialty": "食材",
     "mainSkillId": 1,
@@ -809,11 +838,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 51,
+    "nameJp": "ダグトリオ",
     "form": "normal"
   },
   {
     "id": "0010052",
-    "name": "ニャース",
+    "name": "Meowth",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 6,
@@ -832,11 +862,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 52,
+    "nameJp": "ニャース",
     "form": "normal"
   },
   {
     "id": "0010053",
-    "name": "ペルシアン",
+    "name": "Persian",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 6,
@@ -855,11 +886,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 53,
+    "nameJp": "ペルシアン",
     "form": "normal"
   },
   {
     "id": "0010054",
-    "name": "コダック",
+    "name": "Psyduck",
     "sleepType": "うとうと",
     "specialty": "スキル",
     "mainSkillId": 2,
@@ -882,11 +914,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 54,
+    "nameJp": "コダック",
     "form": "normal"
   },
   {
     "id": "0010055",
-    "name": "ゴルダック",
+    "name": "Golduck",
     "sleepType": "ぐっすり",
     "specialty": "スキル",
     "mainSkillId": 2,
@@ -909,11 +942,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 55,
+    "nameJp": "ゴルダック",
     "form": "normal"
   },
   {
     "id": "0010056",
-    "name": "マンキー",
+    "name": "Mankey",
     "sleepType": "うとうと",
     "specialty": "きのみ",
     "mainSkillId": 2,
@@ -936,11 +970,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 56,
+    "nameJp": "マンキー",
     "form": "normal"
   },
   {
     "id": "0010057",
-    "name": "オコリザル",
+    "name": "Primeape",
     "sleepType": "うとうと",
     "specialty": "きのみ",
     "mainSkillId": 2,
@@ -963,11 +998,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 57,
+    "nameJp": "オコリザル",
     "form": "normal"
   },
   {
     "id": "0010058",
-    "name": "ガーディ",
+    "name": "Growlithe",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 13,
@@ -990,6 +1026,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 58,
+    "nameJp": "ガーディ",
     "form": "normal"
   },
   {
@@ -1017,6 +1054,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 59,
+    "nameJp": "ウインディ",
     "form": "normal"
   },
   {
@@ -1044,6 +1082,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 69,
+    "nameJp": "マダツボミ",
     "form": "normal"
   },
   {
@@ -1071,6 +1110,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 70,
+    "nameJp": "ウツドン",
     "form": "normal"
   },
   {
@@ -1098,11 +1138,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 71,
+    "nameJp": "ウツボット",
     "form": "normal"
   },
   {
     "id": "0010074",
-    "name": "イシツブテ",
+    "name": "Geodude",
     "sleepType": "ぐっすり",
     "specialty": "食材",
     "mainSkillId": 2,
@@ -1125,11 +1166,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 74,
+    "nameJp": "イシツブテ",
     "form": "normal"
   },
   {
     "id": "0010075",
-    "name": "ゴローン",
+    "name": "Graveler",
     "sleepType": "ぐっすり",
     "specialty": "食材",
     "mainSkillId": 2,
@@ -1152,11 +1194,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 75,
+    "nameJp": "ゴローン",
     "form": "normal"
   },
   {
     "id": "0010076",
-    "name": "ゴローニャ",
+    "name": "Golem",
     "sleepType": "ぐっすり",
     "specialty": "食材",
     "mainSkillId": 2,
@@ -1179,11 +1222,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 76,
+    "nameJp": "ゴローニャ",
     "form": "normal"
   },
   {
     "id": "0010079",
-    "name": "ヤドン",
+    "name": "Slowpoke",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 8,
@@ -1206,11 +1250,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 79,
+    "nameJp": "ヤドン",
     "form": "normal"
   },
   {
     "id": "0010080",
-    "name": "ヤドラン",
+    "name": "Slowbro",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 8,
@@ -1233,11 +1278,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 80,
+    "nameJp": "ヤドラン",
     "form": "normal"
   },
   {
     "id": "0010081",
-    "name": "コイル",
+    "name": "Magnemite",
     "sleepType": "ぐっすり",
     "specialty": "スキル",
     "mainSkillId": 15,
@@ -1256,11 +1302,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 81,
+    "nameJp": "コイル",
     "form": "normal"
   },
   {
     "id": "0010082",
-    "name": "レアコイル",
+    "name": "Magneton",
     "sleepType": "ぐっすり",
     "specialty": "スキル",
     "mainSkillId": 15,
@@ -1279,11 +1326,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 82,
+    "nameJp": "レアコイル",
     "form": "normal"
   },
   {
     "id": "0010084",
-    "name": "ドードー",
+    "name": "Doduo",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -1306,11 +1354,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 84,
+    "nameJp": "ドードー",
     "form": "normal"
   },
   {
     "id": "0010085",
-    "name": "ドードリオ",
+    "name": "Dodrio",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -1333,6 +1382,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 85,
+    "nameJp": "ドードリオ",
     "form": "normal"
   },
   {
@@ -1360,6 +1410,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 92,
+    "nameJp": "ゴース",
     "form": "normal"
   },
   {
@@ -1387,6 +1438,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 93,
+    "nameJp": "ゴースト",
     "form": "normal"
   },
   {
@@ -1414,11 +1466,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 94,
+    "nameJp": "ゲンガー",
     "form": "normal"
   },
   {
     "id": "0010095",
-    "name": "イワーク",
+    "name": "Onix",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 14,
@@ -1441,11 +1494,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 95,
+    "nameJp": "イワーク",
     "form": "normal"
   },
   {
     "id": "0010104",
-    "name": "カラカラ",
+    "name": "Cubone",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -1464,11 +1518,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 104,
+    "nameJp": "カラカラ",
     "form": "normal"
   },
   {
     "id": "0010105",
-    "name": "ガラガラ",
+    "name": "Marowak",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 9,
@@ -1487,11 +1542,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 105,
+    "nameJp": "ガラガラ",
     "form": "normal"
   },
   {
     "id": "0010113",
-    "name": "ラッキー",
+    "name": "Chansey",
     "sleepType": "すやすや",
     "specialty": "食材",
     "mainSkillId": 11,
@@ -1514,6 +1570,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 113,
+    "nameJp": "ラッキー",
     "form": "normal"
   },
   {
@@ -1541,6 +1598,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 115,
+    "nameJp": "ガルーラ",
     "form": "normal"
   },
   {
@@ -1568,11 +1626,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 122,
+    "nameJp": "バリヤード",
     "form": "normal"
   },
   {
     "id": "0010127",
-    "name": "カイロス",
+    "name": "Pinsir",
     "sleepType": "うとうと",
     "specialty": "食材",
     "mainSkillId": 1,
@@ -1595,11 +1654,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 127,
+    "nameJp": "カイロス",
     "form": "normal"
   },
   {
     "id": "0010132",
-    "name": "メタモン",
+    "name": "Ditto",
     "sleepType": "すやすや",
     "specialty": "食材",
     "mainSkillId": 23,
@@ -1622,11 +1682,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 132,
+    "nameJp": "メタモン",
     "form": "normal"
   },
   {
     "id": "0010133",
-    "name": "イーブイ",
+    "name": "Eevee",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 14,
@@ -1649,11 +1710,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 133,
+    "nameJp": "イーブイ",
     "form": "normal"
   },
   {
     "id": "0030133",
-    "name": "イーブイ(ホリデー)",
+    "name": "Eevee",
     "sleepType": "すやすや",
     "specialty": "きのみ",
     "mainSkillId": 6,
@@ -1676,11 +1738,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 133,
+    "nameJp": "イーブイ(ホリデー)",
     "form": "holiday"
   },
   {
     "id": "0010134",
-    "name": "シャワーズ",
+    "name": "Vaporeon",
     "sleepType": "ぐっすり",
     "specialty": "スキル",
     "mainSkillId": 14,
@@ -1703,11 +1766,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 134,
+    "nameJp": "シャワーズ",
     "form": "normal"
   },
   {
     "id": "0010135",
-    "name": "サンダース",
+    "name": "Jolteon",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 13,
@@ -1730,11 +1794,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 135,
+    "nameJp": "サンダース",
     "form": "normal"
   },
   {
     "id": "0010136",
-    "name": "ブースター",
+    "name": "Flareon",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 15,
@@ -1757,6 +1822,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 136,
+    "nameJp": "ブースター",
     "form": "normal"
   },
   {
@@ -1784,6 +1850,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 147,
+    "nameJp": "ミニリュウ",
     "form": "normal"
   },
   {
@@ -1811,6 +1878,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 148,
+    "nameJp": "ハクリュー",
     "form": "normal"
   },
   {
@@ -1838,6 +1906,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 149,
+    "nameJp": "カイリュー",
     "form": "normal"
   },
   {
@@ -1865,6 +1934,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 152,
+    "nameJp": "チコリータ",
     "form": "normal"
   },
   {
@@ -1892,6 +1962,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 153,
+    "nameJp": "ベイリーフ",
     "form": "normal"
   },
   {
@@ -1919,6 +1990,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 154,
+    "nameJp": "メガニウム",
     "form": "normal"
   },
   {
@@ -1946,6 +2018,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 155,
+    "nameJp": "ヒノアラシ",
     "form": "normal"
   },
   {
@@ -1973,6 +2046,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 156,
+    "nameJp": "マグマラシ",
     "form": "normal"
   },
   {
@@ -2000,6 +2074,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 157,
+    "nameJp": "バクフーン",
     "form": "normal"
   },
   {
@@ -2023,6 +2098,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 158,
+    "nameJp": "ワニノコ",
     "form": "normal"
   },
   {
@@ -2046,6 +2122,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 159,
+    "nameJp": "アリゲイツ",
     "form": "normal"
   },
   {
@@ -2069,11 +2146,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 160,
+    "nameJp": "オーダイル",
     "form": "normal"
   },
   {
     "id": "0010172",
-    "name": "ピチュー",
+    "name": "Pichu",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 1,
@@ -2096,11 +2174,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 172,
+    "nameJp": "ピチュー",
     "form": "normal"
   },
   {
     "id": "0010173",
-    "name": "ピィ",
+    "name": "Cleffa",
     "sleepType": "ぐっすり",
     "specialty": "きのみ",
     "mainSkillId": 16,
@@ -2123,11 +2202,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 173,
+    "nameJp": "ピィ",
     "form": "normal"
   },
   {
     "id": "0010174",
-    "name": "ププリン",
+    "name": "Igglybuff",
     "sleepType": "ぐっすり",
     "specialty": "スキル",
     "mainSkillId": 11,
@@ -2150,6 +2230,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 174,
+    "nameJp": "ププリン",
     "form": "normal"
   },
   {
@@ -2177,6 +2258,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 175,
+    "nameJp": "トゲピー",
     "form": "normal"
   },
   {
@@ -2204,6 +2286,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 176,
+    "nameJp": "トゲチック",
     "form": "normal"
   },
   {
@@ -2227,6 +2310,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 4
     },
     "pokedexId": 179,
+    "nameJp": "メリープ",
     "form": "normal"
   },
   {
@@ -2250,6 +2334,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 4
     },
     "pokedexId": 180,
+    "nameJp": "モココ",
     "form": "normal"
   },
   {
@@ -2273,6 +2358,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 4
     },
     "pokedexId": 181,
+    "nameJp": "デンリュウ",
     "form": "normal"
   },
   {
@@ -2300,11 +2386,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 185,
+    "nameJp": "ウソッキー",
     "form": "normal"
   },
   {
     "id": "0010194",
-    "name": "ウパー",
+    "name": "Wooper",
     "sleepType": "ぐっすり",
     "specialty": "食材",
     "mainSkillId": 9,
@@ -2327,11 +2414,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 12
     },
     "pokedexId": 194,
+    "nameJp": "ウパー",
     "form": "normal"
   },
   {
     "id": "0050194",
-    "name": "ウパー(パルデア)",
+    "name": "Wooper",
     "sleepType": "うとうと",
     "specialty": "食材",
     "mainSkillId": 9,
@@ -2354,6 +2442,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 9
     },
     "pokedexId": 194,
+    "nameJp": "ウパー(パルデア)",
     "form": "paldean"
   },
   {
@@ -2381,11 +2470,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 12
     },
     "pokedexId": 195,
+    "nameJp": "ヌオー",
     "form": "normal"
   },
   {
     "id": "0010196",
-    "name": "エーフィ",
+    "name": "Espeon",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 4,
@@ -2408,11 +2498,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 196,
+    "nameJp": "エーフィ",
     "form": "normal"
   },
   {
     "id": "0010197",
-    "name": "ブラッキー",
+    "name": "Umbreon",
     "sleepType": "うとうと",
     "specialty": "スキル",
     "mainSkillId": 10,
@@ -2435,6 +2526,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 197,
+    "nameJp": "ブラッキー",
     "form": "normal"
   },
   {
@@ -2462,6 +2554,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 199,
+    "nameJp": "ヤドキング",
     "form": "normal"
   },
   {
@@ -2489,6 +2582,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 202,
+    "nameJp": "ソーナンス",
     "form": "normal"
   },
   {
@@ -2516,6 +2610,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 208,
+    "nameJp": "ハガネール",
     "form": "normal"
   },
   {
@@ -2543,6 +2638,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 214,
+    "nameJp": "ヘラクロス",
     "form": "normal"
   },
   {
@@ -2570,6 +2666,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 215,
+    "nameJp": "ニューラ",
     "form": "normal"
   },
   {
@@ -2597,6 +2694,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 225,
+    "nameJp": "デリバード",
     "form": "normal"
   },
   {
@@ -2624,6 +2722,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 228,
+    "nameJp": "デルビル",
     "form": "normal"
   },
   {
@@ -2651,6 +2750,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 229,
+    "nameJp": "ヘルガー",
     "form": "normal"
   },
   {
@@ -2678,6 +2778,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 242,
+    "nameJp": "ハピナス",
     "form": "normal"
   },
   {
@@ -2705,6 +2806,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 243,
+    "nameJp": "ライコウ",
     "form": "normal"
   },
   {
@@ -2732,6 +2834,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 244,
+    "nameJp": "エンテイ",
     "form": "normal"
   },
   {
@@ -2759,6 +2862,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 245,
+    "nameJp": "スイクン",
     "form": "normal"
   },
   {
@@ -2786,6 +2890,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 246,
+    "nameJp": "ヨーギラス",
     "form": "normal"
   },
   {
@@ -2813,6 +2918,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 247,
+    "nameJp": "サナギラス",
     "form": "normal"
   },
   {
@@ -2840,6 +2946,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 248,
+    "nameJp": "バンギラス",
     "form": "normal"
   },
   {
@@ -2867,6 +2974,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 280,
+    "nameJp": "ラルトス",
     "form": "normal"
   },
   {
@@ -2894,6 +3002,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 281,
+    "nameJp": "キルリア",
     "form": "normal"
   },
   {
@@ -2921,6 +3030,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 282,
+    "nameJp": "サーナイト",
     "form": "normal"
   },
   {
@@ -2948,6 +3058,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 287,
+    "nameJp": "ナマケロ",
     "form": "normal"
   },
   {
@@ -2975,6 +3086,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 288,
+    "nameJp": "ヤルキモノ",
     "form": "normal"
   },
   {
@@ -3002,6 +3114,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 289,
+    "nameJp": "ケッキング",
     "form": "normal"
   },
   {
@@ -3029,6 +3142,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 302,
+    "nameJp": "ヤミラミ",
     "form": "normal"
   },
   {
@@ -3056,6 +3170,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 304,
+    "nameJp": "ココドラ",
     "form": "normal"
   },
   {
@@ -3083,6 +3198,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 305,
+    "nameJp": "コドラ",
     "form": "normal"
   },
   {
@@ -3110,6 +3226,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 306,
+    "nameJp": "ボスゴドラ",
     "form": "normal"
   },
   {
@@ -3137,6 +3254,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 316,
+    "nameJp": "ゴクリン",
     "form": "normal"
   },
   {
@@ -3164,6 +3282,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 317,
+    "nameJp": "マルノーム",
     "form": "normal"
   },
   {
@@ -3191,6 +3310,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 333,
+    "nameJp": "チルット",
     "form": "normal"
   },
   {
@@ -3218,6 +3338,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 334,
+    "nameJp": "チルタリス",
     "form": "normal"
   },
   {
@@ -3245,6 +3366,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 353,
+    "nameJp": "カゲボウズ",
     "form": "normal"
   },
   {
@@ -3272,6 +3394,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 354,
+    "nameJp": "ジュペッタ",
     "form": "normal"
   },
   {
@@ -3299,6 +3422,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 359,
+    "nameJp": "アブソル",
     "form": "normal"
   },
   {
@@ -3326,6 +3450,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 360,
+    "nameJp": "ソーナノ",
     "form": "normal"
   },
   {
@@ -3353,6 +3478,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 363,
+    "nameJp": "タマザラシ",
     "form": "normal"
   },
   {
@@ -3380,6 +3506,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 364,
+    "nameJp": "トドグラー",
     "form": "normal"
   },
   {
@@ -3407,6 +3534,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 365,
+    "nameJp": "トドゼルガ",
     "form": "normal"
   },
   {
@@ -3434,6 +3562,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 403,
+    "nameJp": "コリンク",
     "form": "normal"
   },
   {
@@ -3461,6 +3590,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 404,
+    "nameJp": "ルクシオ",
     "form": "normal"
   },
   {
@@ -3488,6 +3618,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 405,
+    "nameJp": "レントラー",
     "form": "normal"
   },
   {
@@ -3515,6 +3646,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 425,
+    "nameJp": "フワンテ",
     "form": "normal"
   },
   {
@@ -3542,6 +3674,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 426,
+    "nameJp": "フワライド",
     "form": "normal"
   },
   {
@@ -3569,6 +3702,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 438,
+    "nameJp": "ウソハチ",
     "form": "normal"
   },
   {
@@ -3596,6 +3730,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 439,
+    "nameJp": "マネネ",
     "form": "normal"
   },
   {
@@ -3623,6 +3758,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 440,
+    "nameJp": "ピンプク",
     "form": "normal"
   },
   {
@@ -3650,6 +3786,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 447,
+    "nameJp": "リオル",
     "form": "normal"
   },
   {
@@ -3677,6 +3814,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 448,
+    "nameJp": "ルカリオ",
     "form": "normal"
   },
   {
@@ -3700,6 +3838,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 8
     },
     "pokedexId": 453,
+    "nameJp": "グレッグル",
     "form": "normal"
   },
   {
@@ -3723,6 +3862,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 8
     },
     "pokedexId": 454,
+    "nameJp": "ドクロッグ",
     "form": "normal"
   },
   {
@@ -3750,6 +3890,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 459,
+    "nameJp": "ユキカブリ",
     "form": "normal"
   },
   {
@@ -3777,6 +3918,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 460,
+    "nameJp": "ユキノオー",
     "form": "normal"
   },
   {
@@ -3804,6 +3946,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 461,
+    "nameJp": "マニューラ",
     "form": "normal"
   },
   {
@@ -3827,6 +3970,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c2": 3
     },
     "pokedexId": 462,
+    "nameJp": "ジバコイル",
     "form": "normal"
   },
   {
@@ -3854,11 +3998,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 468,
+    "nameJp": "トゲキッス",
     "form": "normal"
   },
   {
     "id": "0010470",
-    "name": "リーフィア",
+    "name": "Leafeon",
     "sleepType": "うとうと",
     "specialty": "スキル",
     "mainSkillId": 8,
@@ -3881,11 +4026,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 470,
+    "nameJp": "リーフィア",
     "form": "normal"
   },
   {
     "id": "0010471",
-    "name": "グレイシア",
+    "name": "Glaceon",
     "sleepType": "ぐっすり",
     "specialty": "スキル",
     "mainSkillId": 15,
@@ -3908,6 +4054,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 471,
+    "nameJp": "グレイシア",
     "form": "normal"
   },
   {
@@ -3935,6 +4082,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 475,
+    "nameJp": "エルレイド",
     "form": "normal"
   },
   {
@@ -3962,6 +4110,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 4
     },
     "pokedexId": 488,
+    "nameJp": "クレセリア",
     "form": "normal"
   },
   {
@@ -3974,6 +4123,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "frequency": 2900,
     "berryId": 16,
     "pokedexId": 491,
+    "nameJp": "ダークライ",
     "form": "normal"
   },
   {
@@ -4001,6 +4151,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 517,
+    "nameJp": "ムンナ",
     "form": "normal"
   },
   {
@@ -4028,6 +4179,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 518,
+    "nameJp": "ムシャーナ",
     "form": "normal"
   },
   {
@@ -4055,6 +4207,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 627,
+    "nameJp": "ワシボン",
     "form": "normal"
   },
   {
@@ -4082,11 +4235,12 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 628,
+    "nameJp": "ウォーグル",
     "form": "normal"
   },
   {
     "id": "0010700",
-    "name": "ニンフィア",
+    "name": "Sylveon",
     "sleepType": "すやすや",
     "specialty": "スキル",
     "mainSkillId": 11,
@@ -4109,6 +4263,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 3
     },
     "pokedexId": 700,
+    "nameJp": "ニンフィア",
     "form": "normal"
   },
   {
@@ -4136,6 +4291,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 702,
+    "nameJp": "デデンネ",
     "form": "normal"
   },
   {
@@ -4163,6 +4319,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 11
     },
     "pokedexId": 736,
+    "nameJp": "アゴジムシ",
     "form": "normal"
   },
   {
@@ -4190,6 +4347,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 11
     },
     "pokedexId": 737,
+    "nameJp": "デンヂムシ",
     "form": "normal"
   },
   {
@@ -4217,6 +4375,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 11
     },
     "pokedexId": 738,
+    "nameJp": "クワガノン",
     "form": "normal"
   },
   {
@@ -4244,6 +4403,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 9
     },
     "pokedexId": 759,
+    "nameJp": "ヌイコグマ",
     "form": "normal"
   },
   {
@@ -4271,6 +4431,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 9
     },
     "pokedexId": 760,
+    "nameJp": "キテルグマ",
     "form": "normal"
   },
   {
@@ -4298,6 +4459,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 7
     },
     "pokedexId": 764,
+    "nameJp": "キュワワー",
     "form": "normal"
   },
   {
@@ -4325,6 +4487,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 2
     },
     "pokedexId": 778,
+    "nameJp": "ミミッキュ",
     "form": "normal"
   },
   {
@@ -4352,6 +4515,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 845,
+    "nameJp": "ウッウ",
     "form": "normal"
   },
   {
@@ -4379,6 +4543,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 906,
+    "nameJp": "ニャオハ",
     "form": "normal"
   },
   {
@@ -4406,6 +4571,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 907,
+    "nameJp": "ニャローテ",
     "form": "normal"
   },
   {
@@ -4433,6 +4599,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 8
     },
     "pokedexId": 908,
+    "nameJp": "マスカーニャ",
     "form": "normal"
   },
   {
@@ -4460,6 +4627,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 909,
+    "nameJp": "ホゲータ",
     "form": "normal"
   },
   {
@@ -4487,6 +4655,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 910,
+    "nameJp": "アチゲータ",
     "form": "normal"
   },
   {
@@ -4514,6 +4683,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 911,
+    "nameJp": "ラウドボーン",
     "form": "normal"
   },
   {
@@ -4541,6 +4711,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 912,
+    "nameJp": "クワッス",
     "form": "normal"
   },
   {
@@ -4568,6 +4739,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 913,
+    "nameJp": "ウェルカモ",
     "form": "normal"
   },
   {
@@ -4595,6 +4767,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 6
     },
     "pokedexId": 914,
+    "nameJp": "ウェーニバル",
     "form": "normal"
   },
   {
@@ -4622,6 +4795,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 921,
+    "nameJp": "パモ",
     "form": "normal"
   },
   {
@@ -4649,6 +4823,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 922,
+    "nameJp": "パモット",
     "form": "normal"
   },
   {
@@ -4676,6 +4851,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 5
     },
     "pokedexId": 923,
+    "nameJp": "パーモット",
     "form": "normal"
   },
   {
@@ -4703,6 +4879,7 @@ export const POKEMONS: readonly Pokemon[] = [
       "c1": 9
     },
     "pokedexId": 980,
+    "nameJp": "ドオー",
     "form": "normal"
   }
 ] as const;

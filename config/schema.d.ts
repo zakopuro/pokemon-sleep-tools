@@ -45,8 +45,10 @@ export interface Berry {
   }
 
   export interface Pokemon {
-    id: number
-    name: string
+    id: string                 // 新ルール: "001" + pokedexId(4桁) = "0010025"
+    pokedexId: number         // 図鑑番号
+    name: string              // 日本語名
+    form: 'normal' | 'halloween' | 'holiday' | 'alolan' | 'paldean' // 姿の種類
     sleepType: 'うとうと' | 'すやすや' | 'ぐっすり'
     specialty: '食材' | 'きのみ' | 'スキル' | 'オール'
     mainSkillId: number

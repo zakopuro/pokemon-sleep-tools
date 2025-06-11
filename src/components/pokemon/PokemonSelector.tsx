@@ -4,6 +4,7 @@ import type { FilterOptions } from '../PokemonFilters';
 import type { Pokemon } from '../../../config/schema';
 import { loadPokemonSettings, getPokemonKey } from '../../utils/pokemon-storage';
 import { getBerry, getBerryImageName, getIngredient, getIngredientImageName } from '../../utils/pokemon';
+import { getPokemonImageName as getNewPokemonImageName } from '../../utils/pokemon-id';
 
 // ポケモン名を分離（メイン名と特別な姿の説明）
 const splitPokemonName = (name: string) => {
@@ -20,27 +21,6 @@ const splitPokemonName = (name: string) => {
   };
 };
 
-// 特別な姿のポケモンの画像ファイル名を取得
-const getPokemonImageName = (pokemon: Pokemon) => {
-  const baseId = pokemon.id.toString().padStart(3, '0');
-  
-  // 名前に特別な形状が含まれている場合
-  if (pokemon.name.includes('(ハロウィン)')) {
-    return `${baseId}-halloween`;
-  }
-  if (pokemon.name.includes('(ホリデー)')) {
-    return `${baseId}-holiday`;
-  }
-  if (pokemon.name.includes('(アローラ)')) {
-    return `${baseId}-alolan`;
-  }
-  if (pokemon.name.includes('(パルデア)')) {
-    return `${baseId}-paldean`;
-  }
-  
-  // 通常の姿
-  return baseId;
-};
 
 interface PokemonSelectorProps {
   selectedPokemon: Pokemon;
@@ -105,12 +85,12 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
 
     // ソート前に特別な姿のポケモンを正しい順序に配置
     filtered.sort((a, b) => {
-      // まずIDでソート
-      if (a.id !== b.id) {
-        return a.id - b.id;
+      // まず図鑑番号でソート
+      if (a.pokedexId !== b.pokedexId) {
+        return a.pokedexId - b.pokedexId;
       }
       
-      // 同じIDの場合、通常の姿を先に、特別な姿を後に
+      // 同じ図鑑番号の場合、通常の姿を先に、特別な姿を後に
       const aIsSpecial = a.name.includes('(');
       const bIsSpecial = b.name.includes('(');
       
@@ -401,7 +381,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           >
             <div style={{ position: 'relative', marginBottom: 2 }}>
               <img
-                src={`${import.meta.env.BASE_URL}image/pokemon/${getPokemonImageName(pokemon)}.png`}
+                src={`${import.meta.env.BASE_URL}image/pokemon/${getNewPokemonImageName(pokemon)}.png`}
                 alt={pokemon.name}
                 style={{
                   width: '100%',
@@ -411,8 +391,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   // 特別な姿の画像が見つからない場合は通常の姿にフォールバック
-                  const baseId = pokemon.id.toString().padStart(3, '0');
-                  target.src = `${import.meta.env.BASE_URL}image/pokemon/${baseId}.png`;
+                  const pokedexId = pokemon.pokedexId.toString().padStart(3, '0');
+                  target.src = `${import.meta.env.BASE_URL}image/pokemon/${pokedexId}.png`;
                   // それでも見つからない場合はデフォルト画像
                   target.onerror = () => {
                     target.src = '/vite.svg';
@@ -570,7 +550,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                       >
                         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 40 }}>
                           <img
-                            src={`${import.meta.env.BASE_URL}image/pokemon/${getPokemonImageName(pokemon)}.png`}
+                            src={`${import.meta.env.BASE_URL}image/pokemon/${getNewPokemonImageName(pokemon)}.png`}
                             alt={pokemon.name}
                             style={{
                               maxWidth: 40,
@@ -579,8 +559,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                             }}
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
-                              const baseId = pokemon.id.toString().padStart(3, '0');
-                              target.src = `${import.meta.env.BASE_URL}image/pokemon/${baseId}.png`;
+                              const pokedexId = pokemon.pokedexId.toString().padStart(3, '0');
+                              target.src = `${import.meta.env.BASE_URL}image/pokemon/${pokedexId}.png`;
                               target.onerror = () => {
                                 target.src = '/vite.svg';
                               };
@@ -759,7 +739,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                       >
                         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 40 }}>
                           <img
-                            src={`${import.meta.env.BASE_URL}image/pokemon/${getPokemonImageName(pokemon)}.png`}
+                            src={`${import.meta.env.BASE_URL}image/pokemon/${getNewPokemonImageName(pokemon)}.png`}
                             alt={pokemon.name}
                             style={{
                               maxWidth: 40,
@@ -768,8 +748,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                             }}
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
-                              const baseId = pokemon.id.toString().padStart(3, '0');
-                              target.src = `${import.meta.env.BASE_URL}image/pokemon/${baseId}.png`;
+                              const pokedexId = pokemon.pokedexId.toString().padStart(3, '0');
+                              target.src = `${import.meta.env.BASE_URL}image/pokemon/${pokedexId}.png`;
                               target.onerror = () => {
                                 target.src = '/vite.svg';
                               };
@@ -858,7 +838,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             >
               <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 40 }}>
                 <img
-                  src={`${import.meta.env.BASE_URL}image/pokemon/${getPokemonImageName(pokemon)}.png`}
+                  src={`${import.meta.env.BASE_URL}image/pokemon/${getNewPokemonImageName(pokemon)}.png`}
                   alt={pokemon.name}
                   style={{
                     maxWidth: 40,
@@ -867,8 +847,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                   }}
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    const baseId = pokemon.id.toString().padStart(3, '0');
-                    target.src = `${import.meta.env.BASE_URL}image/pokemon/${baseId}.png`;
+                    const pokedexId = pokemon.pokedexId.toString().padStart(3, '0');
+                    target.src = `${import.meta.env.BASE_URL}image/pokemon/${pokedexId}.png`;
                     target.onerror = () => {
                       target.src = '/vite.svg';
                     };
