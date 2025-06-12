@@ -291,67 +291,145 @@ function App() {
             backgroundColor: '#fff',
             borderRadius: 12,
             width: '100%',
-            maxWidth: 300,
-            padding: 20
+            maxWidth: 400,
+            maxHeight: '90vh',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column'
           }}>
+            {/* ヘッダー */}
             <div style={{
+              background: 'linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%)',
+              color: '#fff',
+              padding: '16px 20px',
               display: 'flex',
-              justifyContent: 'space-between',
               alignItems: 'center',
-              marginBottom: 20
+              gap: 8
             }}>
-              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>ソート</h3>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 6h18"/>
+                <path d="M7 12h10"/>
+                <path d="M10 18h4"/>
+              </svg>
+              <span style={{ fontSize: 16, fontWeight: 600 }}>並び替え</span>
+            </div>
+            
+            {/* コンテンツ */}
+            <div style={{ padding: 20 }}>
+              <div style={{ marginBottom: 16 }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  marginBottom: 12,
+                  paddingLeft: 4
+                }}>
+                  <div style={{
+                    width: 3,
+                    height: 16,
+                    background: '#4ade80',
+                    borderRadius: 2
+                  }}></div>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>項目</span>
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {[
+                    { value: 'id', label: '図鑑番号' },
+                    { value: 'name', label: '名前' },
+                    { value: 'sleepType', label: '睡眠タイプ' },
+                    { value: 'specialty', label: 'とくいなもの' }
+                  ].map((option) => (
+                    <label
+                      key={option.value}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 12,
+                        cursor: 'pointer',
+                        padding: '8px 4px'
+                      }}
+                    >
+                      <div style={{
+                        width: 20,
+                        height: 20,
+                        border: `2px solid ${filters.sortBy === option.value ? '#4ade80' : '#d1d5db'}`,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: filters.sortBy === option.value ? '#4ade80' : 'transparent'
+                      }}>
+                        {filters.sortBy === option.value && (
+                          <div style={{
+                            width: 8,
+                            height: 8,
+                            background: '#fff',
+                            borderRadius: '50%'
+                          }}></div>
+                        )}
+                      </div>
+                      <span style={{
+                        fontSize: 16,
+                        color: '#374151',
+                        fontWeight: filters.sortBy === option.value ? 600 : 400
+                      }}>
+                        {option.label}
+                      </span>
+                      <input
+                        type="radio"
+                        name="sortBy"
+                        value={option.value}
+                        checked={filters.sortBy === option.value}
+                        onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}
+                        style={{ display: 'none' }}
+                      />
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* フッター */}
+            <div style={{
+              padding: '16px 20px',
+              borderTop: '1px solid #e5e7eb',
+              display: 'flex',
+              gap: 12
+            }}>
               <button
                 onClick={() => setShowSortModal(false)}
                 style={{
-                  background: 'transparent',
+                  background: '#f3f4f6',
+                  color: '#374151',
                   border: 'none',
-                  fontSize: 24,
+                  borderRadius: 20,
+                  padding: '12px 24px',
+                  fontSize: 14,
+                  fontWeight: 600,
                   cursor: 'pointer',
-                  color: '#666',
+                  flex: 1
                 }}
               >
-                ×
+                キャンセル
+              </button>
+              <button
+                onClick={() => setShowSortModal(false)}
+                style={{
+                  background: '#4ade80',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 20,
+                  padding: '12px 24px',
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  flex: 1
+                }}
+              >
+                OK
               </button>
             </div>
-            
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ display: 'block', marginBottom: 8, fontSize: 14, fontWeight: 600 }}>
-                ソート基準
-              </label>
-              <select
-                value={filters.sortBy}
-                onChange={(e) => setFilters({ ...filters, sortBy: e.target.value })}
-                style={{
-                  width: '100%',
-                  padding: '8px 12px',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: 6,
-                  fontSize: 14
-                }}
-              >
-                <option value="id">図鑑番号</option>
-                <option value="name">名前</option>
-                <option value="specialty">得意分野</option>
-                <option value="frequency">頻度</option>
-              </select>
-            </div>
-            
-            <button
-              onClick={() => setShowSortModal(false)}
-              style={{
-                width: '100%',
-                padding: '12px',
-                background: '#4f46e5',
-                color: '#fff',
-                border: 'none',
-                borderRadius: 6,
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              適用
-            </button>
           </div>
         </div>
       )}

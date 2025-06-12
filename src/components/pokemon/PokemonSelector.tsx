@@ -127,13 +127,13 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             aValue = a.name;
             bValue = b.name;
             break;
+          case 'sleepType':
+            aValue = a.sleepType;
+            bValue = b.sleepType;
+            break;
           case 'specialty':
             aValue = a.specialty;
             bValue = b.specialty;
-            break;
-          case 'frequency':
-            aValue = a.frequency;
-            bValue = b.frequency;
             break;
           default:
             return 0;
@@ -145,9 +145,13 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             : bValue.localeCompare(aValue, 'ja');
         }
 
-        return filters.sortOrder === 'asc'
-          ? (aValue as number) - (bValue as number)
-          : (bValue as number) - (aValue as number);
+        if (typeof aValue === 'number' && typeof bValue === 'number') {
+          return filters.sortOrder === 'asc'
+            ? aValue - bValue
+            : bValue - aValue;
+        }
+
+        return 0;
       });
     } else {
       // 図鑑番号ソートの場合も昇順/降順に対応
@@ -408,10 +412,10 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                       return '図鑑番号';
                     case 'name':
                       return '名前';
+                    case 'sleepType':
+                      return '睡眠タイプ';
                     case 'specialty':
-                      return '得意分野';
-                    case 'frequency':
-                      return '頻度';
+                      return 'とくいなもの';
                     default:
                       return '図鑑番号';
                   }
