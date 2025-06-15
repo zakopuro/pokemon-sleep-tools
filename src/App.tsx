@@ -32,6 +32,7 @@ function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(0); // ポケモン状態更新用トリガー
   const [filters, setFilters] = useState<FilterOptions>({
     specialty: 'すべて',
+    specialties: [],
     berry: '',
     ingredient: '',
     subskill: '',
@@ -39,6 +40,14 @@ function App() {
     sortBy: 'id',
     sortOrder: 'asc',
     finalEvolution: 'すべて',
+    // 新しいフィルター項目
+    name: '',
+    pokemonTypes: [],
+    berries: [],
+    ingredients: [],
+    ingredientsAndSearch: false,
+    mainSkills: [],
+    subSkills: [],
   });
 
   // 現在の設定を保存する関数

@@ -69,15 +69,96 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
     // まずタブによるフィルタリングを適用
     filtered = getFilteredPokemonsByTab(filtered, activeTab);
 
+    // 名前フィルター
+    if (filters.name) {
+      filtered = filtered.filter(pokemon => 
+        pokemon.name.toLowerCase().includes(filters.name.toLowerCase())
+      );
+    }
+
+    // 新しいとくいなものフィルター（複数選択対応）
+    if (filters.specialties && filters.specialties.length > 0) {
+      filtered = filtered.filter(pokemon => 
+        filters.specialties.includes(pokemon.specialty)
+      );
+    }
+
+    // 旧来のとくいなものフィルター（互換性のため）
     if (filters.specialty !== 'すべて') {
       filtered = filtered.filter(pokemon => pokemon.specialty === filters.specialty);
     }
 
-    if (filters.berry) {
+    // きのみフィルター（複数選択対応）
+    if (filters.berries && filters.berries.length > 0) {
+      filtered = filtered.filter(pokemon => 
+        filters.berries.includes(pokemon.berryId.toString())
+      );
+    }
+
+    // 食材フィルター（複数選択対応、AND/OR検索対応）
+    if (filters.ingredients && filters.ingredients.length > 0) {
+      if (filters.ingredientsAndSearch) {
+        // AND検索：すべての食材を含む
+        filtered = filtered.filter(pokemon => {
+          const pokemonIngredients = [
+            pokemon.ing1?.ingredientId.toString(),
+            pokemon.ing2?.ingredientId.toString(),
+            pokemon.ing3?.ingredientId.toString()
+          ].filter(Boolean);
+          
+          return filters.ingredients.every(ingredientId => 
+            pokemonIngredients.includes(ingredientId)
+          );
+        });
+      } else {
+        // OR検索：いずれかの食材を含む
+        filtered = filtered.filter(pokemon => {
+          const pokemonIngredients = [
+            pokemon.ing1?.ingredientId.toString(),
+            pokemon.ing2?.ingredientId.toString(),
+            pokemon.ing3?.ingredientId.toString()
+          ].filter(Boolean);
+          
+          return filters.ingredients.some(ingredientId => 
+            pokemonIngredients.includes(ingredientId)
+          );
+        });
+      }
+    }
+
+    // メインスキルフィルター（minorclassでフィルター）
+    if (filters.mainSkills && filters.mainSkills.length > 0) {
+      filtered = filtered.filter(pokemon => {
+        // ポケモンのメインスキルIDから該当するスキルを見つける
+        const pokemonSkill = MAINSKILLS.find(skill => skill.id === pokemon.mainSkillId);
+        if (!pokemonSkill) return false;
+        
+        // 選択されたminorclassのいずれかと一致するかチェック
+        return filters.mainSkills.includes(pokemonSkill.minorclass);
+      });
+    }
+
+    // サブスキルフィルター
+    if (filters.subSkills && filters.subSkills.length > 0) {
+      filtered = filtered.filter(pokemon => {
+        const pokemonSubSkills = [
+          pokemon.subskill1?.toString(),
+          pokemon.subskill2?.toString(),
+          pokemon.subskill3?.toString()
+        ].filter(Boolean);
+        
+        return filters.subSkills.some(subSkillId => 
+          pokemonSubSkills.includes(subSkillId)
+        );
+      });
+    }
+
+    // 旧来のフィルター（互換性のため、新しいフィルターが無い場合のみ）
+    if (filters.berry && (!filters.berries || filters.berries.length === 0)) {
       filtered = filtered.filter(pokemon => pokemon.berryId.toString() === filters.berry);
     }
 
-    if (filters.ingredient) {
+    if (filters.ingredient && (!filters.ingredients || filters.ingredients.length === 0)) {
       filtered = filtered.filter(pokemon =>
         pokemon.ing1?.ingredientId.toString() === filters.ingredient ||
         pokemon.ing2?.ingredientId.toString() === filters.ingredient ||
@@ -361,15 +442,20 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 lineHeight: 1
               }}>
                 {(() => {
-                  // フィルターが設定されているかチェック
+                  // フィルターが設定されているかチェック（ソート設定は除外）
                   const hasFilters = 
                     filters.specialty !== 'すべて' ||
+                    (filters.specialties && filters.specialties.length > 0) ||
                     filters.berry !== '' ||
                     filters.ingredient !== '' ||
                     filters.subskill !== '' ||
                     filters.nature !== '' ||
-                    filters.sortBy !== 'id' ||
-                    filters.sortOrder !== 'asc';
+                    filters.name !== '' ||
+                    filters.pokemonTypes.length > 0 ||
+                    filters.berries.length > 0 ||
+                    filters.ingredients.length > 0 ||
+                    filters.mainSkills.length > 0 ||
+                    filters.subSkills.length > 0;
                   
                   return hasFilters ? 'ON' : 'OFF';
                 })()}
@@ -548,9 +634,12 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                   {/* そのきのみのポケモン一覧 */}
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(60px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
                     gap: 6,
-                    padding: '0 8px'
+                    padding: '0 8px',
+                    justifyContent: 'start',
+                    alignItems: 'start',
+                    gridAutoRows: '68px'
                   }}>
                     {pokemonsForBerry.map(pokemon => (
           <div
@@ -567,10 +656,14 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               color: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '#fff' : '#2d3748',
               transform: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? 'scale(1.05)' : 'scale(1)',
               boxShadow: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '0 2px 8px rgba(66, 153, 225, 0.3)' : 'none',
-              minHeight: 68, // 固定最小高さで統一（画像40px + 名前20px + padding8px）
+              width: 60,
+              height: 68,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between'
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              overflow: 'hidden',
+              boxSizing: 'border-box'
             }}
             onMouseEnter={(e) => {
               if (getPokemonKey(selectedPokemon) !== getPokemonKey(pokemon)) {
@@ -585,13 +678,23 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               }
             }}
           >
-            <div style={{ position: 'relative', marginBottom: 2 }}>
+            <div style={{ 
+              position: 'relative', 
+              width: '100%', 
+              height: 40, 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center',
+              flexShrink: 0 
+            }}>
               <img
                 src={`${import.meta.env.BASE_URL}image/pokemon/${getNewPokemonImageName(pokemon)}.png`}
                 alt={pokemon.name}
                 style={{
-                  width: '100%',
-                  height: 40,
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                  width: 'auto',
+                  height: 'auto',
                   objectFit: 'contain'
                 }}
                 onError={(e) => {
@@ -613,21 +716,22 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               fontWeight: 700, 
               lineHeight: 1.1, 
               wordBreak: 'break-word',
-              height: 20, // 固定高さで統一
+              textAlign: 'center',
+              width: '100%',
+              height: 20,
+              overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
+              flexShrink: 0
             }}>
-              <div style={{ textAlign: 'center' }}>
-                {splitPokemonName(pokemon.name).mainName}
-              </div>
+              {splitPokemonName(pokemon.name).mainName}
               {splitPokemonName(pokemon.name).formName && (
                 <div style={{ 
                   fontSize: 6, 
                   color: '#666', 
-                  lineHeight: 1.0,
-                  textAlign: 'center'
+                  lineHeight: 1.0
                 }}>
                   {splitPokemonName(pokemon.name).formName}
                 </div>
@@ -717,9 +821,12 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                   {/* その食材のポケモン一覧 */}
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(60px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
                     gap: 6,
-                    padding: '0 8px'
+                    padding: '0 8px',
+                    justifyContent: 'start',
+                    alignItems: 'start',
+                    gridAutoRows: '68px'
                   }}>
                     {pokemonsForIngredient.map(pokemon => (
                       <div
@@ -906,9 +1013,12 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                   {/* そのスキルのポケモン一覧 */}
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(60px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
                     gap: 6,
-                    padding: '0 8px'
+                    padding: '0 8px',
+                    justifyContent: 'start',
+                    alignItems: 'start',
+                    gridAutoRows: '68px'
                   }}>
                     {pokemonsForSkill.map(pokemon => (
                       <div
@@ -1000,14 +1110,17 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
         // 通常のポケモン一覧表示（きのみタブ以外）
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(60px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
           gap: 6,
           flex: 1,
           overflowY: 'auto',
           border: '1px solid #e2e8f0',
           borderRadius: 6,
           padding: 8,
-          background: '#f7fafc'
+          background: '#f7fafc',
+          justifyContent: 'start',
+          alignItems: 'start',
+          gridAutoRows: '68px'
         }}>
           {filteredPokemons.map(pokemon => (
             <div
@@ -1024,10 +1137,14 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 color: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '#fff' : '#2d3748',
                 transform: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? 'scale(1.05)' : 'scale(1)',
                 boxShadow: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '0 2px 8px rgba(66, 153, 225, 0.3)' : 'none',
-                minHeight: 68,
+                width: 60,
+                height: 68,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between'
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                overflow: 'hidden',
+                boxSizing: 'border-box'
               }}
               onMouseEnter={(e) => {
                 if (getPokemonKey(selectedPokemon) !== getPokemonKey(pokemon)) {
@@ -1042,13 +1159,23 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 }
               }}
             >
-              <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 40 }}>
+              <div style={{ 
+                position: 'relative', 
+                width: '100%', 
+                height: 40, 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center',
+                flexShrink: 0 
+              }}>
                 <img
                   src={`${import.meta.env.BASE_URL}image/pokemon/${getNewPokemonImageName(pokemon)}.png`}
                   alt={pokemon.name}
                   style={{
-                    maxWidth: 40,
-                    maxHeight: 40,
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: 'auto',
                     objectFit: 'contain'
                   }}
                   onError={(e) => {
@@ -1067,21 +1194,22 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 fontWeight: 700, 
                 lineHeight: 1.1, 
                 wordBreak: 'break-word',
+                textAlign: 'center',
+                width: '100%',
                 height: 20,
+                overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                flexShrink: 0
               }}>
-                <div style={{ textAlign: 'center' }}>
-                  {splitPokemonName(pokemon.name).mainName}
-                </div>
+                {splitPokemonName(pokemon.name).mainName}
                 {splitPokemonName(pokemon.name).formName && (
                   <div style={{ 
                     fontSize: 6, 
                     color: '#666', 
-                    lineHeight: 1.0,
-                    textAlign: 'center'
+                    lineHeight: 1.0
                   }}>
                     {splitPokemonName(pokemon.name).formName}
                   </div>
