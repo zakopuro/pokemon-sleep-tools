@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { POKEMONS, MAINSKILLS } from '../../config';
+import { POKEMONS, MAINSKILLS, FIELDS } from '../../config';
 import type { FilterOptions } from '../PokemonFilters';
 import type { Pokemon } from '../../../config/schema';
 import { loadAllInstancesForPokemon, getPokemonKey } from '../../utils/pokemon-storage';
@@ -42,6 +42,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   refreshTrigger
 }) => {
   const [activeTab, setActiveTab] = useState('すべて');
+  const [showFieldGrouping, setShowFieldGrouping] = useState(false);
 
   // タブに基づいてポケモンをフィルタリング
   const getFilteredPokemonsByTab = (pokemons: Pokemon[], tab: string) => {
@@ -618,7 +619,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
         </div>
       </div>
       
-      {/* きのみタブの場合はきのみ別にグルーピング表示 */}
+      {/* きのみタブの場合 */}
       {activeTab === 'きのみ' ? (
         <div style={{
           flex: 1,
@@ -628,66 +629,85 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           padding: 8,
           background: '#f7fafc'
         }}>
+          {/* フィールドボタン */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: 12
+          }}>
+            <button
+              onClick={() => setShowFieldGrouping(!showFieldGrouping)}
+              style={{
+                background: showFieldGrouping ? '#3b82f6' : '#f3f4f6',
+                color: showFieldGrouping ? '#fff' : '#374151',
+                border: 'none',
+                borderRadius: 20,
+                padding: '6px 16px',
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                if (!showFieldGrouping) {
+                  e.currentTarget.style.background = '#e5e7eb';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!showFieldGrouping) {
+                  e.currentTarget.style.background = '#f3f4f6';
+                }
+              }}
+            >
+              フィールド{showFieldGrouping ? 'ON' : 'OFF'}
+            </button>
+          </div>
+
           {(() => {
-            // きのみごとにポケモンをグルーピング
-            const berryGroups: { [berryId: number]: Pokemon[] } = {};
-            filteredPokemons.forEach(pokemon => {
-              if (!berryGroups[pokemon.berryId]) {
-                berryGroups[pokemon.berryId] = [];
-              }
-              berryGroups[pokemon.berryId].push(pokemon);
-            });
-
-            // きのみIDでソート
-            const sortedBerryIds = Object.keys(berryGroups)
-              .map(id => parseInt(id))
-              .sort((a, b) => a - b);
-
-            return sortedBerryIds.map(berryId => {
-              const berry = getBerry(berryId);
-              const pokemonsForBerry = berryGroups[berryId];
+            if (showFieldGrouping) {
+              // フィールド別グルーピング（id=2以降のみ）
+              const validFields = FIELDS.filter(field => field.id >= 2);
               
-              return (
-                <div key={berryId} style={{ marginBottom: 16 }}>
-                  {/* きのみヘッダー */}
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    marginBottom: 8,
-                    padding: '8px 12px',
-                    background: '#ffffff',
-                    borderRadius: 6,
-                    border: '1px solid #e2e8f0'
-                  }}>
-                    <img
-                      src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(berry?.name || '')}.png`}
-                      alt={berry?.name || ''}
-                      style={{ width: 24, height: 24, objectFit: 'contain' }}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = `${import.meta.env.BASE_URL}image/berry/cheriberry.png`;
-                      }}
-                    />
-                    <span style={{ fontSize: 14, fontWeight: 700, color: '#2d3748' }}>
-                      {berry?.name || `きのみ${berryId}`}
-                    </span>
-                    <span style={{ fontSize: 12, color: '#6b7280' }}>
-                      ({pokemonsForBerry.length}匹)
-                    </span>
-                  </div>
-                  
-                  {/* そのきのみのポケモン一覧 */}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
-                    gap: 6,
-                    padding: '0 8px',
-                    justifyContent: 'start',
-                    alignItems: 'start',
-                    gridAutoRows: '68px'
-                  }}>
-                    {pokemonsForBerry.map(pokemon => (
+              return validFields.map(field => {
+                // このフィールドのきのみを持つポケモンを取得
+                const fieldPokemons = filteredPokemons.filter(pokemon => 
+                  field.berries.includes(pokemon.berryId)
+                );
+                
+                if (fieldPokemons.length === 0) return null;
+                
+                return (
+                  <div key={field.id} style={{ marginBottom: 16 }}>
+                    {/* フィールドヘッダー */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      marginBottom: 8,
+                      padding: '8px 12px',
+                      background: '#ffffff',
+                      borderRadius: 6,
+                      border: '1px solid #e2e8f0'
+                    }}>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: '#2d3748' }}>
+                        {field.name}
+                      </span>
+                      <span style={{ fontSize: 12, color: '#6b7280' }}>
+                        ({fieldPokemons.length}匹)
+                      </span>
+                    </div>
+                    
+                    {/* フィールド内のポケモン一覧 */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
+                      gap: 6,
+                      padding: '0 8px',
+                      justifyContent: 'start',
+                      alignItems: 'start',
+                      gridAutoRows: '68px'
+                    }}>
+                      {fieldPokemons.map(pokemon => (
           <div
             key={getPokemonKey(pokemon)}
             onClick={() => onPokemonSelect(pokemon)}
@@ -784,11 +804,171 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
               )}
             </div>
           </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              );
-            });
+                );
+              });
+            } else {
+              // 従来のきのみ別グルーピング
+              const berryGroups: { [berryId: number]: Pokemon[] } = {};
+              filteredPokemons.forEach(pokemon => {
+                if (!berryGroups[pokemon.berryId]) {
+                  berryGroups[pokemon.berryId] = [];
+                }
+                berryGroups[pokemon.berryId].push(pokemon);
+              });
+
+              // きのみIDでソート
+              const sortedBerryIds = Object.keys(berryGroups)
+                .map(id => parseInt(id))
+                .sort((a, b) => a - b);
+
+              return sortedBerryIds.map(berryId => {
+                const berry = getBerry(berryId);
+                const pokemonsForBerry = berryGroups[berryId];
+                
+                return (
+                  <div key={berryId} style={{ marginBottom: 16 }}>
+                    {/* きのみヘッダー */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      marginBottom: 8,
+                      padding: '8px 12px',
+                      background: '#ffffff',
+                      borderRadius: 6,
+                      border: '1px solid #e2e8f0'
+                    }}>
+                      <img
+                        src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(berry?.name || '')}.png`}
+                        alt={berry?.name || ''}
+                        style={{ width: 24, height: 24, objectFit: 'contain' }}
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = `${import.meta.env.BASE_URL}image/berry/cheriberry.png`;
+                        }}
+                      />
+                      <span style={{ fontSize: 14, fontWeight: 700, color: '#2d3748' }}>
+                        {berry?.name || `きのみ${berryId}`}
+                      </span>
+                      <span style={{ fontSize: 12, color: '#6b7280' }}>
+                        ({pokemonsForBerry.length}匹)
+                      </span>
+                    </div>
+                    
+                    {/* そのきのみのポケモン一覧 */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
+                      gap: 6,
+                      padding: '0 8px',
+                      justifyContent: 'start',
+                      alignItems: 'start',
+                      gridAutoRows: '68px'
+                    }}>
+                      {pokemonsForBerry.map(pokemon => (
+                        <div
+                          key={getPokemonKey(pokemon)}
+                          onClick={() => onPokemonSelect(pokemon)}
+                          style={{
+                            background: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '#4299e1' : '#fff',
+                            border: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '2px solid #2b6cb0' : '1px solid #e2e8f0',
+                            borderRadius: 4,
+                            padding: 4,
+                            cursor: 'pointer',
+                            textAlign: 'center',
+                            transition: 'all 0.2s',
+                            color: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '#fff' : '#2d3748',
+                            transform: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? 'scale(1.05)' : 'scale(1)',
+                            boxShadow: getPokemonKey(selectedPokemon) === getPokemonKey(pokemon) ? '0 2px 8px rgba(66, 153, 225, 0.3)' : 'none',
+                            width: 60,
+                            height: 68,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                            overflow: 'hidden',
+                            boxSizing: 'border-box'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (getPokemonKey(selectedPokemon) !== getPokemonKey(pokemon)) {
+                              e.currentTarget.style.transform = 'scale(1.02)';
+                              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (getPokemonKey(selectedPokemon) !== getPokemonKey(pokemon)) {
+                              e.currentTarget.style.transform = 'scale(1)';
+                              e.currentTarget.style.boxShadow = 'none';
+                            }
+                          }}
+                        >
+                          <div style={{ 
+                            position: 'relative', 
+                            width: '100%', 
+                            height: 40, 
+                            display: 'flex', 
+                            justifyContent: 'center', 
+                            alignItems: 'center',
+                            flexShrink: 0 
+                          }}>
+                            <img
+                              src={`${import.meta.env.BASE_URL}image/pokemon/${getNewPokemonImageName(pokemon)}.png`}
+                              alt={pokemon.name}
+                              style={{
+                                maxWidth: '100%',
+                                maxHeight: '100%',
+                                width: 'auto',
+                                height: 'auto',
+                                objectFit: 'contain'
+                              }}
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                const pokedexId = pokemon.pokedexId.toString().padStart(3, '0');
+                                target.src = `${import.meta.env.BASE_URL}image/pokemon/${pokedexId}.png`;
+                                target.onerror = () => {
+                                  target.src = '/vite.svg';
+                                };
+                              }}
+                            />
+                            {/* 管理状態アイコン */}
+                            {getStatusIcon(pokemonStatuses[getPokemonKey(pokemon)])}
+                          </div>
+                          <div style={{ 
+                            fontSize: 8, 
+                            fontWeight: 700, 
+                            lineHeight: 1.1, 
+                            wordBreak: 'break-word',
+                            textAlign: 'center',
+                            width: '100%',
+                            height: 20,
+                            overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexShrink: 0
+                          }}>
+                            {splitPokemonName(pokemon.name).mainName}
+                            {splitPokemonName(pokemon.name).formName && (
+                              <div style={{ 
+                                fontSize: 6, 
+                                color: '#666', 
+                                lineHeight: 1.0
+                              }}>
+                                {splitPokemonName(pokemon.name).formName}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              });
+            }
           })()}
         </div>
       ) : activeTab === '食材' ? (
