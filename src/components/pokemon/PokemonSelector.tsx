@@ -629,11 +629,11 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           padding: 8,
           background: '#f7fafc'
         }}>
-          {/* フィールドボタン */}
+          {/* フィールドボタン - 右側に小さく */}
           <div style={{
             display: 'flex',
-            justifyContent: 'center',
-            marginBottom: 12
+            justifyContent: 'flex-end',
+            marginBottom: 8
           }}>
             <button
               onClick={() => setShowFieldGrouping(!showFieldGrouping)}
@@ -641,9 +641,9 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                 background: showFieldGrouping ? '#3b82f6' : '#f3f4f6',
                 color: showFieldGrouping ? '#fff' : '#374151',
                 border: 'none',
-                borderRadius: 20,
-                padding: '6px 16px',
-                fontSize: 12,
+                borderRadius: 12,
+                padding: '3px 8px',
+                fontSize: 10,
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
@@ -695,6 +695,24 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
                       <span style={{ fontSize: 12, color: '#6b7280' }}>
                         ({fieldPokemons.length}匹)
                       </span>
+                      {/* フィールドのきのみ画像 */}
+                      <div style={{ display: 'flex', gap: 4, marginLeft: 'auto' }}>
+                        {field.berries.map((berryId) => {
+                          const berry = getBerry(berryId);
+                          return (
+                            <img
+                              key={berryId}
+                              src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(berry?.name || '')}.png`}
+                              alt={berry?.name || ''}
+                              style={{ width: 20, height: 20, objectFit: 'contain' }}
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = `${import.meta.env.BASE_URL}image/berry/cheriberry.png`;
+                              }}
+                            />
+                          );
+                        })}
+                      </div>
                     </div>
                     
                     {/* フィールド内のポケモン一覧 */}
