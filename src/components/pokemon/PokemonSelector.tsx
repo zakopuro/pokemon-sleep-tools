@@ -138,19 +138,10 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
       });
     }
 
-    // サブスキルフィルター
+    // サブスキルフィルター（現在のスキーマではサブスキル情報が無いため、将来の拡張用として残す）
     if (filters.subSkills && filters.subSkills.length > 0) {
-      filtered = filtered.filter(pokemon => {
-        const pokemonSubSkills = [
-          pokemon.subskill1?.toString(),
-          pokemon.subskill2?.toString(),
-          pokemon.subskill3?.toString()
-        ].filter(Boolean);
-        
-        return filters.subSkills.some(subSkillId => 
-          pokemonSubSkills.includes(subSkillId)
-        );
-      });
+      // TODO: ポケモンスキーマにサブスキル情報が追加されたら実装
+      // 現在は何もフィルタリングしない
     }
 
     // 旧来のフィルター（互換性のため、新しいフィルターが無い場合のみ）

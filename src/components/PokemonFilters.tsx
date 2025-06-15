@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BERRIES } from '../../config/berries';
 import { INGREDIENTS } from '../../config/ingredients';
 import { SUBSKILLS } from '../../config/subskills';
@@ -32,18 +31,7 @@ interface PokemonFiltersProps {
   onClose: () => void;
 }
 
-// ポケモンタイプの定義
-const pokemonTypes = [
-  { id: 'ノーマル', name: 'ノーマル', color: '#A8A878' },
-  { id: 'ほのお', name: 'ほのお', color: '#F08030' },
-  { id: 'みず', name: 'みず', color: '#6890F0' },
-  { id: 'でんき', name: 'でんき', color: '#F8D030' },
-  { id: 'くさ', name: 'くさ', color: '#78C850' },
-  { id: 'こおり', name: 'こおり', color: '#98D8D8' },
-];
-
 export default function PokemonFilters({ filters, onFiltersChange, onClose }: PokemonFiltersProps) {
-  const [activeTab, setActiveTab] = useState<'きのみ' | '食材' | 'スキル'>('きのみ');
 
   const handleFilterChange = (key: keyof FilterOptions, value: string | string[] | boolean) => {
     onFiltersChange({ ...filters, [key]: value });
