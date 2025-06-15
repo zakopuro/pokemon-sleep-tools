@@ -11,6 +11,12 @@ export interface PokemonSettings {
   mainSkillLevel: number;
 }
 
+// 1ポケモンあたり最大10個体の設定
+export interface PokemonInstancesSettings {
+  [instanceId: string]: PokemonSettings; // "1", "2", ..., "10"
+}
+
+// 全ポケモンの設定ストア
 export interface PokemonSettingsStore {
-  [pokemonKey: string]: PokemonSettings;
+  [pokemonKey: string]: PokemonInstancesSettings;
 }

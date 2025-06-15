@@ -22,12 +22,18 @@ interface StatusDisplayProps {
   selectedPokemon: Pokemon;
   managementStatus: string;
   onManagementStatusChange: (status: string) => void;
+  canDelete?: boolean;
+  onDelete?: () => void;
+  currentInstanceId?: string;
 }
 
 const StatusDisplay: React.FC<StatusDisplayProps> = ({
   selectedPokemon,
   managementStatus,
-  onManagementStatusChange
+  onManagementStatusChange,
+  canDelete = false,
+  onDelete,
+  currentInstanceId
 }) => {
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -114,8 +120,8 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
     }
   };
   return (
-    <div style={{ marginBottom: 8 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 6px 0' }}>
+    <div style={{ marginBottom: 4 }}> {/* marginBottomを半分に */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 3px 0' }}> {/* marginBottomを半分に */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2 }}>
@@ -185,8 +191,44 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
             />
           </div>
         </div>
-        {/* 育成状態管理プルダウンと詳細開閉ボタン */}
+        {/* 削除ボタンと育成状態管理プルダウン */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {/* 削除ボタン（複数個体がある場合のみ） */}
+          {canDelete && onDelete && (
+            <button
+              onClick={onDelete}
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: '50%',
+                border: 'none',
+                background: '#ef4444',
+                color: '#fff',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                padding: 0,
+                outline: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 14,
+                fontWeight: 'normal',
+                lineHeight: 1,
+                fontFamily: 'monospace',
+                textAlign: 'center'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#dc2626';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#ef4444';
+              }}
+              title={`個体${currentInstanceId}を削除`}
+            >
+              ×
+            </button>
+          )}
+          
           <div ref={dropdownRef} style={{ position: 'relative' }}>
             {/* プルダウンボタン */}
             <button

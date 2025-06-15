@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { POKEMONS } from './config';
 import PokemonFilters, { type FilterOptions } from './components/PokemonFilters';
 import LevelSelector from './components/level/LevelSelector';
@@ -8,16 +8,22 @@ import SubskillSelector from './components/subskill/SubskillSelector';
 import MainSkillSelector from './components/mainskill/MainSkillSelector';
 import NatureSelector from './components/nature/NatureSelector';
 import StatusDisplay from './components/status/StatusDisplay';
+import InstanceIndicator from './components/instance/InstanceIndicator';
 import type { SubskillByLevel } from './types/pokemon';
-import { loadPokemonSettings, savePokemonSettings } from './utils/pokemon-storage';
+import { loadPokemonInstanceSettings, savePokemonInstanceSettings, getUsedInstanceIds, deletePokemonInstanceSettings } from './utils/pokemon-storage';
 import type { Pokemon } from '../config/schema';
 import './App.css';
 
 function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(POKEMONS[0]);
+  const [currentInstanceId, setCurrentInstanceId] = useState('1'); // 現在選択中の個体ID
+  const [isSliding, setIsSliding] = useState(false); // スライド中状態
+  const detailsRef = useRef<HTMLDivElement>(null);
+  const startX = useRef<number>(0);
+  const startY = useRef<number>(0);
   
   // 初期設定を読み込み
-  const initialSettings = loadPokemonSettings(POKEMONS[0]);
+  const initialSettings = loadPokemonInstanceSettings(POKEMONS[0], '1');
   const [level, setLevel] = useState(initialSettings.level);
   const [subskillByLevel, setSubskillByLevel] = useState<SubskillByLevel>(initialSettings.subskillByLevel);
   const [upParam, setUpParam] = useState<string>(initialSettings.upParam);
@@ -62,17 +68,18 @@ function App() {
       managementStatus,
       mainSkillLevel
     };
-    savePokemonSettings(selectedPokemon, settings);
-  }, [selectedPokemon, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
+    savePokemonInstanceSettings(selectedPokemon, currentInstanceId, settings);
+  }, [selectedPokemon, currentInstanceId, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
 
   // ポケモン選択時の処理
   const handlePokemonSelect = useCallback((pokemon: Pokemon) => {
     // 現在の設定を保存
     saveCurrentSettings();
     
-    // 新しいポケモンの設定を読み込み
-    const newSettings = loadPokemonSettings(pokemon);
+    // 新しいポケモンの個体1番の設定を読み込み
+    const newSettings = loadPokemonInstanceSettings(pokemon, '1');
     setSelectedPokemon(pokemon);
+    setCurrentInstanceId('1'); // 新しいポケモンでは個体1番から開始
     setLevel(newSettings.level);
     setSelectedIngredients(newSettings.selectedIngredients);
     setSubskillByLevel(newSettings.subskillByLevel);
@@ -82,6 +89,77 @@ function App() {
     setManagementStatus(newSettings.managementStatus);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
   }, [saveCurrentSettings]);
+
+  // 個体切り替え処理
+  const handleInstanceChange = useCallback((newInstanceId: string) => {
+    // 現在の設定を保存
+    saveCurrentSettings();
+    
+    // 新しい個体の設定を読み込み
+    const newSettings = loadPokemonInstanceSettings(selectedPokemon, newInstanceId);
+    setCurrentInstanceId(newInstanceId);
+    setLevel(newSettings.level);
+    setSelectedIngredients(newSettings.selectedIngredients);
+    setSubskillByLevel(newSettings.subskillByLevel);
+    setUpParam(newSettings.upParam);
+    setDownParam(newSettings.downParam);
+    setSelectedNeutralNature(newSettings.selectedNeutralNature);
+    setManagementStatus(newSettings.managementStatus);
+    setMainSkillLevel(newSettings.mainSkillLevel || 1);
+  }, [saveCurrentSettings, selectedPokemon]);
+
+  // 詳細エリアのスワイプ機能
+  useEffect(() => {
+    const element = detailsRef.current;
+    if (!element) return;
+
+    const usedIds = getUsedInstanceIds(selectedPokemon);
+    const currentIndex = usedIds.indexOf(currentInstanceId);
+
+    const handleTouchStart = (e: TouchEvent) => {
+      startX.current = e.touches[0].clientX;
+      startY.current = e.touches[0].clientY;
+      setIsSliding(false);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const deltaX = e.touches[0].clientX - startX.current;
+      const deltaY = e.touches[0].clientY - startY.current;
+      
+      // 水平方向の移動が垂直方向より大きい場合はスライド中とする
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+        setIsSliding(true);
+      }
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      const deltaX = e.changedTouches[0].clientX - startX.current;
+      const deltaY = e.changedTouches[0].clientY - startY.current;
+      
+      // 水平方向の移動が垂直方向より大きく、50px以上の場合のみ処理
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0 && currentIndex > 0) {
+          // 右スワイプ: 前の個体へ
+          handleInstanceChange(usedIds[currentIndex - 1]);
+        } else if (deltaX < 0 && currentIndex < usedIds.length - 1) {
+          // 左スワイプ: 次の個体へ
+          handleInstanceChange(usedIds[currentIndex + 1]);
+        }
+      }
+      
+      setIsSliding(false);
+    };
+
+    element.addEventListener('touchstart', handleTouchStart, { passive: true });
+    element.addEventListener('touchmove', handleTouchMove, { passive: true });
+    element.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      element.removeEventListener('touchstart', handleTouchStart);
+      element.removeEventListener('touchmove', handleTouchMove);
+      element.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [selectedPokemon, currentInstanceId, handleInstanceChange]);
 
   // 設定変更時に自動保存とリアルタイム更新
   useEffect(() => {
@@ -165,27 +243,71 @@ function App() {
 
         {/* ポケモン詳細表示 */}
         {showPokemonDetails && (
-          <div style={{
-            background: '#f7fafc',
-            borderRadius: 6,
-            padding: 8,
-            margin: 0,
-            width: '100%',
-            border: '1px solid #e2e8f0'
-          }}>
+          <div 
+            ref={detailsRef}
+            style={{
+              background: '#f7fafc',
+              borderRadius: 6,
+              padding: 4, // paddingを半分に
+              margin: 0,
+              width: '100%',
+              border: '1px solid #e2e8f0',
+              position: 'relative',
+              touchAction: 'pan-y', // 垂直スクロールは許可、水平スワイプを検出
+              transition: isSliding ? 'none' : 'transform 0.3s ease',
+              transform: isSliding ? 'scale(0.99)' : 'scale(1)' // スライド中の視覚的フィードバック
+            }}
+          >
+            
             {/* ポケモンステータス表示 */}
             <StatusDisplay
               selectedPokemon={selectedPokemon}
               managementStatus={managementStatus}
               onManagementStatusChange={setManagementStatus}
+              canDelete={getUsedInstanceIds(selectedPokemon).length > 1}
+              onDelete={() => {
+                const usedIds = getUsedInstanceIds(selectedPokemon);
+                if (usedIds.length <= 1) {
+                  alert('最後の個体は削除できません');
+                  return;
+                }
+                
+                if (confirm(`${selectedPokemon.name}の個体${currentInstanceId}番を削除しますか？`)) {
+                  deletePokemonInstanceSettings(selectedPokemon, currentInstanceId);
+                  
+                  // 削除後に状態を更新
+                  const newUsedIds = getUsedInstanceIds(selectedPokemon);
+                  if (newUsedIds.length > 0) {
+                    const currentIndex = usedIds.indexOf(currentInstanceId);
+                    const newIndex = Math.max(0, currentIndex - 1);
+                    const newInstanceId = newUsedIds[newIndex] || newUsedIds[0];
+                    
+                    // 新しい個体の設定を読み込んで状態を更新
+                    const newSettings = loadPokemonInstanceSettings(selectedPokemon, newInstanceId);
+                    setCurrentInstanceId(newInstanceId);
+                    setLevel(newSettings.level);
+                    setSelectedIngredients(newSettings.selectedIngredients);
+                    setSubskillByLevel(newSettings.subskillByLevel);
+                    setUpParam(newSettings.upParam);
+                    setDownParam(newSettings.downParam);
+                    setSelectedNeutralNature(newSettings.selectedNeutralNature);
+                    setManagementStatus(newSettings.managementStatus);
+                    setMainSkillLevel(newSettings.mainSkillLevel || 1);
+                    
+                    // 表示の更新をトリガー
+                    setRefreshTrigger(prev => prev + 1);
+                  }
+                }
+              }}
+              currentInstanceId={currentInstanceId}
             />
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}> {/* gapを半分に */}
               {/* レベル設定 */}
               <LevelSelector level={level} onLevelChange={setLevel} />
 
               {/* 食材選択とせいかく選択を横並び */}
-              <div style={{ display: 'flex', gap: 6, width: '100%' }}>
+              <div style={{ display: 'flex', gap: 4, width: '100%' }}> {/* gapを小さく */}
                 {/* 食材選択 */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <IngredientSelector
@@ -209,17 +331,26 @@ function App() {
                 </div>
               </div>
 
-              {/* サブスキル選択 */}
-              <SubskillSelector
-                subskillByLevel={subskillByLevel}
-                onSubskillChange={setSubskillByLevel}
-              >
-                <MainSkillSelector
+              {/* サブスキル選択と個体インジケーター */}
+              <div>
+                <SubskillSelector
+                  subskillByLevel={subskillByLevel}
+                  onSubskillChange={setSubskillByLevel}
+                >
+                  <MainSkillSelector
+                    selectedPokemon={selectedPokemon}
+                    mainSkillLevel={mainSkillLevel}
+                    onMainSkillLevelChange={setMainSkillLevel}
+                  />
+                </SubskillSelector>
+                
+                {/* 個体インジケーター（サブスキルの直下、マージン最小） */}
+                <InstanceIndicator
                   selectedPokemon={selectedPokemon}
-                  mainSkillLevel={mainSkillLevel}
-                  onMainSkillLevelChange={setMainSkillLevel}
+                  currentInstanceId={currentInstanceId}
+                  onInstanceChange={handleInstanceChange}
                 />
-              </SubskillSelector>
+              </div>
             </div>
           </div>
         )}
