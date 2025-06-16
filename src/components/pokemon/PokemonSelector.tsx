@@ -37,6 +37,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   const [showRecipeGrouping, setShowRecipeGrouping] = useState(false);
   const [recipeSortByEnergy, setRecipeSortByEnergy] = useState(false);
   const [recipeCategory, setRecipeCategory] = useState('all');
+  const [selectedSlots, setSelectedSlots] = useState<string[]>(['A', 'B', 'C']); // デフォルトで全スロット選択
 
   // カスタムフックを使用してフィルタリングと管理状態を取得
   const filteredPokemons = usePokemonFiltering(filters, activeTab);
@@ -71,6 +72,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             setRecipeSortByEnergy={setRecipeSortByEnergy}
             recipeCategory={recipeCategory}
             setRecipeCategory={setRecipeCategory}
+            selectedSlots={selectedSlots}
+            setSelectedSlots={setSelectedSlots}
           />
         );
       case 'スキル':

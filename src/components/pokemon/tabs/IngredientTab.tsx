@@ -17,6 +17,8 @@ interface IngredientTabProps {
   setRecipeSortByEnergy: (value: boolean) => void;
   recipeCategory: string;
   setRecipeCategory: (value: string) => void;
+  selectedSlots: string[];
+  setSelectedSlots: (value: string[]) => void;
 }
 
 // カテゴリープルダウンコンポーネント
@@ -137,6 +139,71 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ recipeCategory, set
   );
 };
 
+// スロットフィルターボタンコンポーネント
+interface SlotFilterButtonsProps {
+  selectedSlots: string[];
+  setSelectedSlots: (value: string[]) => void;
+}
+
+const SlotFilterButtons: React.FC<SlotFilterButtonsProps> = ({ selectedSlots, setSelectedSlots }) => {
+  const slots = ['A', 'B', 'C'];
+
+  const toggleSlot = (slot: string) => {
+    if (selectedSlots.includes(slot)) {
+      // 選択解除（ただし、すべて解除されることを防ぐため最低1つは残す）
+      if (selectedSlots.length > 1) {
+        setSelectedSlots(selectedSlots.filter(s => s !== slot));
+      }
+    } else {
+      // 選択追加
+      setSelectedSlots([...selectedSlots, slot]);
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', gap: 2 }}>
+      {slots.map(slot => (
+        <button
+          key={slot}
+          onClick={() => toggleSlot(slot)}
+          style={{
+            padding: '2px 6px',
+            borderRadius: 6,
+            border: selectedSlots.includes(slot) ? 'none' : '1px solid #e2e8f0',
+            background: selectedSlots.includes(slot) ? (() => {
+              switch(slot) {
+                case 'A': return '#ef4444';
+                case 'B': return '#3b82f6';
+                case 'C': return '#10b981';
+                default: return '#6b7280';
+              }
+            })() : '#fff',
+            color: selectedSlots.includes(slot) ? '#fff' : '#374151',
+            fontSize: 9,
+            fontWeight: 600,
+            cursor: 'pointer',
+            minWidth: 20,
+            textAlign: 'center',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            if (!selectedSlots.includes(slot)) {
+              e.currentTarget.style.background = '#f1f5f9';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!selectedSlots.includes(slot)) {
+              e.currentTarget.style.background = '#fff';
+            }
+          }}
+        >
+          {slot}
+        </button>
+      ))}
+    </div>
+  );
+};
+
 const IngredientTab: React.FC<IngredientTabProps> = ({
   filteredPokemons,
   selectedPokemon,
@@ -147,7 +214,9 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
   recipeSortByEnergy,
   setRecipeSortByEnergy,
   recipeCategory,
-  setRecipeCategory
+  setRecipeCategory,
+  selectedSlots,
+  setSelectedSlots
 }) => {
 
   // 食材ラベル（A,B,C）を取得する関数
@@ -174,6 +243,24 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     return null;
   };
 
+
+  // スロットフィルタリング関数（レシピOFF時用）
+  const filterPokemonsBySlotForIngredient = (pokemons: Pokemon[], ingredientId: number) => {
+    if (selectedSlots.length === 3) return pokemons; // 全スロット選択時はフィルタリングしない
+    
+    return pokemons.filter(pokemon => {
+      // そのポケモンがこの食材を持っているスロットを特定
+      const pokemonSlots: string[] = [];
+      
+      if (pokemon.ing1?.ingredientId === ingredientId) pokemonSlots.push('A');
+      if (pokemon.ing2?.ingredientId === ingredientId) pokemonSlots.push('B');
+      if (pokemon.ing3?.ingredientId === ingredientId) pokemonSlots.push('C');
+      
+      // 選択されたスロットのいずれかでこの食材を持っているかチェック
+      return selectedSlots.some(slot => pokemonSlots.includes(slot));
+    });
+  };
+
   const renderRecipeGrouping = () => {
     // レシピ別グルーピング（ごちゃまぜ系は除外）
     let validRecipes = RECIPES.filter(recipe => recipe.ingredients.length > 0);
@@ -194,7 +281,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     
     return validRecipes.map(recipe => {
       // このレシピの食材を持つポケモンを取得
-      const recipePokemons = filteredPokemons.filter(pokemon => {
+      let recipePokemons = filteredPokemons.filter(pokemon => {
         const pokemonIngredients = [
           pokemon.ing1?.ingredientId,
           pokemon.ing2?.ingredientId,
@@ -206,6 +293,22 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
           pokemonIngredients.includes(recipeIngredient.ingredientId)
         );
       });
+      
+      // スロットフィルタリングを適用（レシピの各食材について）
+      if (selectedSlots.length < 3) {
+        recipePokemons = recipePokemons.filter(pokemon => {
+          // このポケモンが、選択されたスロットでレシピ食材のいずれかを持っているかチェック
+          return recipe.ingredients.some(recipeIngredient => {
+            const pokemonSlots: string[] = [];
+            
+            if (pokemon.ing1?.ingredientId === recipeIngredient.ingredientId) pokemonSlots.push('A');
+            if (pokemon.ing2?.ingredientId === recipeIngredient.ingredientId) pokemonSlots.push('B');
+            if (pokemon.ing3?.ingredientId === recipeIngredient.ingredientId) pokemonSlots.push('C');
+            
+            return selectedSlots.some(slot => pokemonSlots.includes(slot));
+          });
+        });
+      }
       
       if (recipePokemons.length === 0) return null;
       
@@ -360,7 +463,11 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
 
     return sortedIngredientIds.map(ingredientId => {
       const ingredient = getIngredient(ingredientId);
-      const pokemonsForIngredient = ingredientGroups[ingredientId];
+      // スロットフィルタリングを適用
+      const pokemonsForIngredient = filterPokemonsBySlotForIngredient(ingredientGroups[ingredientId], ingredientId);
+      
+      // フィルター後にポケモンがいない場合は表示しない
+      if (pokemonsForIngredient.length === 0) return null;
       
       return (
         <div key={ingredientId} style={{ marginBottom: 16 }}>
@@ -479,7 +586,15 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
           </div>
         )}
         
-        {/* 右側：レシピON/OFFボタン */}
+        {/* 右側：スロットフィルターとレシピON/OFFボタン */}
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+          {/* スロットフィルターボタン */}
+          <SlotFilterButtons
+            selectedSlots={selectedSlots}
+            setSelectedSlots={setSelectedSlots}
+          />
+          
+          {/* レシピON/OFFボタン */}
         <button
           onClick={() => setShowRecipeGrouping(!showRecipeGrouping)}
           style={{
@@ -506,14 +621,15 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
         >
           レシピ{showRecipeGrouping ? 'ON' : 'OFF'}
         </button>
+        </div>
       </div>
 
       {/* レシピON時: レシピ別グルーピング / レシピOFF時: 食材別グルーピング */}
       {(() => {
         if (showRecipeGrouping) {
-          return <div key={`recipe-mode-${recipeCategory}-${recipeSortByEnergy}`}>{renderRecipeGrouping()}</div>;
+          return <div key={`recipe-mode-${recipeCategory}-${recipeSortByEnergy}-${selectedSlots.join('')}`}>{renderRecipeGrouping()}</div>;
         } else {
-          return <div key="ingredient-mode">{renderIngredientGrouping()}</div>;
+          return <div key={`ingredient-mode-${selectedSlots.join('')}`}>{renderIngredientGrouping()}</div>;
         }
       })()}
     </div>
