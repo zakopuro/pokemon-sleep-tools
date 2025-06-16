@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { RECIPES } from '../../../../config/recipes';
 import type { Pokemon } from '../../../../config/schema';
 import { getIngredient, getIngredientImageName } from '../../../utils/pokemon';
@@ -18,6 +18,124 @@ interface IngredientTabProps {
   recipeCategory: string;
   setRecipeCategory: (value: string) => void;
 }
+
+// カテゴリープルダウンコンポーネント
+interface CategoryDropdownProps {
+  recipeCategory: string;
+  setRecipeCategory: (value: string) => void;
+}
+
+const CategoryDropdown: React.FC<CategoryDropdownProps> = ({ recipeCategory, setRecipeCategory }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const categories = [
+    { key: 'all', label: 'すべて' },
+    { key: 'カレー・シチュー', label: 'カレー' },
+    { key: 'サラダ', label: 'サラダ' },
+    { key: 'デザート・ドリンク', label: 'デザート' }
+  ];
+
+  const currentCategory = categories.find(cat => cat.key === recipeCategory) || categories[0];
+
+  // 外側クリックでドロップダウンを閉じる
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div ref={dropdownRef} style={{ position: 'relative' }}>
+      {/* プルダウンボタン */}
+      <button
+        onClick={() => setShowDropdown(prev => !prev)}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          padding: '3px 6px',
+          borderRadius: 8,
+          border: '1px solid #e2e8f0',
+          fontSize: 9,
+          background: '#fff',
+          color: '#374151',
+          cursor: 'pointer',
+          minWidth: 60,
+          fontWeight: 600
+        }}
+      >
+        <span>{currentCategory.label}</span>
+        <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      
+      {/* ドロップダウンメニュー */}
+      {showDropdown && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            marginTop: 2,
+            border: '1px solid #e2e8f0',
+            borderRadius: 6,
+            padding: 2,
+            backgroundColor: '#ffffff',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            zIndex: 1000,
+            minWidth: 80
+          }}
+        >
+          {categories.map((category) => (
+            <button
+              key={category.key}
+              onClick={() => {
+                console.log('DEBUG: カテゴリークリック:', category.key);
+                setRecipeCategory(category.key);
+                setShowDropdown(false);
+              }}
+              style={{
+                display: 'block',
+                width: '100%',
+                padding: '4px 8px',
+                background: recipeCategory === category.key ? '#f59e0b' : 'transparent',
+                color: recipeCategory === category.key ? '#fff' : '#374151',
+                border: 'none',
+                cursor: 'pointer',
+                borderRadius: 4,
+                fontSize: 9,
+                fontWeight: 600,
+                textAlign: 'left',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={e => {
+                if (recipeCategory !== category.key) {
+                  e.currentTarget.style.background = '#f1f5f9';
+                }
+              }}
+              onMouseLeave={e => {
+                if (recipeCategory !== category.key) {
+                  e.currentTarget.style.background = 'transparent';
+                }
+              }}
+            >
+              {category.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const IngredientTab: React.FC<IngredientTabProps> = ({
   filteredPokemons,
@@ -59,15 +177,19 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
   const renderRecipeGrouping = () => {
     // レシピ別グルーピング（ごちゃまぜ系は除外）
     let validRecipes = RECIPES.filter(recipe => recipe.ingredients.length > 0);
+    console.log('DEBUG: 初期レシピ数:', validRecipes.length);
+    console.log('DEBUG: recipeCategory:', recipeCategory);
     
     // カテゴリーフィルター
     if (recipeCategory !== 'all') {
       validRecipes = validRecipes.filter(recipe => recipe.category === recipeCategory);
+      console.log('DEBUG: フィルター後レシピ数:', validRecipes.length);
     }
     
     // エナジー順ソート
     if (recipeSortByEnergy) {
       validRecipes = [...validRecipes].sort((a, b) => b.energy - a.energy);
+      console.log('DEBUG: エナジー順ソート実行');
     }
     
     return validRecipes.map(recipe => {
@@ -349,43 +471,11 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
               エナジー順
             </button>
             
-            {/* カテゴリーフィルターボタン */}
-            <div style={{ display: 'flex', gap: 2 }}>
-              {[
-                { key: 'all', label: '全て' },
-                { key: 'カレー・シチュー', label: 'カレー' },
-                { key: 'サラダ', label: 'サラダ' },
-                { key: 'デザート・ドリンク', label: 'デザート' }
-              ].map((category) => (
-                <button
-                  key={category.key}
-                  onClick={() => setRecipeCategory(category.key)}
-                  style={{
-                    background: recipeCategory === category.key ? '#f59e0b' : '#f3f4f6',
-                    color: recipeCategory === category.key ? '#fff' : '#374151',
-                    border: 'none',
-                    borderRadius: 8,
-                    padding: '2px 6px',
-                    fontSize: 9,
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (recipeCategory !== category.key) {
-                      e.currentTarget.style.background = '#e5e7eb';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (recipeCategory !== category.key) {
-                      e.currentTarget.style.background = '#f3f4f6';
-                    }
-                  }}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
+            {/* カテゴリーフィルタープルダウン */}
+            <CategoryDropdown
+              recipeCategory={recipeCategory}
+              setRecipeCategory={setRecipeCategory}
+            />
           </div>
         )}
         
@@ -421,7 +511,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       {/* レシピON時: レシピ別グルーピング / レシピOFF時: 食材別グルーピング */}
       {(() => {
         if (showRecipeGrouping) {
-          return <div key="recipe-mode">{renderRecipeGrouping()}</div>;
+          return <div key={`recipe-mode-${recipeCategory}-${recipeSortByEnergy}`}>{renderRecipeGrouping()}</div>;
         } else {
           return <div key="ingredient-mode">{renderIngredientGrouping()}</div>;
         }
