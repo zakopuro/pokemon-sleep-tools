@@ -54,6 +54,7 @@ function App() {
     ingredientsAndSearch: false,
     mainSkills: [],
     subSkills: [],
+    managementStatuses: [],
   });
 
   // 現在の設定を保存する関数

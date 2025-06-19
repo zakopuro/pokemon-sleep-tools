@@ -2,8 +2,13 @@ import { useMemo } from 'react';
 import { POKEMONS, MAINSKILLS } from '../config';
 import type { Pokemon } from '../../config/schema';
 import type { FilterOptions } from '../components/PokemonFilters';
+import { getPokemonKey } from '../utils/pokemon-storage';
 
-export const usePokemonFiltering = (filters: FilterOptions, activeTab: string) => {
+export const usePokemonFiltering = (
+  filters: FilterOptions, 
+  activeTab: string, 
+  pokemonStatuses?: { [pokemonKey: string]: { status: string; count?: number } }
+) => {
   const filteredPokemons = useMemo(() => {
     let filtered = [...POKEMONS];
 
@@ -111,6 +116,15 @@ export const usePokemonFiltering = (filters: FilterOptions, activeTab: string) =
       }
     }
 
+    // 管理状態フィルタリング
+    if (filters.managementStatuses && filters.managementStatuses.length > 0 && pokemonStatuses) {
+      filtered = filtered.filter(pokemon => {
+        const pokemonKey = getPokemonKey(pokemon);
+        const status = pokemonStatuses[pokemonKey]?.status || '未設定';
+        return filters.managementStatuses?.includes(status) || false;
+      });
+    }
+
     // ソート前に特別な姿のポケモンを正しい順序に配置
     filtered.sort((a, b) => {
       // まず図鑑番号でソート
@@ -189,7 +203,7 @@ export const usePokemonFiltering = (filters: FilterOptions, activeTab: string) =
     }
 
     return filtered;
-  }, [filters, activeTab]);
+  }, [filters, activeTab, pokemonStatuses]);
 
   return filteredPokemons;
 };

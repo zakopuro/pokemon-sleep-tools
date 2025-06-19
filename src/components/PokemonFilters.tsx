@@ -23,6 +23,7 @@ export interface FilterOptions {
   ingredientsAndSearch: boolean; // 食材AND検索のON/OFF
   mainSkills: string[]; // メインスキル（複数選択）
   subSkills: string[]; // サブスキル（複数選択、AND検索）
+  managementStatuses?: string[]; // 管理状態（複数選択）
 }
 
 interface PokemonFiltersProps {
@@ -87,6 +88,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
       ingredientsAndSearch: false,
       mainSkills: [],
       subSkills: [],
+      managementStatuses: [],
     });
   };
 
@@ -225,6 +227,86 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                   onClick={() => {
                     const newSpecialties = toggleArrayItem(filters.specialties || [], option.value);
                     handleFilterChange('specialties', newSpecialties);
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 20,
+                    border: 'none',
+                    background: isSelected ? `${option.color}80` : option.color, // 選択時は薄く、未選択時は濃く
+                    color: '#fff',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  {option.label}
+                  {isSelected && (
+                    <svg 
+                      width="14" 
+                      height="14" 
+                      viewBox="0 0 24 24" 
+                      fill="none"
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                      }}
+                    >
+                      <path 
+                        d="M20 6L9 17l-5-5" 
+                        stroke="#22c55e" 
+                        strokeWidth="6" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* 管理状態 */}
+        <div style={{ marginBottom: 24 }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            marginBottom: 12,
+            paddingLeft: 4
+          }}>
+            <div style={{
+              width: 3,
+              height: 16,
+              background: '#4ade80',
+              borderRadius: 2
+            }}></div>
+            <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>管理状態</span>
+          </div>
+          
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {[
+              { value: '完了', label: '完了', color: '#22c55e' },
+              { value: '厳選中', label: '厳選中', color: '#3b82f6' },
+              { value: '厳選前', label: '厳選前', color: '#8b5cf6' },
+              { value: '保留', label: '保留', color: '#f59e0b' },
+              { value: '中止', label: '中止', color: '#ef4444' },
+              { value: '対象外', label: '対象外', color: '#6b7280' },
+              { value: '未設定', label: '未設定', color: '#d1d5db' }
+            ].map((option) => {
+              const isSelected = filters.managementStatuses?.includes(option.value) || false;
+              return (
+                <button
+                  key={option.value}
+                  onClick={() => {
+                    const newStatuses = toggleArrayItem(filters.managementStatuses || [], option.value);
+                    handleFilterChange('managementStatuses', newStatuses);
                   }}
                   style={{
                     padding: '8px 16px',

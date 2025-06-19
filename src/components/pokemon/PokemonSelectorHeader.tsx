@@ -29,7 +29,8 @@ const PokemonSelectorHeader: React.FC<PokemonSelectorHeaderProps> = ({
     filters.berries.length > 0 ||
     filters.ingredients.length > 0 ||
     filters.mainSkills.length > 0 ||
-    filters.subSkills.length > 0;
+    filters.subSkills.length > 0 ||
+    (filters.managementStatuses && filters.managementStatuses.length > 0);
 
   const getSortLabel = () => {
     switch (filters.sortBy) {

@@ -39,9 +39,12 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   const [recipeCategory, setRecipeCategory] = useState('all');
   const [selectedSlots, setSelectedSlots] = useState<string[]>(['A', 'B', 'C']); // デフォルトで全スロット選択
 
-  // カスタムフックを使用してフィルタリングと管理状態を取得
-  const filteredPokemons = usePokemonFiltering(filters, activeTab);
-  const pokemonStatuses = usePokemonStatuses(filteredPokemons, refreshTrigger);
+  // カスタムフックを使用して管理状態を取得
+  const allPokemons = usePokemonFiltering(filters, activeTab);
+  const pokemonStatuses = usePokemonStatuses(allPokemons, refreshTrigger);
+  
+  // 管理状態フィルターを含む最終的なフィルタリング
+  const filteredPokemons = usePokemonFiltering(filters, activeTab, pokemonStatuses);
 
   const tabs = ['すべて', 'きのみ', '食材', 'スキル', '厳選管理'];
 
