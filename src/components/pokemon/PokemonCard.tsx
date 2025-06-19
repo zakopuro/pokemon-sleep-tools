@@ -62,7 +62,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     // ラベルと一致する個体のみの状態を収集
     const matchingInstanceStatuses: string[] = [];
     
-    Object.entries(allInstances).forEach(([instanceId, instance]) => {
+    Object.entries(allInstances).forEach(([, instance]) => {
       // 個体の食材設定を取得
       const ingredientSlots = instance.selectedIngredients || [];
       
@@ -145,7 +145,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     const allInstances = loadAllInstancesForPokemon(pokemon);
     
     // ラベルと一致する個体を検索し、その個体の状態を判定
-    const matchingInstances = Object.entries(allInstances).filter(([instanceId, instance]) => {
+    const matchingInstances = Object.entries(allInstances).filter(([, instance]) => {
       // 個体の食材設定を取得（配列の各要素が1枠目、2枠目、3枠目の食材ID）
       const ingredientSlots = instance.selectedIngredients || [];
       
@@ -205,7 +205,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   
   // 個体の食材設定をA/B/Cパターンに変換
   const getIngredientSlotPattern = (ingredientSlots: number[]): string => {
-    return ingredientSlots.map((ingredientId, index) => {
+    return ingredientSlots.map((ingredientId) => {
       // ポケモンの基本食材との対応でA/B/Cを決定
       if (pokemon.ing1?.ingredientId === ingredientId) return 'A';
       if (pokemon.ing2?.ingredientId === ingredientId) return 'B';
