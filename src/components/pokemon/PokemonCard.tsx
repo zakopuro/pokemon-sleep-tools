@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Pokemon } from '../../../config/schema';
 import { getPokemonImageName } from '../../utils/pokemon-id';
+import { loadAllInstancesForPokemon } from '../../utils/pokemon-storage';
+import StatusIcon from '../common/StatusIcon';
 
 // ポケモン名を分離（メイン名と特別な姿の説明）
 const splitPokemonName = (name: string) => {
@@ -24,6 +26,10 @@ interface PokemonCardProps {
   ingredientLabel?: { label: string; backgroundColor: string } | null;
   onClick: () => void;
   size?: 'small' | 'medium';
+  // 食材タブ専用プロパティ
+  isIngredientTab?: boolean;
+  selectedSlots?: string[];
+  targetIngredientId?: number;
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({
@@ -32,7 +38,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   statusIcon,
   ingredientLabel,
   onClick,
-  size = 'medium'
+  size = 'medium',
+  isIngredientTab = false,
+  selectedSlots = [],
+  targetIngredientId
 }) => {
   const { mainName, formName } = splitPokemonName(pokemon.name);
   
@@ -40,6 +49,178 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   const imageSize = size === 'small' ? 30 : 40;
   const fontSize = size === 'small' ? 7 : 8;
   const formFontSize = size === 'small' ? 5 : 6;
+
+  // 食材タブでの特定パターン個体の状態を計算
+  const getSpecificPatternStatus = () => {
+    if (!isIngredientTab || !ingredientLabel || !targetIngredientId) {
+      return null; // 非食材タブまたは条件不足の場合はnull
+    }
+    
+    // このポケモンの全個体データを取得
+    const allInstances = loadAllInstancesForPokemon(pokemon);
+    
+    // ラベルと一致する個体のみの状態を収集
+    const matchingInstanceStatuses: string[] = [];
+    
+    Object.entries(allInstances).forEach(([instanceId, instance]) => {
+      // 個体の食材設定を取得
+      const ingredientSlots = instance.selectedIngredients || [];
+      
+      // 右上ラベル（A/B/C）に対応するスロットインデックス
+      const labelSlotIndex = ingredientLabel.label === 'A' ? 0 : 
+                            ingredientLabel.label === 'B' ? 1 : 2;
+      
+      // 個体の該当スロットに対象食材が設定されているかチェック
+      const hasTargetIngredientInSlot = ingredientSlots[labelSlotIndex] === targetIngredientId;
+      
+      if (!hasTargetIngredientInSlot) {
+        return; // 該当スロットに対象食材がなければスキップ
+      }
+      
+      // 個体の食材組み合わせパターンをチェック
+      const shouldShowForThisPattern = checkIngredientPattern(ingredientSlots, targetIngredientId, ingredientLabel.label);
+      
+      if (shouldShowForThisPattern) {
+        matchingInstanceStatuses.push(instance.managementStatus);
+      }
+    });
+    
+    if (matchingInstanceStatuses.length === 0) {
+      return { status: '', count: undefined };
+    }
+    
+    // 各状態の個数をカウント
+    const statusCounts = matchingInstanceStatuses.reduce((counts, status) => {
+      counts[status] = (counts[status] || 0) + 1;
+      return counts;
+    }, {} as { [status: string]: number });
+    
+    // 状態の優先順位で表示する状態を決定
+    const statusPriority = ['完了', '厳選中', '厳選前', '保留', '中止', '対象外'];
+    
+    let displayStatus = '未設定';
+    let statusCount = 0;
+    
+    for (const priority of statusPriority) {
+      if (statusCounts[priority] > 0) {
+        displayStatus = priority;
+        statusCount = statusCounts[priority];
+        break;
+      }
+    }
+    
+    // 未設定のみの場合は表示しない（空文字）
+    if (displayStatus === '未設定') {
+      return { status: '', count: undefined };
+    } else {
+      // 完了状態で複数個体がある場合は数値を表示
+      return {
+        status: displayStatus,
+        count: displayStatus === '完了' && statusCount > 1 ? statusCount : undefined
+      };
+    }
+  };
+
+  // 食材タブでの状態アイコン表示判定
+  const shouldShowStatusIcon = () => {
+    if (!isIngredientTab) {
+      // 食材タブ以外では常に表示
+      return true;
+    }
+    
+    if (!ingredientLabel || !targetIngredientId) {
+      // ラベルがない、または対象食材がない場合は従来通り表示
+      return true;
+    }
+    
+    // 個体の食材設定とラベルの一致判定
+    return checkInstanceMatchesLabel();
+  };
+
+  // 個体の食材設定と右上ラベルの一致チェック
+  const checkInstanceMatchesLabel = () => {
+    if (!ingredientLabel || !targetIngredientId) return false;
+    
+    // このポケモンの全個体データを取得
+    const allInstances = loadAllInstancesForPokemon(pokemon);
+    
+    // ラベルと一致する個体を検索し、その個体の状態を判定
+    const matchingInstances = Object.entries(allInstances).filter(([instanceId, instance]) => {
+      // 個体の食材設定を取得（配列の各要素が1枠目、2枠目、3枠目の食材ID）
+      const ingredientSlots = instance.selectedIngredients || [];
+      
+      // 右上ラベル（A/B/C）に対応するスロットインデックス
+      const labelSlotIndex = ingredientLabel.label === 'A' ? 0 : 
+                            ingredientLabel.label === 'B' ? 1 : 2;
+      
+      // 個体の該当スロットに対象食材が設定されているかチェック
+      const hasTargetIngredientInSlot = ingredientSlots[labelSlotIndex] === targetIngredientId;
+      
+      if (!hasTargetIngredientInSlot) {
+        return false; // 該当スロットに対象食材がなければ false
+      }
+      
+      // 個体の食材組み合わせパターンをチェック
+      const shouldShowForThisPattern = checkIngredientPattern(ingredientSlots, targetIngredientId, ingredientLabel.label);
+      
+      // A/B/Cフィルターが選択されている場合の追加チェック
+      if (selectedSlots.length < 3) {
+        return shouldShowForThisPattern && selectedSlots.includes(ingredientLabel.label);
+      }
+      
+      // 全選択時
+      return shouldShowForThisPattern;
+    });
+    
+    return matchingInstances.length > 0;
+  };
+  
+  // 食材パターンチェック：指定された組み合わせパターンに合致するかを判定
+  const checkIngredientPattern = (ingredientSlots: number[], targetIngredientId: number, labelSlot: string): boolean => {
+    // 個体の食材構成を文字列パターンに変換（例：[9,9,12] → "AAB"）
+    const slotPattern = getIngredientSlotPattern(ingredientSlots);
+    
+    // ターゲット食材に対応する基本スロット（ポケモンの基本食材配置）を取得
+    const baseSlot = getBaseSlotForIngredient(targetIngredientId);
+    
+    if (baseSlot !== labelSlot) {
+      return false; // 基本スロットと表示ラベルが一致しない場合は非表示
+    }
+    
+    // パターン別の表示条件をチェック
+    switch (labelSlot) {
+      case 'A':
+        // Aラベル表示時：AAA, AAB, AAC の場合のみ表示
+        return slotPattern === 'AAA' || slotPattern === 'AAB' || slotPattern === 'AAC';
+      case 'B':
+        // Bラベル表示時：ABB の場合のみ表示
+        return slotPattern === 'ABB';
+      case 'C':
+        // Cラベル表示時：AAC, ABC の場合のみ表示
+        return slotPattern === 'AAC' || slotPattern === 'ABC';
+      default:
+        return false;
+    }
+  };
+  
+  // 個体の食材設定をA/B/Cパターンに変換
+  const getIngredientSlotPattern = (ingredientSlots: number[]): string => {
+    return ingredientSlots.map((ingredientId, index) => {
+      // ポケモンの基本食材との対応でA/B/Cを決定
+      if (pokemon.ing1?.ingredientId === ingredientId) return 'A';
+      if (pokemon.ing2?.ingredientId === ingredientId) return 'B';
+      if (pokemon.ing3?.ingredientId === ingredientId) return 'C';
+      return 'X'; // 基本食材にない場合
+    }).join('');
+  };
+  
+  // 食材IDから基本スロット（A/B/C）を取得
+  const getBaseSlotForIngredient = (ingredientId: number): string => {
+    if (pokemon.ing1?.ingredientId === ingredientId) return 'A';
+    if (pokemon.ing2?.ingredientId === ingredientId) return 'B';
+    if (pokemon.ing3?.ingredientId === ingredientId) return 'C';
+    return 'X';
+  };
 
   return (
     <div
@@ -107,7 +288,24 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         />
         
         {/* 管理状態アイコン */}
-        {statusIcon}
+        {shouldShowStatusIcon() && (() => {
+          if (isIngredientTab && ingredientLabel && targetIngredientId) {
+            // 食材タブでは特定パターンの個体の状態を表示
+            const specificStatus = getSpecificPatternStatus();
+            if (specificStatus && specificStatus.status) {
+              return (
+                <StatusIcon
+                  status={specificStatus.status}
+                  count={specificStatus.count}
+                />
+              );
+            }
+            return null;
+          } else {
+            // 非食材タブでは外部から渡された状態アイコンを表示
+            return statusIcon;
+          }
+        })()}
         
         {/* 食材ラベル（A,B,C） */}
         {ingredientLabel && (

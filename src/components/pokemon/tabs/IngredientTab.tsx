@@ -280,37 +280,60 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     }
     
     return validRecipes.map(recipe => {
-      // このレシピの食材を持つポケモンを取得
-      let recipePokemons = filteredPokemons.filter(pokemon => {
-        const pokemonIngredients = [
-          pokemon.ing1?.ingredientId,
-          pokemon.ing2?.ingredientId,
-          pokemon.ing3?.ingredientId
-        ].filter((id): id is number => id !== undefined);
-        
-        // レシピに必要な食材のいずれかを持っているポケモンを取得
-        return recipe.ingredients.some(recipeIngredient => 
-          pokemonIngredients.includes(recipeIngredient.ingredientId)
-        );
+      // このレシピの食材ごとに、それを持つポケモンを個別に取得
+      const recipePokemonEntries: Array<{
+        pokemon: Pokemon;
+        targetIngredientId: number;
+        targetSlot: string;
+      }> = [];
+      
+      recipe.ingredients.forEach(recipeIngredient => {
+        filteredPokemons.forEach(pokemon => {
+          const pokemonIngredients = [
+            pokemon.ing1?.ingredientId,
+            pokemon.ing2?.ingredientId,
+            pokemon.ing3?.ingredientId
+          ].filter((id): id is number => id !== undefined);
+          
+          // このポケモンが、このレシピ食材を持っているかチェック
+          if (pokemonIngredients.includes(recipeIngredient.ingredientId)) {
+            // どのスロット（A/B/C）でその食材を持っているかを取得
+            let targetSlot = '';
+            if (pokemon.ing1?.ingredientId === recipeIngredient.ingredientId) targetSlot = 'A';
+            else if (pokemon.ing2?.ingredientId === recipeIngredient.ingredientId) targetSlot = 'B';
+            else if (pokemon.ing3?.ingredientId === recipeIngredient.ingredientId) targetSlot = 'C';
+            
+            // スロットフィルタリングチェック
+            if (selectedSlots.length < 3) {
+              if (!selectedSlots.includes(targetSlot)) {
+                return; // 選択されたスロットに含まれていない場合はスキップ
+              }
+            }
+            
+            recipePokemonEntries.push({
+              pokemon: pokemon,
+              targetIngredientId: recipeIngredient.ingredientId,
+              targetSlot: targetSlot
+            });
+          }
+        });
       });
       
-      // スロットフィルタリングを適用（レシピの各食材について）
-      if (selectedSlots.length < 3) {
-        recipePokemons = recipePokemons.filter(pokemon => {
-          // このポケモンが、選択されたスロットでレシピ食材のいずれかを持っているかチェック
-          return recipe.ingredients.some(recipeIngredient => {
-            const pokemonSlots: string[] = [];
-            
-            if (pokemon.ing1?.ingredientId === recipeIngredient.ingredientId) pokemonSlots.push('A');
-            if (pokemon.ing2?.ingredientId === recipeIngredient.ingredientId) pokemonSlots.push('B');
-            if (pokemon.ing3?.ingredientId === recipeIngredient.ingredientId) pokemonSlots.push('C');
-            
-            return selectedSlots.some(slot => pokemonSlots.includes(slot));
-          });
-        });
-      }
+      if (recipePokemonEntries.length === 0) return null;
       
-      if (recipePokemons.length === 0) return null;
+      // A-B-C順にソート（同じスロットの場合は図鑑番号順）
+      recipePokemonEntries.sort((a, b) => {
+        // まずスロット（A/B/C）でソート
+        const slotOrder = { 'A': 0, 'B': 1, 'C': 2 };
+        const slotComparison = slotOrder[a.targetSlot as keyof typeof slotOrder] - slotOrder[b.targetSlot as keyof typeof slotOrder];
+        
+        if (slotComparison !== 0) {
+          return slotComparison;
+        }
+        
+        // 同じスロットの場合は図鑑番号でソート
+        return a.pokemon.pokedexId - b.pokemon.pokedexId;
+      });
       
       return (
         <div key={recipe.id} style={{ marginBottom: 16 }}>
@@ -353,7 +376,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
               </div>
             </div>
             <span style={{ fontSize: 12, color: '#6b7280' }}>
-              ({recipePokemons.length}匹)
+              ({recipePokemonEntries.length}個)
             </span>
             {/* レシピの食材画像と必要数 */}
             <div style={{ display: 'flex', gap: 6, marginLeft: 'auto', alignItems: 'center' }}>
@@ -399,30 +422,26 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
             alignItems: 'start',
             gridAutoRows: '68px'
           }}>
-            {recipePokemons.map(pokemon => {
+            {recipePokemonEntries.map(entry => {
               // レシピマッチング用のラベルを取得
-              let ingredientLabel = null;
-              for (const recipeIngredient of recipe.ingredients) {
-                const label = getIngredientLabel(pokemon, recipeIngredient.ingredientId, recipe);
-                if (label) {
-                  ingredientLabel = label;
-                  break;
-                }
-              }
+              const ingredientLabel = getIngredientLabel(entry.pokemon, entry.targetIngredientId, recipe);
 
               return (
                 <PokemonCard
-                  key={getPokemonKey(pokemon)}
-                  pokemon={pokemon}
-                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
+                  key={`${getPokemonKey(entry.pokemon)}-${entry.targetIngredientId}`}
+                  pokemon={entry.pokemon}
+                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(entry.pokemon)}
                   statusIcon={
                     <StatusIcon
-                      status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
-                      count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
+                      status={pokemonStatuses[getPokemonKey(entry.pokemon)]?.status || ''}
+                      count={pokemonStatuses[getPokemonKey(entry.pokemon)]?.count}
                     />
                   }
                   ingredientLabel={ingredientLabel}
-                  onClick={() => onPokemonSelect(pokemon)}
+                  onClick={() => onPokemonSelect(entry.pokemon)}
+                  isIngredientTab={true}
+                  selectedSlots={selectedSlots}
+                  targetIngredientId={entry.targetIngredientId}
                 />
               );
             })}
@@ -464,10 +483,33 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     return sortedIngredientIds.map(ingredientId => {
       const ingredient = getIngredient(ingredientId);
       // スロットフィルタリングを適用
-      const pokemonsForIngredient = filterPokemonsBySlotForIngredient(ingredientGroups[ingredientId], ingredientId);
+      let pokemonsForIngredient = filterPokemonsBySlotForIngredient(ingredientGroups[ingredientId], ingredientId);
       
       // フィルター後にポケモンがいない場合は表示しない
       if (pokemonsForIngredient.length === 0) return null;
+      
+      // A-B-C順にソート（同じスロットの場合は図鑑番号順）
+      pokemonsForIngredient = pokemonsForIngredient.sort((a, b) => {
+        // 各ポケモンのラベルを取得
+        const labelA = getIngredientLabel(a, ingredientId);
+        const labelB = getIngredientLabel(b, ingredientId);
+        
+        // ラベルが取得できない場合は図鑑番号順
+        if (!labelA || !labelB) {
+          return a.pokedexId - b.pokedexId;
+        }
+        
+        // まずラベル（A/B/C）でソート
+        const slotOrder = { 'A': 0, 'B': 1, 'C': 2 };
+        const slotComparison = slotOrder[labelA.label as keyof typeof slotOrder] - slotOrder[labelB.label as keyof typeof slotOrder];
+        
+        if (slotComparison !== 0) {
+          return slotComparison;
+        }
+        
+        // 同じラベルの場合は図鑑番号でソート
+        return a.pokedexId - b.pokedexId;
+      });
       
       return (
         <div key={ingredientId} style={{ marginBottom: 16 }}>
@@ -522,6 +564,9 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
                 }
                 ingredientLabel={getIngredientLabel(pokemon, ingredientId)}
                 onClick={() => onPokemonSelect(pokemon)}
+                isIngredientTab={true}
+                selectedSlots={selectedSlots}
+                targetIngredientId={ingredientId}
               />
             ))}
           </div>
