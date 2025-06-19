@@ -397,7 +397,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                   }}
                 >
                   <img 
-                    src={`/image/berry/${berry.eng_name}.png`} 
+                    src={`${import.meta.env.BASE_URL}image/berry/${berry.eng_name}.png`} 
                     alt={berry.name}
                     style={{ width: 24, height: 24 }}
                     onError={(e) => {
@@ -482,7 +482,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                   }}
                 >
                   <img 
-                    src={`/image/ing/${getIngredientImageName(ingredient.name)}.png`} 
+                    src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(ingredient.name)}.png`} 
                     alt={ingredient.name}
                     style={{ width: 24, height: 24 }}
                     onError={(e) => {

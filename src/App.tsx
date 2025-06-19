@@ -9,6 +9,7 @@ import MainSkillSelector from './components/mainskill/MainSkillSelector';
 import NatureSelector from './components/nature/NatureSelector';
 import StatusDisplay from './components/status/StatusDisplay';
 import InstanceIndicator from './components/instance/InstanceIndicator';
+import SideMenu from './components/menu/SideMenu';
 import type { SubskillByLevel } from './types/pokemon';
 import { loadPokemonInstanceSettings, savePokemonInstanceSettings, getUsedInstanceIds, deletePokemonInstanceSettings } from './utils/pokemon-storage';
 import type { Pokemon } from '../config/schema';
@@ -36,6 +37,8 @@ function App() {
   const [showFilters, setShowFilters] = useState(false);
   const [showSortModal, setShowSortModal] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0); // ポケモン状態更新用トリガー
+  const [showSideMenu, setShowSideMenu] = useState(false); // サイドメニュー表示状態
+  const [currentPage, setCurrentPage] = useState('breeding'); // 現在のページ
   const [filters, setFilters] = useState<FilterOptions>({
     specialty: 'すべて',
     specialties: [],
@@ -169,6 +172,17 @@ function App() {
     setRefreshTrigger(prev => prev + 1);
   }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
 
+  // メニュー関連の関数
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page);
+    if (page === 'breeding') {
+      // 厳選管理ページ - 現在のページなので何もしない
+    } else if (page === 'candy') {
+      // アメ計算ページ - 将来実装予定
+      alert('アメ計算機能は今後実装予定です');
+    }
+  };
+
   return (
     <div style={{
       width: '100%',
@@ -182,6 +196,14 @@ function App() {
       position: 'relative',
       overflowX: 'hidden'
     }}>
+      {/* サイドメニュー */}
+      <SideMenu
+        isOpen={showSideMenu}
+        onClose={() => setShowSideMenu(false)}
+        currentPage={currentPage}
+        onNavigate={handleNavigate}
+      />
+
       {/* 固定上部エリア - ヘッダーとポケモン詳細 */}
       <div style={{
         backgroundColor: '#ffffff',
@@ -191,9 +213,51 @@ function App() {
         boxSizing: 'border-box'
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
-          <h1 style={{ margin: 0, color: '#2d3748', fontSize: 20, fontWeight: 700 }}>
-            ポケモンスリープ管理ツール
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {/* メニューバーボタン */}
+            <button
+              onClick={() => {
+                console.log('ハンバーガーメニューがクリックされました');
+                setShowSideMenu(true);
+              }}
+              style={{
+                width: 40,
+                height: 40,
+                background: 'transparent',
+                border: 'none',
+                borderRadius: 4,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                padding: 8
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#f3f4f6';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+              }}
+            >
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 448 512"
+                style={{
+                  fill: '#374151',
+                  display: 'block'
+                }}
+              >
+                <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+              </svg>
+            </button>
+            
+            <h1 style={{ margin: 0, color: '#2d3748', fontSize: 20, fontWeight: 700 }}>
+              ポケスリ厳選管理
+            </h1>
+          </div>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
             {/* 詳細開閉ボタン */}
             <button
