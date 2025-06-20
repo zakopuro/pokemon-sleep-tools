@@ -47,27 +47,22 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
   const statusOrder = ['完了', '厳選中', '厳選前', '保留', '中止', '対象外', '未設定'];
   const sortedStatuses = statusOrder.filter(status => statusGroups[status] && statusGroups[status].length > 0);
 
-  // 状態ごとの色設定
-  const getStatusColor = (status: string): string => {
-    switch (status) {
-      case '完了': return '#22c55e';
-      case '厳選中': return '#3b82f6'; 
-      case '厳選前': return '#8b5cf6';
-      case '保留': return '#f59e0b';
-      case '中止': return '#ef4444';
-      case '対象外': return '#6b7280';
-      case '未設定': return '#d1d5db';
-      default: return '#6b7280';
-    }
-  };
 
-  // 状態アイコンを取得
+  // 状態アイコンを取得（StatusDisplayと同じSVG）
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case '完了':
+      case '未設定':
         return (
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="2" fill="#22c55e"/>
+            <circle cx="12" cy="12" r="10" stroke="#6b7280" strokeWidth="2"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 17h.01" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        );
+      case '厳選前':
+        return (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#8b5cf6" strokeWidth="2" fill="#8b5cf6"/>
             <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         );
@@ -76,20 +71,23 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="#3b82f6" strokeWidth="2" fill="#3b82f6"/>
             <circle cx="12" cy="12" r="3" fill="white"/>
+            <path d="m15 9-6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="m9 9 6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
         );
-      case '厳選前':
+      case '完了':
         return (
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <polygon points="12,2 22,20 2,20" stroke="#8b5cf6" strokeWidth="2" fill="#8b5cf6"/>
-            <circle cx="12" cy="16" r="1" fill="white"/>
-            <path d="M12 6v6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            <circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="2" fill="#22c55e"/>
+            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         );
       case '保留':
         return (
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <polygon points="12,2 15,8 22,8 17,13 19,20 12,16 5,20 7,13 2,8 9,8" stroke="#f59e0b" strokeWidth="2" fill="#f59e0b"/>
+            <circle cx="12" cy="12" r="10" stroke="#f59e0b" strokeWidth="2" fill="#f59e0b"/>
+            <rect x="8" y="7" width="2" height="10" fill="white"/>
+            <rect x="14" y="7" width="2" height="10" fill="white"/>
           </svg>
         );
       case '中止':
@@ -147,13 +145,9 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
               </span>
               <span style={{ 
                 fontSize: 12, 
-                background: getStatusColor(status),
-                color: '#fff',
-                padding: '2px 8px',
-                borderRadius: 12,
-                fontWeight: 600
+                color: '#6b7280'
               }}>
-                {pokemonsInStatus.length}匹
+                ({pokemonsInStatus.length}匹)
               </span>
             </div>
             
