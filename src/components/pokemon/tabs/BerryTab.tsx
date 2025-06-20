@@ -1,5 +1,6 @@
 import React from 'react';
 import { FIELDS } from '../../../../config/fields';
+import { BERRIES } from '../../../../config/berries';
 import type { Pokemon } from '../../../../config/schema';
 import { getBerry, getBerryImageName } from '../../../utils/pokemon';
 import { getPokemonKey } from '../../../utils/pokemon-storage';
@@ -113,16 +114,22 @@ const BerryTab: React.FC<BerryTabProps> = ({
   const renderBerryGrouping = () => {
     // 従来のきのみ別グルーピング
     const berryGroups: { [berryId: number]: Pokemon[] } = {};
+    
+    // 全てのきのみを初期化
+    Object.values(BERRIES).forEach(berry => {
+      berryGroups[berry.id] = [];
+    });
+    
+    // ポケモンを該当するきのみグループに追加
     filteredPokemons.forEach(pokemon => {
-      if (!berryGroups[pokemon.berryId]) {
-        berryGroups[pokemon.berryId] = [];
+      if (berryGroups[pokemon.berryId]) {
+        berryGroups[pokemon.berryId].push(pokemon);
       }
-      berryGroups[pokemon.berryId].push(pokemon);
     });
 
     // きのみIDでソート
-    const sortedBerryIds = Object.keys(berryGroups)
-      .map(id => parseInt(id))
+    const sortedBerryIds = Object.values(BERRIES)
+      .map(berry => berry.id)
       .sort((a, b) => a - b);
 
     return sortedBerryIds.map(berryId => {
@@ -169,20 +176,24 @@ const BerryTab: React.FC<BerryTabProps> = ({
             alignItems: 'start',
             gridAutoRows: '68px'
           }}>
-            {pokemonsForBerry.map(pokemon => (
-              <PokemonCard
-                key={getPokemonKey(pokemon)}
-                pokemon={pokemon}
-                isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
-                statusIcon={
-                  <StatusIcon
-                    status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
-                    count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
-                  />
-                }
-                onClick={() => onPokemonSelect(pokemon)}
-              />
-            ))}
+            {pokemonsForBerry.length > 0 ? (
+              pokemonsForBerry.map(pokemon => (
+                <PokemonCard
+                  key={getPokemonKey(pokemon)}
+                  pokemon={pokemon}
+                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
+                  statusIcon={
+                    <StatusIcon
+                      status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
+                      count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
+                    />
+                  }
+                  onClick={() => onPokemonSelect(pokemon)}
+                />
+              ))
+            ) : (
+              <EmptyPlaceholder />
+            )}
           </div>
         </div>
       );

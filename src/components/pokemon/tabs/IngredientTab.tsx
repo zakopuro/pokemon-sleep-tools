@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { RECIPES } from '../../../../config/recipes';
+import { INGREDIENTS } from '../../../../config/ingredients';
 import type { Pokemon } from '../../../../config/schema';
 import { getIngredient, getIngredientImageName } from '../../../utils/pokemon';
 import { getPokemonKey, loadAllInstancesForPokemon } from '../../../utils/pokemon-storage';
@@ -384,19 +385,15 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
   const renderRecipeGrouping = () => {
     // レシピ別グルーピング（ごちゃまぜ系は除外）
     let validRecipes = RECIPES.filter(recipe => recipe.ingredients.length > 0);
-    console.log('DEBUG: 初期レシピ数:', validRecipes.length);
-    console.log('DEBUG: recipeCategory:', recipeCategory);
     
     // カテゴリーフィルター
     if (recipeCategory !== 'all') {
       validRecipes = validRecipes.filter(recipe => recipe.category === recipeCategory);
-      console.log('DEBUG: フィルター後レシピ数:', validRecipes.length);
     }
     
     // エナジー順ソート
     if (recipeSortByEnergy) {
       validRecipes = [...validRecipes].sort((a, b) => b.energy - a.energy);
-      console.log('DEBUG: エナジー順ソート実行');
     }
     
     return validRecipes.map(recipe => {
@@ -583,6 +580,12 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
   const renderIngredientGrouping = () => {
     // レシピOFF時: 従来の食材別グルーピング
     const ingredientGroups: { [ingredientId: number]: Pokemon[] } = {};
+    
+    // 全ての食材を初期化
+    Object.values(INGREDIENTS).forEach(ingredient => {
+      ingredientGroups[ingredient.id] = [];
+    });
+    
     filteredPokemons.forEach(pokemon => {
       // ポケモンが持つすべての食材をチェック
       const ingredientIds = [
@@ -592,21 +595,20 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       ].filter((id): id is number => id !== undefined);
 
       ingredientIds.forEach(ingredientId => {
-        if (!ingredientGroups[ingredientId]) {
-          ingredientGroups[ingredientId] = [];
-        }
-        // 重複を避けるためにポケモンが既に追加されていないかチェック
-        const pokemonKey = getPokemonKey(pokemon);
-        const alreadyAdded = ingredientGroups[ingredientId].some(p => getPokemonKey(p) === pokemonKey);
-        if (!alreadyAdded) {
-          ingredientGroups[ingredientId].push(pokemon);
+        if (ingredientGroups[ingredientId]) {
+          // 重複を避けるためにポケモンが既に追加されていないかチェック
+          const pokemonKey = getPokemonKey(pokemon);
+          const alreadyAdded = ingredientGroups[ingredientId].some(p => getPokemonKey(p) === pokemonKey);
+          if (!alreadyAdded) {
+            ingredientGroups[ingredientId].push(pokemon);
+          }
         }
       });
     });
 
     // 食材IDでソート
-    const sortedIngredientIds = Object.keys(ingredientGroups)
-      .map(id => parseInt(id))
+    const sortedIngredientIds = Object.values(INGREDIENTS)
+      .map(ingredient => ingredient.id)
       .sort((a, b) => a - b);
 
     return sortedIngredientIds.map(ingredientId => {
