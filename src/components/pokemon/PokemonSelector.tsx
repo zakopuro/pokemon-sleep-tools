@@ -8,6 +8,7 @@ import BerryTab from './tabs/BerryTab';
 import IngredientTab from './tabs/IngredientTab';
 import SkillTab from './tabs/SkillTab';
 import DefaultTab from './tabs/DefaultTab';
+import ManagementTab from './tabs/ManagementTab';
 
 interface PokemonSelectorProps {
   selectedPokemon: Pokemon;
@@ -102,9 +103,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           />
         );
       case '厳選管理':
-        // TODO: 将来実装
         return (
-          <DefaultTab
+          <ManagementTab
             filteredPokemons={filteredPokemons}
             selectedPokemon={selectedPokemon}
             onPokemonSelect={handlePokemonSelect}
