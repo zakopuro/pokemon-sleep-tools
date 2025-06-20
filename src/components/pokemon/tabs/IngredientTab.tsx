@@ -294,7 +294,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     // 該当する個体の管理状態を収集
     const matchingInstanceStatuses: string[] = [];
     
-    Object.entries(allInstances).forEach(([instanceId, instance]) => {
+    Object.entries(allInstances).forEach(([, instance]) => {
       // 個体の食材設定を取得
       const ingredientSlots = instance.selectedIngredients || [];
       
@@ -321,7 +321,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
 
     // フィルター条件に合う個体があるかチェック
     const hasMatchingStatus = matchingInstanceStatuses.some(status => 
-      filters.managementStatuses.includes(status)
+      filters.managementStatuses?.includes(status) || false
     );
 
     
