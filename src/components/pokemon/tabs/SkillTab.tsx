@@ -4,6 +4,7 @@ import type { Pokemon } from '../../../../config/schema';
 import { getPokemonKey } from '../../../utils/pokemon-storage';
 import PokemonCard from '../PokemonCard';
 import StatusIcon from '../../common/StatusIcon';
+import EmptyPlaceholder from '../../common/EmptyPlaceholder';
 
 interface SkillTabProps {
   filteredPokemons: Pokemon[];
@@ -20,18 +21,26 @@ const SkillTab: React.FC<SkillTabProps> = ({
 }) => {
   // minorclass（スキル種別）ごとにポケモンをグルーピング
   const skillGroups: { [minorclass: string]: { pokemons: Pokemon[], skill: any } } = {};
+  
+  // 全てのスキル種別を初期化
+  const uniqueMinorClasses = [...new Set(MAINSKILLS.map(skill => skill.minorclass))];
+  uniqueMinorClasses.forEach(minorclass => {
+    const skill = MAINSKILLS.find(s => s.minorclass === minorclass);
+    if (skill) {
+      skillGroups[minorclass] = { pokemons: [], skill };
+    }
+  });
+  
+  // ポケモンを該当するスキルグループに追加
   filteredPokemons.forEach(pokemon => {
     const skill = MAINSKILLS.find(s => s.id === pokemon.mainSkillId);
-    if (skill) {
-      if (!skillGroups[skill.minorclass]) {
-        skillGroups[skill.minorclass] = { pokemons: [], skill };
-      }
+    if (skill && skillGroups[skill.minorclass]) {
       skillGroups[skill.minorclass].pokemons.push(pokemon);
     }
   });
 
   // minorclassでソート
-  const sortedMinorclasses = Object.keys(skillGroups).sort();
+  const sortedMinorclasses = uniqueMinorClasses.sort();
 
   return (
     <div style={{
@@ -85,20 +94,24 @@ const SkillTab: React.FC<SkillTabProps> = ({
               alignItems: 'start',
               gridAutoRows: '68px'
             }}>
-              {pokemonsForSkill.map(pokemon => (
-                <PokemonCard
-                  key={getPokemonKey(pokemon)}
-                  pokemon={pokemon}
-                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
-                  statusIcon={
-                    <StatusIcon
-                      status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
-                      count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
-                    />
-                  }
-                  onClick={() => onPokemonSelect(pokemon)}
-                />
-              ))}
+              {pokemonsForSkill.length > 0 ? (
+                pokemonsForSkill.map(pokemon => (
+                  <PokemonCard
+                    key={getPokemonKey(pokemon)}
+                    pokemon={pokemon}
+                    isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
+                    statusIcon={
+                      <StatusIcon
+                        status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
+                        count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
+                      />
+                    }
+                    onClick={() => onPokemonSelect(pokemon)}
+                  />
+                ))
+              ) : (
+                <EmptyPlaceholder />
+              )}
             </div>
           </div>
         );

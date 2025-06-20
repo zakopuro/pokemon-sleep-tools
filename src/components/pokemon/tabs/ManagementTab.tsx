@@ -3,6 +3,7 @@ import type { Pokemon } from '../../../../config/schema';
 import { getPokemonKey } from '../../../utils/pokemon-storage';
 import PokemonCard from '../PokemonCard';
 import StatusIcon from '../../common/StatusIcon';
+import EmptyPlaceholder from '../../common/EmptyPlaceholder';
 
 interface ManagementTabProps {
   filteredPokemons: Pokemon[];
@@ -20,7 +21,13 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
 
   // 状態別にポケモンをグルーピング
   const groupPokemonsByStatus = () => {
+    const statusOrder = ['完了', '厳選中', '厳選前', '保留', '中止', '対象外', '未設定'];
     const statusGroups: { [status: string]: Pokemon[] } = {};
+    
+    // 全ての状態を初期化
+    statusOrder.forEach(status => {
+      statusGroups[status] = [];
+    });
     
     filteredPokemons.forEach(pokemon => {
       const pokemonKey = getPokemonKey(pokemon);
@@ -32,9 +39,6 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
         status = pokemonStatus.status;
       }
       
-      if (!statusGroups[status]) {
-        statusGroups[status] = [];
-      }
       statusGroups[status].push(pokemon);
     });
     
@@ -43,9 +47,9 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
 
   const statusGroups = groupPokemonsByStatus();
   
-  // 状態の優先順位で並び替え
+  // 状態の優先順位で並び替え（0匹でも表示）
   const statusOrder = ['完了', '厳選中', '厳選前', '保留', '中止', '対象外', '未設定'];
-  const sortedStatuses = statusOrder.filter(status => statusGroups[status] && statusGroups[status].length > 0);
+  const sortedStatuses = statusOrder;
 
 
   // 状態アイコンを取得（StatusDisplayと同じSVG）
@@ -161,36 +165,28 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
               alignItems: 'start',
               gridAutoRows: '68px'
             }}>
-              {pokemonsInStatus.map(pokemon => (
-                <PokemonCard
-                  key={getPokemonKey(pokemon)}
-                  pokemon={pokemon}
-                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
-                  statusIcon={
-                    <StatusIcon
-                      status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
-                      count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
-                    />
-                  }
-                  onClick={() => onPokemonSelect(pokemon)}
-                />
-              ))}
+              {pokemonsInStatus.length > 0 ? (
+                pokemonsInStatus.map(pokemon => (
+                  <PokemonCard
+                    key={getPokemonKey(pokemon)}
+                    pokemon={pokemon}
+                    isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
+                    statusIcon={
+                      <StatusIcon
+                        status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
+                        count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
+                      />
+                    }
+                    onClick={() => onPokemonSelect(pokemon)}
+                  />
+                ))
+              ) : (
+                <EmptyPlaceholder />
+              )}
             </div>
           </div>
         );
       })}
-      
-      {/* ポケモンがいない場合のメッセージ */}
-      {sortedStatuses.length === 0 && (
-        <div style={{
-          textAlign: 'center',
-          padding: '40px 20px',
-          color: '#6b7280',
-          fontSize: 14
-        }}>
-          表示できるポケモンがありません
-        </div>
-      )}
     </div>
   );
 };

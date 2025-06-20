@@ -5,6 +5,7 @@ import { getIngredient, getIngredientImageName } from '../../../utils/pokemon';
 import { getPokemonKey, loadAllInstancesForPokemon } from '../../../utils/pokemon-storage';
 import PokemonCard from '../PokemonCard';
 import StatusIcon from '../../common/StatusIcon';
+import EmptyPlaceholder from '../../common/EmptyPlaceholder';
 import type { FilterOptions } from '../../PokemonFilters';
 
 interface IngredientTabProps {
@@ -443,7 +444,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
         });
       });
       
-      if (recipePokemonEntries.length === 0) return null;
+      // 0匹でも表示する
       
       // A-B-C順にソート（同じスロットの場合は図鑑番号順）
       recipePokemonEntries.sort((a, b) => {
@@ -546,29 +547,33 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
             alignItems: 'start',
             gridAutoRows: '68px'
           }}>
-            {recipePokemonEntries.map(entry => {
-              // レシピマッチング用のラベルを取得
-              const ingredientLabel = getIngredientLabel(entry.pokemon, entry.targetIngredientId, recipe);
+            {recipePokemonEntries.length > 0 ? (
+              recipePokemonEntries.map(entry => {
+                // レシピマッチング用のラベルを取得
+                const ingredientLabel = getIngredientLabel(entry.pokemon, entry.targetIngredientId, recipe);
 
-              return (
-                <PokemonCard
-                  key={`${getPokemonKey(entry.pokemon)}-${entry.targetIngredientId}`}
-                  pokemon={entry.pokemon}
-                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(entry.pokemon)}
-                  statusIcon={
-                    <StatusIcon
-                      status={pokemonStatuses[getPokemonKey(entry.pokemon)]?.status || ''}
-                      count={pokemonStatuses[getPokemonKey(entry.pokemon)]?.count}
-                    />
-                  }
-                  ingredientLabel={ingredientLabel}
-                  onClick={() => onPokemonSelect(entry.pokemon)}
-                  isIngredientTab={true}
-                  selectedSlots={selectedSlots}
-                  targetIngredientId={entry.targetIngredientId}
-                />
-              );
-            })}
+                return (
+                  <PokemonCard
+                    key={`${getPokemonKey(entry.pokemon)}-${entry.targetIngredientId}`}
+                    pokemon={entry.pokemon}
+                    isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(entry.pokemon)}
+                    statusIcon={
+                      <StatusIcon
+                        status={pokemonStatuses[getPokemonKey(entry.pokemon)]?.status || ''}
+                        count={pokemonStatuses[getPokemonKey(entry.pokemon)]?.count}
+                      />
+                    }
+                    ingredientLabel={ingredientLabel}
+                    onClick={() => onPokemonSelect(entry.pokemon)}
+                    isIngredientTab={true}
+                    selectedSlots={selectedSlots}
+                    targetIngredientId={entry.targetIngredientId}
+                  />
+                );
+              })
+            ) : (
+              <EmptyPlaceholder />
+            )}
           </div>
         </div>
       );
@@ -609,8 +614,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       // スロットフィルタリングを適用
       let pokemonsForIngredient = filterPokemonsBySlotForIngredient(ingredientGroups[ingredientId], ingredientId);
       
-      // フィルター後にポケモンがいない場合は表示しない
-      if (pokemonsForIngredient.length === 0) return null;
+      // 0匹でも表示する
       
       // A-B-C順にソート（同じスロットの場合は図鑑番号順）
       pokemonsForIngredient = pokemonsForIngredient.sort((a, b) => {
@@ -675,24 +679,28 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
             alignItems: 'start',
             gridAutoRows: '68px'
           }}>
-            {pokemonsForIngredient.map(pokemon => (
-              <PokemonCard
-                key={getPokemonKey(pokemon)}
-                pokemon={pokemon}
-                isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
-                statusIcon={
-                  <StatusIcon
-                    status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
-                    count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
-                  />
-                }
-                ingredientLabel={getIngredientLabel(pokemon, ingredientId)}
-                onClick={() => onPokemonSelect(pokemon)}
-                isIngredientTab={true}
-                selectedSlots={selectedSlots}
-                targetIngredientId={ingredientId}
-              />
-            ))}
+            {pokemonsForIngredient.length > 0 ? (
+              pokemonsForIngredient.map(pokemon => (
+                <PokemonCard
+                  key={getPokemonKey(pokemon)}
+                  pokemon={pokemon}
+                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
+                  statusIcon={
+                    <StatusIcon
+                      status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
+                      count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
+                    />
+                  }
+                  ingredientLabel={getIngredientLabel(pokemon, ingredientId)}
+                  onClick={() => onPokemonSelect(pokemon)}
+                  isIngredientTab={true}
+                  selectedSlots={selectedSlots}
+                  targetIngredientId={ingredientId}
+                />
+              ))
+            ) : (
+              <EmptyPlaceholder />
+            )}
           </div>
         </div>
       );

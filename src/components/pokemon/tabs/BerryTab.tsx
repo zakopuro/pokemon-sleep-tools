@@ -5,6 +5,7 @@ import { getBerry, getBerryImageName } from '../../../utils/pokemon';
 import { getPokemonKey } from '../../../utils/pokemon-storage';
 import PokemonCard from '../PokemonCard';
 import StatusIcon from '../../common/StatusIcon';
+import EmptyPlaceholder from '../../common/EmptyPlaceholder';
 
 interface BerryTabProps {
   filteredPokemons: Pokemon[];
@@ -34,7 +35,7 @@ const BerryTab: React.FC<BerryTabProps> = ({
         field.berries.includes(pokemon.berryId)
       );
       
-      if (fieldPokemons.length === 0) return null;
+      // 0匹でも表示する
       
       return (
         <div key={field.id} style={{ marginBottom: 16 }}>
@@ -85,20 +86,24 @@ const BerryTab: React.FC<BerryTabProps> = ({
             alignItems: 'start',
             gridAutoRows: '68px'
           }}>
-            {fieldPokemons.map(pokemon => (
-              <PokemonCard
-                key={getPokemonKey(pokemon)}
-                pokemon={pokemon}
-                isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
-                statusIcon={
-                  <StatusIcon
-                    status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
-                    count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
-                  />
-                }
-                onClick={() => onPokemonSelect(pokemon)}
-              />
-            ))}
+            {fieldPokemons.length > 0 ? (
+              fieldPokemons.map(pokemon => (
+                <PokemonCard
+                  key={getPokemonKey(pokemon)}
+                  pokemon={pokemon}
+                  isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
+                  statusIcon={
+                    <StatusIcon
+                      status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
+                      count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
+                    />
+                  }
+                  onClick={() => onPokemonSelect(pokemon)}
+                />
+              ))
+            ) : (
+              <EmptyPlaceholder />
+            )}
           </div>
         </div>
       );
