@@ -17,6 +17,8 @@ interface PokemonSelectorProps {
   onOpenFilters: () => void;
   onOpenSort: () => void;
   refreshTrigger?: number; // 状態更新のトリガー
+  showPokemonDetails: boolean; // 詳細画面の表示状態
+  onTogglePokemonDetails: () => void; // 詳細画面の開閉関数
 }
 
 const PokemonSelector: React.FC<PokemonSelectorProps> = ({
@@ -26,7 +28,9 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   onFiltersChange,
   onOpenFilters,
   onOpenSort,
-  refreshTrigger
+  refreshTrigger,
+  showPokemonDetails,
+  onTogglePokemonDetails
 }) => {
   const [activeTab, setActiveTab] = useState('すべて');
   
@@ -48,6 +52,14 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
 
   const tabs = ['すべて', 'きのみ', '食材', 'スキル', '厳選管理'];
 
+  // ポケモン選択時の処理（詳細画面が閉じている場合は開く）
+  const handlePokemonSelect = (pokemon: Pokemon) => {
+    onPokemonSelect(pokemon);
+    if (!showPokemonDetails) {
+      onTogglePokemonDetails();
+    }
+  };
+
   // タブ別のコンテンツをレンダリングする関数
   const renderTabContent = () => {
     switch (activeTab) {
@@ -56,7 +68,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           <BerryTab
             filteredPokemons={filteredPokemons}
             selectedPokemon={selectedPokemon}
-            onPokemonSelect={onPokemonSelect}
+            onPokemonSelect={handlePokemonSelect}
             pokemonStatuses={pokemonStatuses}
             showFieldGrouping={showFieldGrouping}
             setShowFieldGrouping={setShowFieldGrouping}
@@ -67,7 +79,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           <IngredientTab
             filteredPokemons={filteredPokemons}
             selectedPokemon={selectedPokemon}
-            onPokemonSelect={onPokemonSelect}
+            onPokemonSelect={handlePokemonSelect}
             pokemonStatuses={pokemonStatuses}
             showRecipeGrouping={showRecipeGrouping}
             setShowRecipeGrouping={setShowRecipeGrouping}
@@ -77,6 +89,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             setRecipeCategory={setRecipeCategory}
             selectedSlots={selectedSlots}
             setSelectedSlots={setSelectedSlots}
+            filters={filters}
           />
         );
       case 'スキル':
@@ -84,7 +97,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           <SkillTab
             filteredPokemons={filteredPokemons}
             selectedPokemon={selectedPokemon}
-            onPokemonSelect={onPokemonSelect}
+            onPokemonSelect={handlePokemonSelect}
             pokemonStatuses={pokemonStatuses}
           />
         );
@@ -94,7 +107,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           <DefaultTab
             filteredPokemons={filteredPokemons}
             selectedPokemon={selectedPokemon}
-            onPokemonSelect={onPokemonSelect}
+            onPokemonSelect={handlePokemonSelect}
             pokemonStatuses={pokemonStatuses}
           />
         );
@@ -103,7 +116,7 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
           <DefaultTab
             filteredPokemons={filteredPokemons}
             selectedPokemon={selectedPokemon}
-            onPokemonSelect={onPokemonSelect}
+            onPokemonSelect={handlePokemonSelect}
             pokemonStatuses={pokemonStatuses}
           />
         );

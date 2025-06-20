@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { RECIPES } from '../../../../config/recipes';
 import type { Pokemon } from '../../../../config/schema';
 import { getIngredient, getIngredientImageName } from '../../../utils/pokemon';
-import { getPokemonKey } from '../../../utils/pokemon-storage';
+import { getPokemonKey, loadAllInstancesForPokemon } from '../../../utils/pokemon-storage';
 import PokemonCard from '../PokemonCard';
 import StatusIcon from '../../common/StatusIcon';
+import type { FilterOptions } from '../../PokemonFilters';
 
 interface IngredientTabProps {
   filteredPokemons: Pokemon[];
@@ -19,6 +20,7 @@ interface IngredientTabProps {
   setRecipeCategory: (value: string) => void;
   selectedSlots: string[];
   setSelectedSlots: (value: string[]) => void;
+  filters?: FilterOptions; // 管理状態フィルター用
 }
 
 // カテゴリープルダウンコンポーネント
@@ -216,8 +218,115 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
   recipeCategory,
   setRecipeCategory,
   selectedSlots,
-  setSelectedSlots
+  setSelectedSlots,
+  filters
 }) => {
+
+  // PokemonCardと同じロジックでパターンチェック
+  const checkIngredientPattern = (pokemon: Pokemon, ingredientSlots: number[], targetIngredientId: number, labelSlot: string): boolean => {
+    // 個体の食材構成を文字列パターンに変換（例：[9,9,12] → "AAB"）
+    const slotPattern = getIngredientSlotPattern(pokemon, ingredientSlots);
+    
+    // ターゲット食材に対応する基本スロット（ポケモンの基本食材配置）を取得
+    const baseSlot = getBaseSlotForIngredient(pokemon, targetIngredientId);
+    
+    if (baseSlot !== labelSlot) {
+      return false; // 基本スロットと表示ラベルが一致しない場合は非表示
+    }
+    
+    // パターン別の表示条件をチェック
+    switch (labelSlot) {
+      case 'A':
+        // Aラベル表示時：AAA, AAB, AAC の場合のみ表示
+        return slotPattern === 'AAA' || slotPattern === 'AAB' || slotPattern === 'AAC';
+      case 'B':
+        // Bラベル表示時：ABB の場合のみ表示
+        return slotPattern === 'ABB';
+      case 'C':
+        // Cラベル表示時：AAC, ABC の場合のみ表示
+        return slotPattern === 'AAC' || slotPattern === 'ABC';
+      default:
+        return false;
+    }
+  };
+
+  // 個体の食材設定をA/B/Cパターンに変換
+  const getIngredientSlotPattern = (pokemon: Pokemon, ingredientSlots: number[]): string => {
+    return ingredientSlots.map((ingredientId) => {
+      // ポケモンの基本食材との対応でA/B/Cを決定
+      if (pokemon.ing1?.ingredientId === ingredientId) return 'A';
+      if (pokemon.ing2?.ingredientId === ingredientId) return 'B';
+      if (pokemon.ing3?.ingredientId === ingredientId) return 'C';
+      return 'X'; // 基本食材にない場合
+    }).join('');
+  };
+
+  // 食材IDから基本スロット（A/B/C）を取得
+  const getBaseSlotForIngredient = (pokemon: Pokemon, ingredientId: number): string => {
+    if (pokemon.ing1?.ingredientId === ingredientId) return 'A';
+    if (pokemon.ing2?.ingredientId === ingredientId) return 'B';
+    if (pokemon.ing3?.ingredientId === ingredientId) return 'C';
+    return '';
+  };
+
+  // スロット別管理状態フィルターによるポケモンのフィルタリング（PokemonCardと同じロジック）
+  const filterPokemonsBySlotManagementStatus = (pokemon: Pokemon, targetSlot: string): boolean => {
+    // 管理状態フィルターが設定されていない場合は全て表示
+    if (!filters?.managementStatuses || filters.managementStatuses.length === 0) {
+      return true;
+    }
+
+    // 該当スロットに対応する食材IDを取得
+    const targetIngredientId = (() => {
+      if (targetSlot === 'A') return pokemon.ing1?.ingredientId;
+      if (targetSlot === 'B') return pokemon.ing2?.ingredientId;
+      if (targetSlot === 'C') return pokemon.ing3?.ingredientId;
+      return undefined;
+    })();
+
+    if (!targetIngredientId) {
+      return false; // 該当スロットに食材がない場合は非表示
+    }
+
+    // このポケモンの全個体を取得
+    const allInstances = loadAllInstancesForPokemon(pokemon);
+    
+    // 該当する個体の管理状態を収集
+    const matchingInstanceStatuses: string[] = [];
+    
+    Object.entries(allInstances).forEach(([instanceId, instance]) => {
+      // 個体の食材設定を取得
+      const ingredientSlots = instance.selectedIngredients || [];
+      
+      // 該当スロットに対象食材が設定されているかチェック
+      const labelSlotIndex = targetSlot === 'A' ? 0 : targetSlot === 'B' ? 1 : 2;
+      const hasTargetIngredientInSlot = ingredientSlots[labelSlotIndex] === targetIngredientId;
+      
+      if (!hasTargetIngredientInSlot) {
+        return; // 該当スロットに対象食材がなければスキップ
+      }
+      
+      // 個体の食材組み合わせパターンをチェック（PokemonCardと同じロジック）
+      const shouldShowForThisPattern = checkIngredientPattern(pokemon, ingredientSlots, targetIngredientId, targetSlot);
+      
+      if (shouldShowForThisPattern) {
+        matchingInstanceStatuses.push(instance.managementStatus || '未設定');
+      }
+    });
+
+    // 該当する個体がない場合は非表示
+    if (matchingInstanceStatuses.length === 0) {
+      return false;
+    }
+
+    // フィルター条件に合う個体があるかチェック
+    const hasMatchingStatus = matchingInstanceStatuses.some(status => 
+      filters.managementStatuses.includes(status)
+    );
+
+    
+    return hasMatchingStatus;
+  };
 
   // 食材ラベル（A,B,C）を取得する関数
   const getIngredientLabel = (pokemon: Pokemon, targetIngredientId?: number, recipe?: any) => {
@@ -246,8 +355,6 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
 
   // スロットフィルタリング関数（レシピOFF時用）
   const filterPokemonsBySlotForIngredient = (pokemons: Pokemon[], ingredientId: number) => {
-    if (selectedSlots.length === 3) return pokemons; // 全スロット選択時はフィルタリングしない
-    
     return pokemons.filter(pokemon => {
       // そのポケモンがこの食材を持っているスロットを特定
       const pokemonSlots: string[] = [];
@@ -256,8 +363,20 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       if (pokemon.ing2?.ingredientId === ingredientId) pokemonSlots.push('B');
       if (pokemon.ing3?.ingredientId === ingredientId) pokemonSlots.push('C');
       
-      // 選択されたスロットのいずれかでこの食材を持っているかチェック
-      return selectedSlots.some(slot => pokemonSlots.includes(slot));
+      // 各スロットに対してフィルタリングチェック
+      return pokemonSlots.some(slot => {
+        // スロットフィルターチェック
+        if (selectedSlots.length < 3 && !selectedSlots.includes(slot)) {
+          return false;
+        }
+        
+        // スロット別管理状態フィルターチェック
+        if (!filterPokemonsBySlotManagementStatus(pokemon, slot)) {
+          return false;
+        }
+        
+        return true;
+      });
     });
   };
 
@@ -308,6 +427,11 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
               if (!selectedSlots.includes(targetSlot)) {
                 return; // 選択されたスロットに含まれていない場合はスキップ
               }
+            }
+
+            // スロット別管理状態フィルターチェック
+            if (!filterPokemonsBySlotManagementStatus(pokemon, targetSlot)) {
+              return; // 管理状態フィルターに合わない場合はスキップ
             }
             
             recipePokemonEntries.push({

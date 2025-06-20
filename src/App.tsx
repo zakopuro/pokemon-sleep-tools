@@ -435,6 +435,8 @@ function App() {
           onOpenFilters={() => setShowFilters(true)}
           onOpenSort={() => setShowSortModal(true)}
           refreshTrigger={refreshTrigger}
+          showPokemonDetails={showPokemonDetails}
+          onTogglePokemonDetails={() => setShowPokemonDetails(prev => !prev)}
         />
       </div>
 
