@@ -2529,6 +2529,34 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true
   },
+    {
+    "id": "0010198",
+    "name": "ヤミカラス",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 25,
+    "fp": 20,
+    "frequency": 3600,
+    "berryId": 16,
+    "ing1": {
+      "ingredientId": 17,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 15,
+      "c1": 3,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 6,
+      "c1": 4
+    },
+    "pokedexId": 198,
+    "form": "normal",
+    "isFinalEvolution": false
+  },
   {
     "id": "0010199",
     "name": "ヤドキング",
@@ -3146,6 +3174,34 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true
   },
   {
+    "id": "0010303",
+    "name": "クチート",
+    "sleepType": "ぐっすり",
+    "specialty": "食材",
+    "mainSkillId": 26,
+    "fp": 16,
+    "frequency": 3200,
+    "berryId": 17,
+    "ing1": {
+      "ingredientId": 10,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 16,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 12,
+      "c1": 8
+    },
+    "pokedexId": 198,
+    "form": "normal",
+    "isFinalEvolution": false
+  },
+  {
     "id": "0010304",
     "name": "ココドラ",
     "sleepType": "ぐっすり",
@@ -3677,6 +3733,34 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true
   },
+      {
+    "id": "0010430",
+    "name": "ドンカラス",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 25,
+    "fp": 20,
+    "frequency": 3200,
+    "berryId": 16,
+    "ing1": {
+      "ingredientId": 17,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 15,
+      "c1": 3,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 6,
+      "c1": 4
+    },
+    "pokedexId": 430,
+    "form": "normal",
+    "isFinalEvolution": true
+  },
   {
     "id": "0010438",
     "name": "ウソハチ",
@@ -4127,34 +4211,34 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "availableIngredients": {
       "slot1": [
-        { "ingredientId": 1, "c1": 1, "c2": 2, "c3": 3 },
-        { "ingredientId": 2, "c1": 1, "c2": 2, "c3": 3 },
-        { "ingredientId": 3, "c1": 1, "c2": 2, "c3": 3 },
-        { "ingredientId": 4, "c1": 1, "c2": 2, "c3": 3 },
-        { "ingredientId": 5, "c1": 1, "c2": 2, "c3": 3 },
-        { "ingredientId": 6, "c1": 1, "c2": 2, "c3": 3 },
-        { "ingredientId": 7, "c1": 2, "c2": 4, "c3": 6 },
-        { "ingredientId": 8, "c1": 1, "c2": 2, "c3": 3 }
+        { "ingredientId": 7, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 5, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 8, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 9, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 16, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 17, "c1": 2, "c2": 0, "c3": 0 }
       ],
       "slot2": [
-        { "ingredientId": 1, "c1": 2, "c2": 4, "c3": 6 },
-        { "ingredientId": 2, "c1": 2, "c2": 4, "c3": 6 },
-        { "ingredientId": 3, "c1": 2, "c2": 4, "c3": 6 },
-        { "ingredientId": 4, "c1": 2, "c2": 4, "c3": 6 },
-        { "ingredientId": 5, "c1": 2, "c2": 4, "c3": 6 },
-        { "ingredientId": 6, "c1": 2, "c2": 4, "c3": 6 },
-        { "ingredientId": 7, "c1": 4, "c2": 8, "c3": 12 },
-        { "ingredientId": 8, "c1": 2, "c2": 4, "c3": 6 }
+        { "ingredientId": 7, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 5, "c1": 5, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 3, "c2": 0, "c3": 0 },
+        { "ingredientId": 8, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 9, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 16, "c1": 3, "c2": 0, "c3": 0 },
+        { "ingredientId": 17, "c1": 3, "c2": 0, "c3": 0 }
       ],
       "slot3": [
-        { "ingredientId": 1, "c1": 3, "c2": 6, "c3": 9 },
-        { "ingredientId": 2, "c1": 3, "c2": 6, "c3": 9 },
-        { "ingredientId": 3, "c1": 3, "c2": 6, "c3": 9 },
-        { "ingredientId": 4, "c1": 3, "c2": 6, "c3": 9 },
-        { "ingredientId": 5, "c1": 3, "c2": 6, "c3": 9 },
-        { "ingredientId": 6, "c1": 3, "c2": 6, "c3": 9 },
-        { "ingredientId": 7, "c1": 6, "c2": 12, "c3": 18 },
-        { "ingredientId": 8, "c1": 3, "c2": 6, "c3": 9 }
+        { "ingredientId": 7, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 5, "c1": 7, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 5, "c2": 0, "c3": 0 },
+        { "ingredientId": 8, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 9, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 16, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 17, "c1": 4, "c2": 0, "c3": 0 }
       ]
     }
   },
