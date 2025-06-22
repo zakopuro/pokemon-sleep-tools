@@ -212,11 +212,11 @@ export const usePokemonFiltering = (
 const getFilteredPokemonsByTab = (pokemons: Pokemon[], tab: string) => {
   switch (tab) {
     case 'きのみ':
-      return pokemons.filter(pokemon => pokemon.specialty === 'きのみ');
+      return pokemons.filter(pokemon => pokemon.specialty === 'きのみ' || pokemon.specialty === 'オール');
     case '食材':
-      return pokemons.filter(pokemon => pokemon.specialty === '食材');
+      return pokemons.filter(pokemon => pokemon.specialty === '食材' || pokemon.specialty === 'オール');
     case 'スキル':
-      return pokemons.filter(pokemon => pokemon.specialty === 'スキル');
+      return pokemons.filter(pokemon => pokemon.specialty === 'スキル' || pokemon.specialty === 'オール');
     case '厳選管理':
       // TODO: 厳選管理のフィルタリング（後で実装）
       return pokemons;
