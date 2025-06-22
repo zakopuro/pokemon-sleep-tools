@@ -28,10 +28,20 @@ export const createDefaultSettings = (pokemon?: any): PokemonSettings => {
   // ポケモンが指定されている場合は、その所持食材をデフォルトにする
   let defaultIngredients: number[] = [];
   if (pokemon) {
-    const ingredientIds = getPokemonIngredients(pokemon)
-      .map(ing => ing?.id)
-      .filter((id): id is number => id !== undefined);
-    defaultIngredients = [...new Set(ingredientIds)];
+    // 「オール」特性ポケモンの場合
+    if (pokemon.availableIngredients) {
+      defaultIngredients = [
+        pokemon.availableIngredients.slot1[0]?.ingredientId || 1,
+        pokemon.availableIngredients.slot2[0]?.ingredientId || 2,
+        pokemon.availableIngredients.slot3[0]?.ingredientId || 3
+      ];
+    } else {
+      // 通常ポケモンの場合
+      const ingredientIds = getPokemonIngredients(pokemon)
+        .map(ing => ing?.id)
+        .filter((id): id is number => id !== undefined);
+      defaultIngredients = [...new Set(ingredientIds)];
+    }
   }
 
   return {
