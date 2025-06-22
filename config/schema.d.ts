@@ -59,4 +59,10 @@ export interface Berry {
     ing1?: { ingredientId: number; c1?: number; c2?: number; c3?: number }
     ing2?: { ingredientId: number; c1?: number; c2?: number; c3?: number }
     ing3?: { ingredientId: number; c1?: number; c2?: number; c3?: number }
+    // 「オール」特性ポケモン用の選択可能食材（スロット別 + 個数設定可能）
+    availableIngredients?: {
+      slot1: Array<{ ingredientId: number; c1?: number; c2?: number; c3?: number }>
+      slot2: Array<{ ingredientId: number; c1?: number; c2?: number; c3?: number }>
+      slot3: Array<{ ingredientId: number; c1?: number; c2?: number; c3?: number }>
+    }
   }

@@ -341,6 +341,17 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       } else if (pokemon.ing3?.ingredientId === targetIngredientId) {
         return { label: 'C', backgroundColor: '#10b981' };
       }
+      
+      // 「オール」特性ポケモンの場合：availableIngredientsから検索
+      if (pokemon.availableIngredients) {
+        if (pokemon.availableIngredients.slot1.some(item => item.ingredientId === targetIngredientId)) {
+          return { label: 'A', backgroundColor: '#ef4444' };
+        } else if (pokemon.availableIngredients.slot2.some(item => item.ingredientId === targetIngredientId)) {
+          return { label: 'B', backgroundColor: '#3b82f6' };
+        } else if (pokemon.availableIngredients.slot3.some(item => item.ingredientId === targetIngredientId)) {
+          return { label: 'C', backgroundColor: '#10b981' };
+        }
+      }
     } else if (targetIngredientId) {
       // 食材別モード：どのスロットの食材かを確認
       if (pokemon.ing1?.ingredientId === targetIngredientId) {
@@ -350,6 +361,17 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       } else if (pokemon.ing3?.ingredientId === targetIngredientId) {
         return { label: 'C', backgroundColor: '#10b981' };
       }
+      
+      // 「オール」特性ポケモンの場合：availableIngredientsから検索（最初に見つかったスロット）
+      if (pokemon.availableIngredients) {
+        if (pokemon.availableIngredients.slot1.some(item => item.ingredientId === targetIngredientId)) {
+          return { label: 'A', backgroundColor: '#ef4444' };
+        } else if (pokemon.availableIngredients.slot2.some(item => item.ingredientId === targetIngredientId)) {
+          return { label: 'B', backgroundColor: '#3b82f6' };
+        } else if (pokemon.availableIngredients.slot3.some(item => item.ingredientId === targetIngredientId)) {
+          return { label: 'C', backgroundColor: '#10b981' };
+        }
+      }
     }
     return null;
   };
@@ -358,12 +380,25 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
   // スロットフィルタリング関数（レシピOFF時用）
   const filterPokemonsBySlotForIngredient = (pokemons: Pokemon[], ingredientId: number) => {
     return pokemons.filter(pokemon => {
-      // そのポケモンがこの食材を持っているスロットを特定
+      // 通常ポケモン：そのポケモンがこの食材を持っているスロットを特定
       const pokemonSlots: string[] = [];
       
       if (pokemon.ing1?.ingredientId === ingredientId) pokemonSlots.push('A');
       if (pokemon.ing2?.ingredientId === ingredientId) pokemonSlots.push('B');
       if (pokemon.ing3?.ingredientId === ingredientId) pokemonSlots.push('C');
+      
+      // 「オール」特性ポケモン：availableIngredientsから該当スロットを特定
+      if (pokemon.availableIngredients) {
+        if (pokemon.availableIngredients.slot1.some(item => item.ingredientId === ingredientId)) {
+          pokemonSlots.push('A');
+        }
+        if (pokemon.availableIngredients.slot2.some(item => item.ingredientId === ingredientId)) {
+          pokemonSlots.push('B');
+        }
+        if (pokemon.availableIngredients.slot3.some(item => item.ingredientId === ingredientId)) {
+          pokemonSlots.push('C');
+        }
+      }
       
       // 各スロットに対してフィルタリングチェック
       return pokemonSlots.some(slot => {
@@ -372,8 +407,8 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
           return false;
         }
         
-        // スロット別管理状態フィルターチェック
-        if (!filterPokemonsBySlotManagementStatus(pokemon, slot)) {
+        // スロット別管理状態フィルターチェック（通常ポケモンのみ）
+        if (!pokemon.availableIngredients && !filterPokemonsBySlotManagementStatus(pokemon, slot)) {
           return false;
         }
         
@@ -406,6 +441,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       
       recipe.ingredients.forEach(recipeIngredient => {
         filteredPokemons.forEach(pokemon => {
+          // 通常ポケモンの食材チェック
           const pokemonIngredients = [
             pokemon.ing1?.ingredientId,
             pokemon.ing2?.ingredientId,
@@ -436,6 +472,34 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
               pokemon: pokemon,
               targetIngredientId: recipeIngredient.ingredientId,
               targetSlot: targetSlot
+            });
+          }
+
+          // 「オール」特性ポケモンの availableIngredients チェック
+          if (pokemon.availableIngredients) {
+            // 各スロットでレシピ食材が選択可能かチェック
+            ['slot1', 'slot2', 'slot3'].forEach((slotKey, index) => {
+              const slot = pokemon.availableIngredients![slotKey as keyof typeof pokemon.availableIngredients];
+              const hasRecipeIngredient = slot.some(item => item.ingredientId === recipeIngredient.ingredientId);
+              
+              if (hasRecipeIngredient) {
+                const targetSlot = ['A', 'B', 'C'][index];
+                
+                // スロットフィルタリングチェック
+                if (selectedSlots.length < 3) {
+                  if (!selectedSlots.includes(targetSlot)) {
+                    return; // 選択されたスロットに含まれていない場合はスキップ
+                  }
+                }
+
+                // 「オール」特性ポケモンの管理状態フィルターは一旦スキップ（後で実装）
+                
+                recipePokemonEntries.push({
+                  pokemon: pokemon,
+                  targetIngredientId: recipeIngredient.ingredientId,
+                  targetSlot: targetSlot
+                });
+              }
             });
           }
         });
@@ -587,7 +651,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     });
     
     filteredPokemons.forEach(pokemon => {
-      // ポケモンが持つすべての食材をチェック
+      // 通常ポケモンの食材チェック
       const ingredientIds = [
         pokemon.ing1?.ingredientId,
         pokemon.ing2?.ingredientId,
@@ -604,6 +668,28 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
           }
         }
       });
+
+      // 「オール」特性ポケモンの availableIngredients チェック
+      if (pokemon.availableIngredients) {
+        const allAvailableIngredientIds = [
+          ...pokemon.availableIngredients.slot1.map(item => item.ingredientId),
+          ...pokemon.availableIngredients.slot2.map(item => item.ingredientId),
+          ...pokemon.availableIngredients.slot3.map(item => item.ingredientId)
+        ];
+
+        // 重複を除去
+        const uniqueIngredientIds = [...new Set(allAvailableIngredientIds)];
+
+        uniqueIngredientIds.forEach(ingredientId => {
+          if (ingredientGroups[ingredientId]) {
+            const pokemonKey = getPokemonKey(pokemon);
+            const alreadyAdded = ingredientGroups[ingredientId].some(p => getPokemonKey(p) === pokemonKey);
+            if (!alreadyAdded) {
+              ingredientGroups[ingredientId].push(pokemon);
+            }
+          }
+        });
+      }
     });
 
     // 食材IDでソート

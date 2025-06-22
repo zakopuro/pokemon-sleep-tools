@@ -132,6 +132,11 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       // ラベルがない、または対象食材がない場合は従来通り表示
       return true;
     }
+
+    // 「オール」特性ポケモンの場合は常に表示
+    if (pokemon.availableIngredients) {
+      return true;
+    }
     
     // 個体の食材設定とラベルの一致判定
     return checkInstanceMatchesLabel();

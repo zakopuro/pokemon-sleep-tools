@@ -4124,7 +4124,39 @@ export const POKEMONS: readonly Pokemon[] = [
     "berryId": 16,
     "pokedexId": 491,
     "form": "normal",
-    "isFinalEvolution": true
+    "isFinalEvolution": true,
+    "availableIngredients": {
+      "slot1": [
+        { "ingredientId": 1, "c1": 1, "c2": 2, "c3": 3 },
+        { "ingredientId": 2, "c1": 1, "c2": 2, "c3": 3 },
+        { "ingredientId": 3, "c1": 1, "c2": 2, "c3": 3 },
+        { "ingredientId": 4, "c1": 1, "c2": 2, "c3": 3 },
+        { "ingredientId": 5, "c1": 1, "c2": 2, "c3": 3 },
+        { "ingredientId": 6, "c1": 1, "c2": 2, "c3": 3 },
+        { "ingredientId": 7, "c1": 2, "c2": 4, "c3": 6 },
+        { "ingredientId": 8, "c1": 1, "c2": 2, "c3": 3 }
+      ],
+      "slot2": [
+        { "ingredientId": 1, "c1": 2, "c2": 4, "c3": 6 },
+        { "ingredientId": 2, "c1": 2, "c2": 4, "c3": 6 },
+        { "ingredientId": 3, "c1": 2, "c2": 4, "c3": 6 },
+        { "ingredientId": 4, "c1": 2, "c2": 4, "c3": 6 },
+        { "ingredientId": 5, "c1": 2, "c2": 4, "c3": 6 },
+        { "ingredientId": 6, "c1": 2, "c2": 4, "c3": 6 },
+        { "ingredientId": 7, "c1": 4, "c2": 8, "c3": 12 },
+        { "ingredientId": 8, "c1": 2, "c2": 4, "c3": 6 }
+      ],
+      "slot3": [
+        { "ingredientId": 1, "c1": 3, "c2": 6, "c3": 9 },
+        { "ingredientId": 2, "c1": 3, "c2": 6, "c3": 9 },
+        { "ingredientId": 3, "c1": 3, "c2": 6, "c3": 9 },
+        { "ingredientId": 4, "c1": 3, "c2": 6, "c3": 9 },
+        { "ingredientId": 5, "c1": 3, "c2": 6, "c3": 9 },
+        { "ingredientId": 6, "c1": 3, "c2": 6, "c3": 9 },
+        { "ingredientId": 7, "c1": 6, "c2": 12, "c3": 18 },
+        { "ingredientId": 8, "c1": 3, "c2": 6, "c3": 9 }
+      ]
+    }
   },
   {
     "id": "0010517",
