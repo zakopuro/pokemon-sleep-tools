@@ -10,6 +10,7 @@ import NatureSelector from './components/nature/NatureSelector';
 import StatusDisplay from './components/status/StatusDisplay';
 import InstanceIndicator from './components/instance/InstanceIndicator';
 import SideMenu from './components/menu/SideMenu';
+import CandyCalculator from './components/pages/CandyCalculator';
 import type { SubskillByLevel } from './types/pokemon';
 import { loadPokemonInstanceSettings, savePokemonInstanceSettings, getUsedInstanceIds, deletePokemonInstanceSettings } from './utils/pokemon-storage';
 import type { Pokemon } from '../config/schema';
@@ -175,12 +176,7 @@ function App() {
   // メニュー関連の関数
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
-    if (page === 'breeding') {
-      // 厳選管理ページ - 現在のページなので何もしない
-    } else if (page === 'candy') {
-      // アメ計算ページ - 将来実装予定
-      alert('アメ計算機能は今後実装予定です');
-    }
+    setShowSideMenu(false); // メニューを閉じる
   };
 
   return (
@@ -306,8 +302,8 @@ function App() {
           </div>
         </div>
 
-        {/* ポケモン詳細表示 */}
-        {showPokemonDetails && (
+        {/* ポケモン詳細表示 - 厳選管理ページのみ */}
+        {currentPage === 'breeding' && showPokemonDetails && (
           <div 
             ref={detailsRef}
             style={{
@@ -421,23 +417,47 @@ function App() {
         )}
       </div>
 
-      {/* ポケモン一覧エリア - スクロール可能 */}
+      {/* メインコンテンツエリア - ページ切り替え */}
       <div style={{
         flex: 1,
         overflow: 'hidden',
-        padding: '8px'
+        display: 'flex',
+        flexDirection: 'column'
       }}>
-        <PokemonSelector
-          selectedPokemon={selectedPokemon}
-          onPokemonSelect={handlePokemonSelect}
-          filters={filters}
-          onFiltersChange={setFilters}
-          onOpenFilters={() => setShowFilters(true)}
-          onOpenSort={() => setShowSortModal(true)}
-          refreshTrigger={refreshTrigger}
-          showPokemonDetails={showPokemonDetails}
-          onTogglePokemonDetails={() => setShowPokemonDetails(prev => !prev)}
-        />
+        {currentPage === 'breeding' ? (
+          /* 厳選管理ページ */
+          <div style={{ flex: 1, overflow: 'hidden', padding: '8px' }}>
+            <PokemonSelector
+              selectedPokemon={selectedPokemon}
+              onPokemonSelect={handlePokemonSelect}
+              filters={filters}
+              onFiltersChange={setFilters}
+              onOpenFilters={() => setShowFilters(true)}
+              onOpenSort={() => setShowSortModal(true)}
+              refreshTrigger={refreshTrigger}
+              showPokemonDetails={showPokemonDetails}
+              onTogglePokemonDetails={() => setShowPokemonDetails(prev => !prev)}
+            />
+          </div>
+        ) : currentPage === 'candy' ? (
+          /* アメ計算ページ */
+          <CandyCalculator />
+        ) : (
+          /* デフォルト */
+          <div style={{ flex: 1, overflow: 'hidden', padding: '8px' }}>
+            <PokemonSelector
+              selectedPokemon={selectedPokemon}
+              onPokemonSelect={handlePokemonSelect}
+              filters={filters}
+              onFiltersChange={setFilters}
+              onOpenFilters={() => setShowFilters(true)}
+              onOpenSort={() => setShowSortModal(true)}
+              refreshTrigger={refreshTrigger}
+              showPokemonDetails={showPokemonDetails}
+              onTogglePokemonDetails={() => setShowPokemonDetails(prev => !prev)}
+            />
+          </div>
+        )}
       </div>
 
       {/* フィルターモーダル */}
