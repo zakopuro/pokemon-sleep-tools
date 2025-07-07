@@ -500,7 +500,7 @@ const CandyCalculator: React.FC = () => {
                   必要なアメの数
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <img src="/candy.png" alt="アメ" style={{ width: 32, height: 32 }} />
+                  <img src={`${import.meta.env.BASE_URL}candy.png`} alt="アメ" style={{ width: 32, height: 32 }} />
                   <span style={{
                     fontSize: 32,
                     fontWeight: 800,
@@ -531,7 +531,7 @@ const CandyCalculator: React.FC = () => {
                     追加で必要なアメの数
                   </span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <img src="/candy.png" alt="アメ" style={{ width: 24, height: 24 }} />
+                    <img src={`${import.meta.env.BASE_URL}candy.png`} alt="アメ" style={{ width: 24, height: 24 }} />
                     <span style={{
                       fontSize: 24,
                       fontWeight: 800,
@@ -556,15 +556,15 @@ const CandyCalculator: React.FC = () => {
                     justifyContent: 'flex-end'
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
-                      <img src="/candy.png" alt="アメ" style={{ width: 16, height: 16 }} />
+                      <img src={`${import.meta.env.BASE_URL}candy.png`} alt="アメ" style={{ width: 16, height: 16 }} />
                       <span>S {result.universalCandyS}個</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
-                      <img src="/candy.png" alt="アメ" style={{ width: 20, height: 20 }} />
+                      <img src={`${import.meta.env.BASE_URL}candy.png`} alt="アメ" style={{ width: 20, height: 20 }} />
                       <span>M {result.universalCandyM}個</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
-                      <img src="/candy.png" alt="アメ" style={{ width: 24, height: 24 }} />
+                      <img src={`${import.meta.env.BASE_URL}candy.png`} alt="アメ" style={{ width: 24, height: 24 }} />
                       <span>L {result.universalCandyL}個</span>
                     </div>
                   </div>
@@ -588,7 +588,7 @@ const CandyCalculator: React.FC = () => {
                   ゆめのかけら
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <img src="/dream_shards.png" alt="ゆめのかけら" style={{ width: 18, height: 18 }} />
+                  <img src={`${import.meta.env.BASE_URL}dream_shards.png`} alt="ゆめのかけら" style={{ width: 18, height: 18 }} />
                   <span style={{
                     fontSize: 18,
                     fontWeight: 700,
