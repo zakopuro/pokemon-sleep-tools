@@ -125,8 +125,8 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
                   }
                 }}
               >
-                {item.id === 'breeding' ? (
-                  <div style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {item.id === 'breeding' ? (
                     <img 
                       src={`${import.meta.env.BASE_URL}masterbox.png`}
                       alt="厳選管理"
@@ -139,10 +139,23 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
                         container.innerHTML = '<span style="fontSize: 20px;">🎯</span>';
                       }}
                     />
-                  </div>
-                ) : (
-                  <span style={{ fontSize: 20 }}>{item.icon}</span>
-                )}
+                  ) : item.id === 'candy' ? (
+                    <img 
+                      src={`${import.meta.env.BASE_URL}candy.png`}
+                      alt="アメ計算"
+                      style={{ width: 24, height: 24, objectFit: 'contain' }}
+                      onError={(e) => {
+                        console.error('アメ画像の読み込みに失敗しました:', `${import.meta.env.BASE_URL}candy.png`);
+                        // 画像が見つからない場合のフォールバック
+                        const target = e.target as HTMLImageElement;
+                        const container = target.parentNode as HTMLElement;
+                        container.innerHTML = '<span style="fontSize: 20px;">🍬</span>';
+                      }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: 20 }}>{item.icon}</span>
+                  )}
+                </div>
                 <span>{item.label}</span>
               </button>
             );

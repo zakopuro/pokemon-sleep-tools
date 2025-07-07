@@ -3,17 +3,24 @@ import { calculateRequiredCandy, isValidLevelRange, type CandyCalculationInput, 
 
 const CandyCalculator: React.FC = () => {
   const [input, setInput] = useState<CandyCalculationInput>({
-    currentLevel: 1,
+    currentLevel: 10,
     targetLevel: 50,
     expType: 600,
     nature: 'normal',
-    eventType: 'none'
+    eventType: 'none',
+    evolutionCandies: 0,
+    ownedCandies: 0
   });
 
   const [result, setResult] = useState<CandyCalculationResult>({
     requiredCandies: 0,
     requiredDreamShards: 0,
-    requiredExp: 0
+    requiredExp: 0,
+    totalCandies: 0,
+    additionalCandiesNeeded: 0,
+    universalCandyS: 0,
+    universalCandyM: 0,
+    universalCandyL: 0
   });
 
   const [error, setError] = useState<string>('');
@@ -42,211 +49,370 @@ const CandyCalculator: React.FC = () => {
       flex: 1,
       padding: 16,
       background: '#f7fafc',
-      overflowY: 'auto'
+      overflowY: 'auto',
+      display: 'flex',
+      justifyContent: 'center'
     }}>
-      {/* ページタイトル */}
       <div style={{
-        marginBottom: 24,
-        textAlign: 'center'
+        maxWidth: 480,
+        width: '100%'
       }}>
-        <h1 style={{
-          fontSize: 24,
-          fontWeight: 700,
-          color: '#2d3748',
-          margin: 0
-        }}>
-          アメ計算機
-        </h1>
-        <p style={{
-          fontSize: 14,
-          color: '#6b7280',
-          margin: '4px 0 0 0'
-        }}>
-          ポケモンのレベルアップに必要なアメとゆめのかけらを計算
-        </p>
-      </div>
-
-      <div style={{
-        display: 'flex',
-        gap: 24,
-        maxWidth: 1200,
-        margin: '0 auto'
-      }}>
-        {/* 入力パネル */}
+        {/* ページタイトル */}
         <div style={{
-          flex: 1,
-          background: '#fff',
-          borderRadius: 12,
-          padding: 20,
-          border: '1px solid #e2e8f0',
-          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+          marginBottom: 20,
+          textAlign: 'center'
         }}>
-          <h2 style={{
-            fontSize: 18,
-            fontWeight: 600,
+          <h1 style={{
+            fontSize: 24,
+            fontWeight: 700,
             color: '#2d3748',
-            marginBottom: 16,
-            margin: '0 0 16px 0'
+            margin: 0
           }}>
-            設定
-          </h2>
+            アメ計算機
+          </h1>
+        </div>
+
+        {/* 設定カード */}
+        <div style={{
+          background: '#fff',
+          borderRadius: 8,
+          padding: 16,
+          border: '1px solid #e2e8f0',
+          marginBottom: 12
+        }}>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* レベル設定 */}
-            <div style={{ display: 'flex', gap: 16 }}>
+            <div style={{ display: 'flex', gap: 12 }}>
+              {/* 現在のレベル */}
               <div style={{ flex: 1 }}>
                 <label style={{
                   display: 'block',
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: 600,
                   color: '#374151',
-                  marginBottom: 4
+                  marginBottom: 8,
+                  textAlign: 'center'
                 }}>
-                  現在レベル
+                  現在のレベル
                 </label>
-                <select
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <button
+                    onClick={() => handleInputChange('currentLevel', Math.max(1, input.currentLevel - 1))}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 4,
+                      border: '1px solid #d1d5db',
+                      background: '#fff',
+                      color: '#374151',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    −
+                  </button>
+                  <div style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: '#2d3748'
+                  }}>
+                    {input.currentLevel}
+                  </div>
+                  <button
+                    onClick={() => handleInputChange('currentLevel', Math.min(65, input.currentLevel + 1))}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 4,
+                      border: '1px solid #d1d5db',
+                      background: '#fff',
+                      color: '#374151',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="65"
                   value={input.currentLevel}
                   onChange={(e) => handleInputChange('currentLevel', parseInt(e.target.value))}
                   style={{
                     width: '100%',
-                    padding: '8px 12px',
-                    borderRadius: 6,
-                    border: '1px solid #d1d5db',
-                    fontSize: 14,
-                    backgroundColor: '#fff'
+                    height: 6,
+                    borderRadius: 3,
+                    background: '#dbeafe',
+                    outline: 'none',
+                    marginTop: 8,
+                    cursor: 'pointer'
                   }}
-                >
-                  {Array.from({ length: 65 }, (_, i) => i + 1).map(level => (
-                    <option key={level} value={level}>Lv.{level}</option>
-                  ))}
-                </select>
+                />
               </div>
 
+              {/* 目標レベル */}
               <div style={{ flex: 1 }}>
                 <label style={{
                   display: 'block',
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: 600,
                   color: '#374151',
-                  marginBottom: 4
+                  marginBottom: 8,
+                  textAlign: 'center'
                 }}>
                   目標レベル
                 </label>
-                <select
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <button
+                    onClick={() => handleInputChange('targetLevel', Math.max(1, input.targetLevel - 1))}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 4,
+                      border: '1px solid #d1d5db',
+                      background: '#fff',
+                      color: '#374151',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    −
+                  </button>
+                  <div style={{
+                    flex: 1,
+                    textAlign: 'center',
+                    fontSize: 20,
+                    fontWeight: 700,
+                    color: '#3b82f6'
+                  }}>
+                    {input.targetLevel}
+                  </div>
+                  <button
+                    onClick={() => handleInputChange('targetLevel', Math.min(65, input.targetLevel + 1))}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: 4,
+                      border: '1px solid #d1d5db',
+                      background: '#fff',
+                      color: '#374151',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="65"
                   value={input.targetLevel}
                   onChange={(e) => handleInputChange('targetLevel', parseInt(e.target.value))}
                   style={{
                     width: '100%',
-                    padding: '8px 12px',
-                    borderRadius: 6,
-                    border: '1px solid #d1d5db',
-                    fontSize: 14,
-                    backgroundColor: '#fff'
+                    height: 6,
+                    borderRadius: 3,
+                    background: '#dbeafe',
+                    outline: 'none',
+                    marginTop: 8,
+                    cursor: 'pointer'
                   }}
-                >
-                  {Array.from({ length: 65 }, (_, i) => i + 1).map(level => (
-                    <option key={level} value={level}>Lv.{level}</option>
-                  ))}
-                </select>
+                />
               </div>
             </div>
 
-            {/* 経験値タイプ */}
-            <div>
+            {/* 進化に必要なアメ */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <label style={{
-                display: 'block',
                 fontSize: 12,
                 fontWeight: 600,
                 color: '#374151',
-                marginBottom: 4
+                minWidth: 70,
+                flexShrink: 0
               }}>
-                経験値タイプ
+                進化に必要なアメ
               </label>
-              <select
-                value={input.expType}
-                onChange={(e) => handleInputChange('expType', parseInt(e.target.value) as 600 | 900 | 1080 | 1320)}
-                style={{
-                  width: '100%',
-                  padding: '8px 12px',
-                  borderRadius: 6,
-                  border: '1px solid #d1d5db',
-                  fontSize: 14,
-                  backgroundColor: '#fff'
-                }}
-              >
-                <option value={600}>600タイプ</option>
-                <option value={900}>900タイプ</option>
-                <option value={1080}>1080タイプ</option>
-                <option value={1320}>1320タイプ</option>
-              </select>
-            </div>
-
-            {/* 性格 */}
-            <div>
-              <label style={{
-                display: 'block',
-                fontSize: 12,
-                fontWeight: 600,
-                color: '#374151',
-                marginBottom: 4
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(4, 1fr)', 
+                gridTemplateRows: 'repeat(2, 1fr)',
+                gap: 4, 
+                flex: 1,
+                maxWidth: 280
               }}>
-                性格
-              </label>
-              <div style={{ display: 'flex', gap: 8 }}>
-                {[
-                  { value: 'up', label: 'UP性格', color: '#10b981' },
-                  { value: 'normal', label: '通常', color: '#6b7280' },
-                  { value: 'down', label: 'DOWN性格', color: '#ef4444' }
-                ].map(option => (
+                {[0, 40, 80, 100].map(candies => (
                   <button
-                    key={option.value}
-                    onClick={() => handleInputChange('nature', option.value)}
+                    key={candies}
+                    onClick={() => handleInputChange('evolutionCandies', candies)}
                     style={{
-                      flex: 1,
-                      padding: '8px 12px',
-                      borderRadius: 6,
-                      border: input.nature === option.value ? 'none' : '1px solid #d1d5db',
-                      backgroundColor: input.nature === option.value ? option.color : '#fff',
-                      color: input.nature === option.value ? '#fff' : '#374151',
-                      fontSize: 12,
+                      padding: '6px 2px',
+                      borderRadius: 4,
+                      border: 'none',
+                      backgroundColor: input.evolutionCandies === candies ? '#dbeafe' : '#f8f9fa',
+                      color: '#374151',
+                      fontSize: 11,
                       fontWeight: 600,
                       cursor: 'pointer',
                       transition: 'all 0.2s'
                     }}
                   >
-                    {option.label}
+                    {candies === 0 ? 'なし' : candies}
+                  </button>
+                ))}
+                {[120, 140, 160].map(candies => (
+                  <button
+                    key={candies}
+                    onClick={() => handleInputChange('evolutionCandies', candies)}
+                    style={{
+                      padding: '6px 2px',
+                      borderRadius: 4,
+                      border: 'none',
+                      backgroundColor: input.evolutionCandies === candies ? '#dbeafe' : '#f8f9fa',
+                      color: '#374151',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    {candies}
+                  </button>
+                ))}
+                <div></div> {/* 空のグリッドセル */}
+              </div>
+            </div>
+
+            {/* 経験値タイプ */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <label style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#374151',
+                minWidth: 70,
+                flexShrink: 0
+              }}>
+                経験値タイプ
+              </label>
+              <div style={{ display: 'flex', gap: 6, flex: 1 }}>
+                {[
+                  { value: 600, label: '一般' },
+                  { value: 900, label: '600族' },
+                  { value: 1080, label: '伝説' },
+                  { value: 1320, label: '幻' }
+                ].map(expType => (
+                  <button
+                    key={expType.value}
+                    onClick={() => handleInputChange('expType', expType.value)}
+                    style={{
+                      flex: 1,
+                      padding: '8px 4px',
+                      borderRadius: 6,
+                      border: 'none',
+                      backgroundColor: input.expType === expType.value ? '#dbeafe' : '#f8f9fa',
+                      color: '#374151',
+                      fontSize: 13,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s'
+                    }}
+                  >
+                    {expType.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* イベント */}
-            <div>
+            {/* 性格による経験値補正 */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <label style={{
-                display: 'block',
                 fontSize: 12,
                 fontWeight: 600,
                 color: '#374151',
-                marginBottom: 4
+                minWidth: 70,
+                flexShrink: 0
               }}>
-                イベント状況
+                性格による経験値補正
               </label>
-              <div style={{ display: 'flex', gap: 8 }}>
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flex: 1 }}>
                 {[
-                  { value: 'none', label: '通常', color: '#6b7280' },
-                  { value: 'mini', label: 'ミニブースト', color: '#f59e0b' },
-                  { value: 'unlimited', label: 'ブースト', color: '#8b5cf6' }
+                  { value: 'down', symbol: '▼', color: '#ef4444' },
+                  { value: 'normal', symbol: '−', color: '#6b7280' },
+                  { value: 'up', symbol: '▲', color: '#10b981' }
+                ].map(option => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleInputChange('nature', option.value)}
+                    style={{
+                      width: 48,
+                      height: 36,
+                      borderRadius: 6,
+                      border: 'none',
+                      backgroundColor: input.nature === option.value ? '#dbeafe' : '#f8f9fa',
+                      color: '#374151',
+                      fontSize: 18,
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {option.symbol}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* アメブースト */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <label style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#374151',
+                minWidth: 70,
+                flexShrink: 0
+              }}>
+                アメブースト
+              </label>
+              <div style={{ display: 'flex', gap: 8, flex: 1 }}>
+                {[
+                  { value: 'none', label: 'なし', color: '#6b7280' },
+                  { value: 'mini', label: 'ミニ', color: '#f59e0b' },
+                  { value: 'unlimited', label: '無制限', color: '#8b5cf6' }
                 ].map(option => (
                   <button
                     key={option.value}
                     onClick={() => handleInputChange('eventType', option.value)}
                     style={{
                       flex: 1,
-                      padding: '8px 12px',
+                      padding: '8px 6px',
                       borderRadius: 6,
-                      border: input.eventType === option.value ? 'none' : '1px solid #d1d5db',
-                      backgroundColor: input.eventType === option.value ? option.color : '#fff',
-                      color: input.eventType === option.value ? '#fff' : '#374151',
+                      border: 'none',
+                      backgroundColor: input.eventType === option.value ? '#dbeafe' : '#f8f9fa',
+                      color: '#374151',
                       fontSize: 12,
                       fontWeight: 600,
                       cursor: 'pointer',
@@ -258,115 +424,208 @@ const CandyCalculator: React.FC = () => {
                 ))}
               </div>
             </div>
+
+            {/* 所持している飴の数 */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <label style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: '#374151'
+              }}>
+                所持している飴の数
+              </label>
+              <input
+                type="number"
+                min="0"
+                max="100000"
+                value={input.ownedCandies}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value) || 0;
+                  if (value >= 0 && value <= 100000) {
+                    handleInputChange('ownedCandies', value);
+                  }
+                }}
+                style={{
+                  width: 120,
+                  padding: '6px 8px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: 6,
+                  fontSize: 14,
+                  outline: 'none',
+                  backgroundColor: '#fff',
+                  color: '#374151',
+                  textAlign: 'right'
+                }}
+                placeholder="0"
+              />
+            </div>
           </div>
         </div>
 
-        {/* 結果パネル */}
-        <div style={{
-          flex: 1,
-          background: '#fff',
-          borderRadius: 12,
-          padding: 20,
-          border: '1px solid #e2e8f0',
-          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
-        }}>
-          <h2 style={{
-            fontSize: 18,
-            fontWeight: 600,
-            color: '#2d3748',
-            marginBottom: 16,
-            margin: '0 0 16px 0'
+        {/* 計算結果表示 */}
+        {error ? (
+          <div style={{
+            padding: 12,
+            borderRadius: 6,
+            backgroundColor: '#fef2f2',
+            border: '1px solid #fecaca',
+            color: '#dc2626',
+            fontSize: 14,
+            textAlign: 'center'
           }}>
-            計算結果
-          </h2>
-
-          {error ? (
-            <div style={{
-              padding: 12,
-              borderRadius: 6,
-              backgroundColor: '#fef2f2',
-              border: '1px solid #fecaca',
-              color: '#dc2626',
-              fontSize: 14
-            }}>
-              {error}
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {/* 必要アメ個数 */}
+            {error}
+          </div>
+        ) : (
+          <div style={{
+            background: '#fff',
+            borderRadius: 8,
+            padding: 16,
+            border: '1px solid #e2e8f0'
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {/* 必要アメ個数を大きく表示 */}
               <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
                 padding: 16,
-                borderRadius: 8,
-                backgroundColor: '#fef3c7',
-                border: '1px solid #fcd34d'
+                borderRadius: 6,
+                backgroundColor: '#f8f9fa'
               }}>
-                <div style={{
-                  fontSize: 12,
-                  color: '#92400e',
-                  fontWeight: 600,
-                  marginBottom: 4
+                <span style={{
+                  fontSize: 14,
+                  color: '#374151',
+                  fontWeight: 600
                 }}>
-                  必要アメ個数
-                </div>
-                <div style={{
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: '#92400e'
-                }}>
-                  {result.requiredCandies.toLocaleString()}個
+                  必要なアメの数
+                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <img src="/candy.png" alt="アメ" style={{ width: 32, height: 32 }} />
+                  <span style={{
+                    fontSize: 32,
+                    fontWeight: 800,
+                    color: '#2d3748'
+                  }}>
+                    {result.totalCandies.toLocaleString()}個
+                  </span>
                 </div>
               </div>
 
-              {/* 必要ゆめのかけら */}
+              {/* 追加で必要なアメ個数 */}
               <div style={{
                 padding: 16,
-                borderRadius: 8,
-                backgroundColor: '#ddd6fe',
-                border: '1px solid #c4b5fd'
+                borderRadius: 6,
+                backgroundColor: result.additionalCandiesNeeded > 0 ? '#fef2f2' : '#f0f9ff'
               }}>
                 <div style={{
-                  fontSize: 12,
-                  color: '#5b21b6',
-                  fontWeight: 600,
-                  marginBottom: 4
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: result.additionalCandiesNeeded > 0 ? 12 : 0
                 }}>
-                  必要ゆめのかけら
+                  <span style={{
+                    fontSize: 14,
+                    color: '#374151',
+                    fontWeight: 600
+                  }}>
+                    追加で必要なアメの数
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <img src="/candy.png" alt="アメ" style={{ width: 24, height: 24 }} />
+                    <span style={{
+                      fontSize: 24,
+                      fontWeight: 800,
+                      color: result.additionalCandiesNeeded > 0 ? '#dc2626' : '#2563eb'
+                    }}>
+                      {result.additionalCandiesNeeded.toLocaleString()}個
+                    </span>
+                  </div>
                 </div>
-                <div style={{
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: '#5b21b6'
+
+                {/* ばんのうアメ必要個数 */}
+                {result.additionalCandiesNeeded > 0 && (
+                  <div style={{
+                    display: 'flex',
+                    gap: 16,
+                    fontSize: 12,
+                    color: '#6b7280',
+                    flexWrap: 'nowrap',
+                    whiteSpace: 'nowrap',
+                    fontWeight: 600,
+                    alignItems: 'center',
+                    justifyContent: 'flex-end'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+                      <img src="/candy.png" alt="アメ" style={{ width: 16, height: 16 }} />
+                      <span>S {result.universalCandyS}個</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+                      <img src="/candy.png" alt="アメ" style={{ width: 20, height: 20 }} />
+                      <span>M {result.universalCandyM}個</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
+                      <img src="/candy.png" alt="アメ" style={{ width: 24, height: 24 }} />
+                      <span>L {result.universalCandyL}個</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* ゆめのかけら */}
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: 10,
+                borderRadius: 6,
+                backgroundColor: '#f8f9fa'
+              }}>
+                <span style={{
+                  fontSize: 14,
+                  color: '#374151',
+                  fontWeight: 600
                 }}>
-                  {result.requiredDreamShards.toLocaleString()}個
+                  ゆめのかけら
+                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <img src="/dream_shards.png" alt="ゆめのかけら" style={{ width: 18, height: 18 }} />
+                  <span style={{
+                    fontSize: 18,
+                    fontWeight: 700,
+                    color: '#374151'
+                  }}>
+                    {result.requiredDreamShards.toLocaleString()}
+                  </span>
                 </div>
               </div>
 
               {/* 必要経験値 */}
               <div style={{
-                padding: 16,
-                borderRadius: 8,
-                backgroundColor: '#dcfce7',
-                border: '1px solid #bbf7d0'
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: 10,
+                borderRadius: 6,
+                backgroundColor: '#f8f9fa'
               }}>
-                <div style={{
-                  fontSize: 12,
-                  color: '#166534',
+                <span style={{
+                  fontSize: 14,
+                  color: '#374151',
+                  fontWeight: 600
+                }}>
+                  必要ＥＸＰ
+                </span>
+                <span style={{
+                  fontSize: 14,
                   fontWeight: 600,
-                  marginBottom: 4
+                  color: '#374151'
                 }}>
-                  必要経験値
-                </div>
-                <div style={{
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: '#166534'
-                }}>
-                  {result.requiredExp.toLocaleString()}EXP
-                </div>
+                  EXP {result.requiredExp.toLocaleString()}
+                </span>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

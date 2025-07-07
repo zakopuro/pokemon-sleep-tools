@@ -43,12 +43,19 @@ export interface CandyCalculationInput {
   nature: 'up' | 'normal' | 'down';
   eventType: BoostEvent;
   expGot?: number; // 現在レベルで既に取得済みの経験値
+  evolutionCandies?: number; // 進化に必要なアメ
+  ownedCandies?: number; // 所持している飴の数
 }
 
 export interface CandyCalculationResult {
   requiredCandies: number;
   requiredDreamShards: number;
   requiredExp: number;
+  totalCandies: number; // 進化アメを含む総アメ数
+  additionalCandiesNeeded: number; // 追加で必要なアメ数（所持数を考慮）
+  universalCandyS: number; // ばんのうアメS必要個数
+  universalCandyM: number; // ばんのうアメM必要個数
+  universalCandyL: number; // ばんのうアメL必要個数
 }
 
 /**
@@ -61,18 +68,42 @@ function calcExp(level1: number, level2: number, expType: 600 | 900 | 1080 | 132
 }
 
 /**
+ * アメ1個あたりの経験値を計算（レベル、性格、イベントによる補正）
+ */
+function calcExpFromCandy(level: number, nature: 'up' | 'normal' | 'down', boost: BoostEvent): number {
+  const boostFactor = (boost !== 'none' ? 2 : 1);
+  let baseExp: number;
+  
+  if (level < 25) {
+    baseExp = nature === 'up' ? 41 : nature === 'down' ? 29 : 35;
+  } else if (level < 30) {
+    baseExp = nature === 'up' ? 35 : nature === 'down' ? 25 : 30;
+  } else {
+    baseExp = nature === 'up' ? 30 : nature === 'down' ? 21 : 25;
+  }
+  
+  return baseExp * boostFactor;
+}
+
+/**
  * アメ計算メイン関数
  */
 export function calculateRequiredCandy(input: CandyCalculationInput): CandyCalculationResult {
-  const { currentLevel, targetLevel, expType, nature, eventType, expGot = 0 } = input;
+  const { currentLevel, targetLevel, expType, nature, eventType, expGot = 0, evolutionCandies = 0, ownedCandies = 0 } = input;
   
   if (currentLevel < 0 || currentLevel > MAX_LEVEL ||
       targetLevel < 0 || targetLevel > MAX_LEVEL ||
       currentLevel >= targetLevel) {
+    const additionalCandiesNeeded = Math.max(0, evolutionCandies - ownedCandies);
     return {
       requiredCandies: 0,
       requiredDreamShards: 0,
-      requiredExp: 0
+      requiredExp: 0,
+      totalCandies: evolutionCandies,
+      additionalCandiesNeeded,
+      universalCandyS: Math.ceil(additionalCandiesNeeded / 3),
+      universalCandyM: Math.ceil(additionalCandiesNeeded / 20),
+      universalCandyL: Math.ceil(additionalCandiesNeeded / 100)
     };
   }
   
@@ -80,29 +111,34 @@ export function calculateRequiredCandy(input: CandyCalculationInput): CandyCalcu
   const totalRequiredExp = calcExp(currentLevel, targetLevel, expType);
   const requiredExp = totalRequiredExp - expGot;
   
-  // アメ1個あたりの経験値（性格補正 + イベント補正）
-  const candyExpBase = nature === 'up' ? 30 : nature === 'down' ? 21 : 25;
-  const candyExpWithEvent = candyExpBase * (eventType !== 'none' ? 2 : 1);
-  
-  // 必要アメ個数を計算
-  const requiredCandies = Math.ceil(requiredExp / candyExpWithEvent);
-  
   // ゆめのかけら計算（レベル別に詳細計算）
   let requiredDreamShards = 0;
+  let requiredCandies = 0;
   let carry = expGot;
   const shardRate = eventType === 'none' ? 1 : eventType === 'mini' ? 4 : 5;
   
   for (let i = currentLevel; i < targetLevel; i++) {
     const levelRequiredExp = calcExp(i, i + 1, expType) - carry;
+    const candyExpWithEvent = calcExpFromCandy(i, nature, eventType);
     const levelRequiredCandy = Math.ceil(levelRequiredExp / candyExpWithEvent);
+    
     requiredDreamShards += DREAM_SHARDS_PER_CANDY[i + 1] * levelRequiredCandy * shardRate;
+    requiredCandies += levelRequiredCandy;
     carry = candyExpWithEvent * levelRequiredCandy - levelRequiredExp;
   }
+  
+  const totalCandies = requiredCandies + evolutionCandies;
+  const additionalCandiesNeeded = Math.max(0, totalCandies - ownedCandies);
   
   return {
     requiredCandies,
     requiredDreamShards,
-    requiredExp
+    requiredExp,
+    totalCandies,
+    additionalCandiesNeeded,
+    universalCandyS: Math.ceil(additionalCandiesNeeded / 3),
+    universalCandyM: Math.ceil(additionalCandiesNeeded / 20),
+    universalCandyL: Math.ceil(additionalCandiesNeeded / 100)
   };
 }
 
