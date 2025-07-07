@@ -1330,6 +1330,34 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": false
   },
   {
+    "id": "0010083",
+    "name": "カモネギ",
+    "sleepType": "ぐっすり",
+    "specialty": "食材",
+    "mainSkillId": 1,
+    "fp": 16,
+    "frequency": 3000,
+    "berryId": 10,
+    "ing1": {
+      "ingredientId": 1,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 7,
+      "c1": 8,
+      "c2": 13
+    },
+    "ing3": {
+      "ingredientId": 11,
+      "c1": 12
+    },
+    "pokedexId": 83,
+    "form": "normal",
+    "isFinalEvolution": true
+  },
+  {
     "id": "0010084",
     "name": "ドードー",
     "sleepType": "ぐっすり",
