@@ -5,9 +5,10 @@ interface SideMenuProps {
   onClose: () => void;
   currentPage: string;
   onNavigate: (page: string) => void;
+  onOpenBackup?: () => void;
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNavigate }) => {
+const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNavigate, onOpenBackup }) => {
   const menuItems = [
     { id: 'breeding', label: '厳選管理', icon: null }, // 画像を使用
     { id: 'candy', label: 'アメ計算', icon: '🍬' }
@@ -173,6 +174,52 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
               </button>
             );
           })}
+        </div>
+
+        {/* バックアップボタン */}
+        <div style={{ padding: '8px 0' }}>
+          <button
+            onClick={() => {
+              onOpenBackup?.();
+              onClose();
+            }}
+            style={{
+              width: '100%',
+              padding: '12px 24px',
+              border: 'none',
+              background: 'transparent',
+              color: '#374151',
+              fontSize: 16,
+              fontWeight: 500,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              textAlign: 'left',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#f9fafb';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+            }}
+          >
+            <div style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img 
+                src={`${import.meta.env.BASE_URL}backup.png`}
+                alt="バックアップ"
+                style={{ width: 24, height: 24, objectFit: 'contain' }}
+                onError={(e) => {
+                  console.error('バックアップ画像の読み込みに失敗しました:', `${import.meta.env.BASE_URL}backup.png`);
+                  const target = e.target as HTMLImageElement;
+                  const container = target.parentNode as HTMLElement;
+                  container.innerHTML = '<span style="fontSize: 20px;">💾</span>';
+                }}
+              />
+            </div>
+            <span>バックアップ</span>
+          </button>
         </div>
 
         {/* インストールボタン */}

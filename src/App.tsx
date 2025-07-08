@@ -12,6 +12,7 @@ import InstanceIndicator from './components/instance/InstanceIndicator';
 import SideMenu from './components/menu/SideMenu';
 import CandyCalculator from './components/pages/CandyCalculator';
 import PWAInstallButton from './components/common/PWAInstallButton';
+import BackupModal from './components/backup/BackupModal';
 import type { SubskillByLevel } from './types/pokemon';
 import { loadPokemonInstanceSettings, savePokemonInstanceSettings, getUsedInstanceIds, deletePokemonInstanceSettings } from './utils/pokemon-storage';
 import type { Pokemon } from '../config/schema';
@@ -41,6 +42,7 @@ function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(0); // ポケモン状態更新用トリガー
   const [showSideMenu, setShowSideMenu] = useState(false); // サイドメニュー表示状態
   const [currentPage, setCurrentPage] = useState('breeding'); // 現在のページ
+  const [showBackupModal, setShowBackupModal] = useState(false); // バックアップモーダル表示状態
   const [filters, setFilters] = useState<FilterOptions>({
     specialty: 'すべて',
     specialties: [],
@@ -199,6 +201,7 @@ function App() {
         onClose={() => setShowSideMenu(false)}
         currentPage={currentPage}
         onNavigate={handleNavigate}
+        onOpenBackup={() => setShowBackupModal(true)}
       />
 
       {/* 固定上部エリア - ヘッダーとポケモン詳細 */}
@@ -663,6 +666,12 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* バックアップモーダル */}
+      <BackupModal
+        isOpen={showBackupModal}
+        onClose={() => setShowBackupModal(false)}
+      />
 
       {/* PWA Install Button */}
       <PWAInstallButton />
