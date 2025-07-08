@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === 'production' ? '/pokemon-sleep-tools/' : '/',
+  base: mode === 'production' ? '/' : '/',
   plugins: [
     react(),
     VitePWA({
@@ -46,8 +46,8 @@ export default defineConfig(({ mode }) => ({
         background_color: '#ffffff',
         display: 'standalone',
         orientation: 'portrait',
-        scope: mode === 'production' ? '/pokemon-sleep-tools/' : '/',
-        start_url: mode === 'production' ? '/pokemon-sleep-tools/' : '/',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -73,14 +73,14 @@ export default defineConfig(({ mode }) => ({
             name: '厳選管理',
             short_name: '厳選',
             description: 'ポケモンの厳選状況を管理',
-            url: mode === 'production' ? '/pokemon-sleep-tools/' : '/',
+            url: '/',
             icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }],
           },
           {
             name: 'アメ計算',
             short_name: 'アメ',
             description: 'レベルアップに必要なアメを計算',
-            url: mode === 'production' ? '/pokemon-sleep-tools/' : '/',
+            url: '/',
             icons: [{ src: 'pwa-192x192.png', sizes: '192x192' }],
           },
         ],
