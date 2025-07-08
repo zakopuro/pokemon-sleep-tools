@@ -16,14 +16,12 @@ interface ManagementTabProps {
   filteredPokemons: Pokemon[];
   selectedPokemon: Pokemon;
   onPokemonSelect: (pokemon: Pokemon, instanceId?: string) => void;
-  pokemonStatuses: { [pokemonKey: string]: { status: string; count?: number } };
 }
 
 const ManagementTab: React.FC<ManagementTabProps> = ({
   filteredPokemons,
   selectedPokemon,
-  onPokemonSelect,
-  pokemonStatuses
+  onPokemonSelect
 }) => {
 
   // 状態別に個体をグルーピング

@@ -108,7 +108,6 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
             filteredPokemons={filteredPokemons}
             selectedPokemon={selectedPokemon}
             onPokemonSelect={handlePokemonSelect}
-            pokemonStatuses={pokemonStatuses}
           />
         );
       default: // 'すべて'
