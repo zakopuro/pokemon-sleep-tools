@@ -39,8 +39,8 @@ export default defineConfig(({ mode }) => ({
       },
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.png'],
       manifest: {
-        name: 'ポケモンスリープツール',
-        short_name: 'ポケスリツール',
+        name: 'ポケスリ厳選管理',
+        short_name: 'ポケスリ厳選管理',
         description: 'ポケモンスリープの厳選管理とアメ計算ができるツール',
         theme_color: '#3b82f6',
         background_color: '#ffffff',
