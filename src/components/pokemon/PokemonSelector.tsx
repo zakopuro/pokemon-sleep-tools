@@ -12,7 +12,7 @@ import ManagementTab from './tabs/ManagementTab';
 
 interface PokemonSelectorProps {
   selectedPokemon: Pokemon;
-  onPokemonSelect: (pokemon: Pokemon) => void;
+  onPokemonSelect: (pokemon: Pokemon, instanceId?: string) => void;
   filters: FilterOptions;
   onFiltersChange: (filters: FilterOptions) => void;
   onOpenFilters: () => void;
@@ -54,8 +54,8 @@ const PokemonSelector: React.FC<PokemonSelectorProps> = ({
   const tabs = ['すべて', 'きのみ', '食材', 'スキル', '厳選管理'];
 
   // ポケモン選択時の処理（詳細画面が閉じている場合は開く）
-  const handlePokemonSelect = (pokemon: Pokemon) => {
-    onPokemonSelect(pokemon);
+  const handlePokemonSelect = (pokemon: Pokemon, instanceId?: string) => {
+    onPokemonSelect(pokemon, instanceId);
     if (!showPokemonDetails) {
       onTogglePokemonDetails();
     }

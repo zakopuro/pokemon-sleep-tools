@@ -1,14 +1,21 @@
 import React from 'react';
 import type { Pokemon } from '../../../../config/schema';
-import { getPokemonKey } from '../../../utils/pokemon-storage';
+import { getPokemonKey, loadAllInstancesForPokemon } from '../../../utils/pokemon-storage';
 import PokemonCard from '../PokemonCard';
 import StatusIcon from '../../common/StatusIcon';
 import EmptyPlaceholder from '../../common/EmptyPlaceholder';
 
+// 個体情報を含むインターフェース
+interface PokemonInstance {
+  pokemon: Pokemon;
+  instanceId: string;
+  status: string;
+}
+
 interface ManagementTabProps {
   filteredPokemons: Pokemon[];
   selectedPokemon: Pokemon;
-  onPokemonSelect: (pokemon: Pokemon) => void;
+  onPokemonSelect: (pokemon: Pokemon, instanceId?: string) => void;
   pokemonStatuses: { [pokemonKey: string]: { status: string; count?: number } };
 }
 
@@ -19,10 +26,10 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
   pokemonStatuses
 }) => {
 
-  // 状態別にポケモンをグルーピング
-  const groupPokemonsByStatus = () => {
+  // 状態別に個体をグルーピング
+  const groupInstancesByStatus = () => {
     const statusOrder = ['完了', '厳選中', '厳選前', '保留', '中止', '対象外', '未設定'];
-    const statusGroups: { [status: string]: Pokemon[] } = {};
+    const statusGroups: { [status: string]: PokemonInstance[] } = {};
     
     // 全ての状態を初期化
     statusOrder.forEach(status => {
@@ -30,22 +37,29 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
     });
     
     filteredPokemons.forEach(pokemon => {
-      const pokemonKey = getPokemonKey(pokemon);
-      const pokemonStatus = pokemonStatuses[pokemonKey];
+      const allInstances = loadAllInstancesForPokemon(pokemon);
       
-      // 状態を取得（未設定の場合は「未設定」として扱う）
-      let status = '未設定';
-      if (pokemonStatus && pokemonStatus.status && pokemonStatus.status.trim() !== '') {
-        status = pokemonStatus.status;
-      }
-      
-      statusGroups[status].push(pokemon);
+      // 各個体を状態別にグループ分け
+      Object.entries(allInstances).forEach(([instanceId, instanceData]) => {
+        let status = instanceData.managementStatus || '未設定';
+        
+        // 空文字の場合は未設定として扱う
+        if (status.trim() === '') {
+          status = '未設定';
+        }
+        
+        statusGroups[status].push({
+          pokemon,
+          instanceId,
+          status
+        });
+      });
     });
     
     return statusGroups;
   };
 
-  const statusGroups = groupPokemonsByStatus();
+  const statusGroups = groupInstancesByStatus();
   
   // 状態の優先順位で並び替え（0匹でも表示）
   const statusOrder = ['完了', '厳選中', '厳選前', '保留', '中止', '対象外', '未設定'];
@@ -124,7 +138,7 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
       background: '#f7fafc'
     }}>
       {sortedStatuses.map(status => {
-        const pokemonsInStatus = statusGroups[status];
+        const instancesInStatus = statusGroups[status];
         
         return (
           <div key={status} style={{ marginBottom: 16 }}>
@@ -151,11 +165,11 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
                 fontSize: 12, 
                 color: '#6b7280'
               }}>
-                ({pokemonsInStatus.length}匹)
+                ({instancesInStatus.length}匹)
               </span>
             </div>
             
-            {/* その状態のポケモン一覧 */}
+            {/* その状態の個体一覧 */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 60px))',
@@ -165,20 +179,41 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
               alignItems: 'start',
               gridAutoRows: '68px'
             }}>
-              {pokemonsInStatus.length > 0 ? (
-                pokemonsInStatus.map(pokemon => (
-                  <PokemonCard
-                    key={getPokemonKey(pokemon)}
-                    pokemon={pokemon}
-                    isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(pokemon)}
-                    statusIcon={
-                      <StatusIcon
-                        status={pokemonStatuses[getPokemonKey(pokemon)]?.status || ''}
-                        count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
-                      />
-                    }
-                    onClick={() => onPokemonSelect(pokemon)}
-                  />
+              {instancesInStatus.length > 0 ? (
+                instancesInStatus.map(instance => (
+                  <div key={`${getPokemonKey(instance.pokemon)}-${instance.instanceId}`} style={{ position: 'relative' }}>
+                    <PokemonCard
+                      pokemon={instance.pokemon}
+                      isSelected={getPokemonKey(selectedPokemon) === getPokemonKey(instance.pokemon)}
+                      statusIcon={
+                        <StatusIcon
+                          status={instance.status}
+                          count={undefined}
+                        />
+                      }
+                      onClick={() => onPokemonSelect(instance.pokemon, instance.instanceId)}
+                    />
+                    {/* 個体番号バッジ */}
+                    <div style={{
+                      position: 'absolute',
+                      top: -4,
+                      right: -4,
+                      backgroundColor: '#3b82f6',
+                      color: 'white',
+                      borderRadius: '50%',
+                      width: 16,
+                      height: 16,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 10,
+                      fontWeight: 700,
+                      border: '2px solid white',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
+                    }}>
+                      {instance.instanceId}
+                    </div>
+                  </div>
                 ))
               ) : (
                 <EmptyPlaceholder />

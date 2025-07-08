@@ -80,14 +80,15 @@ function App() {
   }, [selectedPokemon, currentInstanceId, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
 
   // ポケモン選択時の処理
-  const handlePokemonSelect = useCallback((pokemon: Pokemon) => {
+  const handlePokemonSelect = useCallback((pokemon: Pokemon, instanceId?: string) => {
     // 現在の設定を保存
     saveCurrentSettings();
     
-    // 新しいポケモンの個体1番の設定を読み込み
-    const newSettings = loadPokemonInstanceSettings(pokemon, '1');
+    // 指定された個体ID、または個体1番の設定を読み込み
+    const targetInstanceId = instanceId || '1';
+    const newSettings = loadPokemonInstanceSettings(pokemon, targetInstanceId);
     setSelectedPokemon(pokemon);
-    setCurrentInstanceId('1'); // 新しいポケモンでは個体1番から開始
+    setCurrentInstanceId(targetInstanceId);
     setLevel(newSettings.level);
     setSelectedIngredients(newSettings.selectedIngredients);
     setSubskillByLevel(newSettings.subskillByLevel);
