@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { calculateRequiredCandy, isValidLevelRange, type CandyCalculationInput, type CandyCalculationResult } from '../../utils/candy-calculator';
 
+// AdSenseの型定義
+declare global {
+  interface Window {
+    adsbygoogle: any[];
+  }
+}
+
 const CandyCalculator: React.FC = () => {
   const [input, setInput] = useState<CandyCalculationInput>({
     currentLevel: 10,
@@ -24,6 +31,17 @@ const CandyCalculator: React.FC = () => {
   });
 
   const [error, setError] = useState<string>('');
+
+  // 広告の初期化
+  useEffect(() => {
+    if (result.requiredCandies > 0 && typeof window !== 'undefined' && window.adsbygoogle) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.error('AdSense error:', e);
+      }
+    }
+  }, [result.requiredCandies]);
 
   // 計算結果を更新
   useEffect(() => {
@@ -624,6 +642,24 @@ const CandyCalculator: React.FC = () => {
                 </span>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* 広告表示エリア - アメ計算結果の下 */}
+        {result && result.requiredCandies > 0 && (
+          <div style={{ 
+            marginTop: 24, 
+            textAlign: 'center',
+            padding: '20px 0'
+          }}>
+            <ins 
+              className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-6565457882658270"
+              data-ad-slot="5037153304"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
           </div>
         )}
       </div>
