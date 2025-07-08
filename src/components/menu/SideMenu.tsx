@@ -177,7 +177,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
         </div>
 
         {/* バックアップボタン */}
-        <div style={{ padding: '8px 0' }}>
+        <div style={{ padding: '4px 0' }}>
           <button
             onClick={() => {
               onOpenBackup?.();
@@ -223,7 +223,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
         </div>
 
         {/* インストールボタン */}
-        <div style={{ padding: '8px 0' }}>
+        <div style={{ padding: '4px 0' }}>
           <button
             onClick={() => {
               handleInstall();
