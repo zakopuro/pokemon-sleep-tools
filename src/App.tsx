@@ -11,6 +11,7 @@ import StatusDisplay from './components/status/StatusDisplay';
 import InstanceIndicator from './components/instance/InstanceIndicator';
 import SideMenu from './components/menu/SideMenu';
 import CandyCalculator from './components/pages/CandyCalculator';
+import PWAInstallButton from './components/common/PWAInstallButton';
 import type { SubskillByLevel } from './types/pokemon';
 import { loadPokemonInstanceSettings, savePokemonInstanceSettings, getUsedInstanceIds, deletePokemonInstanceSettings } from './utils/pokemon-storage';
 import type { Pokemon } from '../config/schema';
@@ -662,6 +663,9 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* PWA Install Button */}
+      <PWAInstallButton />
 
     </div>
   );

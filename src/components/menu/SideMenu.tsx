@@ -13,6 +13,19 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
     { id: 'candy', label: 'アメ計算', icon: '🍬' }
   ];
 
+  const handleInstall = async () => {
+    const deferredPrompt = (window as any).deferredPrompt;
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`ユーザーの選択: ${outcome}`);
+      (window as any).deferredPrompt = null;
+    } else {
+      // PWAインストールプロンプトが利用できない場合
+      alert('このアプリは既にインストールされているか、インストールプロンプトが利用できません。');
+    }
+  };
+
   return (
     <>
       {/* オーバーレイ */}
@@ -160,6 +173,52 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
               </button>
             );
           })}
+        </div>
+
+        {/* インストールボタン */}
+        <div style={{ padding: '8px 0' }}>
+          <button
+            onClick={() => {
+              handleInstall();
+              onClose();
+            }}
+            style={{
+              width: '100%',
+              padding: '12px 24px',
+              border: 'none',
+              background: 'transparent',
+              color: '#374151',
+              fontSize: 16,
+              fontWeight: 500,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+              textAlign: 'left',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#f9fafb';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+            }}
+          >
+            <div style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img 
+                src={`${import.meta.env.BASE_URL}install.png`}
+                alt="インストール"
+                style={{ width: 24, height: 24, objectFit: 'contain' }}
+                onError={(e) => {
+                  console.error('インストール画像の読み込みに失敗しました:', `${import.meta.env.BASE_URL}install.png`);
+                  const target = e.target as HTMLImageElement;
+                  const container = target.parentNode as HTMLElement;
+                  container.innerHTML = '<span style="fontSize: 20px;">⬇️</span>';
+                }}
+              />
+            </div>
+            <span>インストール</span>
+          </button>
         </div>
 
         {/* フッター */}
