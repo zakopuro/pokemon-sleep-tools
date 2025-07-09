@@ -1,6 +1,5 @@
 import { BERRIES } from '../../config/berries';
 import { INGREDIENTS } from '../../config/ingredients';
-import { SUBSKILLS } from '../../config/subskills';
 import { MAINSKILLS } from '../../config/mainskills';
 
 export interface FilterOptions {

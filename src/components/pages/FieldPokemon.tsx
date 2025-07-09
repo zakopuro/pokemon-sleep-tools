@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { POKEMONS, FIELDS, SLEEP_TYPES } from '../../config';
+import { FIELDS, SLEEP_TYPES } from '../../config';
 import PokemonFilters, { type FilterOptions } from '../PokemonFilters';
 import PokemonCard from '../pokemon/PokemonCard';
 import { usePokemonFiltering } from '../../hooks/usePokemonFiltering';
@@ -72,7 +72,7 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
 
   const totalPokemon = filteredPokemons.length;
 
-  const handlePokemonSelect = (pokemon: Pokemon) => {
+  const handlePokemonSelect = () => {
     // 出現フィールドページでは特に何もしない（クリック無効）
   };
 
@@ -256,7 +256,7 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
                 backgroundColor: '#fafafa'
               }}>
                 <span style={{
-                  background: sleepTypeColors[sleepType.name],
+                  background: sleepTypeColors[sleepType.name as keyof typeof sleepTypeColors],
                   color: (() => {
                     switch(sleepType.name) {
                       case 'うとうと': return '#b8860b';
