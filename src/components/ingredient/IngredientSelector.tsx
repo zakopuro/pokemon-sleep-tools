@@ -212,35 +212,55 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
                       position: 'relative'
                     }}
                   >
-                    <img
-                      src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(
-                        INGREDIENTS.find(ing => ing.id === selectedId)?.name || ''
-                      )}.png`}
-                      alt=""
-                      style={{ 
+                    {selectedId === 0 ? (
+                      // 食材ID 0（「-」）の場合は特別な表示
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
                         width: 28, 
-                        height: 28, 
-                        objectFit: 'contain'
-                      }}
-                      onError={e => ((e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}image/ing/honey.png`)}
-                    />
-                    
-                    {/* 個数バッジ */}
-                    <span style={{
-                      position: 'absolute',
-                      bottom: -6,
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      background: '#fff',
-                      border: '1px solid #d1d5db',
-                      borderRadius: 10,
-                      fontSize: 8,
-                      fontWeight: 700,
-                      padding: '0 2px',
-                      whiteSpace: 'nowrap'
-                    }}>
-                      ×{selectedInfo?.c1 || 1}
-                    </span>
+                        height: 28,
+                        border: '1px dashed #9ca3af',
+                        borderRadius: 4,
+                        color: '#9ca3af',
+                        fontSize: 20,
+                        fontWeight: 'bold'
+                      }}>
+                        -
+                      </div>
+                    ) : (
+                      <>
+                        <img
+                          src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(
+                            INGREDIENTS.find(ing => ing.id === selectedId)?.name || ''
+                          )}.png`}
+                          alt=""
+                          style={{ 
+                            width: 28, 
+                            height: 28, 
+                            objectFit: 'contain'
+                          }}
+                          onError={e => ((e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}image/ing/honey.png`)}
+                        />
+                        
+                        {/* 個数バッジ */}
+                        <span style={{
+                          position: 'absolute',
+                          bottom: -6,
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          background: '#fff',
+                          border: '1px solid #d1d5db',
+                          borderRadius: 10,
+                          fontSize: 8,
+                          fontWeight: 700,
+                          padding: '0 2px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          ×{selectedInfo?.c1 || 1}
+                        </span>
+                      </>
+                    )}
                   </button>
 
                   {/* プルダウンメニュー */}
@@ -292,28 +312,46 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
                               }
                             }}
                           >
-                            <div style={{ position: 'relative' }}>
-                              <img
-                                src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(ingredient?.name || '')}.png`}
-                                alt=""
-                                style={{ width: 24, height: 24, objectFit: 'contain' }}
-                                onError={e => ((e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}image/ing/honey.png`)}
-                              />
-                              <span style={{
-                                position: 'absolute',
-                                bottom: -6,
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                background: '#fff',
-                                border: '1px solid #d1d5db',
-                                borderRadius: 10,
-                                fontSize: 8,
-                                fontWeight: 700,
-                                padding: '0 2px'
+                            {option.ingredientId === 0 ? (
+                              // 食材ID 0（「-」）の場合は特別な表示
+                              <div style={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                width: 24, 
+                                height: 24,
+                                border: '1px dashed #9ca3af',
+                                borderRadius: 4,
+                                color: '#9ca3af',
+                                fontSize: 16,
+                                fontWeight: 'bold'
                               }}>
-                                ×{option.c1 || 1}
-                              </span>
-                            </div>
+                                -
+                              </div>
+                            ) : (
+                              <div style={{ position: 'relative' }}>
+                                <img
+                                  src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(ingredient?.name || '')}.png`}
+                                  alt=""
+                                  style={{ width: 24, height: 24, objectFit: 'contain' }}
+                                  onError={e => ((e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}image/ing/honey.png`)}
+                                />
+                                <span style={{
+                                  position: 'absolute',
+                                  bottom: -6,
+                                  left: '50%',
+                                  transform: 'translateX(-50%)',
+                                  background: '#fff',
+                                  border: '1px solid #d1d5db',
+                                  borderRadius: 10,
+                                  fontSize: 8,
+                                  fontWeight: 700,
+                                  padding: '0 2px'
+                                }}>
+                                  ×{option.c1 || 1}
+                                </span>
+                              </div>
+                            )}
                           </button>
                         );
                       })}

@@ -4556,6 +4556,7 @@ export const POKEMONS: readonly Pokemon[] = [
         { "ingredientId": 17, "c1": 2, "c2": 0, "c3": 0 }
       ],
       "slot2": [
+        { "ingredientId": 0, "c1": 0, "c2": 0, "c3": 0 },
         { "ingredientId": 7, "c1": 4, "c2": 0, "c3": 0 },
         { "ingredientId": 5, "c1": 5, "c2": 0, "c3": 0 },
         { "ingredientId": 6, "c1": 3, "c2": 0, "c3": 0 },
@@ -4566,6 +4567,7 @@ export const POKEMONS: readonly Pokemon[] = [
         { "ingredientId": 17, "c1": 3, "c2": 0, "c3": 0 }
       ],
       "slot3": [
+        { "ingredientId": 0, "c1": 0, "c2": 0, "c3": 0 },
         { "ingredientId": 7, "c1": 6, "c2": 0, "c3": 0 },
         { "ingredientId": 5, "c1": 7, "c2": 0, "c3": 0 },
         { "ingredientId": 6, "c1": 5, "c2": 0, "c3": 0 },

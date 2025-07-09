@@ -2,6 +2,11 @@
 import type { Ingredient } from './schema';
 export const INGREDIENTS: readonly Ingredient[] = [
   {
+    "id": 0,
+    "name": "-",
+    "energy": 0
+  },
+  {
     "id": 1,
     "name": "ふといながねぎ",
     "energy": 185

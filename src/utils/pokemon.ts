@@ -7,6 +7,11 @@ export const getMainSkill = (skillId: number) => MAINSKILLS.find(s => s.id === s
 
 // 食材名から画像ファイル名のマッピング
 export const getIngredientImageName = (ingredientName: string) => {
+  // 空の食材スロット（「-」）の場合は空文字を返す
+  if (ingredientName === '-') {
+    return '';
+  }
+  
   const imageMap: Record<string, string> = {
     'ふといながねぎ': 'largeleek',
     'あじわいキノコ': 'tastymushroom',
