@@ -11,6 +11,7 @@ import StatusDisplay from './components/status/StatusDisplay';
 import InstanceIndicator from './components/instance/InstanceIndicator';
 import SideMenu from './components/menu/SideMenu';
 import CandyCalculator from './components/pages/CandyCalculator';
+import FieldPokemon from './components/pages/FieldPokemon';
 import PWAInstallButton from './components/common/PWAInstallButton';
 import BackupModal from './components/backup/BackupModal';
 import type { SubskillByLevel } from './types/pokemon';
@@ -446,6 +447,9 @@ function App() {
               onTogglePokemonDetails={() => setShowPokemonDetails(prev => !prev)}
             />
           </div>
+        ) : currentPage === 'field' ? (
+          /* 出現フィールドページ */
+          <FieldPokemon />
         ) : currentPage === 'candy' ? (
           /* アメ計算ページ */
           <CandyCalculator />

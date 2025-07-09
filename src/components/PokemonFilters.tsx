@@ -13,7 +13,7 @@ export interface FilterOptions {
   nature: string;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
-  finalEvolution: 'すべて' | '最終進化のみ' | '進化前のみ';
+  finalEvolution: 'すべて' | '最終進化のみ' | '進化前のみ' | 'たねのみ';
   
   // 新しいフィルター項目
   name: string; // 名前・ニックネーム検索
@@ -638,75 +638,6 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
           </div>
         </div>
 
-        {/* サブスキルフィルター */}
-        <div style={{ marginBottom: 24 }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            marginBottom: 12,
-            paddingLeft: 4
-          }}>
-            <div style={{
-              width: 3,
-              height: 16,
-              background: '#4ade80',
-              borderRadius: 2
-            }}></div>
-            <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>サブスキル</span>
-          </div>
-          
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(2, 1fr)', 
-            gap: 8 
-          }}>
-            {Object.values(SUBSKILLS).map((skill) => (
-              <label
-                key={skill.id}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  cursor: 'pointer',
-                  fontSize: 12
-                }}
-              >
-                <div
-                  onClick={() => {
-                    const newSkills = toggleArrayItem(filters.subSkills, String(skill.id));
-                    handleFilterChange('subSkills', newSkills);
-                  }}
-                  style={{
-                    width: 16,
-                    height: 16,
-                    border: '2px solid #22c55e',
-                    borderRadius: 3,
-                    background: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    flexShrink: 0
-                  }}
-                >
-                  {filters.subSkills.includes(String(skill.id)) && (
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
-                      <path 
-                        d="M20 6L9 17l-5-5" 
-                        stroke="#22c55e" 
-                        strokeWidth="6" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  )}
-                </div>
-                {skill.name}
-              </label>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* フッター */}

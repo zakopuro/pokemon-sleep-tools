@@ -25,7 +25,7 @@ interface PokemonCardProps {
   statusIcon?: React.ReactNode;
   ingredientLabel?: { label: string; backgroundColor: string } | null;
   onClick: () => void;
-  size?: 'small' | 'medium';
+  size?: 'tiny' | 'small' | 'medium';
   // 食材タブ専用プロパティ
   isIngredientTab?: boolean;
   selectedSlots?: string[];
@@ -45,10 +45,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
 }) => {
   const { mainName, formName } = splitPokemonName(pokemon.name);
   
-  const cardSize = size === 'small' ? { width: 50, height: 58 } : { width: 60, height: 68 };
-  const imageSize = size === 'small' ? 30 : 40;
-  const fontSize = size === 'small' ? 7 : 8;
-  const formFontSize = size === 'small' ? 5 : 6;
+  const cardSize = size === 'tiny' ? { width: 36, height: 42 } : 
+                   size === 'small' ? { width: 50, height: 58 } : 
+                   { width: 60, height: 68 };
+  const imageSize = size === 'tiny' ? 24 : size === 'small' ? 30 : 40;
+  const fontSize = size === 'tiny' ? 6 : size === 'small' ? 7 : 8;
+  const formFontSize = size === 'tiny' ? 4 : size === 'small' ? 5 : 6;
 
   // 食材タブでの特定パターン個体の状態を計算
   const getSpecificPatternStatus = () => {

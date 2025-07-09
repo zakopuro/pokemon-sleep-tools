@@ -113,6 +113,8 @@ export const usePokemonFiltering = (
         filtered = filtered.filter(pokemon => pokemon.isFinalEvolution);
       } else if (filters.finalEvolution === '進化前のみ') {
         filtered = filtered.filter(pokemon => !pokemon.isFinalEvolution);
+      } else if (filters.finalEvolution === 'たねのみ') {
+        filtered = filtered.filter(pokemon => pokemon.isSeedPokemon);
       }
     }
 

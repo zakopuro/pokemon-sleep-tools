@@ -6,3 +6,4 @@ export * from '../../config/natures';
 export * from '../../config/subskills';
 export * from '../../config/fields';
 export * from '../../config/recipes';
+export * from '../../config/sleep-types';

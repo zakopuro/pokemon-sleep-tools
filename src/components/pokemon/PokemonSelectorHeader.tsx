@@ -167,7 +167,7 @@ const PokemonSelectorHeader: React.FC<PokemonSelectorHeaderProps> = ({
       
       {/* 右側：最終進化フィルター */}
       <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-        {(['すべて', '最終進化のみ', '進化前のみ'] as const).map((option) => (
+        {(['すべて', '最終進化のみ', 'たねのみ'] as const).map((option) => (
           <button
             key={option}
             onClick={() => {
@@ -188,7 +188,7 @@ const PokemonSelectorHeader: React.FC<PokemonSelectorHeaderProps> = ({
               whiteSpace: 'nowrap'
             }}
           >
-            {option === 'すべて' ? '全て' : option === '最終進化のみ' ? '最終' : '進化前'}
+            {option === 'すべて' ? '全て' : option === '最終進化のみ' ? '最終' : 'たね'}
           </button>
         ))}
       </div>

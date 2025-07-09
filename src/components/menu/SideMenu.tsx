@@ -11,6 +11,7 @@ interface SideMenuProps {
 const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNavigate, onOpenBackup }) => {
   const menuItems = [
     { id: 'breeding', label: '厳選管理', icon: null }, // 画像を使用
+    { id: 'field', label: '出現フィールド', icon: '🗺️' },
     { id: 'candy', label: 'アメ計算', icon: '🍬' }
   ];
 
@@ -153,6 +154,25 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
                         container.innerHTML = '<span style="fontSize: 20px;">🎯</span>';
                       }}
                     />
+                  ) : item.id === 'field' ? (
+                    <svg width="24" height="24" viewBox="0 0 64 64" fill="none">
+                      {/* 海 */}
+                      <rect x="0" y="45" width="64" height="19" fill="#4A90E2"/>
+                      {/* 砂浜 */}
+                      <ellipse cx="32" cy="45" rx="20" ry="8" fill="#F5DEB3"/>
+                      {/* 左のヤシの木 */}
+                      <rect x="18" y="30" width="3" height="15" fill="#8B4513"/>
+                      <path d="M14 25 C14 25, 16 28, 19.5 30" stroke="#228B22" strokeWidth="2" fill="none"/>
+                      <path d="M12 28 C12 28, 15 30, 19.5 32" stroke="#228B22" strokeWidth="2" fill="none"/>
+                      <path d="M25 25 C25 25, 23 28, 19.5 30" stroke="#228B22" strokeWidth="2" fill="none"/>
+                      <path d="M27 28 C27 28, 24 30, 19.5 32" stroke="#228B22" strokeWidth="2" fill="none"/>
+                      {/* 右のヤシの木 */}
+                      <rect x="43" y="28" width="3" height="17" fill="#8B4513"/>
+                      <path d="M39 23 C39 23, 41 26, 44.5 28" stroke="#228B22" strokeWidth="2" fill="none"/>
+                      <path d="M37 26 C37 26, 40 28, 44.5 30" stroke="#228B22" strokeWidth="2" fill="none"/>
+                      <path d="M50 23 C50 23, 48 26, 44.5 28" stroke="#228B22" strokeWidth="2" fill="none"/>
+                      <path d="M52 26 C52 26, 49 28, 44.5 30" stroke="#228B22" strokeWidth="2" fill="none"/>
+                    </svg>
                   ) : item.id === 'candy' ? (
                     <img 
                       src={`${import.meta.env.BASE_URL}candy.png`}

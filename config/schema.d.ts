@@ -50,6 +50,7 @@ export interface Berry {
     name: string              // 日本語名
     form: 'normal' | 'halloween' | 'holiday' | 'alolan' | 'paldean' // 姿の種類
     isFinalEvolution: boolean // 最終進化かどうか
+    isSeedPokemon: boolean    // たねポケモンかどうか
     sleepType: 'うとうと' | 'すやすや' | 'ぐっすり'
     specialty: '食材' | 'きのみ' | 'スキル' | 'オール'
     mainSkillId: number
@@ -65,4 +66,6 @@ export interface Berry {
       slot2: Array<{ ingredientId: number; c1?: number; c2?: number; c3?: number }>
       slot3: Array<{ ingredientId: number; c1?: number; c2?: number; c3?: number }>
     }
+    // 出現フィールドのID配列
+    fieldIds: number[]
   }
