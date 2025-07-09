@@ -312,7 +312,7 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
                                 count={pokemonStatuses[getPokemonKey(pokemon)]?.count}
                               />
                             }
-                            onClick={() => handlePokemonSelect(pokemon)}
+                            onClick={() => handlePokemonSelect()}
                             size="tiny"
                           />
                         </div>
