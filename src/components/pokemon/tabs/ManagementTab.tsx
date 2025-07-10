@@ -37,21 +37,30 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
     filteredPokemons.forEach(pokemon => {
       const allInstances = loadAllInstancesForPokemon(pokemon);
       
-      // 各個体を状態別にグループ分け
-      Object.entries(allInstances).forEach(([instanceId, instanceData]) => {
-        let status = instanceData.managementStatus || '未設定';
-        
-        // 空文字の場合は未設定として扱う
-        if (status.trim() === '') {
-          status = '未設定';
-        }
-        
-        statusGroups[status].push({
+      // 個体データが存在しない場合は、「未設定」として個体1番を追加
+      if (Object.keys(allInstances).length === 0) {
+        statusGroups['未設定'].push({
           pokemon,
-          instanceId,
-          status
+          instanceId: '1',
+          status: '未設定'
         });
-      });
+      } else {
+        // 各個体を状態別にグループ分け
+        Object.entries(allInstances).forEach(([instanceId, instanceData]) => {
+          let status = instanceData.managementStatus || '未設定';
+          
+          // 空文字の場合は未設定として扱う
+          if (status.trim() === '') {
+            status = '未設定';
+          }
+          
+          statusGroups[status].push({
+            pokemon,
+            instanceId,
+            status
+          });
+        });
+      }
     });
     
     return statusGroups;
