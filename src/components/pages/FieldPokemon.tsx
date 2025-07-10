@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FIELDS, SLEEP_TYPES } from '../../config';
+import { FIELDS, SLEEP_TYPES, POKEMONS } from '../../config';
 import PokemonFilters, { type FilterOptions } from '../PokemonFilters';
 import PokemonCard from '../pokemon/PokemonCard';
 import { usePokemonFiltering } from '../../hooks/usePokemonFiltering';
@@ -33,9 +33,9 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
     managementStatuses: [],
   });
 
-  // フィルターを適用したポケモンリストを取得
-  const filteredPokemons = usePokemonFiltering(filters, 'すべて');
-  const pokemonStatuses = usePokemonStatuses(filteredPokemons);
+  // 管理状態を取得してからフィルターを適用
+  const pokemonStatuses = usePokemonStatuses([...POKEMONS]);
+  const filteredPokemons = usePokemonFiltering(filters, 'すべて', pokemonStatuses);
 
   // フィルターが設定されているかチェック
   const hasFilters = 

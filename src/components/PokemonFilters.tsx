@@ -459,7 +459,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
             gridTemplateColumns: 'repeat(6, 1fr)', 
             gap: 8 
           }}>
-            {Object.values(INGREDIENTS).map((ingredient) => (
+            {Object.values(INGREDIENTS).filter(ingredient => ingredient.name !== '-').map((ingredient) => (
               <div key={ingredient.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                 <div
                   onClick={() => {

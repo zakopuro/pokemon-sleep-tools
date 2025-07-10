@@ -692,8 +692,9 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       }
     });
 
-    // 食材IDでソート
+    // 食材IDでソート（「-」を除外）
     const sortedIngredientIds = Object.values(INGREDIENTS)
+      .filter(ingredient => ingredient.name !== '-')
       .map(ingredient => ingredient.id)
       .sort((a, b) => a - b);
 
