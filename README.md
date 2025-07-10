@@ -1,54 +1,87 @@
-# React + TypeScript + Vite
+# ポケスリ厳選管理ツール
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ポケモンスリープの厳選管理とアメ計算ができるWebアプリケーションです。
 
-Currently, two official plugins are available:
+## 主な機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 厳選管理
+- **個体管理**: 各ポケモンの複数個体を管理
+- **状態管理**: 厳選前、厳選中、完了、保留、中止、対象外のステータス管理
+- **詳細設定**: レベル、サブスキル、性格、食材設定など
+- **フィルター機能**: 状態別、ポケモン別、食材別でのフィルタリング
 
-## Expanding the ESLint configuration
+### アメ計算
+- **レベルアップ計算**: 目標レベルまでに必要なアメ数を自動計算
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 出現フィールド
+- **フィールド別検索**: 各フィールドに出現するポケモンを確認
+- **管理状態フィルター**: 厳選状況に応じたフィルタリング
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### その他の機能
+- **PWA対応**: スマートフォンアプリとしてインストール可能
+- **データ永続化**: ブラウザのローカルストレージに自動保存
+- **レスポンシブデザイン**: スマートフォン・タブレット・PC対応
+
+## 使い方
+
+### インストール（PWA）
+1. ブラウザでアプリにアクセス
+2. ブラウザの「ホーム画面に追加」をタップ
+3. アプリアイコンからいつでもアクセス可能
+
+
+## 技術スタック
+
+- **Frontend**: React 19.1.0 + TypeScript
+- **Build Tool**: Vite
+- **PWA**: Vite PWA Plugin
+- **Styling**: CSS-in-JS（インラインスタイル）
+- **State Management**: React Hooks + LocalStorage
+- **Icons**: Custom SVG Icons
+
+
+## プロジェクト構成
+
+```
+src/
+├── components/           # UIコンポーネント
+│   ├── common/          # 共通コンポーネント
+│   ├── pages/           # ページコンポーネント
+│   ├── pokemon/         # ポケモン関連コンポーネント
+│   └── status/          # ステータス関連コンポーネント
+├── config/              # 設定ファイル
+├── hooks/               # カスタムフック
+├── types/               # TypeScript型定義
+├── utils/               # ユーティリティ関数
+└── constants/           # 定数定義
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ゲームデータ
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+ポケモンスリープのゲームデータを基に構築されています：
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- **ポケモンデータ**: 全実装ポケモンの基本情報
+- **食材データ**: 全食材の詳細情報
+- **フィールドデータ**: 各フィールドの出現ポケモン
+- **スキルデータ**: メインスキル・サブスキル情報
+
+## データ管理
+
+- **自動保存**: 設定変更時に自動的にローカルストレージに保存
+- **個体管理**: 各ポケモンにつき最大10個体まで管理可能
+- **データエクスポート**: 今後の機能として実装予定
+
+## 対応環境
+
+- **ブラウザ**: Chrome, Firefox, Safari, Edge（最新版）
+- **デバイス**: スマートフォン, タブレット, PC
+- **PWA**: iOS Safari, Android Chrome
+
+## 貢献
+
+バグ報告や機能要望は [GitHub Issues](https://github.com/zakopuro/pokemon-sleep-tools/issues) にお願いします。
+
+---
+
+**開発者**: [zakopuro](https://github.com/zakopuro)
+**アプリURL**: [https://zakopuro.github.io/pokemon-sleep-tools/](https://zakopuro.github.io/pokemon-sleep-tools/)
