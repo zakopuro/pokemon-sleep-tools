@@ -5387,7 +5387,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "pokedexId": 980,
     "form": "normal",
     "isFinalEvolution": true,
-    "isSeedPokemon": true,
+    "isSeedPokemon": false,
     "fieldIds": [1, 3]
   }
 ] as const;
