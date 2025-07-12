@@ -49,6 +49,12 @@ const PokemonSelectorHeader: React.FC<PokemonSelectorHeaderProps> = ({
   };
 
   const handleScreenshot = async () => {
+    // 確認ダイアログを表示
+    const confirmed = confirm('ポケモンボックスの画像を保存しますか？');
+    if (!confirmed) {
+      return; // キャンセルされた場合は何もしない
+    }
+
     try {
       // ポケモンボックス部分のDOMエレメントを取得
       const boxElement = document.querySelector('[data-pokemon-box]') as HTMLElement;
