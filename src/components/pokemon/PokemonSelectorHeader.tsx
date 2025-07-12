@@ -133,50 +133,31 @@ const PokemonSelectorHeader: React.FC<PokemonSelectorHeaderProps> = ({
   };
 
   const handleShare = async () => {
-    const shareText = `私のポケモンスリープのBOXです！
-
-#ポケモンスリープ #ポケスリ厳選管理
-
-https://zakopuro.github.io/pokemon-sleep-tools/`;
-
     try {
       // Web Share APIが利用可能で、画像共有に対応している場合
       if (navigator.share && navigator.canShare) {
         const result = await captureScreenshot();
         if (result) {
-          // 画像にテキストを埋め込んだファイル名を作成
           const fileName = `pokemon-box-${new Date().toISOString().slice(0, 10)}.png`;
           const file = new File([result.blob], fileName, { type: 'image/png' });
           
           if (navigator.canShare({ files: [file] })) {
-            // 画像とテキストを同時に共有を試行
-            try {
-              await navigator.share({
-                title: 'ポケモンスリープBOX',
-                text: shareText,
-                files: [file]
-              });
-              return;
-            } catch (shareError) {
-              // テキスト付き画像共有が失敗した場合、画像のみ共有してテキストをクリップボードに
-              console.log('テキスト付き画像共有が失敗、画像のみ共有を試行');
-              
-              // クリップボードにテキストをコピー
-              if (navigator.clipboard && navigator.clipboard.writeText) {
-                await navigator.clipboard.writeText(shareText);
-                alert('テキストをクリップボードにコピーしました。共有先で貼り付けしてください。');
-              }
-              
-              await navigator.share({
-                title: 'ポケモンスリープBOX',
-                files: [file]
-              });
-              return;
-            }
+            // 画像のみ共有
+            await navigator.share({
+              title: 'ポケモンスリープBOX',
+              files: [file]
+            });
+            return;
           }
         }
         
         // ファイル共有に対応していない場合はテキストのみ共有
+        const shareText = `私のポケモンスリープのBOXです！
+
+#ポケモンスリープ #ポケスリ厳選管理
+
+https://zakopuro.github.io/pokemon-sleep-tools/`;
+        
         await navigator.share({
           title: 'ポケモンスリープBOX',
           text: shareText
@@ -185,14 +166,18 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
       }
 
       // Web Share APIが使えない場合はTwitterで共有
+      const shareText = `私のポケモンスリープのBOXです！
+
+#ポケモンスリープ #ポケスリ厳選管理
+
+https://zakopuro.github.io/pokemon-sleep-tools/`;
+      
       const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
       window.open(twitterUrl, '_blank');
       
     } catch (error) {
       console.error('共有に失敗しました:', error);
-      // エラーの場合もTwitterで共有
-      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
-      window.open(twitterUrl, '_blank');
+      alert('共有に失敗しました');
     }
   };
 
