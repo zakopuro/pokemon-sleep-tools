@@ -23,6 +23,7 @@ function App() {
   const [selectedPokemon, setSelectedPokemon] = useState(POKEMONS[0]);
   const [currentInstanceId, setCurrentInstanceId] = useState('1'); // 現在選択中の個体ID
   const [isSliding, setIsSliding] = useState(false); // スライド中状態
+  const [dynamicHeight, setDynamicHeight] = useState(window.innerHeight); // 動的なviewport高さ
   const detailsRef = useRef<HTMLDivElement>(null);
   const startX = useRef<number>(0);
   const startY = useRef<number>(0);
@@ -178,6 +179,45 @@ function App() {
     setRefreshTrigger(prev => prev + 1);
   }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
 
+  // 動的なviewport高さの管理
+  useEffect(() => {
+    const updateHeight = () => {
+      // モバイルブラウザでのURLバーを考慮した実際の表示領域
+      const height = window.innerHeight;
+      setDynamicHeight(height);
+      
+      // CSS変数として設定（他のコンポーネントでも利用可能）
+      document.documentElement.style.setProperty('--dynamic-vh', `${height}px`);
+    };
+
+    // 初期設定
+    updateHeight();
+
+    // リサイズイベントリスナー
+    window.addEventListener('resize', updateHeight);
+    window.addEventListener('orientationchange', updateHeight);
+
+    // モバイルブラウザでのスクロール時の高さ変化にも対応
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateHeight();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+      window.removeEventListener('orientationchange', updateHeight);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   // メニュー関連の関数
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
@@ -187,7 +227,7 @@ function App() {
   return (
     <div style={{
       width: '100%',
-      height: '100vh',
+      height: dynamicHeight,
       backgroundColor: '#ffffff',
       padding: 0,
       margin: 0,
@@ -208,6 +248,7 @@ function App() {
         currentPage={currentPage}
         onNavigate={handleNavigate}
         onOpenBackup={() => setShowBackupModal(true)}
+        dynamicHeight={dynamicHeight}
       />
 
       {/* 固定上部エリア - ヘッダーとポケモン詳細 */}

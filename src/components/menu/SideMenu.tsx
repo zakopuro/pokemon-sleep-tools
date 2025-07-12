@@ -6,9 +6,10 @@ interface SideMenuProps {
   currentPage: string;
   onNavigate: (page: string) => void;
   onOpenBackup?: () => void;
+  dynamicHeight: number;
 }
 
-const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNavigate, onOpenBackup }) => {
+const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNavigate, onOpenBackup, dynamicHeight }) => {
   const menuItems = [
     { id: 'breeding', label: '厳選管理', icon: null }, // 画像を使用
     { id: 'field', label: '出現フィールド', icon: '🗺️' },
@@ -94,9 +95,9 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
       <div
         style={{
           position: 'fixed',
-          top: 'env(safe-area-inset-top)',
-          left: 'env(safe-area-inset-left)',
-          height: 'calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom))',
+          top: 0,
+          left: 0,
+          height: dynamicHeight,
           width: 280,
           background: '#ffffff',
           boxShadow: '2px 0 12px rgba(0, 0, 0, 0.15)',
@@ -148,10 +149,11 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
 
         {/* メニュー項目 */}
         <div style={{ 
-          padding: '8px 0', 
-          flex: 1, 
+          padding: '8px 0',
+          height: dynamicHeight - 240, // ヘッダー、ボタン類、フッターを除いた高さ
           overflowY: 'auto',
-          WebkitOverflowScrolling: 'touch' // iOS用のスムーズスクロール
+          WebkitOverflowScrolling: 'touch', // iOS用のスムーズスクロール
+          minHeight: 200 // 最小高さを保証
         }}>
           {menuItems.map((item) => {
             const isActive = currentPage === item.id;
