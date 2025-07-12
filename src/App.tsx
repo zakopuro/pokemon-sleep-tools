@@ -195,7 +195,11 @@ function App() {
       display: 'flex',
       flexDirection: 'column',
       position: 'relative',
-      overflowX: 'hidden'
+      overflowX: 'hidden',
+      paddingTop: 'env(safe-area-inset-top)',
+      paddingBottom: 'env(safe-area-inset-bottom)',
+      paddingLeft: 'env(safe-area-inset-left)',
+      paddingRight: 'env(safe-area-inset-right)'
     }}>
       {/* サイドメニュー */}
       <SideMenu
@@ -212,7 +216,9 @@ function App() {
         borderBottom: '1px solid #e2e8f0',
         padding: '8px',
         flexShrink: 0,
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        position: 'relative',
+        zIndex: 100
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

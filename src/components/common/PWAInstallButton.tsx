@@ -67,8 +67,8 @@ const PWAInstallButton: React.FC = () => {
       onClick={handleInstallClick}
       style={{
         position: 'fixed',
-        bottom: 20,
-        right: 20,
+        bottom: 'calc(20px + env(safe-area-inset-bottom))',
+        right: 'calc(20px + env(safe-area-inset-right))',
         backgroundColor: '#3b82f6',
         color: 'white',
         border: 'none',

@@ -51,9 +51,9 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
       <div
         style={{
           position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '100vh',
+          top: 'env(safe-area-inset-top)',
+          left: 'env(safe-area-inset-left)',
+          height: 'calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom))',
           width: 280,
           background: '#ffffff',
           boxShadow: '2px 0 12px rgba(0, 0, 0, 0.15)',
