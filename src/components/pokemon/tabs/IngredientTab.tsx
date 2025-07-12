@@ -822,14 +822,16 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
   };
 
   return (
-    <div style={{
-      flex: 1,
-      overflowY: 'auto',
-      border: '1px solid #e2e8f0',
-      borderRadius: 6,
-      padding: 8,
-      background: '#f7fafc'
-    }}>
+    <div 
+      data-pokemon-box
+      style={{
+        flex: 1,
+        overflowY: 'auto',
+        border: '1px solid #e2e8f0',
+        borderRadius: 6,
+        padding: 8,
+        background: '#f7fafc'
+      }}>
       {/* レシピコントロール */}
       <div style={{
         display: 'flex',

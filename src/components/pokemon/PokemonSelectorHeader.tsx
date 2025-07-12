@@ -1,4 +1,5 @@
 import React from 'react';
+import html2canvas from 'html2canvas';
 import type { FilterOptions } from '../PokemonFilters';
 
 interface PokemonSelectorHeaderProps {
@@ -44,6 +45,59 @@ const PokemonSelectorHeader: React.FC<PokemonSelectorHeaderProps> = ({
         return 'とくいなもの';
       default:
         return '図鑑番号';
+    }
+  };
+
+  const handleScreenshot = async () => {
+    try {
+      // ポケモンボックス部分のDOMエレメントを取得
+      const boxElement = document.querySelector('[data-pokemon-box]') as HTMLElement;
+      if (!boxElement) {
+        console.error('ポケモンボックスが見つかりません');
+        return;
+      }
+
+      // 元のスタイルを保存
+      const originalStyle = {
+        height: boxElement.style.height,
+        maxHeight: boxElement.style.maxHeight,
+        overflowY: boxElement.style.overflowY,
+        overflowX: boxElement.style.overflowX
+      };
+
+      // 一時的にスクロールを無効化し、全体を表示
+      boxElement.style.height = 'auto';
+      boxElement.style.maxHeight = 'none';
+      boxElement.style.overflowY = 'visible';
+      boxElement.style.overflowX = 'visible';
+
+      // DOMの更新を待つ
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // スクリーンショットを撮影
+      const canvas = await html2canvas(boxElement, {
+        backgroundColor: '#f7fafc', // 背景色を要素と同じにする
+        scale: 2, // 高解像度
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        foreignObjectRendering: false
+      });
+
+      // 元のスタイルを復元
+      boxElement.style.height = originalStyle.height;
+      boxElement.style.maxHeight = originalStyle.maxHeight;
+      boxElement.style.overflowY = originalStyle.overflowY;
+      boxElement.style.overflowX = originalStyle.overflowX;
+
+      // Canvasを画像としてダウンロード
+      const link = document.createElement('a');
+      link.download = `pokemon-box-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    } catch (error) {
+      console.error('スクリーンショットの撮影に失敗しました:', error);
+      alert('スクリーンショットの撮影に失敗しました');
     }
   };
 
@@ -161,6 +215,29 @@ const PokemonSelectorHeader: React.FC<PokemonSelectorHeaderProps> = ({
                 <path d="M12 5v14"/>
               </svg>
             )}
+          </button>
+          
+          {/* カメラボタン（スクリーンショット） */}
+          <button
+            onClick={handleScreenshot}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 24,
+              height: 24,
+              background: '#fff',
+              border: '1px solid #d1d5db',
+              borderRadius: 12,
+              cursor: 'pointer',
+              padding: 0,
+              marginLeft: 4
+            }}
+            title="ボックスのスクリーンショットを保存"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12" height="12">
+              <path fill="#1a16f3" d="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/>
+            </svg>
           </button>
         </div>
       </div>
