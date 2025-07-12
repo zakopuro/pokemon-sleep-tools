@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface SideMenuProps {
   isOpen: boolean;
@@ -14,6 +14,45 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
     { id: 'field', label: '出現フィールド', icon: '🗺️' },
     { id: 'candy', label: 'アメ計算', icon: '🍬' }
   ];
+
+  // サイドメニューが開いている時にbodyのスクロールを無効化
+  useEffect(() => {
+    if (isOpen) {
+      // 現在のスクロール位置を保存
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+    } else {
+      // スクロール位置を復元
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
+    }
+
+    // クリーンアップ
+    return () => {
+      if (isOpen) {
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        if (scrollY) {
+          window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        }
+      }
+    };
+  }, [isOpen]);
 
   const handleInstall = async () => {
     const deferredPrompt = (window as any).deferredPrompt;
@@ -44,6 +83,10 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
             transition: 'background 0.3s ease'
           }}
           onClick={onClose}
+          onTouchMove={(e) => {
+            // オーバーレイ部分でのタッチスクロールを防止
+            e.preventDefault();
+          }}
         />
       )}
 
@@ -104,7 +147,12 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
         </div>
 
         {/* メニュー項目 */}
-        <div style={{ padding: '8px 0', flex: 1 }}>
+        <div style={{ 
+          padding: '8px 0', 
+          flex: 1, 
+          overflowY: 'auto',
+          WebkitOverflowScrolling: 'touch' // iOS用のスムーズスクロール
+        }}>
           {menuItems.map((item) => {
             const isActive = currentPage === item.id;
             return (
