@@ -45,6 +45,7 @@ function App() {
   const [showSideMenu, setShowSideMenu] = useState(false); // サイドメニュー表示状態
   const [currentPage, setCurrentPage] = useState('breeding'); // 現在のページ
   const [showBackupModal, setShowBackupModal] = useState(false); // バックアップモーダル表示状態
+  const [isSkillsCollapsed, setIsSkillsCollapsed] = useState(true); // メインスキル・サブスキル折りたたみ状態（デフォルト：閉じている）
   const [filters, setFilters] = useState<FilterOptions>({
     specialty: 'すべて',
     specialties: [],
@@ -447,20 +448,62 @@ function App() {
                 </div>
               </div>
 
-              {/* サブスキル選択と個体インジケーター */}
+              {/* メインスキル・サブスキル（折りたたみ可能） */}
               <div>
-                <SubskillSelector
-                  subskillByLevel={subskillByLevel}
-                  onSubskillChange={setSubskillByLevel}
+                {/* 折りたたみヘッダー */}
+                <div 
+                  onClick={() => setIsSkillsCollapsed(!isSkillsCollapsed)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '8px 12px',
+                    backgroundColor: '#f8f9fa',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    marginBottom: isSkillsCollapsed ? 8 : 4,
+                    border: '1px solid #e9ecef',
+                    transition: 'all 0.2s ease'
+                  }}
                 >
-                  <MainSkillSelector
-                    selectedPokemon={selectedPokemon}
-                    mainSkillLevel={mainSkillLevel}
-                    onMainSkillLevelChange={setMainSkillLevel}
-                  />
-                </SubskillSelector>
+                  {/* 開閉アイコン */}
+                  <div style={{
+                    marginRight: 8,
+                    transition: 'transform 0.2s ease',
+                    transform: isSkillsCollapsed ? 'rotate(0deg)' : 'rotate(90deg)'
+                  }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                  </div>
+                  <span style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: '#374151'
+                  }}>
+                    メインスキル・サブスキル
+                  </span>
+                </div>
+
+                {/* 折りたたみ可能コンテンツ */}
+                {!isSkillsCollapsed && (
+                  <div style={{
+                    animation: 'slideDown 0.2s ease',
+                    marginBottom: 8
+                  }}>
+                    <SubskillSelector
+                      subskillByLevel={subskillByLevel}
+                      onSubskillChange={setSubskillByLevel}
+                    >
+                      <MainSkillSelector
+                        selectedPokemon={selectedPokemon}
+                        mainSkillLevel={mainSkillLevel}
+                        onMainSkillLevelChange={setMainSkillLevel}
+                      />
+                    </SubskillSelector>
+                  </div>
+                )}
                 
-                {/* 個体インジケーター（サブスキルの直下、マージン最小） */}
+                {/* 個体インジケーター（常に表示） */}
                 <InstanceIndicator
                   selectedPokemon={selectedPokemon}
                   currentInstanceId={currentInstanceId}
