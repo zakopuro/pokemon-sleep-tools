@@ -507,8 +507,26 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
       
       // 0匹でも表示する
       
+      // 重複を除去（同一ポケモンは1回のみ表示）
+      const uniqueRecipePokemonEntries: Array<{
+        pokemon: Pokemon;
+        targetIngredientId: number;
+        targetSlot: string;
+      }> = [];
+      
+      recipePokemonEntries.forEach(entry => {
+        const pokemonKey = getPokemonKey(entry.pokemon);
+        const alreadyAdded = uniqueRecipePokemonEntries.some(existingEntry => 
+          getPokemonKey(existingEntry.pokemon) === pokemonKey
+        );
+        
+        if (!alreadyAdded) {
+          uniqueRecipePokemonEntries.push(entry);
+        }
+      });
+      
       // A-B-C順にソート（同じスロットの場合は図鑑番号順）
-      recipePokemonEntries.sort((a, b) => {
+      uniqueRecipePokemonEntries.sort((a, b) => {
         // まずスロット（A/B/C）でソート
         const slotOrder = { 'A': 0, 'B': 1, 'C': 2 };
         const slotComparison = slotOrder[a.targetSlot as keyof typeof slotOrder] - slotOrder[b.targetSlot as keyof typeof slotOrder];
@@ -562,7 +580,7 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
               </div>
             </div>
             <span style={{ fontSize: 12, color: '#6b7280' }}>
-              ({recipePokemonEntries.length}個)
+              ({uniqueRecipePokemonEntries.length}個)
             </span>
             {/* レシピの食材画像と必要数 */}
             <div style={{ display: 'flex', gap: 6, marginLeft: 'auto', alignItems: 'center' }}>
@@ -608,8 +626,8 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
             alignItems: 'start',
             gridAutoRows: '68px'
           }}>
-            {recipePokemonEntries.length > 0 ? (
-              recipePokemonEntries.map(entry => {
+            {uniqueRecipePokemonEntries.length > 0 ? (
+              uniqueRecipePokemonEntries.map(entry => {
                 // レシピマッチング用のラベルを取得
                 const ingredientLabel = getIngredientLabel(entry.pokemon, entry.targetIngredientId, recipe);
 
