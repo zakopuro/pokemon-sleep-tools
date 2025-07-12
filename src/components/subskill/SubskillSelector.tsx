@@ -7,41 +7,67 @@ interface SubskillSelectorProps {
   subskillByLevel: SubskillByLevel;
   onSubskillChange: (subskillByLevel: SubskillByLevel) => void;
   children?: React.ReactNode;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
 const SubskillSelector: React.FC<SubskillSelectorProps> = ({
   subskillByLevel,
   onSubskillChange,
-  children
+  children,
+  isCollapsed = false,
+  onToggleCollapse
 }) => {
   const [editingLevel, setEditingLevel] = useState<number | null>(null);
 
   return (
     <div>
-      {/* サブスキル 5 枠カードの前に挿入 */}
-      <div style={{ position:'relative', margin:'4px 0 4px' }}>
+      {/* サブスキル 5 枠カードの前に挿入（折りたたみ機能付き） */}
+      <div 
+        style={{ position:'relative', margin:'4px 0 4px', cursor: onToggleCollapse ? 'pointer' : 'default' }}
+        onClick={onToggleCollapse}
+      >
         <div style={{
           background:'#38a169',
           height:20,
           width:'100%',
           clipPath:'polygon(0 0, 100% 0, 97% 100%, 0% 100%)'
         }}/>
-        <span style={{
-          position:'absolute', top:0, left:8,
-          color:'#fff', fontSize:12, fontWeight:700, lineHeight:'20px'
+        <div style={{
+          position:'absolute', 
+          top:0, 
+          left:8,
+          color:'#fff', 
+          fontSize:12, 
+          fontWeight:700, 
+          lineHeight:'20px',
+          display: 'flex',
+          alignItems: 'center'
         }}>
-          メインスキル・サブスキル
-        </span>
+          {onToggleCollapse && (
+            <div style={{
+              marginRight: 6,
+              transition: 'transform 0.2s ease',
+              transform: isCollapsed ? 'rotate(0deg)' : 'rotate(90deg)'
+            }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </div>
+          )}
+          <span>メインスキル・サブスキル</span>
+        </div>
       </div>
       
       {/* メインスキル表示エリア */}
-      {children && (
+      {!isCollapsed && children && (
         <div style={{ marginBottom: 4 }}>
           {children}
         </div>
       )}
       
-      <div style={{ background: '#fff', borderRadius: 8, padding: 6, border: '1px solid #e2e8f0' }}>
+      {!isCollapsed && (
+        <div style={{ background: '#fff', borderRadius: 8, padding: 6, border: '1px solid #e2e8f0' }}>
 
         {/* 2列2×3行=5枠レイアウト */}
         <div style={{
@@ -124,6 +150,7 @@ const SubskillSelector: React.FC<SubskillSelectorProps> = ({
           ))}
         </div>
       </div>
+      )}
 
       {/* サブスキル選択モーダル */}
       {editingLevel !== null && (

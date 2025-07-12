@@ -448,61 +448,22 @@ function App() {
                 </div>
               </div>
 
-              {/* メインスキル・サブスキル（折りたたみ可能） */}
+              {/* サブスキル選択と個体インジケーター */}
               <div>
-                {/* 折りたたみヘッダー */}
-                <div 
-                  onClick={() => setIsSkillsCollapsed(!isSkillsCollapsed)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '6px 8px',
-                    backgroundColor: '#dbeafe',
-                    borderRadius: 4,
-                    cursor: 'pointer',
-                    marginBottom: isSkillsCollapsed ? 8 : 4,
-                    transition: 'all 0.2s ease'
-                  }}
+                <SubskillSelector
+                  subskillByLevel={subskillByLevel}
+                  onSubskillChange={setSubskillByLevel}
+                  isCollapsed={isSkillsCollapsed}
+                  onToggleCollapse={() => setIsSkillsCollapsed(!isSkillsCollapsed)}
                 >
-                  {/* 開閉アイコン */}
-                  <div style={{
-                    marginRight: 8,
-                    transition: 'transform 0.2s ease',
-                    transform: isSkillsCollapsed ? 'rotate(0deg)' : 'rotate(90deg)'
-                  }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M9 18l6-6-6-6"/>
-                    </svg>
-                  </div>
-                  <span style={{
-                    fontSize: 12,
-                    fontWeight: 600,
-                    color: '#374151'
-                  }}>
-                    メインスキル・サブスキル
-                  </span>
-                </div>
-
-                {/* 折りたたみ可能コンテンツ */}
-                {!isSkillsCollapsed && (
-                  <div style={{
-                    animation: 'slideDown 0.2s ease',
-                    marginBottom: 8
-                  }}>
-                    <SubskillSelector
-                      subskillByLevel={subskillByLevel}
-                      onSubskillChange={setSubskillByLevel}
-                    >
-                      <MainSkillSelector
-                        selectedPokemon={selectedPokemon}
-                        mainSkillLevel={mainSkillLevel}
-                        onMainSkillLevelChange={setMainSkillLevel}
-                      />
-                    </SubskillSelector>
-                  </div>
-                )}
+                  <MainSkillSelector
+                    selectedPokemon={selectedPokemon}
+                    mainSkillLevel={mainSkillLevel}
+                    onMainSkillLevelChange={setMainSkillLevel}
+                  />
+                </SubskillSelector>
                 
-                {/* 個体インジケーター（常に表示） */}
+                {/* 個体インジケーター（サブスキルの直下、マージン最小） */}
                 <InstanceIndicator
                   selectedPokemon={selectedPokemon}
                   currentInstanceId={currentInstanceId}
