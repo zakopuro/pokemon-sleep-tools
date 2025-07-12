@@ -144,15 +144,35 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
       if (navigator.share && navigator.canShare) {
         const result = await captureScreenshot();
         if (result) {
-          const file = new File([result.blob], 'pokemon-box.png', { type: 'image/png' });
+          // 画像にテキストを埋め込んだファイル名を作成
+          const fileName = `pokemon-box-${new Date().toISOString().slice(0, 10)}.png`;
+          const file = new File([result.blob], fileName, { type: 'image/png' });
           
           if (navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              title: 'ポケモンスリープBOX',
-              text: shareText,
-              files: [file]
-            });
-            return;
+            // 画像とテキストを同時に共有を試行
+            try {
+              await navigator.share({
+                title: 'ポケモンスリープBOX',
+                text: shareText,
+                files: [file]
+              });
+              return;
+            } catch (shareError) {
+              // テキスト付き画像共有が失敗した場合、画像のみ共有してテキストをクリップボードに
+              console.log('テキスト付き画像共有が失敗、画像のみ共有を試行');
+              
+              // クリップボードにテキストをコピー
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(shareText);
+                alert('テキストをクリップボードにコピーしました。共有先で貼り付けしてください。');
+              }
+              
+              await navigator.share({
+                title: 'ポケモンスリープBOX',
+                files: [file]
+              });
+              return;
+            }
           }
         }
         
