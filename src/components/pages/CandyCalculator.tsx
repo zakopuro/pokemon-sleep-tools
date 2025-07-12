@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { calculateRequiredCandy, isValidLevelRange, type CandyCalculationInput, type CandyCalculationResult } from '../../utils/candy-calculator';
+import { calculateRequiredCandy, isValidLevelRange, getExpToNextLevel, type CandyCalculationInput, type CandyCalculationResult } from '../../utils/candy-calculator';
 
 // AdSenseの型定義
 declare global {
@@ -15,6 +15,7 @@ const CandyCalculator: React.FC = () => {
     expType: 600,
     nature: 'normal',
     eventType: 'none',
+    remainingExp: getExpToNextLevel(10, 600), // 初期値は最大値
     evolutionCandies: 0,
     ownedCandies: 0
   });
@@ -56,10 +57,23 @@ const CandyCalculator: React.FC = () => {
   }, [input]);
 
   const handleInputChange = (field: keyof CandyCalculationInput, value: any) => {
-    setInput(prev => ({
-      ...prev,
-      [field]: value
-    }));
+    setInput(prev => {
+      const newInput = {
+        ...prev,
+        [field]: value
+      };
+      
+      // レベルまたは経験値タイプが変更された場合、remainingExpを最大値にリセット
+      if (field === 'currentLevel' || field === 'expType') {
+        const maxExp = getExpToNextLevel(
+          field === 'currentLevel' ? value : newInput.currentLevel,
+          field === 'expType' ? value : newInput.expType
+        );
+        newInput.remainingExp = maxExp;
+      }
+      
+      return newInput;
+    });
   };
 
   return (
@@ -179,6 +193,95 @@ const CandyCalculator: React.FC = () => {
                     cursor: 'pointer'
                   }}
                 />
+                
+                {/* あとEXP スライダー */}
+                <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <label style={{
+                    fontSize: 10,
+                    fontWeight: 600,
+                    color: '#6b7280',
+                    minWidth: 42,
+                    flexShrink: 0
+                  }}>
+                    あとEXP
+                  </label>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <button
+                        onClick={() => {
+                          handleInputChange('remainingExp', Math.max(1, (input.remainingExp || 1) - 1));
+                        }}
+                        style={{
+                          width: 16,
+                          height: 16,
+                          borderRadius: 2,
+                          border: '1px solid #d1d5db',
+                          background: '#fff',
+                          color: '#374151',
+                          fontSize: 10,
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        −
+                      </button>
+                      <div style={{
+                        flex: 1,
+                        textAlign: 'center',
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: '#6b7280'
+                      }}>
+                        {input.remainingExp || getExpToNextLevel(input.currentLevel, input.expType)}
+                      </div>
+                      <button
+                        onClick={() => {
+                          const maxExp = getExpToNextLevel(input.currentLevel, input.expType);
+                          handleInputChange('remainingExp', Math.min(maxExp, (input.remainingExp || maxExp) + 1));
+                        }}
+                        style={{
+                          width: 16,
+                          height: 16,
+                          borderRadius: 2,
+                          border: '1px solid #d1d5db',
+                          background: '#fff',
+                          color: '#374151',
+                          fontSize: 10,
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <input
+                      type="range"
+                      min="1"
+                      max={getExpToNextLevel(input.currentLevel, input.expType)}
+                      value={getExpToNextLevel(input.currentLevel, input.expType) - (input.remainingExp || 0) + 1}
+                      onChange={(e) => {
+                        const maxExp = getExpToNextLevel(input.currentLevel, input.expType);
+                        const reversedValue = maxExp - parseInt(e.target.value) + 1;
+                        handleInputChange('remainingExp', reversedValue);
+                      }}
+                      style={{
+                        width: '100%',
+                        height: 3,
+                        borderRadius: 2,
+                        background: '#f3e8ff',
+                        outline: 'none',
+                        marginTop: 4,
+                        cursor: 'pointer'
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* 目標レベル */}

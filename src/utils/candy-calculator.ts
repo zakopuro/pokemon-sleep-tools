@@ -43,6 +43,7 @@ export interface CandyCalculationInput {
   nature: 'up' | 'normal' | 'down';
   eventType: BoostEvent;
   expGot?: number; // 現在レベルで既に取得済みの経験値
+  remainingExp?: number; // 現在レベルから次のレベルまでの残り経験値
   evolutionCandies?: number; // 進化に必要なアメ
   ownedCandies?: number; // 所持している飴の数
 }
@@ -86,10 +87,25 @@ function calcExpFromCandy(level: number, nature: 'up' | 'normal' | 'down', boost
 }
 
 /**
+ * 残り経験値から取得済み経験値を計算
+ */
+function calcExpGotFromRemainingExp(currentLevel: number, remainingExp: number, expType: 600 | 900 | 1080 | 1320): number {
+  if (currentLevel >= MAX_LEVEL) return 0;
+  
+  const nextLevelTotalExp = calcExp(currentLevel, currentLevel + 1, expType);
+  return nextLevelTotalExp - remainingExp;
+}
+
+/**
  * アメ計算メイン関数
  */
 export function calculateRequiredCandy(input: CandyCalculationInput): CandyCalculationResult {
-  const { currentLevel, targetLevel, expType, nature, eventType, expGot = 0, evolutionCandies = 0, ownedCandies = 0 } = input;
+  const { currentLevel, targetLevel, expType, nature, eventType, expGot = 0, remainingExp, evolutionCandies = 0, ownedCandies = 0 } = input;
+  
+  // remainingExpが指定されている場合は、それからexpGotを計算
+  const actualExpGot = remainingExp !== undefined 
+    ? calcExpGotFromRemainingExp(currentLevel, remainingExp, expType)
+    : expGot;
   
   if (currentLevel < 0 || currentLevel > MAX_LEVEL ||
       targetLevel < 0 || targetLevel > MAX_LEVEL ||
@@ -109,12 +125,12 @@ export function calculateRequiredCandy(input: CandyCalculationInput): CandyCalcu
   
   // 必要経験値を計算
   const totalRequiredExp = calcExp(currentLevel, targetLevel, expType);
-  const requiredExp = totalRequiredExp - expGot;
+  const requiredExp = totalRequiredExp - actualExpGot;
   
   // ゆめのかけら計算（レベル別に詳細計算）
   let requiredDreamShards = 0;
   let requiredCandies = 0;
-  let carry = expGot;
+  let carry = actualExpGot;
   const shardRate = eventType === 'none' ? 1 : eventType === 'mini' ? 4 : 5;
   
   for (let i = currentLevel; i < targetLevel; i++) {
@@ -153,4 +169,12 @@ export function isValidLevelRange(currentLevel: number, targetLevel: number): bo
     targetLevel <= MAX_LEVEL && 
     currentLevel < targetLevel
   );
+}
+
+/**
+ * 現在レベルから次レベルまでの必要経験値を取得
+ */
+export function getExpToNextLevel(currentLevel: number, expType: 600 | 900 | 1080 | 1320): number {
+  if (currentLevel >= MAX_LEVEL) return 0;
+  return calcExp(currentLevel, currentLevel + 1, expType);
 }
