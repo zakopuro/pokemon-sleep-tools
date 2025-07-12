@@ -123,6 +123,22 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
     <div style={{ marginBottom: 4 }}> {/* marginBottomを半分に */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 3px 0' }}> {/* marginBottomを半分に */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {/* ポケモン画像 */}
+          <img 
+            src={`${import.meta.env.BASE_URL}image/pokemon/${selectedPokemon.id.toString().padStart(7, '0')}.png`}
+            alt={selectedPokemon.name}
+            style={{
+              width: 32,
+              height: 32,
+              objectFit: 'contain',
+              flexShrink: 0
+            }}
+            onError={(e) => {
+              console.error('ポケモン画像の読み込みに失敗しました:', e.currentTarget.src);
+              // 画像が見つからない場合は非表示にする
+              e.currentTarget.style.display = 'none';
+            }}
+          />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2 }}>
               {splitPokemonName(selectedPokemon.name).mainName}
