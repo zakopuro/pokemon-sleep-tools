@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import html2canvas from 'html2canvas';
 import { FIELDS, SLEEP_TYPES, POKEMONS } from '../../config';
 import PokemonFilters, { type FilterOptions } from '../PokemonFilters';
 import PokemonCard from '../pokemon/PokemonCard';
@@ -76,6 +77,153 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
     // 出現フィールドページでは特に何もしない（クリック無効）
   };
 
+  // スクリーンショットを撮影する共通関数
+  const captureScreenshot = async (): Promise<{ canvas: HTMLCanvasElement; blob: Blob } | null> => {
+    try {
+      // 内側のスクロール可能なテーブル要素を取得
+      const scrollableElement = document.querySelector('[data-field-table-scrollable]') as HTMLElement;
+      if (!scrollableElement) {
+        console.error('フィールド表が見つかりません');
+        return null;
+      }
+
+      // 元のスタイルを保存
+      const originalStyle = {
+        width: scrollableElement.style.width,
+        height: scrollableElement.style.height,
+        maxWidth: scrollableElement.style.maxWidth,
+        maxHeight: scrollableElement.style.maxHeight,
+        overflowX: scrollableElement.style.overflowX,
+        overflowY: scrollableElement.style.overflowY
+      };
+
+      // 一時的にスクロールを無効化し、全体を表示
+      scrollableElement.style.width = 'auto';
+      scrollableElement.style.height = 'auto';
+      scrollableElement.style.maxWidth = 'none';
+      scrollableElement.style.maxHeight = 'none';
+      scrollableElement.style.overflowX = 'visible';
+      scrollableElement.style.overflowY = 'visible';
+
+      // DOMの更新を待つ
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // 実際のコンテンツサイズを取得
+      const actualWidth = scrollableElement.scrollWidth;
+      const actualHeight = scrollableElement.scrollHeight;
+
+      // スクリーンショットを撮影
+      const canvas = await html2canvas(scrollableElement, {
+        backgroundColor: '#ffffff',
+        scale: 1.5, // 解像度を少し下げて安定性向上
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        foreignObjectRendering: false,
+        width: actualWidth,
+        height: actualHeight,
+        windowWidth: actualWidth,
+        windowHeight: actualHeight
+      });
+
+      // 元のスタイルを復元
+      scrollableElement.style.width = originalStyle.width;
+      scrollableElement.style.height = originalStyle.height;
+      scrollableElement.style.maxWidth = originalStyle.maxWidth;
+      scrollableElement.style.maxHeight = originalStyle.maxHeight;
+      scrollableElement.style.overflowX = originalStyle.overflowX;
+      scrollableElement.style.overflowY = originalStyle.overflowY;
+
+      // Canvasをblobに変換
+      return new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve({ canvas, blob });
+          } else {
+            resolve(null);
+          }
+        }, 'image/png');
+      });
+    } catch (error) {
+      console.error('スクリーンショットの撮影に失敗しました:', error);
+      return null;
+    }
+  };
+
+  const handleScreenshot = async () => {
+    // 確認ダイアログを表示
+    const confirmed = confirm('出現フィールド表の画像を保存しますか？');
+    if (!confirmed) {
+      return; // キャンセルされた場合は何もしない
+    }
+
+    try {
+      const result = await captureScreenshot();
+      if (!result) {
+        alert('スクリーンショットの撮影に失敗しました');
+        return;
+      }
+
+      // Canvasを画像としてダウンロード
+      const link = document.createElement('a');
+      link.download = `field-pokemon-table-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.png`;
+      link.href = result.canvas.toDataURL();
+      link.click();
+    } catch (error) {
+      console.error('スクリーンショットの撮影に失敗しました:', error);
+      alert('スクリーンショットの撮影に失敗しました');
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      // Web Share APIが利用可能で、画像共有に対応している場合
+      if (navigator.share && navigator.canShare) {
+        const result = await captureScreenshot();
+        if (result) {
+          const fileName = `field-pokemon-table-${new Date().toISOString().slice(0, 10)}.png`;
+          const file = new File([result.blob], fileName, { type: 'image/png' });
+          
+          if (navigator.canShare({ files: [file] })) {
+            // 画像のみ共有
+            await navigator.share({
+              title: 'ポケモンスリープ出現フィールド表',
+              files: [file]
+            });
+            return;
+          }
+        }
+        
+        // ファイル共有に対応していない場合はテキストのみ共有
+        const shareText = `私のポケモンスリープの出現フィールド表です！
+
+#ポケモンスリープ #ポケスリ厳選管理
+
+https://zakopuro.github.io/pokemon-sleep-tools/`;
+        
+        await navigator.share({
+          title: 'ポケモンスリープ出現フィールド表',
+          text: shareText
+        });
+        return;
+      }
+
+      // Web Share APIが使えない場合はTwitterで共有
+      const shareText = `私のポケモンスリープの出現フィールド表です！
+
+#ポケモンスリープ #ポケスリ厳選管理
+
+https://zakopuro.github.io/pokemon-sleep-tools/`;
+      
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+      window.open(twitterUrl, '_blank');
+      
+    } catch (error) {
+      console.error('共有に失敗しました:', error);
+      alert('共有に失敗しました');
+    }
+  };
+
   return (
     <div style={{ 
       flex: 1, 
@@ -150,6 +298,52 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
                   {hasFilters ? 'ON' : 'OFF'}
                 </span>
               </button>
+              
+              {/* カメラボタン（スクリーンショット） */}
+              <button
+                onClick={handleScreenshot}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 24,
+                  height: 24,
+                  background: '#fff',
+                  border: '1px solid #d1d5db',
+                  borderRadius: 12,
+                  cursor: 'pointer',
+                  padding: 0,
+                  marginLeft: 4
+                }}
+                title="フィールド表のスクリーンショットを保存"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="12" height="12">
+                  <path fill="#1a16f3" d="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/>
+                </svg>
+              </button>
+              
+              {/* 共有ボタン */}
+              <button
+                onClick={handleShare}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 24,
+                  height: 24,
+                  background: '#fff',
+                  border: '1px solid #d1d5db',
+                  borderRadius: 12,
+                  cursor: 'pointer',
+                  padding: 0,
+                  marginLeft: 4
+                }}
+                title="フィールド表を共有"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="12" height="12">
+                  <path fill="#005eff" d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z"/>
+                </svg>
+              </button>
             </div>
           </div>
           
@@ -189,16 +383,20 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
         overflow: 'auto',
         padding: '16px'
       }}>
-        <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '8px',
-          border: '1px solid #e2e8f0',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            overflowX: 'auto',
-            overflowY: 'visible'
+        <div 
+          data-field-table
+          style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '8px',
+            border: '1px solid #e2e8f0',
+            overflow: 'hidden'
           }}>
+          <div 
+            data-field-table-scrollable
+            style={{
+              overflowX: 'auto',
+              overflowY: 'visible'
+            }}>
           {/* テーブルヘッダー */}
           <div style={{
             display: 'grid',
