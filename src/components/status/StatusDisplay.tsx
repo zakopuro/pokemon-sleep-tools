@@ -121,8 +121,8 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   };
   return (
     <div style={{ marginBottom: 4 }}> {/* marginBottomを半分に */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 3px 0' }}> {/* marginBottomを半分に */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 3px 0', flexWrap: 'nowrap' }}> {/* marginBottomを半分に */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'nowrap', minWidth: 0, flex: 1 }}>
           {/* ポケモン画像 */}
           <img 
             src={`${import.meta.env.BASE_URL}image/pokemon/${selectedPokemon.id.toString().padStart(7, '0')}.png`}
@@ -139,8 +139,8 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
               e.currentTarget.style.display = 'none';
             }}
           />
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flexShrink: 0 }}>
+            <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {splitPokemonName(selectedPokemon.name).mainName}
             </h2>
             {splitPokemonName(selectedPokemon.name).formName && (
@@ -149,13 +149,16 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                 color: '#666', 
                 lineHeight: 1.0,
                 marginTop: -2,
-                textAlign: 'center'
+                textAlign: 'center',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
               }}>
                 {splitPokemonName(selectedPokemon.name).formName}
               </div>
             )}
           </div>
-          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0, flexWrap: 'nowrap' }}>
             {/* 睡眠タイプ */}
             <span style={{
               background: sleepTypeColors[selectedPokemon.sleepType],
@@ -171,7 +174,8 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
               borderRadius: 12,
               fontSize: 10,
               fontWeight: 600,
-              border: '1px solid #e2e8f0'
+              border: '1px solid #e2e8f0',
+              whiteSpace: 'nowrap'
             }}>
               {selectedPokemon.sleepType}
             </span>
@@ -191,7 +195,8 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
               borderRadius: 12,
               fontSize: 10,
               fontWeight: 600,
-              border: '1px solid #e2e8f0'
+              border: '1px solid #e2e8f0',
+              whiteSpace: 'nowrap'
             }}>
               {selectedPokemon.specialty}
             </span>
