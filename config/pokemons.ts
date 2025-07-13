@@ -3457,9 +3457,9 @@ export const POKEMONS: readonly Pokemon[] = [
       "ingredientId": 12,
       "c1": 8
     },
-    "pokedexId": 198,
+    "pokedexId": 303,
     "form": "normal",
-    "isFinalEvolution": false,
+    "isFinalEvolution": true,
     "isSeedPokemon": true,
     "fieldIds": [1, 3, 6]
   },
