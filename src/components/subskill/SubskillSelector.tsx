@@ -154,29 +154,100 @@ const SubskillSelector: React.FC<SubskillSelectorProps> = ({
 
       {/* サブスキル選択モーダル */}
       {editingLevel !== null && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 5000,
-          background: 'rgba(0,0,0,.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <div style={{
-            background: '#fff',
-            width: 320,
-            maxHeight: '80vh',
-            overflowY: 'auto',
-            borderRadius: 12,
-            padding: 20
-          }}>
-            <h4 style={{ margin: '0 0 16px 0', fontSize: 16, fontWeight: 700 }}>
-              レベル {editingLevel} のサブスキルを選択してください
-            </h4>
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+            padding: '20px',
+            width: '100vw',
+            height: '100vh'
+          }}
+          onClick={(e) => {
+            // 背景クリックでモーダルを閉じる
+            if (e.target === e.currentTarget) {
+              setEditingLevel(null);
+            }
+          }}
+        >
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: 12,
+              width: '100%',
+              maxWidth: 380,
+              maxHeight: '90vh',
+              overflow: 'hidden',
+              color: '#000',
+              position: 'relative',
+              margin: 'auto',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* ヘッダー - 固定 */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '16px 20px',
+              borderBottom: '1px solid #e5e7eb',
+              position: 'sticky',
+              top: 0,
+              background: '#fff',
+              zIndex: 1
+            }}>
+              <h3 style={{ 
+                margin: 0, 
+                fontSize: 16, 
+                fontWeight: 700, 
+                color: '#374151' 
+              }}>
+                レベル {editingLevel} のサブスキルを選択
+              </h3>
+              <button
+                onClick={() => setEditingLevel(null)}
+                style={{
+                  background: '#f3f4f6',
+                  border: 'none',
+                  borderRadius: '50%',
+                  fontSize: 18,
+                  cursor: 'pointer',
+                  color: '#6b7280',
+                  padding: 0,
+                  width: 36,
+                  height: 36,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#e5e7eb';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#f3f4f6';
+                }}
+              >
+                ×
+              </button>
+            </div>
 
-            {/* 金枠→銀枠→青枠の順で2列表示 */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
+            {/* コンテンツ - スクロール可能 */}
+            <div style={{
+              maxHeight: 'calc(90vh - 80px)',
+              overflow: 'auto',
+              padding: '20px'
+            }}>
+              {/* 金枠→銀枠→青枠の順で2列表示 */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8, marginBottom: 16 }}>
               {SUBSKILLS.map((sk: any) => {
                 // このサブスキルがどのレベルで選択されているかを調べる
                 const selectedLevel = Object.entries(subskillByLevel)
@@ -268,38 +339,39 @@ const SubskillSelector: React.FC<SubskillSelectorProps> = ({
                   </button>
                 );
               })}
-            </div>
+              </div>
 
-            <div style={{ textAlign: 'right', marginTop: 16 }}>
-              <button
-                onClick={() => {
-                  onSubskillChange(Object.fromEntries(SUBSKILL_LEVELS.map(lv => [lv, null])));
-                }}
-                style={{
-                  marginRight: 16,
-                  color: '#ef4444',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: 12,
-                  fontWeight: 600
-                }}
-              >
-                全てクリア
-              </button>
-              <button
-                onClick={() => setEditingLevel(null)}
-                style={{
-                  color: '#3b82f6',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: 12,
-                  fontWeight: 600
-                }}
-              >
-                閉じる
-              </button>
+              <div style={{ textAlign: 'right', marginTop: 16 }}>
+                <button
+                  onClick={() => {
+                    onSubskillChange(Object.fromEntries(SUBSKILL_LEVELS.map(lv => [lv, null])));
+                  }}
+                  style={{
+                    marginRight: 16,
+                    color: '#ef4444',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: 12,
+                    fontWeight: 600
+                  }}
+                >
+                  全てクリア
+                </button>
+                <button
+                  onClick={() => setEditingLevel(null)}
+                  style={{
+                    color: '#3b82f6',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: 12,
+                    fontWeight: 600
+                  }}
+                >
+                  閉じる
+                </button>
+              </div>
             </div>
           </div>
         </div>
