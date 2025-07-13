@@ -179,53 +179,97 @@ const NatureSelector: React.FC<NatureSelectorProps> = ({
         <div
           style={{
             position: 'fixed',
-            inset: 0,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             background: 'rgba(0,0,0,0.5)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 3000,
+            zIndex: 10000,
+            padding: '20px',
+            width: '100vw',
+            height: '100vh'
+          }}
+          onClick={(e) => {
+            // 背景クリックでモーダルを閉じる
+            if (e.target === e.currentTarget) {
+              setShowNatureModal(false);
+            }
           }}
         >
           <div
             style={{
               background: '#fff',
               borderRadius: 12,
-              width: '95%',
-              maxWidth: 400,
-              maxHeight: '80vh',
+              width: '100%',
+              maxWidth: 380,
+              maxHeight: '90vh',
               overflow: 'hidden',
               color: '#000',
+              position: 'relative',
+              margin: 'auto',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
             }}
+            onClick={(e) => e.stopPropagation()}
           >
+            {/* ヘッダー - 固定 */}
             <div style={{
               display: 'flex',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-between',
               alignItems: 'center',
               padding: '16px 20px',
+              borderBottom: '1px solid #e5e7eb',
+              position: 'sticky',
+              top: 0,
+              background: '#fff',
+              zIndex: 1
             }}>
+              <h3 style={{ 
+                margin: 0, 
+                fontSize: 16, 
+                fontWeight: 700, 
+                color: '#374151' 
+              }}>
+                せいかく選択
+              </h3>
               <button
                 onClick={() => setShowNatureModal(false)}
                 style={{
-                  background: 'transparent',
+                  background: '#f3f4f6',
                   border: 'none',
-                  fontSize: 24,
+                  borderRadius: '50%',
+                  fontSize: 18,
                   cursor: 'pointer',
-                  color: '#666',
+                  color: '#6b7280',
                   padding: 0,
-                  width: 32,
-                  height: 32,
+                  width: 36,
+                  height: 36,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  transition: 'all 0.2s'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#e5e7eb';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#f3f4f6';
                 }}
               >
                 ×
               </button>
             </div>
 
+            {/* コンテンツ - スクロール可能 */}
+            <div style={{
+              maxHeight: 'calc(90vh - 80px)',
+              overflow: 'auto'
+            }}>
+
             {!isNeutralMode ? (
-              <div style={{ padding: '0 20px 20px' }}>
+              <div style={{ padding: '20px' }}>
                 {/* 上昇パラメータ選択 */}
                 <div style={{ marginBottom: 16 }}>
                   <div style={{ marginBottom: 8, fontSize: 12, fontWeight: 700, color: '#22c55e' }}>
@@ -351,7 +395,7 @@ const NatureSelector: React.FC<NatureSelectorProps> = ({
                 </div>
               </div>
             ) : (
-              <div style={{ padding: '0 20px 20px' }}>
+              <div style={{ padding: '20px' }}>
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -400,6 +444,7 @@ const NatureSelector: React.FC<NatureSelectorProps> = ({
                 </div>
               </div>
             )}
+            </div>
           </div>
         </div>
       )}
