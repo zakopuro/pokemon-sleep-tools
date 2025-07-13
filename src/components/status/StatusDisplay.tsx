@@ -120,9 +120,51 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
     }
   };
   return (
-    <div style={{ marginBottom: 4 }}> {/* marginBottomを半分に */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 3px 0', flexWrap: 'nowrap' }}> {/* marginBottomを半分に */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'nowrap', minWidth: 0, flex: 1 }}>
+    <div style={{ marginBottom: 4, position: 'relative' }}>
+      {/* 削除ボタン（右上に絶対配置） */}
+      {canDelete && onDelete && (
+        <button
+          onClick={onDelete}
+          style={{
+            position: 'absolute',
+            top: -16,
+            right: -12,
+            width: 20,
+            height: 20,
+            borderRadius: '50%',
+            border: 'none',
+            background: '#ef4444',
+            color: '#fff',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            padding: 0,
+            outline: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 14,
+            fontWeight: 'normal',
+            lineHeight: 1,
+            fontFamily: 'monospace',
+            textAlign: 'center',
+            zIndex: 10,
+            boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#dc2626';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#ef4444';
+          }}
+          title={`個体${currentInstanceId}を削除`}
+        >
+          ×
+        </button>
+      )}
+      
+      <div style={{ display: 'flex', alignItems: 'center', margin: '0 0 3px 0', gap: 8 }}>
+        {/* 左側：ポケモン画像と名前 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0, flex: 1 }}>
           {/* ポケモン画像 */}
           <img 
             src={`${import.meta.env.BASE_URL}image/pokemon/${selectedPokemon.id.toString().padStart(7, '0')}.png`}
@@ -139,7 +181,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
               e.currentTarget.style.display = 'none';
             }}
           />
-          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flexShrink: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
             <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {splitPokemonName(selectedPokemon.name).mainName}
             </h2>
@@ -149,7 +191,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                 color: '#666', 
                 lineHeight: 1.0,
                 marginTop: -2,
-                textAlign: 'center',
+                textAlign: 'left',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis'
@@ -158,97 +200,65 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
               </div>
             )}
           </div>
-          <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0, flexWrap: 'nowrap' }}>
-            {/* 睡眠タイプ */}
-            <span style={{
-              background: sleepTypeColors[selectedPokemon.sleepType],
-              color: (() => {
-                switch(selectedPokemon.sleepType) {
-                  case 'うとうと': return '#b8860b';
-                  case 'すやすや': return '#1e50a2';
-                  case 'ぐっすり': return '#ffffff';
-                  default: return '#2d3748';
-                }
-              })(),
-              padding: '2px 8px',
-              borderRadius: 12,
-              fontSize: 10,
-              fontWeight: 600,
-              border: '1px solid #e2e8f0',
-              whiteSpace: 'nowrap'
-            }}>
-              {selectedPokemon.sleepType}
-            </span>
-            {/* 得意なもの */}
-            <span style={{
-              background: (() => {
-                switch(selectedPokemon.specialty) {
-                  case 'きのみ': return '#38a169';
-                  case '食材': return '#ffa500';
-                  case 'スキル': return '#1e90ff';
-                  case 'オール': return '#ff1493';
-                  default: return '#f1f5f9';
-                }
-              })(),
-              color: '#fff',
-              padding: '2px 8px',
-              borderRadius: 12,
-              fontSize: 10,
-              fontWeight: 600,
-              border: '1px solid #e2e8f0',
-              whiteSpace: 'nowrap'
-            }}>
-              {selectedPokemon.specialty}
-            </span>
-            {/* きのみ画像 */}
-            <img
-              src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(getBerry(selectedPokemon.berryId))}.png`}
-              alt={getBerry(selectedPokemon.berryId)?.name || '不明'}
-              style={{ width: 24, height: 24, objectFit: 'contain' }}
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = `${import.meta.env.BASE_URL}image/berry/cheriberry.png`;
-              }}
-            />
-          </div>
         </div>
-        {/* 削除ボタンと育成状態管理プルダウン */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          {/* 削除ボタン（複数個体がある場合のみ） */}
-          {canDelete && onDelete && (
-            <button
-              onClick={onDelete}
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: '50%',
-                border: 'none',
-                background: '#ef4444',
-                color: '#fff',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                padding: 0,
-                outline: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: 14,
-                fontWeight: 'normal',
-                lineHeight: 1,
-                fontFamily: 'monospace',
-                textAlign: 'center'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#dc2626';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ef4444';
-              }}
-              title={`個体${currentInstanceId}を削除`}
-            >
-              ×
-            </button>
-          )}
+
+        {/* 中央：バッジ類（睡眠タイプ、得意なもの、きのみ） */}
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center', flexShrink: 0 }}>
+          {/* 睡眠タイプ */}
+          <span style={{
+            background: sleepTypeColors[selectedPokemon.sleepType],
+            color: (() => {
+              switch(selectedPokemon.sleepType) {
+                case 'うとうと': return '#b8860b';
+                case 'すやすや': return '#1e50a2';
+                case 'ぐっすり': return '#ffffff';
+                default: return '#2d3748';
+              }
+            })(),
+            padding: '2px 6px',
+            borderRadius: 12,
+            fontSize: 9,
+            fontWeight: 600,
+            border: '1px solid #e2e8f0',
+            whiteSpace: 'nowrap'
+          }}>
+            {selectedPokemon.sleepType}
+          </span>
+          {/* 得意なもの */}
+          <span style={{
+            background: (() => {
+              switch(selectedPokemon.specialty) {
+                case 'きのみ': return '#38a169';
+                case '食材': return '#ffa500';
+                case 'スキル': return '#1e90ff';
+                case 'オール': return '#ff1493';
+                default: return '#f1f5f9';
+              }
+            })(),
+            color: '#fff',
+            padding: '2px 6px',
+            borderRadius: 12,
+            fontSize: 9,
+            fontWeight: 600,
+            border: '1px solid #e2e8f0',
+            whiteSpace: 'nowrap'
+          }}>
+            {selectedPokemon.specialty}
+          </span>
+          {/* きのみ画像 */}
+          <img
+            src={`${import.meta.env.BASE_URL}image/berry/${getBerryImageName(getBerry(selectedPokemon.berryId))}.png`}
+            alt={getBerry(selectedPokemon.berryId)?.name || '不明'}
+            style={{ width: 20, height: 20, objectFit: 'contain' }}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = `${import.meta.env.BASE_URL}image/berry/cheriberry.png`;
+            }}
+          />
+        </div>
+
+        {/* 右側：管理状態プルダウン */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
           
           <div ref={dropdownRef} style={{ position: 'relative' }}>
             {/* プルダウンボタン */}
