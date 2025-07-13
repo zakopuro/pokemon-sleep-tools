@@ -59,7 +59,7 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({ level, onLevelChange }) =
             />
           </div>
           <div style={{ display: 'flex', gap: 2, flexWrap: 'nowrap', justifyContent: 'space-between', marginTop: 2 }}>
-            {[10, 25, 50, 60, 75, 100].map(preset => (
+            {[10, 25, 30, 50, 60, 75].map(preset => (
               <button
                 key={preset}
                 onClick={() => handleLevelPreset(preset)}
