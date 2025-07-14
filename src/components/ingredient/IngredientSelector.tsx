@@ -50,7 +50,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
       patterns.push([
         { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c1 || 2 },  // ing1の1枠目
         { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c2 || 2 },  // ing1の2枠目
-        { id: pokemon.ing2.ingredientId, num: pokemon.ing2.c1 || 2 }   // ing2の1枠目
+        { id: pokemon.ing2.ingredientId, num: pokemon.ing2.c2 || 2 }   // ing2の2枠目
       ]);
     }
 
