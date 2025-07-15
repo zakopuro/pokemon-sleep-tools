@@ -208,5 +208,21 @@ export const MAINSKILLS: readonly MainSkill[] = [
     "name": "かいりきバサミ",
     "maxlevel":7,
     "imagename":'食材セレクト'
-  }
+  },
+  {
+    "id": 27,
+    "majorclass": "食材ゲット",
+    "minorclass": "食材ゲットS",
+    "name": "プラス(食材ゲットS)",
+    "maxlevel":7,
+    "imagename":'食材ゲット'
+  },
+  {
+    "id": 28,
+    "majorclass": "料理パワーアップ",
+    "minorclass": "料理パワーアップS",
+    "name": "マイナス(料理パワーアップS)",
+    "maxlevel":7,
+    "imagename":'料理パワーアップ'
+  },
 ] as const;

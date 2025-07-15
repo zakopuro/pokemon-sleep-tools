@@ -3224,6 +3224,276 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 3]
   },
   {
+    "id": "0010252",
+    "name": "キモリ",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 21,
+    "fp": 5,
+    "frequency": 4500,
+    "berryId": 5,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 17,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 1,
+      "c1":2,
+    },
+    "pokedexId": 252,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 2, 5, 6]
+  },
+  {
+    "id": "0010253",
+    "name": "ジュプトル",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 21,
+    "fp": 12,
+    "frequency": 3300,
+    "berryId": 5,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 17,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 1,
+      "c1":2,
+    },
+    "pokedexId": 253,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 5, 6]
+  },
+  {
+    "id": "0010254",
+    "name": "ジュプトル",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 21,
+    "fp": 20,
+    "frequency": 2300,
+    "berryId": 5,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 17,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 1,
+      "c1":2,
+    },
+    "pokedexId": 254,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 5, 6]
+  },
+  {
+    "id": "0010255",
+    "name": "アチャモ",
+    "sleepType": "すやすや",
+    "specialty": "きのみ",
+    "mainSkillId": 9,
+    "fp": 5,
+    "frequency": 4300,
+    "berryId": 2,
+    "ing1": {
+      "ingredientId": 2,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 15,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 10,
+      "c1":5,
+    },
+    "pokedexId": 255,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 5]
+  },
+  {
+    "id": "0010256",
+    "name": "ワカシャモ",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 9,
+    "fp": 12,
+    "frequency": 3400,
+    "berryId": 7,
+    "ing1": {
+      "ingredientId": 2,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 15,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 10,
+      "c1":5,
+    },
+    "pokedexId": 256,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 5]
+  },
+  {
+    "id": "0010257",
+    "name": "バシャーモ",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 9,
+    "fp": 20,
+    "frequency": 2600,
+    "berryId": 7,
+    "ing1": {
+      "ingredientId": 2,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 15,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 10,
+      "c1":5,
+    },
+    "pokedexId": 257,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 5]
+  },
+  {
+    "id": "0010258",
+    "name": "ミズゴロウ",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 17,
+    "fp": 5,
+    "frequency": 4700,
+    "berryId": 3,
+    "ing1": {
+      "ingredientId": 16,
+      "c1": 1,
+      "c2": 2,
+      "c3": 3
+    },
+    "ing2": {
+      "ingredientId": 8,
+      "c1": 3,
+      "c2": 5
+    },
+    "ing3": {
+      "ingredientId": 2,
+      "c1":3,
+    },
+    "pokedexId": 258,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 2, 3]
+  },
+  {
+    "id": "0010259",
+    "name": "ヌマクロー",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 17,
+    "fp": 12,
+    "frequency": 3500,
+    "berryId": 9,
+    "ing1": {
+      "ingredientId": 16,
+      "c1": 1,
+      "c2": 2,
+      "c3": 3
+    },
+    "ing2": {
+      "ingredientId": 8,
+      "c1": 3,
+      "c2": 5
+    },
+    "ing3": {
+      "ingredientId": 2,
+      "c1":3,
+    },
+    "pokedexId": 259,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 3]
+  },
+  {
+    "id": "0010260",
+    "name": "ラグラージ",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 17,
+    "fp": 20,
+    "frequency": 2800,
+    "berryId": 9,
+    "ing1": {
+      "ingredientId": 16,
+      "c1": 1,
+      "c2": 2,
+      "c3": 3
+    },
+    "ing2": {
+      "ingredientId": 8,
+      "c1": 3,
+      "c2": 5
+    },
+    "ing3": {
+      "ingredientId": 2,
+      "c1":3,
+    },
+    "pokedexId": 260,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 3]
+  },
+  {
     "id": "0010280",
     "name": "ラルトス",
     "sleepType": "すやすや",
@@ -3551,6 +3821,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
+    "fieldIds": [1, 6]
+  },
+  {
+    "id": "0010311",
+    "name": "プラスル",
+    "sleepType": "すやすや",
+    "specialty": "スキル",
+    "mainSkillId": 27,
+    "fp": 10,
+    "frequency": 2400,
+    "berryId": 4,
+    "ing1": {
+      "ingredientId": 17,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 8,
+      "c1":6
+    },
+    "pokedexId": 311,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 6]
+  },
+  {
+    "id": "0010312",
+    "name": "マイナン",
+    "sleepType": "すやすや",
+    "specialty": "スキル",
+    "mainSkillId": 28,
+    "fp": 10,
+    "frequency": 2400,
+    "berryId": 4,
+    "ing1": {
+      "ingredientId": 9,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 3,
+      "c1": 2,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 8,
+      "c1":4
+    },
+    "pokedexId": 312,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
     "fieldIds": [1, 6]
   },
   {
