@@ -3011,7 +3011,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 3]
+    "fieldIds": [3]
   },
   {
     "id": "0010242",
@@ -4331,7 +4331,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [6]
+    "fieldIds": [1,6]
   },
   {
     "id": "0010426",
