@@ -27,7 +27,19 @@ export const usePokemonStatuses = (filteredPokemons: Pokemon[], refreshTrigger?:
       let statusCount = 0;
       
       for (const priority of statusPriority) {
-        if (statusCounts[priority] > 0) {
+        if (priority === '厳選中') {
+          // 厳選中は優先度付きも含めて判定（半角・全角両方対応）
+          const totalCount = statusCounts['厳選中'] || 0;
+          const priorityCount = Object.entries(statusCounts)
+            .filter(([status]) => status.startsWith('厳選中(') || status.startsWith('厳選中（'))
+            .reduce((sum, [, count]) => sum + count, 0);
+          
+          if (totalCount + priorityCount > 0) {
+            displayStatus = priority;
+            statusCount = totalCount + priorityCount;
+            break;
+          }
+        } else if (statusCounts[priority] > 0) {
           displayStatus = priority;
           statusCount = statusCounts[priority];
           break;

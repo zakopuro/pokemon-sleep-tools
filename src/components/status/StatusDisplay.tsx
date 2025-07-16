@@ -36,27 +36,32 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   currentInstanceId
 }) => {
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+  const [showPriorityDropdown, setShowPriorityDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // 管理状態の選択肢
   const statusOptions = ['未設定', '厳選前', '厳選中', '完了', '保留', '中止', '対象外'];
+  
+  // 優先度の選択肢
+  const priorityOptions = ['高', '中', '低'];
 
   // 外側クリックでドロップダウンを閉じる
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setShowStatusDropdown(false);
+        setShowPriorityDropdown(false);
       }
     };
 
-    if (showStatusDropdown) {
+    if (showStatusDropdown || showPriorityDropdown) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showStatusDropdown]);
+  }, [showStatusDropdown, showPriorityDropdown]);
 
   // 管理状態アイコンを返す関数
   const getStatusIcon = (status: string) => {
@@ -116,6 +121,17 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
           </svg>
         );
       default:
+        // 優先度付きの厳選中状態に対応（半角・全角両方対応）
+        if (status.startsWith('厳選中(') || status.startsWith('厳選中（')) {
+          return (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="#3b82f6" strokeWidth="2" fill="#3b82f6"/>
+              <circle cx="12" cy="12" r="3" fill="white"/>
+              <path d="m15 9-6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="m9 9 6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          );
+        }
         return null;
     }
   };
@@ -281,7 +297,9 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                     case '対象外': return '#f9fafb';
                     case '厳選前': return '#fef7ff';
                     case '厳選中': return '#eff6ff';
-                    default: return '#fff';
+                    default: 
+                      if (managementStatus.startsWith('厳選中')) return '#eff6ff';
+                      return '#fff';
                   }
                 })(),
                 color: '#2d3748',
@@ -314,36 +332,99 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                 }}
               >
                 {statusOptions.map((status) => (
-                  <button
-                    key={status}
-                    onClick={() => {
-                      onManagementStatusChange(status);
-                      setShowStatusDropdown(false);
-                    }}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      width: '100%',
-                      padding: '6px 8px',
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      borderRadius: 4,
-                      fontSize: 12,
-                      color: '#2d3748',
-                      transition: 'background 0.2s',
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.background = '#f1f5f9';
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.background = 'transparent';
-                    }}
-                  >
-                    {getStatusIcon(status)}
-                    <span>{status}</span>
-                  </button>
+                  <div key={status}>
+                    <button
+                      onClick={() => {
+                        if (status === '厳選中') {
+                          setShowPriorityDropdown(true);
+                        } else {
+                          onManagementStatusChange(status);
+                          setShowStatusDropdown(false);
+                        }
+                      }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        width: '100%',
+                        padding: '6px 8px',
+                        background: 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderRadius: 4,
+                        fontSize: 12,
+                        color: '#2d3748',
+                        transition: 'background 0.2s',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.background = '#f1f5f9';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.background = 'transparent';
+                      }}
+                    >
+                      {getStatusIcon(status)}
+                      <span>{status}</span>
+                    </button>
+                    
+                    {/* 厳選中を選択したときの優先度選択 */}
+                    {status === '厳選中' && showPriorityDropdown && (
+                      <div style={{
+                        paddingLeft: 16,
+                        borderLeft: '2px solid #e2e8f0',
+                        marginLeft: 8,
+                        marginTop: 4
+                      }}>
+                        <div style={{ 
+                          padding: '2px 8px', 
+                          fontSize: 10, 
+                          fontWeight: 700, 
+                          color: '#6b7280'
+                        }}>
+                          優先度
+                        </div>
+                        {priorityOptions.map((priority) => (
+                          <button
+                            key={priority}
+                            onClick={() => {
+                              onManagementStatusChange(`厳選中(${priority})`);
+                              setShowPriorityDropdown(false);
+                              setShowStatusDropdown(false);
+                            }}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              width: '100%',
+                              padding: '4px 8px',
+                              background: 'transparent',
+                              border: 'none',
+                              cursor: 'pointer',
+                              borderRadius: 4,
+                              fontSize: 11,
+                              color: (() => {
+                                switch(priority) {
+                                  case '高': return '#dc2626';
+                                  case '中': return '#f59e0b';
+                                  case '低': return '#10b981';
+                                  default: return '#2d3748';
+                                }
+                              })(),
+                              fontWeight: 600,
+                              transition: 'background 0.2s',
+                            }}
+                            onMouseEnter={e => {
+                              e.currentTarget.style.background = '#f1f5f9';
+                            }}
+                            onMouseLeave={e => {
+                              e.currentTarget.style.background = 'transparent';
+                            }}
+                          >
+                            {priority}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </div>
             )}

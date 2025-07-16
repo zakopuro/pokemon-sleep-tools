@@ -54,6 +54,11 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
             status = '未設定';
           }
           
+          // 優先度付きの厳選中を「厳選中」としてグルーピング（半角・全角両方対応）
+          if (status.startsWith('厳選中(') || status.startsWith('厳選中（')) {
+            status = '厳選中';
+          }
+          
           statusGroups[status].push({
             pokemon,
             instanceId,

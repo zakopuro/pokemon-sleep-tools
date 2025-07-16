@@ -322,9 +322,14 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     }
 
     // フィルター条件に合う個体があるかチェック
-    const hasMatchingStatus = matchingInstanceStatuses.some(status => 
-      filters.managementStatuses?.includes(status) || false
-    );
+    const hasMatchingStatus = matchingInstanceStatuses.some(status => {
+      return filters.managementStatuses?.some(filterStatus => {
+        if (filterStatus === '厳選中') {
+          return status === '厳選中' || status.startsWith('厳選中(') || status.startsWith('厳選中（');
+        }
+        return status === filterStatus;
+      }) || false;
+    });
 
     
     return hasMatchingStatus;

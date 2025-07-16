@@ -123,7 +123,14 @@ export const usePokemonFiltering = (
       filtered = filtered.filter(pokemon => {
         const pokemonKey = getPokemonKey(pokemon);
         const status = pokemonStatuses[pokemonKey]?.status || '未設定';
-        return filters.managementStatuses?.includes(status) || false;
+        
+        // 優先度付きの厳選中状態に対応（半角・全角両方対応）
+        return filters.managementStatuses?.some(filterStatus => {
+          if (filterStatus === '厳選中') {
+            return status === '厳選中' || status.startsWith('厳選中(') || status.startsWith('厳選中（');
+          }
+          return status === filterStatus;
+        });
       });
     }
 

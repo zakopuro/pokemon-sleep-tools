@@ -56,18 +56,35 @@ export const createDefaultSettings = (pokemon?: any): PokemonSettings => {
   };
 };
 
-// 旧形式データを新形式に移行
+// 旧形式データを新形式に移行（優先度括弧の半角化も対応）
 const migrateOldData = (data: any): PokemonSettingsStore => {
   const migrated: PokemonSettingsStore = {};
   
   for (const [pokemonKey, settings] of Object.entries(data)) {
     // 既に新形式の場合はそのまま
     if (typeof settings === 'object' && settings !== null && !('level' in settings)) {
-      migrated[pokemonKey] = settings as PokemonInstancesSettings;
+      const instancesSettings = settings as PokemonInstancesSettings;
+      const migratedInstances: PokemonInstancesSettings = {};
+      
+      // 各個体の管理状態をチェックし、全角括弧を半角に変換
+      for (const [instanceId, instanceData] of Object.entries(instancesSettings)) {
+        const migratedInstanceData = { ...instanceData };
+        if (migratedInstanceData.managementStatus && migratedInstanceData.managementStatus.includes('厳選中（')) {
+          migratedInstanceData.managementStatus = migratedInstanceData.managementStatus.replace(/厳選中（(.+?)）/g, '厳選中($1)');
+        }
+        migratedInstances[instanceId] = migratedInstanceData;
+      }
+      
+      migrated[pokemonKey] = migratedInstances;
     } else {
-      // 旧形式の場合は個体1番として保存
+      // 旧形式の場合は個体1番として保存し、同時に管理状態をチェック
+      const settingsData = settings as PokemonSettings;
+      const migratedSettings = { ...settingsData };
+      if (migratedSettings.managementStatus && migratedSettings.managementStatus.includes('厳選中（')) {
+        migratedSettings.managementStatus = migratedSettings.managementStatus.replace(/厳選中（(.+?)）/g, '厳選中($1)');
+      }
       migrated[pokemonKey] = {
-        '1': settings as PokemonSettings
+        '1': migratedSettings
       };
     }
   }
