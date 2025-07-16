@@ -239,8 +239,8 @@ const IngredientTab: React.FC<IngredientTabProps> = ({
     // パターン別の表示条件をチェック
     switch (labelSlot) {
       case 'A':
-        // Aラベル表示時：AAA, AAB, AAC の場合のみ表示
-        return slotPattern === 'AAA' || slotPattern === 'AAB' || slotPattern === 'AAC';
+        // Aラベル表示時：AAA, AAB, AAC, ABA の場合のみ表示
+        return slotPattern === 'AAA' || slotPattern === 'AAB' || slotPattern === 'AAC' || slotPattern === 'ABA';
       case 'B':
         // Bラベル表示時：ABB の場合のみ表示
         return slotPattern === 'ABB';
