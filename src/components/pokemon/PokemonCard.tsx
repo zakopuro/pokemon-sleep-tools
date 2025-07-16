@@ -104,7 +104,28 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     let statusCount = 0;
     
     for (const priority of statusPriority) {
-      if (statusCounts[priority] > 0) {
+      if (priority === '厳選中') {
+        // 厳選中は優先度付きも含めて判定（半角・全角両方対応）
+        const totalCount = statusCounts['厳選中'] || 0;
+        const priorityCount = Object.entries(statusCounts)
+          .filter(([status]) => status.startsWith('厳選中(') || status.startsWith('厳選中（'))
+          .reduce((sum, [, count]) => sum + count, 0);
+        
+        if (totalCount + priorityCount > 0) {
+          // 優先度付きのステータスがある場合は、それを優先表示
+          const priorityStatus = Object.keys(statusCounts).find(status => 
+            status.startsWith('厳選中(') || status.startsWith('厳選中（')
+          );
+          if (priorityStatus) {
+            displayStatus = priorityStatus;
+            statusCount = statusCounts[priorityStatus];
+          } else {
+            displayStatus = priority;
+            statusCount = totalCount;
+          }
+          break;
+        }
+      } else if (statusCounts[priority] > 0) {
         displayStatus = priority;
         statusCount = statusCounts[priority];
         break;
@@ -229,6 +250,48 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
     return 'X';
   };
 
+  // 厳選中の優先度ラベルを取得
+  const getPriorityLabel = () => {
+    if (isIngredientTab && ingredientLabel && targetIngredientId) {
+      // 食材タブでは特定パターンの個体の状態から優先度を取得
+      const specificStatus = getSpecificPatternStatus();
+      if (specificStatus && specificStatus.status && 
+          (specificStatus.status.startsWith('厳選中(') || specificStatus.status.startsWith('厳選中（'))) {
+        // 優先度を抽出（半角・全角両方対応）
+        const match = specificStatus.status.match(/厳選中[（(](.+?)[）)]/);
+        return match ? match[1] : null;
+      }
+    } else {
+      // 通常タブではstatusIconから優先度を判定
+      // statusIconの内容を確認する必要があるため、別の方法で取得
+      const allInstances = loadAllInstancesForPokemon(pokemon);
+      const statuses = Object.values(allInstances).map(instance => instance.managementStatus);
+      
+      // 状態の優先順位で表示する状態を決定
+      const statusPriority = ['完了', '厳選中', '厳選前', '保留', '中止', '対象外'];
+      
+      for (const priority of statusPriority) {
+        if (priority === '厳選中') {
+          // 厳選中の優先度付きを探す
+          const priorityStatus = statuses.find(status => 
+            status && (status.startsWith('厳選中(') || status.startsWith('厳選中（'))
+          );
+          if (priorityStatus) {
+            const match = priorityStatus.match(/厳選中[（(](.+?)[）)]/);
+            return match ? match[1] : null;
+          }
+          // 通常の厳選中があれば終了
+          if (statuses.includes('厳選中')) {
+            break;
+          }
+        } else if (statuses.includes(priority)) {
+          break;
+        }
+      }
+    }
+    return null;
+  };
+
   return (
     <div
       onClick={onClick}
@@ -296,6 +359,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         
         {/* 管理状態アイコン */}
         {shouldShowStatusIcon() && (() => {
+          // 優先度ラベルがある場合は管理状態アイコンを非表示
+          const priorityLabel = getPriorityLabel();
+          if (priorityLabel) {
+            return null;
+          }
+          
           if (isIngredientTab && ingredientLabel && targetIngredientId) {
             // 食材タブでは特定パターンの個体の状態を表示
             const specificStatus = getSpecificPatternStatus();
@@ -336,6 +405,42 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
             {ingredientLabel.label}
           </span>
         )}
+
+        {/* 優先度ラベル（高・中・低） */}
+        {(() => {
+          const priorityLabel = getPriorityLabel();
+          if (priorityLabel) {
+            return (
+              <span style={{
+                position: 'absolute',
+                top: -2,
+                left: -2,
+                background: (() => {
+                  switch(priorityLabel) {
+                    case '高': return '#dc2626';
+                    case '中': return '#f59e0b';
+                    case '低': return '#10b981';
+                    default: return '#6b7280';
+                  }
+                })(),
+                color: '#fff',
+                borderRadius: 2,
+                padding: '1px 3px',
+                fontSize: 10,
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid #fff',
+                zIndex: 10,
+                lineHeight: 1
+              }}>
+                {priorityLabel}
+              </span>
+            );
+          }
+          return null;
+        })()}
       </div>
       
       {/* ポケモン名エリア */}

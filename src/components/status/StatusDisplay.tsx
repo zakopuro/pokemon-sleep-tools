@@ -336,6 +336,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                     <button
                       onClick={() => {
                         if (status === '厳選中') {
+                          // 厳選中を選択したら常に優先度選択を表示
                           setShowPriorityDropdown(true);
                         } else {
                           onManagementStatusChange(status);
@@ -383,6 +384,36 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                         }}>
                           優先度
                         </div>
+                        {/* 優先度なし選択肢 */}
+                        <button
+                          onClick={() => {
+                            onManagementStatusChange('厳選中');
+                            setShowPriorityDropdown(false);
+                            setShowStatusDropdown(false);
+                          }}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '100%',
+                            padding: '4px 8px',
+                            background: 'transparent',
+                            border: 'none',
+                            cursor: 'pointer',
+                            borderRadius: 4,
+                            fontSize: 11,
+                            color: '#6b7280',
+                            fontWeight: 600,
+                            transition: 'background 0.2s',
+                          }}
+                          onMouseEnter={e => {
+                            e.currentTarget.style.background = '#f1f5f9';
+                          }}
+                          onMouseLeave={e => {
+                            e.currentTarget.style.background = 'transparent';
+                          }}
+                        >
+                          なし
+                        </button>
                         {priorityOptions.map((priority) => (
                           <button
                             key={priority}
