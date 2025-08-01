@@ -23,7 +23,7 @@ const BackupModal: React.FC<BackupModalProps> = ({ isOpen, onClose }) => {
       
       // エクスポート用データを作成
       const exportData = {
-        version: '1.0',
+        version: '1.1',
         exportDate: new Date().toISOString(),
         appName: 'ポケスリ厳選管理',
         data: allData
