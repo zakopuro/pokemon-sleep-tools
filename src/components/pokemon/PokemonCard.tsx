@@ -448,7 +448,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         fontSize, 
         fontWeight: 700, 
         lineHeight: 1.1, 
-        wordBreak: 'break-word',
+        whiteSpace: 'nowrap',
         textAlign: 'center',
         width: '100%',
         height: 20,
