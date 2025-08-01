@@ -548,9 +548,6 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                             isIngredientTab={true}
                             selectedSlots={selectedSlots}
                             targetIngredientId={ingredient.id}
-                            showPokemonName={false}
-                            statusIconPosition="top-left"
-                            ingredientLabelPosition="top-right"
                           />
                         );
                       })}
@@ -656,8 +653,6 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                           ) : null}
                           onClick={handlePokemonSelect}
                           size="tiny"
-                          showPokemonName={false}
-                          statusIconPosition="top-left"
                         />
                       );
                     })}
@@ -829,8 +824,6 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                             ) : null}
                             onClick={handlePokemonSelect}
                             size="tiny"
-                            showPokemonName={false}
-                            statusIconPosition="top-left"
                           />
                         );
                       })}
