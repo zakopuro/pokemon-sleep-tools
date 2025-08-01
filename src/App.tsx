@@ -12,6 +12,7 @@ import InstanceIndicator from './components/instance/InstanceIndicator';
 import SideMenu from './components/menu/SideMenu';
 import CandyCalculator from './components/pages/CandyCalculator';
 import FieldPokemon from './components/pages/FieldPokemon';
+import TypePokemon from './components/pages/TypePokemon';
 import PWAInstallButton from './components/common/PWAInstallButton';
 import BackupModal from './components/backup/BackupModal';
 import type { SubskillByLevel } from './types/pokemon';
@@ -500,6 +501,9 @@ function App() {
         ) : currentPage === 'field' ? (
           /* 出現フィールドページ */
           <FieldPokemon />
+        ) : currentPage === 'type' ? (
+          /* タイプ別ページ */
+          <TypePokemon />
         ) : currentPage === 'candy' ? (
           /* アメ計算ページ */
           <CandyCalculator />

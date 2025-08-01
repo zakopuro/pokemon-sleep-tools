@@ -13,6 +13,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
   const menuItems = [
     { id: 'breeding', label: '厳選管理', icon: null }, // 画像を使用
     { id: 'field', label: '出現フィールド', icon: '🗺️' },
+    { id: 'type', label: 'タイプ別', icon: null }, // SVGを使用
     { id: 'candy', label: 'アメ計算', icon: '🍬' }
   ];
 
@@ -222,6 +223,10 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
                       <path d="M37 26 C37 26, 40 28, 44.5 30" stroke="#228B22" strokeWidth="2" fill="none"/>
                       <path d="M50 23 C50 23, 48 26, 44.5 28" stroke="#228B22" strokeWidth="2" fill="none"/>
                       <path d="M52 26 C52 26, 49 28, 44.5 30" stroke="#228B22" strokeWidth="2" fill="none"/>
+                    </svg>
+                  ) : item.id === 'type' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 640">
+                      <path fill="#ec46de" d="M180.7 97.8C185.2 91.7 192.4 88 200 88L440 88C447.6 88 454.8 91.6 459.3 97.8L571.3 249.8C578.1 259 577.4 271.7 569.8 280.2L337.8 536.2C333.3 541.2 326.8 544.1 320 544.1C313.2 544.1 306.8 541.2 302.2 536.2L70.2 280.2C62.5 271.7 61.9 259 68.7 249.8L180.7 97.8zM219.2 137.6C215.9 140.1 215 144.6 217.1 148.1L274.5 243.8L127.3 256C123.2 256.3 120 259.8 120 264C120 268.2 123.2 271.6 127.3 272L319.3 288C319.7 288 320.2 288 320.6 288L512.6 272C516.7 271.7 519.9 268.2 519.9 264C519.9 259.8 516.7 256.4 512.6 256L365.4 243.7L422.8 148.1C424.9 144.6 424 140 420.7 137.6C417.4 135.2 412.8 135.6 410 138.6L320 236.2L229.9 138.6C227.1 135.6 222.5 135.2 219.2 137.6z"/>
                     </svg>
                   ) : item.id === 'candy' ? (
                     <img 
