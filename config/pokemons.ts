@@ -3285,7 +3285,7 @@ export const POKEMONS: readonly Pokemon[] = [
   },
   {
     "id": "0010254",
-    "name": "ジュプトル",
+    "name": "ジュカイン",
     "sleepType": "うとうと",
     "specialty": "スキル",
     "mainSkillId": 21,

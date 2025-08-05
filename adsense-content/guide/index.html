@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケモンスリープ攻略ガイド - 効率的な厳選とポケモン管理</title>
+    <meta name="description" content="ポケモンスリープの効率的な攻略方法を詳しく解説。ポケモンの厳選方法、食材収集のコツ、レベル上げの効率化など、初心者から上級者まで役立つ情報を提供します。">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CR3EDJLCV7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CR3EDJLCV7');
+    </script>
+    
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin: 40px 0 20px 0;
+            border-left: 4px solid #3b82f6;
+            padding-left: 16px;
+        }
+        
+        h3 {
+            color: #4a5568;
+            font-size: 1.4rem;
+            margin: 30px 0 15px 0;
+        }
+        
+        p {
+            margin-bottom: 16px;
+            color: #4a5568;
+        }
+        
+        ul, ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+        
+        .tip-box {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        .tip-box h4 {
+            color: #0c4a6e;
+            margin: 0 0 12px 0;
+            font-size: 1.1rem;
+        }
+        
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        .warning-box h4 {
+            color: #92400e;
+            margin: 0 0 12px 0;
+            font-size: 1.1rem;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .back-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 30px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+        
+        .toc ul {
+            margin-bottom: 0;
+        }
+        
+        .toc a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌙 ポケモンスリープ完全攻略ガイド</h1>
+        
+        <div class="toc">
+            <h3>📚 目次</h3>
+            <ul>
+                <li><a href="#basics">ポケモンスリープの基本</a></li>
+                <li><a href="#pokemon-management">効率的なポケモン管理</a></li>
+                <li><a href="#ingredient-optimization">食材収集の最適化</a></li>
+                <li><a href="#breeding-guide">厳選の進め方</a></li>
+                <li><a href="#level-up">レベルアップ戦略</a></li>
+                <li><a href="#advanced-tips">上級者向けテクニック</a></li>
+            </ul>
+        </div>
+        
+        <section id="basics">
+            <h2>🎮 ポケモンスリープの基本</h2>
+            
+            <h3>ゲームの目的と流れ</h3>
+            <p>ポケモンスリープは、睡眠を通じてポケモンと触れ合うユニークなゲームです。プレイヤーの睡眠データを基に、カビゴンの周りに集まるポケモンたちを調査し、育成していくのが基本の流れです。</p>
+            
+            <ol>
+                <li><strong>睡眠計測</strong>：夜間の睡眠をアプリで計測</li>
+                <li><strong>ポケモン調査</strong>：起床後、カビゴンの周りに現れたポケモンを調査</li>
+                <li><strong>ポケモン捕獲</strong>：気に入ったポケモンを捕獲して仲間に</li>
+                <li><strong>育成・管理</strong>：捕獲したポケモンを育成し、食材収集を効率化</li>
+                <li><strong>カビゴン成長</strong>：集めた食材でカビゴンを成長させ、新たなポケモンを呼び寄せる</li>
+            </ol>
+            
+            <div class="tip-box">
+                <h4>💡 初心者へのアドバイス</h4>
+                <p>最初は「量より質」を意識しましょう。たくさんのポケモンを捕獲するよりも、少数精鋭で育成した方が効率的です。特に食材収集能力の高いポケモンを優先的に育てることが重要です。</p>
+            </div>
+        </section>
+        
+        <section id="pokemon-management">
+            <h2>📊 効率的なポケモン管理</h2>
+            
+            <h3>ポケモンの役割分担</h3>
+            <p>効率的なゲーム進行のため、捕獲したポケモンを以下の役割で分類して管理することが重要です：</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>役割</th>
+                        <th>説明</th>
+                        <th>優先度</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>メイン食材要員</td>
+                        <td>レシピに必要な主要食材を効率よく集めるポケモン</td>
+                        <td>高</td>
+                    </tr>
+                    <tr>
+                        <td>きのみ収集要員</td>
+                        <td>カビゴンのエナジー回復用きのみを集めるポケモン</td>
+                        <td>中</td>
+                    </tr>
+                    <tr>
+                        <td>スキル特化</td>
+                        <td>有用なメインスキルを持つポケモン</td>
+                        <td>中</td>
+                    </tr>
+                    <tr>
+                        <td>厳選候補</td>
+                        <td>将来的に育成予定のポケモン</td>
+                        <td>低</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>管理状態の使い分け</h3>
+            <p>当サイトの管理ツールでは、以下の状態でポケモンを分類できます：</p>
+            
+            <ul>
+                <li><strong>厳選前</strong>：捕獲したばかりで、育成するか判断中のポケモン</li>
+                <li><strong>厳選中</strong>：積極的に育成中のポケモン（優先度設定可能）</li>
+                <li><strong>完了</strong>：十分に育成が完了したポケモン</li>
+                <li><strong>保留</strong>：一時的に育成を停止しているポケモン</li>
+                <li><strong>中止</strong>：育成を諦めたポケモン</li>
+                <li><strong>対象外</strong>：育成対象ではないポケモン</li>
+            </ul>
+            
+            <div class="warning-box">
+                <h4>⚠️ 注意点</h4>
+                <p>ポケモンボックスの容量は有限です。定期的に不要なポケモンを博士に送って整理しましょう。特に、低レベルで食材効率の悪いポケモンは思い切って処分することも大切です。</p>
+            </div>
+        </section>
+        
+        <section id="ingredient-optimization">
+            <h2>🍎 食材収集の最適化</h2>
+            
+            <h3>食材スロットの理解</h3>
+            <p>各ポケモンは最大3つの食材スロットを持ち、レベルアップで解放されます。効率的な食材収集のためには、以下のパターンを理解することが重要です：</p>
+            
+            <h4>食材スロットパターン</h4>
+            <ul>
+                <li><strong>AAAパターン</strong>：同じ食材を3つ収集（量重視）</li>
+                <li><strong>AABパターン</strong>：メイン食材2つ＋サブ食材1つ</li>
+                <li><strong>ABBパターン</strong>：メイン食材1つ＋サブ食材2つ</li>
+                <li><strong>ABCパターン</strong>：3種類の異なる食材を収集（バランス型）</li>
+            </ul>
+            
+            <h3>レシピ別最適ポケモン</h3>
+            <p>効率的な料理作成のため、レシピごとに最適なポケモンを把握しましょう：</p>
+            
+            <h4>カレー・シチュー系</h4>
+            <p>主要食材：じゃがいも、トマト、豆類</p>
+            <ul>
+                <li>ディグダ（じゃがいも特化）</li>
+                <li>ナエトル（豆類特化）</li>
+                <li>プリン（トマト収集可能）</li>
+            </ul>
+            
+            <h4>サラダ系</h4>
+            <p>主要食材：リンゴ、トマト、オイル</p>
+            <ul>
+                <li>アーボ（リンゴ特化）</li>
+                <li>プリン（トマト収集）</li>
+                <li>コダック（オイル収集）</li>
+            </ul>
+            
+            <h4>デザート・ドリンク系</h4>
+            <p>主要食材：ミルク、ハチミツ、カカオ</p>
+            <ul>
+                <li>ミルタンク（ミルク特化）</li>
+                <li>ウインディ（ハチミツ収集）</li>
+                <li>アチャモ（カカオ収集）</li>
+            </ul>
+            
+            <div class="tip-box">
+                <h4>💡 食材効率化のコツ</h4>
+                <p>レシピに必要な食材を効率よく集めるため、同じ食材を持つポケモンを複数育成するよりも、異なる食材を持つポケモンをバランスよく育成した方が効果的です。</p>
+            </div>
+        </section>
+        
+        <section id="breeding-guide">
+            <h2>🎯 厳選の進め方</h2>
+            
+            <h3>厳選の基本方針</h3>
+            <p>効率的な厳選を行うため、以下の順序で判断していきます：</p>
+            
+            <ol>
+                <li><strong>食材適性の確認</strong>：必要な食材を持っているか</li>
+                <li><strong>性格の確認</strong>：食材収集に有利な性格か</li>
+                <li><strong>サブスキルの確認</strong>：有用なサブスキルを持っているか</li>
+                <li><strong>レベル上げの投資価値</strong>：育成リソースを投資する価値があるか</li>
+            </ol>
+            
+            <h3>優先度の設定方法</h3>
+            <p>当サイトの管理ツールでは、厳選中のポケモンに優先度（高・中・低）を設定できます：</p>
+            
+            <ul>
+                <li><strong>高優先度（赤ラベル）</strong>：最優先で育成すべきポケモン
+                    <ul>
+                        <li>レシピに必須の食材を効率よく集められる</li>
+                        <li>優秀な性格とサブスキルを持つ</li>
+                        <li>即戦力として期待できる</li>
+                    </ul>
+                </li>
+                <li><strong>中優先度（オレンジラベル）</strong>：余裕があるときに育成
+                    <ul>
+                        <li>役立つが必須ではない食材を持つ</li>
+                        <li>性格やサブスキルが良好</li>
+                        <li>長期的な育成候補</li>
+                    </ul>
+                </li>
+                <li><strong>低優先度（緑ラベル）</strong>：将来的な育成候補
+                    <ul>
+                        <li>現在は必要ないが将来性がある</li>
+                        <li>レアなポケモンだが食材適性が微妙</li>
+                        <li>サブユニットとしての可能性</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h3>厳選判断フローチャート</h3>
+            <div class="tip-box">
+                <h4>📋 厳選判断の手順</h4>
+                <ol>
+                    <li>必要な食材を持っているか？ → No: 対象外</li>
+                    <li>性格は食材収集に有利か？ → No: 低優先度</li>
+                    <li>有用なサブスキルを持っているか？ → No: 中優先度</li>
+                    <li>即戦力として使えるか？ → Yes: 高優先度</li>
+                    <li>長期育成の価値があるか？ → Yes: 中優先度、No: 低優先度</li>
+                </ol>
+            </div>
+        </section>
+        
+        <section id="level-up">
+            <h2>⭐ レベルアップ戦略</h2>
+            
+            <h3>効率的なレベル上げ</h3>
+            <p>ポケモンのレベル上げは、以下の方法で効率化できます：</p>
+            
+            <h4>1. 優先順位の明確化</h4>
+            <ul>
+                <li>高優先度のポケモンを最優先でレベル上げ</li>
+                <li>食材スロット解放レベル（レベル10、25、50）を意識</li>
+                <li>スキルレベル上昇も考慮に入れる</li>
+            </ul>
+            
+            <h4>2. アメの効率的な使用</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>アメの種類</th>
+                        <th>使用タイミング</th>
+                        <th>効果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ポケモンのアメ</td>
+                        <td>高優先度ポケモンのレベル50到達</td>
+                        <td>特定ポケモンのみ強化</td>
+                    </tr>
+                    <tr>
+                        <td>げんきのアメ</td>
+                        <td>食材スロット解放直前</td>
+                        <td>全ポケモン対象</td>
+                    </tr>
+                    <tr>
+                        <td>スキルのアメ</td>
+                        <td>有用スキル持ちのみ</td>
+                        <td>スキルレベル強化</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h4>3. レベル上げの目標設定</h4>
+            <ul>
+                <li><strong>レベル10</strong>：2つ目の食材スロット解放</li>
+                <li><strong>レベル25</strong>：3つ目の食材スロット解放</li>
+                <li><strong>レベル50</strong>：最大効率到達</li>
+                <li><strong>レベル75</strong>：上級者向け（コスパ要検討）</li>
+            </ul>
+            
+            <div class="warning-box">
+                <h4>⚠️ レベル上げの注意点</h4>
+                <p>レベル50以降は必要経験値が急激に増加します。コストパフォーマンスを考慮し、本当に必要なポケモンのみレベル50以上に育成しましょう。</p>
+            </div>
+        </section>
+        
+        <section id="advanced-tips">
+            <h2>🚀 上級者向けテクニック</h2>
+            
+            <h3>チーム編成の最適化</h3>
+            <p>上級者は、以下の点を考慮してチーム編成を最適化します：</p>
+            
+            <h4>1. フィールド別特化編成</h4>
+            <ul>
+                <li>各睡眠フィールドに最適化されたポケモン編成</li>
+                <li>フィールド固有のきのみを考慮した選択</li>
+                <li>出現ポケモンの傾向に合わせた調整</li>
+            </ul>
+            
+            <h4>2. スキルシナジーの活用</h4>
+            <ul>
+                <li>「おてつだいブースト」で他ポケモンの効率向上</li>
+                <li>「食材ゲット」で特定食材の収集量アップ</li>
+                <li>「料理チャンス」でレシピ完成率の向上</li>
+            </ul>
+            
+            <h3>データ分析による改善</h3>
+            <p>当サイトの管理ツールを活用し、以下のデータを定期的に分析しましょう：</p>
+            
+            <ul>
+                <li><strong>食材収集効率</strong>：ポケモン別の1日あたり食材収集量</li>
+                <li><strong>レシピ完成率</strong>：必要食材の充足状況</li>
+                <li><strong>投資対効果</strong>：育成リソース投資の成果</li>
+                <li><strong>成長トレンド</strong>：カビゴンの成長速度推移</li>
+            </ul>
+            
+            <h3>長期戦略の立案</h3>
+            <div class="tip-box">
+                <h4>💡 上級者の考え方</h4>
+                <p>単発の効率化ではなく、長期的な視点でポケモン編成を考えます。新しいフィールドやイベントに備えた多様なポケモンの育成、将来実装予定の機能を見越した準備などが重要です。</p>
+            </div>
+        </section>
+        
+        <div class="back-link">
+            <a href="/">← トップページに戻る</a> | 
+            <a href="/pokemon-sleep-tools/">管理ツールを使う</a>
+        </div>
+    </div>
+</body>
+</html>
