@@ -400,10 +400,10 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           {/* テーブルヘッダー */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '120px repeat(6, 200px)',
+            gridTemplateColumns: `120px repeat(${FIELDS.length}, 200px)`,
             backgroundColor: '#f7fafc',
             borderBottom: '1px solid #e2e8f0',
-            minWidth: '1320px'
+            minWidth: `${120 + (FIELDS.length * 200)}px`
           }}>
             <div style={{
               padding: '12px',
@@ -438,10 +438,10 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
               key={sleepType.name}
               style={{
                 display: 'grid',
-                gridTemplateColumns: '120px repeat(6, 200px)',
+                gridTemplateColumns: `120px repeat(${FIELDS.length}, 200px)`,
                 borderBottom: sleepTypeIndex < SLEEP_TYPES.length - 1 ? '1px solid #e2e8f0' : 'none',
                 minHeight: '120px',
-                minWidth: '1320px'
+                minWidth: `${120 + (FIELDS.length * 200)}px`
               }}
             >
               {/* 睡眠タイプラベル */}
