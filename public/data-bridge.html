@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Data Bridge</title>
+</head>
+<body>
+    <script>
+        try {
+            // LocalStorageからデータを取得
+            const pokemonSettings = localStorage.getItem('pokemon-sleep-settings');
+            
+            // 親ウィンドウの許可されたオリジンリスト
+            const allowedOrigins = [
+                'http://localhost:5173',  // 開発環境新ドメイン
+                'http://localhost:5174',  // 開発環境新ドメイン（ポート変更対応）
+                'https://shiomomo-pkmn-sleep-tools.com'  // 本番環境新ドメイン
+            ];
+            
+            // 親ウィンドウにデータを送信
+            const sendData = () => {
+                for (const origin of allowedOrigins) {
+                    try {
+                        parent.postMessage({
+                            pokemonSettings: pokemonSettings || '{}'
+                        }, origin);
+                    } catch (error) {
+                        console.warn('Failed to send to', origin, error);
+                    }
+                }
+            };
+            
+            // 少し遅延させて確実に送信
+            setTimeout(sendData, 100);
+            
+        } catch (error) {
+            console.error('Data bridge error:', error);
+            // エラーでも空データを送信
+            for (const origin of ['http://localhost:5173', 'http://localhost:5174', 'https://shiomomo-pkmn-sleep-tools.com']) {
+                try {
+                    parent.postMessage({
+                        pokemonSettings: '{}'
+                    }, origin);
+                } catch (e) {
+                    // 送信失敗は無視
+                }
+            }
+        }
+    </script>
+</body>
+</html>

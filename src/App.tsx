@@ -17,6 +17,7 @@ import PWAInstallButton from './components/common/PWAInstallButton';
 import BackupModal from './components/backup/BackupModal';
 import type { SubskillByLevel } from './types/pokemon';
 import { loadPokemonInstanceSettings, savePokemonInstanceSettings, getUsedInstanceIds, deletePokemonInstanceSettings } from './utils/pokemon-storage';
+import { attemptDataMigration, showMigrationResult } from './utils/data-migration';
 import type { Pokemon } from '../config/schema';
 import './App.css';
 
@@ -120,6 +121,39 @@ function App() {
     setManagementStatus(newSettings.managementStatus);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
   }, [saveCurrentSettings, selectedPokemon]);
+
+  // データ移行処理（アプリ初期化時に1回だけ実行）
+  useEffect(() => {
+    let migrationAttempted = false;
+    
+    const runDataMigration = async () => {
+      if (migrationAttempted) return;
+      migrationAttempted = true;
+      
+      try {
+        const result = await attemptDataMigration();
+        showMigrationResult(result);
+        
+        // データが移行された場合、現在のポケモンの設定を再読み込み
+        if (result.success && result.dataFound && result.migratedRecords > 0) {
+          const newSettings = loadPokemonInstanceSettings(selectedPokemon, currentInstanceId);
+          setLevel(newSettings.level);
+          setSelectedIngredients(newSettings.selectedIngredients);
+          setSubskillByLevel(newSettings.subskillByLevel);
+          setUpParam(newSettings.upParam);
+          setDownParam(newSettings.downParam);
+          setSelectedNeutralNature(newSettings.selectedNeutralNature);
+          setManagementStatus(newSettings.managementStatus);
+          setMainSkillLevel(newSettings.mainSkillLevel || 1);
+        }
+      } catch (error) {
+        console.warn('Data migration failed:', error);
+      }
+    };
+
+    // 少し遅延させてDOMが確実に構築されてから実行
+    setTimeout(runDataMigration, 500);
+  }, []); // 空の依存配列で初回のみ実行
 
   // 詳細エリアのスワイプ機能
   useEffect(() => {
