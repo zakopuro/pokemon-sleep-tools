@@ -351,7 +351,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose, currentPage, onNav
           }}
         >
           <div style={{ fontSize: 12, color: '#9ca3af', textAlign: 'center' }}>
-            v1.1.0
+            v1.1.1
           </div>
         </div>
       </div>

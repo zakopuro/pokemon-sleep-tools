@@ -18,6 +18,7 @@ import BackupModal from './components/backup/BackupModal';
 import type { SubskillByLevel } from './types/pokemon';
 import { loadPokemonInstanceSettings, savePokemonInstanceSettings, getUsedInstanceIds, deletePokemonInstanceSettings } from './utils/pokemon-storage';
 import { attemptDataMigration, showMigrationResult } from './utils/data-migration';
+import { dataProtection } from './utils/data-protection';
 import type { Pokemon } from '../config/schema';
 import './App.css';
 
@@ -69,8 +70,8 @@ function App() {
     managementStatuses: [],
   });
 
-  // 現在の設定を保存する関数
-  const saveCurrentSettings = useCallback(() => {
+  // 現在の設定を保存する関数（データ保護付き）
+  const saveCurrentSettings = useCallback(async () => {
     const settings = {
       level,
       selectedIngredients,
@@ -81,7 +82,16 @@ function App() {
       managementStatus,
       mainSkillLevel
     };
+    
+    // メイン保存
     savePokemonInstanceSettings(selectedPokemon, currentInstanceId, settings);
+    
+    // 自動バックアップ作成（非同期、エラーでも処理継続）
+    try {
+      await dataProtection.createBackup();
+    } catch (error) {
+      console.warn('Backup creation failed during save:', error);
+    }
   }, [selectedPokemon, currentInstanceId, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
 
   // ポケモン選択時の処理
