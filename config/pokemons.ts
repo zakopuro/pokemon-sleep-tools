@@ -2486,6 +2486,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 4, 5]
   },
   {
+    "id": "0010177",
+    "name": "ネイティ",
+    "sleepType": "すやすや",
+    "specialty": "きのみ",
+    "mainSkillId": 14,
+    "fp": 5,
+    "frequency": 4500,
+    "berryId": 11,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 13,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 5,
+      "c1": 5
+    },
+    "pokedexId": 177,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 5, 7]
+  },
+  {
+    "id": "0010178",
+    "name": "ネイティオ",
+    "sleepType": "すやすや",
+    "specialty": "きのみ",
+    "mainSkillId": 14,
+    "fp": 5,
+    "frequency": 2500,
+    "berryId": 11,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 13,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 5,
+      "c1": 5
+    },
+    "pokedexId": 178,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 5, 7]
+  },
+  {
     "id": "0010179",
     "name": "メリープ",
     "sleepType": "すやすや",
