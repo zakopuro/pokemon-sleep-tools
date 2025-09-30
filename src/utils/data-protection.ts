@@ -1,5 +1,7 @@
 // データ保護システム - PWA自動更新時のデータ安全性確保
 
+import { loadAllPokemonSettings } from './pokemon-storage';
+
 interface BackupData {
   timestamp: number;
   version: string;
@@ -114,22 +116,39 @@ export class DataProtectionManager {
   // 多層バックアップ作成
   async createBackup(): Promise<boolean> {
     try {
-      const mainData = localStorage.getItem(this.storageKey);
-      if (!mainData || mainData === '{}') {
+      const canonicalDataObject = loadAllPokemonSettings();
+      const hasCanonicalData = Object.keys(canonicalDataObject).length > 0;
+
+      if (!hasCanonicalData) {
+        const existing = localStorage.getItem(this.storageKey);
+        if (!existing || existing === '{}' || existing === 'null') {
+          return false;
+        }
+      }
+
+      const canonicalData = hasCanonicalData
+        ? JSON.stringify(canonicalDataObject)
+        : (localStorage.getItem(this.storageKey) as string);
+
+      if (!canonicalData || canonicalData === '{}' || canonicalData === 'null') {
         return false; // バックアップするデータがない
       }
 
       console.log('🛡️ Creating multi-layer backup...');
 
+      if (hasCanonicalData) {
+        localStorage.setItem(this.storageKey, canonicalData);
+      }
+
       // Layer 1: LocalStorage複製
-      localStorage.setItem('pokemon-backup-1', mainData);
-      localStorage.setItem('pokemon-backup-2', mainData);
+      localStorage.setItem('pokemon-backup-1', canonicalData);
+      localStorage.setItem('pokemon-backup-2', canonicalData);
 
       // Layer 2: SessionStorage
-      sessionStorage.setItem('pokemon-session-backup', mainData);
+      sessionStorage.setItem('pokemon-session-backup', canonicalData);
 
       // Layer 3: IndexedDB（最も永続的）
-      await this.protection.saveBackup(mainData);
+      await this.protection.saveBackup(canonicalData);
       await this.protection.cleanupOldBackups();
 
       console.log('✅ Multi-layer backup completed');

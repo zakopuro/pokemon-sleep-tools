@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { POKEMONS, MAINSKILLS } from '../config';
 import type { Pokemon } from '../../config/schema';
 import type { FilterOptions } from '../components/PokemonFilters';
-import { getPokemonKey } from '../utils/pokemon-storage';
+import { getPokemonKey, loadAllPokemonSettings } from '../utils/pokemon-storage';
 
 export const usePokemonFiltering = (
   filters: FilterOptions, 
@@ -116,6 +116,18 @@ export const usePokemonFiltering = (
       } else if (filters.finalEvolution === 'たねのみ') {
         filtered = filtered.filter(pokemon => pokemon.isSeedPokemon);
       }
+    }
+
+    if (filters.memoOnly) {
+      const allSettings = loadAllPokemonSettings();
+      filtered = filtered.filter(pokemon => {
+        const instances = allSettings[getPokemonKey(pokemon)];
+        if (!instances) return false;
+        return Object.values(instances).some(instance => {
+          const memo = (instance as { memo?: string }).memo;
+          return typeof memo === 'string' && memo.trim().length > 0;
+        });
+      });
     }
 
     // 管理状態フィルタリング

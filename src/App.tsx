@@ -41,6 +41,7 @@ function App() {
   const [managementStatus, setManagementStatus] = useState<string>(initialSettings.managementStatus);
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
   const [mainSkillLevel, setMainSkillLevel] = useState<number>(initialSettings.mainSkillLevel || 1);
+  const [memo, setMemo] = useState<string>(initialSettings.memo || '');
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [showSortModal, setShowSortModal] = useState(false);
@@ -68,6 +69,7 @@ function App() {
     mainSkills: [],
     subSkills: [],
     managementStatuses: [],
+    memoOnly: false,
   });
 
   // 現在の設定を保存する関数（データ保護付き）
@@ -80,7 +82,8 @@ function App() {
       downParam,
       selectedNeutralNature,
       managementStatus,
-      mainSkillLevel
+      mainSkillLevel,
+      memo
     };
     
     // メイン保存
@@ -92,7 +95,7 @@ function App() {
     } catch (error) {
       console.warn('Backup creation failed during save:', error);
     }
-  }, [selectedPokemon, currentInstanceId, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
+  }, [selectedPokemon, currentInstanceId, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel, memo]);
 
   // ポケモン選択時の処理
   const handlePokemonSelect = useCallback((pokemon: Pokemon, instanceId?: string) => {
@@ -112,6 +115,7 @@ function App() {
     setSelectedNeutralNature(newSettings.selectedNeutralNature);
     setManagementStatus(newSettings.managementStatus);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
+    setMemo(newSettings.memo || '');
   }, [saveCurrentSettings]);
 
   // 個体切り替え処理
@@ -130,6 +134,7 @@ function App() {
     setSelectedNeutralNature(newSettings.selectedNeutralNature);
     setManagementStatus(newSettings.managementStatus);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
+    setMemo(newSettings.memo || '');
   }, [saveCurrentSettings, selectedPokemon]);
 
   // データ移行処理（アプリ初期化時に1回だけ実行）
@@ -155,6 +160,7 @@ function App() {
           setSelectedNeutralNature(newSettings.selectedNeutralNature);
           setManagementStatus(newSettings.managementStatus);
           setMainSkillLevel(newSettings.mainSkillLevel || 1);
+          setMemo(newSettings.memo || '');
         }
       } catch (error) {
         console.warn('Data migration failed:', error);
@@ -223,7 +229,7 @@ function App() {
     saveCurrentSettings();
     // ポケモン状態更新をトリガー
     setRefreshTrigger(prev => prev + 1);
-  }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel]);
+  }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel, memo]);
 
   // 動的なviewport高さの管理
   useEffect(() => {
@@ -426,6 +432,8 @@ function App() {
               selectedPokemon={selectedPokemon}
               managementStatus={managementStatus}
               onManagementStatusChange={setManagementStatus}
+              memo={memo}
+              onMemoChange={setMemo}
               canDelete={getUsedInstanceIds(selectedPokemon).length > 1}
               onDelete={() => {
                 const usedIds = getUsedInstanceIds(selectedPokemon);
@@ -455,6 +463,7 @@ function App() {
                     setSelectedNeutralNature(newSettings.selectedNeutralNature);
                     setManagementStatus(newSettings.managementStatus);
                     setMainSkillLevel(newSettings.mainSkillLevel || 1);
+                    setMemo(newSettings.memo || '');
                     
                     // 表示の更新をトリガー
                     setRefreshTrigger(prev => prev + 1);

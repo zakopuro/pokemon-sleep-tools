@@ -32,6 +32,7 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
     mainSkills: [],
     subSkills: [],
     managementStatuses: [],
+    memoOnly: false,
   });
 
   // 管理状態を取得してからフィルターを適用
@@ -53,7 +54,8 @@ const FieldPokemon: React.FC<FieldPokemonProps> = () => {
     filters.mainSkills.length > 0 ||
     filters.subSkills.length > 0 ||
     filters.finalEvolution !== 'すべて' ||
-    (filters.managementStatuses && filters.managementStatuses.length > 0);
+    (filters.managementStatuses && filters.managementStatuses.length > 0) ||
+    filters.memoOnly;
 
   // フィールドと睡眠タイプの組み合わせでポケモンを分類
   const pokemonByFieldAndSleepType = React.useMemo(() => {
@@ -349,6 +351,30 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           
           {/* 右側：最終進化フィルター */}
           <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+            <button
+              onClick={() => {
+                setFilters({ ...filters, memoOnly: !filters.memoOnly });
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 24,
+                height: 24,
+                padding: 0,
+                borderRadius: 12,
+                border: filters.memoOnly ? '1px solid #10b981' : '1px solid #d1d5db',
+                background: filters.memoOnly ? '#dcfce7' : '#fff',
+                cursor: 'pointer'
+              }}
+              title={filters.memoOnly ? 'メモフィルターを解除' : 'メモがあるポケモンのみ表示'}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}${filters.memoOnly ? 'memo_add.png' : 'memo.png'}`}
+                alt="メモフィルター"
+                style={{ width: 14, height: 14, objectFit: 'contain' }}
+              />
+            </button>
             {(['すべて', '最終進化のみ', 'たねのみ'] as const).map((option) => (
               <button
                 key={option}

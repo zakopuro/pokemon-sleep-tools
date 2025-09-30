@@ -22,6 +22,8 @@ interface StatusDisplayProps {
   selectedPokemon: Pokemon;
   managementStatus: string;
   onManagementStatusChange: (status: string) => void;
+  memo: string;
+  onMemoChange: (memo: string) => void;
   canDelete?: boolean;
   onDelete?: () => void;
   currentInstanceId?: string;
@@ -31,6 +33,8 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   selectedPokemon,
   managementStatus,
   onManagementStatusChange,
+  memo,
+  onMemoChange,
   canDelete = false,
   onDelete,
   currentInstanceId
@@ -38,12 +42,16 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
   const [showPriorityDropdown, setShowPriorityDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const memoTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   // 管理状態の選択肢
   const statusOptions = ['未設定', '厳選前', '厳選中', '完了', '保留', '中止', '対象外'];
   
   // 優先度の選択肢
   const priorityOptions = ['高', '中', '低'];
+
+  const { mainName, formName } = splitPokemonName(selectedPokemon.name);
 
   // 外側クリックでドロップダウンを閉じる
   useEffect(() => {
@@ -62,6 +70,69 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showStatusDropdown, showPriorityDropdown]);
+
+  useEffect(() => {
+    if (isMemoOpen && memoTextareaRef.current) {
+      memoTextareaRef.current.focus({ preventScroll: true });
+      const element = memoTextareaRef.current;
+      const length = element.value.length;
+      element.setSelectionRange(length, length);
+    }
+  }, [isMemoOpen]);
+
+  const handleMemoButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsMemoOpen(prev => !prev);
+  };
+
+  const handleMemoChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value.slice(0, 300);
+    onMemoChange(value);
+  };
+
+  const handleMemoClose = () => {
+    setIsMemoOpen(false);
+  };
+
+  const hasMemo = memo.trim().length > 0;
+  const memoIconSrc = `${import.meta.env.BASE_URL}${hasMemo ? 'memo_add.png' : 'memo.png'}`;
+  const memoLength = memo.length;
+  const memoCountColor = memoLength >= 300 ? '#dc2626' : memoLength >= 260 ? '#b45309' : '#4a5568';
+
+  const handleMemoClear = () => {
+    if (!hasMemo) {
+      return;
+    }
+    onMemoChange('');
+    setTimeout(() => {
+      memoTextareaRef.current?.focus();
+    }, 0);
+  };
+
+  useEffect(() => {
+    setIsMemoOpen(false);
+  }, [selectedPokemon, currentInstanceId]);
+
+  useEffect(() => {
+    if (!isMemoOpen) return undefined;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMemoOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isMemoOpen]);
 
   // 管理状態アイコンを返す関数
   const getStatusIcon = (status: string) => {
@@ -198,10 +269,40 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
             }}
           />
           <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
-            <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {splitPokemonName(selectedPokemon.name).mainName}
+            <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
+              <span style={{ minWidth: 0, maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {mainName}
+              </span>
+              <button
+                type="button"
+                onClick={handleMemoButtonClick}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 4,
+                  minWidth: 24,
+                  minHeight: 24,
+                  borderRadius: 6,
+                  border: '1px solid',
+                  borderColor: isMemoOpen ? '#93c5fd' : hasMemo ? '#bbf7d0' : 'transparent',
+                  background: isMemoOpen ? '#e0f2fe' : hasMemo ? '#f0fdf4' : 'transparent',
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  transition: 'background 0.2s ease, border-color 0.2s ease'
+                }}
+                aria-label={hasMemo ? 'メモを編集' : 'メモを追加'}
+                aria-expanded={isMemoOpen}
+                title={hasMemo ? 'メモを編集' : 'メモを追加'}
+              >
+                <img
+                  src={memoIconSrc}
+                  alt="メモアイコン"
+                  style={{ width: 16, height: 16, objectFit: 'contain' }}
+                />
+              </button>
             </h2>
-            {splitPokemonName(selectedPokemon.name).formName && (
+            {formName && (
               <div style={{ 
                 fontSize: 12, 
                 color: '#666', 
@@ -212,7 +313,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
                 overflow: 'hidden',
                 textOverflow: 'ellipsis'
               }}>
-                {splitPokemonName(selectedPokemon.name).formName}
+                {formName}
               </div>
             )}
           </div>
@@ -463,6 +564,118 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
           
         </div>
       </div>
+
+      {isMemoOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="個体メモ"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: 2000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(15, 23, 42, 0.45)',
+            padding: '24px 16px',
+            boxSizing: 'border-box'
+          }}
+          onClick={handleMemoClose}
+        >
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: 420,
+              background: '#ffffff',
+              borderRadius: 12,
+              boxShadow: '0 20px 45px rgba(15, 23, 42, 0.3)',
+              padding: 16,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 12,
+              maxHeight: '80vh'
+            }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#1f2937' }}>個体メモ</div>
+              <button
+                type="button"
+                onClick={handleMemoClose}
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  padding: 6,
+                  borderRadius: 6,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                aria-label="メモを閉じる"
+                title="閉じる"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1f2937" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+            <textarea
+              ref={memoTextareaRef}
+              value={memo}
+              onChange={handleMemoChange}
+              maxLength={300}
+              rows={6}
+              placeholder="メモを入力（最大300文字）"
+              aria-label="個体メモ"
+              style={{
+                width: '100%',
+                flex: 1,
+                minHeight: 160,
+                padding: 12,
+                borderRadius: 8,
+                border: '1px solid #cbd5e1',
+                fontSize: 16,
+                lineHeight: 1.4,
+                color: '#1f2937',
+                resize: 'vertical',
+                background: '#f8fafc',
+                boxSizing: 'border-box'
+              }}
+            />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <button
+                type="button"
+                onClick={handleMemoClear}
+                disabled={!hasMemo}
+                style={{
+                  border: '1px solid',
+                  borderColor: hasMemo ? '#f87171' : '#e5e7eb',
+                  background: hasMemo ? '#fee2e2' : '#f9fafb',
+                  color: hasMemo ? '#b91c1c' : '#9ca3af',
+                  padding: '6px 12px',
+                  borderRadius: 6,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: hasMemo ? 'pointer' : 'not-allowed',
+                  transition: 'background 0.2s ease, border-color 0.2s ease'
+                }}
+              >
+                メモを削除
+              </button>
+              <span style={{ fontSize: 12, color: memoCountColor }}>
+                {memoLength}/300
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

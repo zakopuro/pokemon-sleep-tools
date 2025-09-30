@@ -9,6 +9,7 @@ export interface PokemonSettings {
   selectedNeutralNature: any;
   managementStatus: string;
   mainSkillLevel: number;
+  memo: string;
 }
 
 // 1ポケモンあたり最大10個体の設定

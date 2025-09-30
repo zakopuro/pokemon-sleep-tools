@@ -52,7 +52,8 @@ export const createDefaultSettings = (pokemon?: any): PokemonSettings => {
     downParam: 'なし',
     selectedNeutralNature: null,
     managementStatus: '未設定',
-    mainSkillLevel: 1
+    mainSkillLevel: 1,
+    memo: ''
   };
 };
 
@@ -68,9 +69,12 @@ const migrateOldData = (data: any): PokemonSettingsStore => {
       
       // 各個体の管理状態をチェックし、全角括弧を半角に変換
       for (const [instanceId, instanceData] of Object.entries(instancesSettings)) {
-        const migratedInstanceData = { ...instanceData };
+        const migratedInstanceData = { ...instanceData } as PokemonSettings;
         if (migratedInstanceData.managementStatus && migratedInstanceData.managementStatus.includes('厳選中（')) {
           migratedInstanceData.managementStatus = migratedInstanceData.managementStatus.replace(/厳選中（(.+?)）/g, '厳選中($1)');
+        }
+        if (migratedInstanceData.memo === undefined) {
+          migratedInstanceData.memo = '';
         }
         migratedInstances[instanceId] = migratedInstanceData;
       }
@@ -82,6 +86,9 @@ const migrateOldData = (data: any): PokemonSettingsStore => {
       const migratedSettings = { ...settingsData };
       if (migratedSettings.managementStatus && migratedSettings.managementStatus.includes('厳選中（')) {
         migratedSettings.managementStatus = migratedSettings.managementStatus.replace(/厳選中（(.+?)）/g, '厳選中($1)');
+      }
+      if (migratedSettings.memo === undefined) {
+        migratedSettings.memo = '';
       }
       migrated[pokemonKey] = {
         '1': migratedSettings
@@ -113,7 +120,10 @@ export const loadPokemonInstanceSettings = (pokemon: any, instanceId: string = '
   const pokemonInstances = allSettings[pokemonKey];
   
   if (pokemonInstances && pokemonInstances[instanceId]) {
-    return pokemonInstances[instanceId];
+    return {
+      ...createDefaultSettings(pokemon),
+      ...pokemonInstances[instanceId]
+    };
   }
   
   return createDefaultSettings(pokemon);

@@ -20,10 +20,13 @@ const BackupModal: React.FC<BackupModalProps> = ({ isOpen, onClose }) => {
 
       // 全データを取得
       const allData = loadAllPokemonSettings();
+
+      // 最新のスキーマで保存（メモなどの新規フィールドを含める）
+      localStorage.setItem('pokemon-sleep-settings', JSON.stringify(allData));
       
       // エクスポート用データを作成
       const exportData = {
-        version: '1.1',
+        version: '1.2',
         exportDate: new Date().toISOString(),
         appName: 'ポケスリ厳選管理',
         data: allData

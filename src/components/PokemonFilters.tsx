@@ -23,6 +23,7 @@ export interface FilterOptions {
   mainSkills: string[]; // メインスキル（複数選択）
   subSkills: string[]; // サブスキル（複数選択、AND検索）
   managementStatuses?: string[]; // 管理状態（複数選択）
+  memoOnly: boolean; // メモがある個体のみ
 }
 
 interface PokemonFiltersProps {
@@ -88,6 +89,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
       mainSkills: [],
       subSkills: [],
       managementStatuses: [],
+      memoOnly: false,
     });
   };
 
