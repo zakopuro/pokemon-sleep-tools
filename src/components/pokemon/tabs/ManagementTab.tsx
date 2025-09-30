@@ -10,6 +10,7 @@ interface PokemonInstance {
   pokemon: Pokemon;
   instanceId: string;
   status: string;
+  originalStatus: string;
 }
 
 interface ManagementTabProps {
@@ -42,27 +43,36 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
         statusGroups['未設定'].push({
           pokemon,
           instanceId: '1',
-          status: '未設定'
+          status: '未設定',
+          originalStatus: '未設定'
         });
       } else {
         // 各個体を状態別にグループ分け
         Object.entries(allInstances).forEach(([instanceId, instanceData]) => {
           let status = instanceData.managementStatus || '未設定';
-          
+
           // 空文字の場合は未設定として扱う
           if (status.trim() === '') {
             status = '未設定';
           }
-          
+
+          const originalStatus = status;
+          let groupStatus = status;
+
           // 優先度付きの厳選中を「厳選中」としてグルーピング（半角・全角両方対応）
-          if (status.startsWith('厳選中(') || status.startsWith('厳選中（')) {
-            status = '厳選中';
+          if (groupStatus.startsWith('厳選中(') || groupStatus.startsWith('厳選中（')) {
+            groupStatus = '厳選中';
           }
-          
-          statusGroups[status].push({
+
+          if (!statusGroups[groupStatus]) {
+            statusGroups[groupStatus] = [];
+          }
+
+          statusGroups[groupStatus].push({
             pokemon,
             instanceId,
-            status
+            status: groupStatus,
+            originalStatus
           });
         });
       }
@@ -205,6 +215,7 @@ const ManagementTab: React.FC<ManagementTabProps> = ({
                           count={undefined}
                         />
                       }
+                      currentInstanceStatus={instance.originalStatus}
                       onClick={() => onPokemonSelect(instance.pokemon, instance.instanceId)}
                     />
                     {/* 個体番号バッジ */}

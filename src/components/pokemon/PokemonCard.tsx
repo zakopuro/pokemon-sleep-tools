@@ -30,6 +30,7 @@ interface PokemonCardProps {
   isIngredientTab?: boolean;
   selectedSlots?: string[];
   targetIngredientId?: number;
+  currentInstanceStatus?: string;
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({
@@ -41,7 +42,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   size = 'medium',
   isIngredientTab = false,
   selectedSlots = [],
-  targetIngredientId
+  targetIngredientId,
+  currentInstanceStatus
 }) => {
   const { mainName, formName } = splitPokemonName(pokemon.name);
   
@@ -262,6 +264,15 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
         return match ? match[1] : null;
       }
     } else {
+      if (currentInstanceStatus) {
+        if (currentInstanceStatus.startsWith('厳選中(') || currentInstanceStatus.startsWith('厳選中（')) {
+          const match = currentInstanceStatus.match(/厳選中[（(](.+?)[）)]/);
+          return match ? match[1] : null;
+        }
+        // 個別カードで優先度が付いていない場合は表示しない
+        return null;
+      }
+
       // 通常タブではstatusIconから優先度を判定
       // statusIconの内容を確認する必要があるため、別の方法で取得
       const allInstances = loadAllInstancesForPokemon(pokemon);

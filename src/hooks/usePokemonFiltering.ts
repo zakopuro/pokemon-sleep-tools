@@ -7,7 +7,7 @@ import { getPokemonKey, loadAllPokemonSettings } from '../utils/pokemon-storage'
 export const usePokemonFiltering = (
   filters: FilterOptions, 
   activeTab: string, 
-  pokemonStatuses?: { [pokemonKey: string]: { status: string; count?: number } }
+  pokemonStatuses?: { [pokemonKey: string]: { status: string; count?: number; statuses?: string[] } }
 ) => {
   const filteredPokemons = useMemo(() => {
     let filtered = [...POKEMONS];
@@ -134,15 +134,24 @@ export const usePokemonFiltering = (
     if (filters.managementStatuses && filters.managementStatuses.length > 0 && pokemonStatuses) {
       filtered = filtered.filter(pokemon => {
         const pokemonKey = getPokemonKey(pokemon);
-        const status = pokemonStatuses[pokemonKey]?.status || '未設定';
-        
-        // 優先度付きの厳選中状態に対応（半角・全角両方対応）
-        return filters.managementStatuses?.some(filterStatus => {
-          if (filterStatus === '厳選中') {
-            return status === '厳選中' || status.startsWith('厳選中(') || status.startsWith('厳選中（');
-          }
-          return status === filterStatus;
-        });
+        const entry = pokemonStatuses[pokemonKey];
+
+        let availableStatuses: string[] = [];
+        if (entry?.statuses && entry.statuses.length > 0) {
+          availableStatuses = entry.statuses;
+        } else if (entry?.status) {
+          const trimmed = entry.status.trim();
+          const normalized = trimmed.startsWith('厳選中(') || trimmed.startsWith('厳選中（')
+            ? '厳選中'
+            : trimmed || '未設定';
+          availableStatuses = [normalized];
+        } else {
+          availableStatuses = ['未設定'];
+        }
+
+        return filters.managementStatuses?.some(filterStatus =>
+          availableStatuses.includes(filterStatus)
+        );
       });
     }
 

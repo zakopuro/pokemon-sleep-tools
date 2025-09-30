@@ -2,10 +2,24 @@ import { useMemo } from 'react';
 import type { Pokemon } from '../../config/schema';
 import { loadAllInstancesForPokemon, getPokemonKey } from '../utils/pokemon-storage';
 
+const normalizeStatus = (status: string | undefined): string => {
+  if (!status) {
+    return '未設定';
+  }
+  const trimmed = status.trim();
+  if (!trimmed) {
+    return '未設定';
+  }
+  if (trimmed.startsWith('厳選中(') || trimmed.startsWith('厳選中（')) {
+    return '厳選中';
+  }
+  return trimmed;
+};
+
 export const usePokemonStatuses = (filteredPokemons: Pokemon[], refreshTrigger?: number) => {
   // ポケモンの管理状態をメモ化（リアルタイム更新対応、複数個体対応）
   const pokemonStatuses = useMemo(() => {
-    const statuses: { [pokemonKey: string]: { status: string; count?: number } } = {};
+    const statuses: { [pokemonKey: string]: { status: string; count?: number; statuses: string[] } } = {};
     
     filteredPokemons.forEach(pokemon => {
       const pokemonKey = getPokemonKey(pokemon);
@@ -13,6 +27,15 @@ export const usePokemonStatuses = (filteredPokemons: Pokemon[], refreshTrigger?:
       
       // 全個体の管理状態を取得
       const instanceStatuses = Object.values(allInstances).map(instance => instance.managementStatus);
+
+      const normalizedStatuses = new Set<string>();
+      if (instanceStatuses.length === 0) {
+        normalizedStatuses.add('未設定');
+      } else {
+        instanceStatuses.forEach(status => {
+          normalizedStatuses.add(normalizeStatus(status));
+        });
+      }
       
       // 各状態の個数をカウント
       const statusCounts = instanceStatuses.reduce((counts, status) => {
@@ -35,7 +58,10 @@ export const usePokemonStatuses = (filteredPokemons: Pokemon[], refreshTrigger?:
             .reduce((sum, [, count]) => sum + count, 0);
           
           if (totalCount + priorityCount > 0) {
-            displayStatus = priority;
+            const priorityStatus = Object.keys(statusCounts).find(status =>
+              status.startsWith('厳選中(') || status.startsWith('厳選中（')
+            );
+            displayStatus = priorityStatus || '厳選中';
             statusCount = totalCount + priorityCount;
             break;
           }
@@ -47,13 +73,16 @@ export const usePokemonStatuses = (filteredPokemons: Pokemon[], refreshTrigger?:
       }
       
       // 未設定のみの場合は表示しない（空文字）
+      const normalizedList = Array.from(normalizedStatuses);
+
       if (displayStatus === '未設定') {
-        statuses[pokemonKey] = { status: '' };
+        statuses[pokemonKey] = { status: '', statuses: normalizedList };
       } else {
         // 完了状態で複数個体がある場合は数値を表示
         statuses[pokemonKey] = {
           status: displayStatus,
-          count: displayStatus === '完了' && statusCount > 1 ? statusCount : undefined
+          count: displayStatus === '完了' && statusCount > 1 ? statusCount : undefined,
+          statuses: normalizedList
         };
       }
     });
