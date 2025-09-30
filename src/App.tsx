@@ -42,6 +42,7 @@ function App() {
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
   const [mainSkillLevel, setMainSkillLevel] = useState<number>(initialSettings.mainSkillLevel || 1);
   const [memo, setMemo] = useState<string>(initialSettings.memo || '');
+  const [isMemoOpen, setIsMemoOpen] = useState(false);
   const [showPokemonDetails, setShowPokemonDetails] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   const [showSortModal, setShowSortModal] = useState(false);
@@ -116,6 +117,7 @@ function App() {
     setManagementStatus(newSettings.managementStatus);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
     setMemo(newSettings.memo || '');
+    setIsMemoOpen(false);
   }, [saveCurrentSettings]);
 
   // 個体切り替え処理
@@ -135,6 +137,7 @@ function App() {
     setManagementStatus(newSettings.managementStatus);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
     setMemo(newSettings.memo || '');
+    setIsMemoOpen(false);
   }, [saveCurrentSettings, selectedPokemon]);
 
   // データ移行処理（アプリ初期化時に1回だけ実行）
@@ -161,6 +164,7 @@ function App() {
           setManagementStatus(newSettings.managementStatus);
           setMainSkillLevel(newSettings.mainSkillLevel || 1);
           setMemo(newSettings.memo || '');
+          setIsMemoOpen(false);
         }
       } catch (error) {
         console.warn('Data migration failed:', error);
@@ -434,6 +438,8 @@ function App() {
               onManagementStatusChange={setManagementStatus}
               memo={memo}
               onMemoChange={setMemo}
+              isMemoOpen={isMemoOpen}
+              onMemoClose={() => setIsMemoOpen(false)}
               canDelete={getUsedInstanceIds(selectedPokemon).length > 1}
               onDelete={() => {
                 const usedIds = getUsedInstanceIds(selectedPokemon);
@@ -464,6 +470,7 @@ function App() {
                     setManagementStatus(newSettings.managementStatus);
                     setMainSkillLevel(newSettings.mainSkillLevel || 1);
                     setMemo(newSettings.memo || '');
+                    setIsMemoOpen(false);
                     
                     // 表示の更新をトリガー
                     setRefreshTrigger(prev => prev + 1);
@@ -475,7 +482,13 @@ function App() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}> {/* gapを半分に */}
               {/* レベル設定 */}
-              <LevelSelector level={level} onLevelChange={setLevel} />
+              <LevelSelector
+                level={level}
+                onLevelChange={setLevel}
+                onMemoToggle={() => setIsMemoOpen(prev => !prev)}
+                hasMemo={memo.trim().length > 0}
+                isMemoOpen={isMemoOpen}
+              />
 
               {/* 食材選択とせいかく選択を横並び */}
               <div style={{ display: 'flex', gap: 4, width: '100%' }}> {/* gapを小さく */}

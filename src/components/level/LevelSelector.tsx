@@ -3,25 +3,56 @@ import React from 'react';
 interface LevelSelectorProps {
   level: number;
   onLevelChange: (level: number) => void;
+  onMemoToggle?: () => void;
+  hasMemo?: boolean;
+  isMemoOpen?: boolean;
 }
 
-const LevelSelector: React.FC<LevelSelectorProps> = ({ level, onLevelChange }) => {
+const LevelSelector: React.FC<LevelSelectorProps> = ({ level, onLevelChange, onMemoToggle, hasMemo = false, isMemoOpen = false }) => {
   const handleLevelPreset = (presetLevel: number) => {
     onLevelChange(presetLevel);
   };
+
+  const memoIconSrc = `${import.meta.env.BASE_URL}${(isMemoOpen || hasMemo) ? 'memo_add.png' : 'memo.png'}`;
 
   return (
     <div>
       {/* レベルセクション見出し */}
       <div style={{ display:'flex', alignItems:'center', gap:6, margin:'0 0 4px 0' }}>
+        <button
+          type="button"
+          onClick={onMemoToggle}
+          disabled={!onMemoToggle}
+          aria-pressed={isMemoOpen}
+          style={{
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            width:28,
+            height:28,
+            borderRadius:6,
+            border:(isMemoOpen ? '1px solid #93c5fd' : hasMemo ? '1px solid #bbf7d0' : '1px solid #e5e7eb'),
+            background:(isMemoOpen ? '#e0f2fe' : hasMemo ? '#f0fdf4' : '#fff'),
+            cursor: onMemoToggle ? 'pointer' : 'not-allowed',
+            padding:0,
+            flexShrink:0
+          }}
+          title={onMemoToggle ? (isMemoOpen ? 'メモを閉じる' : 'メモを開く') : undefined}
+        >
+          <img
+            src={memoIconSrc}
+            alt="メモアイコン"
+            style={{ width: 16, height: 16, objectFit: 'contain', opacity: onMemoToggle ? 1 : 0.4 }}
+          />
+        </button>
         <span style={{
           background:'#4ade80',
           color:'#fff',
-          padding:'4px 24px',
-          borderRadius:20,
+          padding:'4px 14px',
+          borderRadius:16,
           fontSize:12,
           fontWeight:700,
-          minWidth:80,
+          minWidth:68,
           display:'inline-block',
           textAlign:'center'
         }}>

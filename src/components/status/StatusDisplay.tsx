@@ -24,6 +24,8 @@ interface StatusDisplayProps {
   onManagementStatusChange: (status: string) => void;
   memo: string;
   onMemoChange: (memo: string) => void;
+  isMemoOpen: boolean;
+  onMemoClose: () => void;
   canDelete?: boolean;
   onDelete?: () => void;
   currentInstanceId?: string;
@@ -35,6 +37,8 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   onManagementStatusChange,
   memo,
   onMemoChange,
+  isMemoOpen,
+  onMemoClose,
   canDelete = false,
   onDelete,
   currentInstanceId
@@ -43,7 +47,6 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   const [showPriorityDropdown, setShowPriorityDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const memoTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   // 管理状態の選択肢
   const statusOptions = ['未設定', '厳選前', '厳選中', '完了', '保留', '中止', '対象外'];
@@ -80,23 +83,12 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
     }
   }, [isMemoOpen]);
 
-  const handleMemoButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setIsMemoOpen(prev => !prev);
-  };
-
   const handleMemoChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value.slice(0, 300);
     onMemoChange(value);
   };
 
-  const handleMemoClose = () => {
-    setIsMemoOpen(false);
-  };
-
   const hasMemo = memo.trim().length > 0;
-  const memoIconSrc = `${import.meta.env.BASE_URL}${hasMemo ? 'memo_add.png' : 'memo.png'}`;
   const memoLength = memo.length;
   const memoCountColor = memoLength >= 300 ? '#dc2626' : memoLength >= 260 ? '#b45309' : '#4a5568';
 
@@ -111,10 +103,6 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
   };
 
   useEffect(() => {
-    setIsMemoOpen(false);
-  }, [selectedPokemon, currentInstanceId]);
-
-  useEffect(() => {
     if (!isMemoOpen) return undefined;
 
     const originalOverflow = document.body.style.overflow;
@@ -122,7 +110,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setIsMemoOpen(false);
+        onMemoClose();
       }
     };
 
@@ -132,7 +120,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = originalOverflow;
     };
-  }, [isMemoOpen]);
+  }, [isMemoOpen, onMemoClose]);
 
   // 管理状態アイコンを返す関数
   const getStatusIcon = (status: string) => {
@@ -269,38 +257,10 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
             }}
           />
           <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
-            <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 4, whiteSpace: 'nowrap' }}>
-              <span style={{ minWidth: 0, maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <h2 style={{ margin: 0, color: '#2d3748', fontSize: 18, fontWeight: 700, lineHeight: 1.2, whiteSpace: 'nowrap', textAlign: 'center' }}>
+              <span style={{ display: 'inline-block', minWidth: 0, maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {mainName}
               </span>
-              <button
-                type="button"
-                onClick={handleMemoButtonClick}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: 4,
-                  minWidth: 24,
-                  minHeight: 24,
-                  borderRadius: 6,
-                  border: '1px solid',
-                  borderColor: isMemoOpen ? '#93c5fd' : hasMemo ? '#bbf7d0' : 'transparent',
-                  background: isMemoOpen ? '#e0f2fe' : hasMemo ? '#f0fdf4' : 'transparent',
-                  cursor: 'pointer',
-                  flexShrink: 0,
-                  transition: 'background 0.2s ease, border-color 0.2s ease'
-                }}
-                aria-label={hasMemo ? 'メモを編集' : 'メモを追加'}
-                aria-expanded={isMemoOpen}
-                title={hasMemo ? 'メモを編集' : 'メモを追加'}
-              >
-                <img
-                  src={memoIconSrc}
-                  alt="メモアイコン"
-                  style={{ width: 16, height: 16, objectFit: 'contain' }}
-                />
-              </button>
             </h2>
             {formName && (
               <div style={{ 
@@ -584,7 +544,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
             padding: '24px 16px',
             boxSizing: 'border-box'
           }}
-          onClick={handleMemoClose}
+          onClick={onMemoClose}
         >
           <div
             style={{
@@ -606,7 +566,7 @@ const StatusDisplay: React.FC<StatusDisplayProps> = ({
               <div style={{ fontSize: 16, fontWeight: 700, color: '#1f2937' }}>個体メモ</div>
               <button
                 type="button"
-                onClick={handleMemoClose}
+                onClick={onMemoClose}
                 style={{
                   border: 'none',
                   background: 'transparent',
