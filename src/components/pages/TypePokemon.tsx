@@ -43,7 +43,7 @@ const TypePokemon: React.FC<TypePokemonProps> = () => {
   const filteredPokemons = usePokemonFiltering(filters, activeTab === 'berry' ? 'きのみ' : activeTab === 'ingredient' ? '食材' : 'スキル', pokemonStatuses);
 
   // フィルターが設定されているかチェック
-  const hasFilters = 
+  const hasFilters =
     filters.specialty !== 'すべて' ||
     (filters.specialties && filters.specialties.length > 0) ||
     filters.berry !== '' ||
@@ -84,7 +84,7 @@ const TypePokemon: React.FC<TypePokemonProps> = () => {
         default:
           dataAttribute = '[data-ingredient-matrix-scrollable]';
       }
-      
+
       const scrollableElement = document.querySelector(dataAttribute) as HTMLElement;
       if (!scrollableElement) {
         console.error(`${activeTab}表が見つかりません`);
@@ -170,7 +170,7 @@ const TypePokemon: React.FC<TypePokemonProps> = () => {
       default:
         tabName = 'マトリックス表';
     }
-    
+
     const confirmed = confirm(`${tabName}の画像を保存しますか？`);
     if (!confirmed) {
       return; // キャンセルされた場合は何もしない
@@ -199,7 +199,7 @@ const TypePokemon: React.FC<TypePokemonProps> = () => {
         default:
           fileName = 'matrix-table';
       }
-      
+
       link.download = `${fileName}-${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.png`;
       link.href = result.canvas.toDataURL();
       link.click();
@@ -231,14 +231,14 @@ const TypePokemon: React.FC<TypePokemonProps> = () => {
           tabName = 'マトリックス表';
           filePrefix = 'matrix-table';
       }
-      
+
       // Web Share APIが利用可能で、画像共有に対応している場合
       if (navigator.share && navigator.canShare) {
         const result = await captureScreenshot();
         if (result) {
           const fileName = `${filePrefix}-${new Date().toISOString().slice(0, 10)}.png`;
           const file = new File([result.blob], fileName, { type: 'image/png' });
-          
+
           if (navigator.canShare({ files: [file] })) {
             // 画像のみ共有
             await navigator.share({
@@ -248,14 +248,14 @@ const TypePokemon: React.FC<TypePokemonProps> = () => {
             return;
           }
         }
-        
+
         // ファイル共有に対応していない場合はテキストのみ共有
         const shareText = `私のポケモンスリープの${tabName}です！
 
 #ポケモンスリープ #ポケスリ厳選管理
 
 https://zakopuro.github.io/pokemon-sleep-tools/`;
-        
+
         await navigator.share({
           title: `ポケモンスリープ${tabName}`,
           text: shareText
@@ -269,10 +269,10 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
 #ポケモンスリープ #ポケスリ厳選管理
 
 https://zakopuro.github.io/pokemon-sleep-tools/`;
-      
+
       const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
       window.open(twitterUrl, '_blank');
-      
+
     } catch (error) {
       console.error('共有に失敗しました:', error);
       alert('共有に失敗しました');
@@ -386,7 +386,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           border: '1px solid #e2e8f0',
           overflow: 'hidden'
         }}>
-          <div 
+          <div
             data-ingredient-matrix-scrollable
             style={{
               overflowX: 'auto',
@@ -423,7 +423,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                     justifyContent: 'center'
                   }}
                 >
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}image/ing/${(() => {
                       const mapping: { [key: string]: string } = {
                         'ふといながねぎ': 'largeleek',
@@ -442,7 +442,8 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                         'ワカクサコーン': 'greengrasscorn',
                         'ワカクサ大豆': 'greengrasssoybeans',
                         'ヤドンのしっぽ': 'slowpoketail',
-                        'めざましコーヒー': 'めざましコーヒー'
+                        'めざましコーヒー': 'めざましコーヒー',
+                        'ずっしりカボチャ': 'ずっしりカボチャ'
                       };
                       return mapping[ingredient.name] || 'honey';
                     })()}.png`}
@@ -480,7 +481,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                   justifyContent: 'center',
                   backgroundColor: '#fafafa'
                 }}>
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}image/berry/${berry.eng_name}.png`}
                     alt={berry.name}
                     style={{ width: 28, height: 28 }}
@@ -499,9 +500,9 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                       pokemon.ing2?.ingredientId,
                       pokemon.ing3?.ingredientId
                     ].includes(ingredient.id);
-                    
+
                     const hasBerry = pokemon.berryId === berry.id;
-                    
+
                     // スロットフィルターの適用
                     if (hasIngredient && hasBerry) {
                       const ingredientLabel = getIngredientLabel(pokemon, ingredient.id);
@@ -509,7 +510,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                         return selectedSlots.includes(ingredientLabel.label);
                       }
                     }
-                    
+
                     return hasIngredient && hasBerry;
                   });
 
@@ -532,15 +533,15 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                         const pokemonKey = getPokemonKey(pokemon);
                         const pokemonStatus = pokemonStatuses[pokemonKey];
                         const ingredientLabel = getIngredientLabel(pokemon, ingredient.id);
-                        
+
                         return (
                           <PokemonCard
                             key={pokemonKey}
                             pokemon={pokemon}
                             isSelected={false}
                             statusIcon={pokemonStatus?.status ? (
-                              <StatusIcon 
-                                status={pokemonStatus.status} 
+                              <StatusIcon
+                                status={pokemonStatus.status}
                                 count={pokemonStatus.count && pokemonStatus.count > 1 ? pokemonStatus.count : undefined}
                               />
                             ) : null}
@@ -588,7 +589,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           border: '1px solid #e2e8f0',
           overflow: 'hidden'
         }}>
-          <div 
+          <div
             data-berry-matrix-scrollable
             style={{
               overflowX: 'auto',
@@ -617,7 +618,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                   justifyContent: 'center',
                   backgroundColor: '#fafafa'
                 }}>
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}image/berry/${berry.eng_name}.png`}
                     alt={berry.name}
                     style={{ width: 28, height: 28 }}
@@ -641,15 +642,15 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                     .map((pokemon) => {
                       const pokemonKey = getPokemonKey(pokemon);
                       const pokemonStatus = pokemonStatuses[pokemonKey];
-                      
+
                       return (
                         <PokemonCard
                           key={pokemonKey}
                           pokemon={pokemon}
                           isSelected={false}
                           statusIcon={pokemonStatus?.status ? (
-                            <StatusIcon 
-                              status={pokemonStatus.status} 
+                            <StatusIcon
+                              status={pokemonStatus.status}
                               count={pokemonStatus.count && pokemonStatus.count > 1 ? pokemonStatus.count : undefined}
                             />
                           ) : null}
@@ -683,9 +684,9 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
       // スキルの配列を取得してminorclassでグループ化
       const skillsArray = Array.isArray(MAINSKILLS) ? MAINSKILLS : Object.values(MAINSKILLS);
       const uniqueMinorClasses = [...new Set(skillsArray.map(skill => skill.minorclass))].sort();
-      
+
       // 各minorclassの代表スキルを取得
-      const minorClassSkills = uniqueMinorClasses.map(minorclass => 
+      const minorClassSkills = uniqueMinorClasses.map(minorclass =>
         skillsArray.find(skill => skill.minorclass === minorclass)
       ).filter(skill => skill);
 
@@ -700,7 +701,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           border: '1px solid #e2e8f0',
           overflow: 'hidden'
         }}>
-          <div 
+          <div
             data-skill-matrix-scrollable
             style={{
               overflowX: 'auto',
@@ -739,7 +740,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                     gap: '2px'
                   }}
                 >
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}image/mainskill/${skill.imagename}.png`}
                     alt={skill.minorclass}
                     style={{ width: 24, height: 24 }}
@@ -776,7 +777,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                   justifyContent: 'center',
                   backgroundColor: '#fafafa'
                 }}>
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}image/berry/${berry.eng_name}.png`}
                     alt={berry.name}
                     style={{ width: 28, height: 28 }}
@@ -812,15 +813,15 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                       {matchingPokemons.map((pokemon) => {
                         const pokemonKey = getPokemonKey(pokemon);
                         const pokemonStatus = pokemonStatuses[pokemonKey];
-                        
+
                         return (
                           <PokemonCard
                             key={pokemonKey}
                             pokemon={pokemon}
                             isSelected={false}
                             statusIcon={pokemonStatus?.status ? (
-                              <StatusIcon 
-                                status={pokemonStatus.status} 
+                              <StatusIcon
+                                status={pokemonStatus.status}
                                 count={pokemonStatus.count && pokemonStatus.count > 1 ? pokemonStatus.count : undefined}
                               />
                             ) : null}
@@ -854,10 +855,10 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
   ];
 
   return (
-    <div style={{ 
-      flex: 1, 
-      display: 'flex', 
-      flexDirection: 'column', 
+    <div style={{
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
       height: '100%',
       overflow: 'hidden'
     }}>
@@ -869,10 +870,10 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
         flexShrink: 0
       }}>
         <div style={{ marginBottom: '12px' }}>
-          <h2 style={{ 
-            margin: 0, 
-            fontSize: 18, 
-            fontWeight: 700, 
+          <h2 style={{
+            margin: 0,
+            fontSize: 18,
+            fontWeight: 700,
             color: '#1a202c',
             marginBottom: '8px'
           }}>
@@ -934,7 +935,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
             <div style={{ color: '#6b7280', fontSize: 12 }}>
               {totalPokemon}匹
             </div>
-            
+
             {/* コントロールボタン */}
             <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
               {/* 虫眼鏡ボタン（フィルター） */}
@@ -958,18 +959,18 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                   <circle cx="10" cy="10" r="7"/>
                   <path d="M21 21l-6-6"/>
                 </svg>
-                
+
                 {/* フィルターON/OFF表示 */}
-                <span style={{ 
-                  fontSize: 8, 
-                  color: '#000', 
+                <span style={{
+                  fontSize: 8,
+                  color: '#000',
                   fontWeight: 600,
                   lineHeight: 1
                 }}>
                   {hasFilters ? 'ON' : 'OFF'}
                 </span>
               </button>
-              
+
               {/* 全タブでスクリーンショットと共有ボタンを表示 */}
               {(activeTab === 'ingredient' || activeTab === 'skill' || activeTab === 'berry') && (
                 <>
@@ -995,7 +996,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                       <path fill="#1a16f3" d="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/>
                     </svg>
                   </button>
-                  
+
                   {/* 共有ボタン */}
                   <button
                     onClick={handleShare}
@@ -1028,7 +1029,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               {/* A/B/Cスロットフィルター */}
               <SlotFilterButtons />
-              
+
               {/* 進化フィルター */}
               <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
                 <button
@@ -1130,16 +1131,16 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
       </div>
 
       {/* タブ別コンテンツ */}
-      <div style={{ 
-        flex: 1, 
+      <div style={{
+        flex: 1,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column'
       }}>
         {activeTab === 'ingredient' ? (
           /* 食材タブ：マトリックス表 */
-          <div style={{ 
-            flex: 1, 
+          <div style={{
+            flex: 1,
             overflow: 'auto',
             padding: '16px'
           }}>
@@ -1147,8 +1148,8 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           </div>
         ) : activeTab === 'skill' ? (
           /* スキルタブ：マトリックス表 */
-          <div style={{ 
-            flex: 1, 
+          <div style={{
+            flex: 1,
             overflow: 'auto',
             padding: '16px'
           }}>
@@ -1156,8 +1157,8 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           </div>
         ) : activeTab === 'berry' ? (
           /* きのみタブ：マトリックス表 */
-          <div style={{ 
-            flex: 1, 
+          <div style={{
+            flex: 1,
             overflow: 'auto',
             padding: '16px'
           }}>
@@ -1165,8 +1166,8 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
           </div>
         ) : (
           /* その他のタブ：通常のグリッドレイアウト */
-          <div style={{ 
-            flex: 1, 
+          <div style={{
+            flex: 1,
             overflowY: 'auto',
             padding: '16px'
           }}>
@@ -1179,15 +1180,15 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
               {filteredPokemons.map((pokemon) => {
                 const pokemonKey = getPokemonKey(pokemon);
                 const pokemonStatus = pokemonStatuses[pokemonKey];
-                
+
                 return (
                   <PokemonCard
                     key={pokemonKey}
                     pokemon={pokemon}
                     isSelected={false}
                     statusIcon={pokemonStatus?.status ? (
-                      <StatusIcon 
-                        status={pokemonStatus.status} 
+                      <StatusIcon
+                        status={pokemonStatus.status}
                         count={pokemonStatus.count && pokemonStatus.count > 1 ? pokemonStatus.count : undefined}
                       />
                     ) : null}
@@ -1218,7 +1219,7 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
 
       {/* フィルターモーダル */}
       {showFilters && (
-        <div 
+        <div
           style={{
             position: 'fixed',
             top: 0,

@@ -90,5 +90,10 @@ export const INGREDIENTS: readonly Ingredient[] = [
     "id": 17,
     "name": "めざましコーヒー",
     "energy": 153
+  },
+  {
+    "id": 18,
+    "name": "ずっしりカボチャ",
+    "energy": 250
   }
 ] as const;

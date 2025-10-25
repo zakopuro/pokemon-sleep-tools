@@ -13,7 +13,7 @@ export interface FilterOptions {
   sortBy: string;
   sortOrder: 'asc' | 'desc';
   finalEvolution: 'すべて' | '最終進化のみ' | '進化前のみ' | 'たねのみ';
-  
+
   // 新しいフィルター項目
   name: string; // 名前・ニックネーム検索
   pokemonTypes: string[]; // ポケモンタイプ（複数選択）
@@ -65,7 +65,8 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
       'ワカクサコーン': 'greengrasscorn',
       'ワカクサ大豆': 'greengrasssoybeans',
       'ヤドンのしっぽ': 'slowpoketail',
-      'めざましコーヒー': 'めざましコーヒー'
+      'めざましコーヒー': 'めざましコーヒー',
+      'ずっしりカボチャ': 'ずっしりカボチャ'
     };
     return mapping[ingredientName] || 'honey'; // デフォルトはhoney
   };
@@ -158,7 +159,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
             }}></div>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>名前</span>
           </div>
-          
+
           <div style={{ position: 'relative' }}>
             <input
               type="text"
@@ -176,12 +177,12 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                 boxSizing: 'border-box'
               }}
             />
-            <svg 
-              width="16" 
-              height="16" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="#4ade80" 
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#4ade80"
               strokeWidth="2"
               style={{
                 position: 'absolute',
@@ -214,7 +215,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
             }}></div>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>とくいなもの</span>
           </div>
-          
+
           <div style={{ display: 'flex', gap: 8 }}>
             {[
               { value: 'きのみ', label: 'きのみ', color: '#4ade80' },
@@ -246,10 +247,10 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                 >
                   {option.label}
                   {isSelected && (
-                    <svg 
-                      width="14" 
-                      height="14" 
-                      viewBox="0 0 24 24" 
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
                       fill="none"
                       style={{
                         position: 'absolute',
@@ -258,11 +259,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                         transform: 'translate(-50%, -50%)'
                       }}
                     >
-                      <path 
-                        d="M20 6L9 17l-5-5" 
-                        stroke="#22c55e" 
-                        strokeWidth="6" 
-                        strokeLinecap="round" 
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="#22c55e"
+                        strokeWidth="6"
+                        strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
@@ -290,7 +291,7 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
             }}></div>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>管理状態</span>
           </div>
-          
+
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {[
               { value: '完了', label: '完了', color: '#22c55e' },
@@ -326,10 +327,10 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                 >
                   {option.label}
                   {isSelected && (
-                    <svg 
-                      width="14" 
-                      height="14" 
-                      viewBox="0 0 24 24" 
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
                       fill="none"
                       style={{
                         position: 'absolute',
@@ -338,11 +339,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                         transform: 'translate(-50%, -50%)'
                       }}
                     >
-                      <path 
-                        d="M20 6L9 17l-5-5" 
-                        stroke="#22c55e" 
-                        strokeWidth="6" 
-                        strokeLinecap="round" 
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="#22c55e"
+                        strokeWidth="6"
+                        strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
@@ -370,11 +371,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
             }}></div>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>きのみ</span>
           </div>
-          
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(6, 1fr)', 
-            gap: 8 
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gap: 8
           }}>
             {Object.values(BERRIES).map((berry) => (
               <div key={berry.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
@@ -397,8 +398,8 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                     position: 'relative'
                   }}
                 >
-                  <img 
-                    src={`${import.meta.env.BASE_URL}image/berry/${berry.eng_name}.png`} 
+                  <img
+                    src={`${import.meta.env.BASE_URL}image/berry/${berry.eng_name}.png`}
                     alt={berry.name}
                     style={{ width: 24, height: 24 }}
                     onError={(e) => {
@@ -408,10 +409,10 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                   />
                   {/* 選択時の緑チェック */}
                   {filters.berries.includes(String(berry.id)) && (
-                    <svg 
-                      width="20" 
-                      height="20" 
-                      viewBox="0 0 24 24" 
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
                       fill="none"
                       style={{
                         position: 'absolute',
@@ -420,11 +421,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                         transform: 'translate(-50%, -50%)'
                       }}
                     >
-                      <path 
-                        d="M20 6L9 17l-5-5" 
-                        stroke="#22c55e" 
-                        strokeWidth="6" 
-                        strokeLinecap="round" 
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="#22c55e"
+                        strokeWidth="6"
+                        strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
@@ -455,11 +456,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
             }}></div>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>食材</span>
           </div>
-          
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(6, 1fr)', 
-            gap: 8 
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(6, 1fr)',
+            gap: 8
           }}>
             {Object.values(INGREDIENTS).filter(ingredient => ingredient.name !== '-').map((ingredient) => (
               <div key={ingredient.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
@@ -482,8 +483,8 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                     position: 'relative'
                   }}
                 >
-                  <img 
-                    src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(ingredient.name)}.png`} 
+                  <img
+                    src={`${import.meta.env.BASE_URL}image/ing/${getIngredientImageName(ingredient.name)}.png`}
                     alt={ingredient.name}
                     style={{ width: 24, height: 24 }}
                     onError={(e) => {
@@ -493,10 +494,10 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                   />
                   {/* 選択時の緑チェック */}
                   {filters.ingredients.includes(String(ingredient.id)) && (
-                    <svg 
-                      width="20" 
-                      height="20" 
-                      viewBox="0 0 24 24" 
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
                       fill="none"
                       style={{
                         position: 'absolute',
@@ -505,11 +506,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                         transform: 'translate(-50%, -50%)'
                       }}
                     >
-                      <path 
-                        d="M20 6L9 17l-5-5" 
-                        stroke="#22c55e" 
-                        strokeWidth="6" 
-                        strokeLinecap="round" 
+                      <path
+                        d="M20 6L9 17l-5-5"
+                        stroke="#22c55e"
+                        strokeWidth="6"
+                        strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
@@ -521,11 +522,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
               </div>
             ))}
           </div>
-          
+
           {/* AND検索トグル */}
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'space-between',
             marginTop: 12,
             padding: '8px 12px',
@@ -581,16 +582,16 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
             }}></div>
             <span style={{ fontSize: 14, fontWeight: 600, color: '#374151' }}>メインスキル</span>
           </div>
-          
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(2, 1fr)', 
-            gap: 8 
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: 8
           }}>
             {(() => {
               // minorclassでグループ化して重複を除去
               const uniqueMinorClasses = [...new Set(Object.values(MAINSKILLS).map(skill => skill.minorclass))];
-              
+
               return uniqueMinorClasses.map((minorclass) => (
                 <label
                   key={minorclass}
@@ -622,11 +623,11 @@ export default function PokemonFilters({ filters, onFiltersChange, onClose }: Po
                   >
                     {filters.mainSkills.includes(minorclass) && (
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
-                        <path 
-                          d="M20 6L9 17l-5-5" 
-                          stroke="#22c55e" 
-                          strokeWidth="6" 
-                          strokeLinecap="round" 
+                        <path
+                          d="M20 6L9 17l-5-5"
+                          stroke="#22c55e"
+                          strokeWidth="6"
+                          strokeLinecap="round"
                           strokeLinejoin="round"
                         />
                       </svg>

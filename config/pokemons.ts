@@ -5150,6 +5150,68 @@ export const POKEMONS: readonly Pokemon[] = [
     "isSeedPokemon": true,
     "fieldIds": [1, 5, 6, 7]
   },
+
+  {
+    "id": "0010710",
+    "name": "バケッチャ",
+    "sleepType": "うとうと",
+    "specialty": "食材",
+    "mainSkillId": 1,
+    "fp": 5,
+    "frequency": 5300,
+    "berryId": 14,
+    "ing1": {
+      "ingredientId": 18,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 15,
+      "c1": 11,
+      "c2": 18
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 15
+    },
+    "pokedexId": 710,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 6, 7]
+  },
+    {
+    "id": "0010711",
+    "name": "パンプジン",
+    "sleepType": "うとうと",
+    "specialty": "食材",
+    "mainSkillId": 1,
+    "fp": 20,
+    "frequency": 3100,
+    "berryId": 14,
+    "ing1": {
+      "ingredientId": 18,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 15,
+      "c1": 11,
+      "c2": 18
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 15
+    },
+    "pokedexId": 711,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 6, 7]
+  },
+
   {
     "id": "0010736",
     "name": "アゴジムシ",

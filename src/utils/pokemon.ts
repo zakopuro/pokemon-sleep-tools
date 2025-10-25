@@ -11,7 +11,7 @@ export const getIngredientImageName = (ingredientName: string) => {
   if (ingredientName === '-') {
     return '';
   }
-  
+
   const imageMap: Record<string, string> = {
     'ふといながねぎ': 'largeleek',
     'あじわいキノコ': 'tastymushroom',
@@ -30,6 +30,7 @@ export const getIngredientImageName = (ingredientName: string) => {
     'ワカクサ大豆': 'greengrasssoybeans',
     'ワカクサコーン': 'greengrasscorn',
     'めざましコーヒー': 'めざましコーヒー',
+    'ずっしりカボチャ': 'ずっしりカボチャ'
   };
   return imageMap[ingredientName] || 'honey';
 };
@@ -40,12 +41,12 @@ export const getBerryImageName = (berry: any) => {
   if (berry && typeof berry === 'object' && berry.eng_name) {
     return berry.eng_name;
   }
-  
+
   // 後方互換性のため、文字列が渡された場合の従来のマッピング
   if (typeof berry === 'string') {
     const berryImageMap: Record<string, string> = {
       'チーゴのみ': 'rawstberry',
-      'オレンのみ': 'oranberry', 
+      'オレンのみ': 'oranberry',
       'オボンのみ': 'sitrusberry',
       'ヒメリのみ': 'leppaberry',
       'カゴのみ': 'chestoberry',
@@ -65,6 +66,6 @@ export const getBerryImageName = (berry: any) => {
     };
     return berryImageMap[berry] || 'cheriberry';
   }
-  
+
   return 'cheriberry'; // デフォルト
 };
