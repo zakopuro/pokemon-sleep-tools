@@ -443,7 +443,8 @@ https://zakopuro.github.io/pokemon-sleep-tools/`;
                         'ワカクサ大豆': 'greengrasssoybeans',
                         'ヤドンのしっぽ': 'slowpoketail',
                         'めざましコーヒー': 'めざましコーヒー',
-                        'ずっしりカボチャ': 'ずっしりカボチャ'
+                        'ずっしりカボチャ': 'ずっしりカボチャ',
+                        'つやつやアボカド': 'つやつやアボカド'
                       };
                       return mapping[ingredient.name] || 'honey';
                     })()}.png`}

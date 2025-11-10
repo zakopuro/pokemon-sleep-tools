@@ -30,7 +30,8 @@ export const getIngredientImageName = (ingredientName: string) => {
     'ワカクサ大豆': 'greengrasssoybeans',
     'ワカクサコーン': 'greengrasscorn',
     'めざましコーヒー': 'めざましコーヒー',
-    'ずっしりカボチャ': 'ずっしりカボチャ'
+    'ずっしりカボチャ': 'ずっしりカボチャ',
+    'つやつやアボカド': 'つやつやアボカド'
   };
   return imageMap[ingredientName] || 'honey';
 };

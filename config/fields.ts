@@ -55,5 +55,12 @@ export const FIELDS: Field[] = [
     abbreviation: "ワカクサEX",
     berries: [],
     color: "#B8E569"
+  },
+  {
+    id: 8,
+    name: "アンバー渓谷",
+    abbreviation: "アンバー",
+    berries: [8, 12, 15],
+    color: "#D2691E"
   }
 ];
