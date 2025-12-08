@@ -4755,6 +4755,36 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 2, 4, 7, 8]
   },
   {
+    "id": "0010442",
+    "name": "ミカルゲ",
+    "sleepType": "うとうと",
+    "specialty": "食材",
+    "mainSkillId": 13,
+    "fp": 16,
+    "frequency": 3500,
+    "berryId": 16,
+    "ing1": {
+      "ingredientId": 2,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 18,
+      "c1": 3,
+      "c2": 5
+    },
+    "ing3": {
+      "ingredientId": 1,
+      "c1": 6
+    },
+    "pokedexId": 442,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 4, 5, 7, 8]
+  },
+  {
     "id": "0010447",
     "name": "リオル",
     "sleepType": "ぐっすり",
