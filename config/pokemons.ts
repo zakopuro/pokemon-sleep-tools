@@ -4335,6 +4335,36 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 2, 4, 7]
   },
   {
+    "id": "0030363",
+    "name": "タマザラシ",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 17,
+    "fp": 5,
+    "frequency": 3300,
+    "berryId": 6,
+    "ing1": {
+      "ingredientId": 10,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 7,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 11,
+      "c1": 4
+    },
+    "pokedexId": 363,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": []
+  },
+  {
     "id": "0010364",
     "name": "トドグラー",
     "sleepType": "ぐっすり",
@@ -5696,6 +5726,36 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 2, 5, 7]
   },
   {
+    "id": "0010777",
+    "name": "トゲデマル",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 30,
+    "fp": 16,
+    "frequency": 2700,
+    "berryId": 17,
+    "ing1": {
+      "ingredientId": 8,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 19,
+      "c1": 1,
+      "c2": 2
+    },
+    "ing3": {
+      "ingredientId": 13,
+      "c1": 2
+    },
+    "pokedexId": 777,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 4, 6, 7, 8]
+  },
+  {
     "id": "0010778",
     "name": "ミミッキュ",
     "sleepType": "うとうと",
@@ -6205,6 +6265,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": false,
     "fieldIds": [4, 6, 7]
+  },
+  {
+    "id": "0010974",
+    "name": "アルクジラ",
+    "sleepType": "ぐっすり",
+    "specialty": "食材",
+    "mainSkillId": 9,
+    "fp": 5,
+    "frequency": 5100,
+    "berryId": 6,
+    "ing1": {
+      "ingredientId": 4,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 7,
+      "c1": 5,
+      "c2": 9
+    },
+    "ing3": {
+      "ingredientId": 18,
+      "c1": 4
+    },
+    "pokedexId": 974,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 4, 7]
+  },
+  {
+    "id": "0010975",
+    "name": "ハルクジラ",
+    "sleepType": "ぐっすり",
+    "specialty": "食材",
+    "mainSkillId": 9,
+    "fp": 20,
+    "frequency": 2800,
+    "berryId": 6,
+    "ing1": {
+      "ingredientId": 4,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 7,
+      "c1": 5,
+      "c2": 9
+    },
+    "ing3": {
+      "ingredientId": 18,
+      "c1": 4
+    },
+    "pokedexId": 975,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [4, 7]
   },
   {
     "id": "0010980",

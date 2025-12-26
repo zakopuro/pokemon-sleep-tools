@@ -233,4 +233,12 @@ export const MAINSKILLS: readonly MainSkill[] = [
     "maxlevel":7,
     "imagename":'食材セレクト'
   },
+  {
+    "id": 30,
+    "majorclass": "げんき回復",
+    "minorclass": "げんきエールS",
+    "name": "ほっぺすりすり",
+    "maxlevel":6,
+    "imagename":'げんきエール'
+  },
 ] as const;
