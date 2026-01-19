@@ -2954,6 +2954,36 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [3, 6, 7]
   },
   {
+    "id": "0010213",
+    "name": "ツボツボ",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 31,
+    "fp": 16,
+    "frequency": 3600,
+    "berryId": 12,
+    "ing1": {
+      "ingredientId": 10,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 17,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 9,
+      "c1": 4
+    },
+    "pokedexId": 213,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 2, 3, 7, 8]
+  },
+  {
     "id": "0010214",
     "name": "ヘラクロス",
     "sleepType": "うとうと",
