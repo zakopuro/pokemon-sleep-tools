@@ -5665,6 +5665,68 @@ export const POKEMONS: readonly Pokemon[] = [
     "isSeedPokemon": false,
     "fieldIds": [6]
   },
+
+  {
+    "id": "0010742",
+    "name": "アブリー",
+    "sleepType": "すやすや",
+    "specialty": "食材",
+    "mainSkillId": 29,
+    "fp": 5,
+    "frequency": 4500,
+    "berryId": 18,
+    "ing1": {
+      "ingredientId": 9,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 10,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 16,
+      "c1": 5
+    },
+    "pokedexId": 742,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1,2,5,7,8]
+  },
+  {
+    "id": "0010743",
+    "name": "アブリボン",
+    "sleepType": "すやすや",
+    "specialty": "食材",
+    "mainSkillId": 29,
+    "fp": 12,
+    "frequency": 2300,
+    "berryId": 18,
+    "ing1": {
+      "ingredientId": 9,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 10,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 16,
+      "c1": 5
+    },
+    "pokedexId": 743,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1,2,5,7,8]
+  },
+
   {
     "id": "0010759",
     "name": "ヌイコグマ",
