@@ -4574,7 +4574,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "isSeedPokemon": false,
     "fieldIds": [8]
   },
-    {
+  {
     "id": "0010373",
     "name": "ボーマンダ",
     "sleepType": "うとうと",
@@ -4603,6 +4603,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": false,
     "fieldIds": [8]
+  },
+  {
+    "id": "0010380",
+    "name": "ラティアス",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 32,
+    "fp": 30,
+    "frequency": 2800,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 12,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 18,
+      "c2": 1,
+      "c3": 2
+    },
+    "ing3": {
+      "ingredientId": 2,
+      "c3": 2
+    },
+    "pokedexId": 380,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 5, 7, 8]
+  },
+  {
+    "id": "0010381",
+    "name": "ラティオス",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 33,
+    "fp": 30,
+    "frequency": 2800,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 12,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 3,
+      "c2": 2,
+      "c3": 3
+    },
+    "ing3": {
+      "ingredientId": 8,
+      "c3": 4
+    },
+    "pokedexId": 381,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 5, 7, 8]
   },
   {
     "id": "0010403",

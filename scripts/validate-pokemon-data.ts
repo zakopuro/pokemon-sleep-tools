@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { MAINSKILLS } from '../config/mainskills.ts';
 import { POKEMONS } from '../config/pokemons.ts';
 
 const validSleepTypes = new Set(['うとうと', 'すやすや', 'ぐっすり']);
@@ -7,6 +8,25 @@ const validSpecialties = new Set(['食材', 'きのみ', 'スキル', 'オール
 const validForms = new Set(['normal', 'halloween', 'holiday', 'alolan', 'paldean']);
 const errors: string[] = [];
 const seenIds = new Set<string>();
+const seenMainSkillIds = new Set<number>();
+
+for (const mainSkill of MAINSKILLS) {
+  const label = `mainSkill ${mainSkill.id} ${mainSkill.name}`;
+
+  if (seenMainSkillIds.has(mainSkill.id)) {
+    errors.push(`${label}: duplicate main skill id`);
+  }
+  seenMainSkillIds.add(mainSkill.id);
+
+  if (mainSkill.maxlevel <= 0) {
+    errors.push(`${label}: maxlevel must be positive`);
+  }
+
+  const imagePath = resolve('public/image/mainskill', `${mainSkill.imagename}.png`);
+  if (!existsSync(imagePath)) {
+    errors.push(`${label}: missing image ${imagePath}`);
+  }
+}
 
 for (const pokemon of POKEMONS) {
   const label = `${pokemon.id} ${pokemon.name}`;
@@ -47,6 +67,10 @@ for (const pokemon of POKEMONS) {
 
   if (pokemon.berryId <= 0) {
     errors.push(`${label}: berryId must be positive`);
+  }
+
+  if (!seenMainSkillIds.has(pokemon.mainSkillId)) {
+    errors.push(`${label}: unknown mainSkillId ${pokemon.mainSkillId}`);
   }
 
   const imagePath = resolve('public/image/pokemon', `${pokemon.id}.png`);
