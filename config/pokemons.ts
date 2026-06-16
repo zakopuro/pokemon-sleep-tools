@@ -2168,6 +2168,54 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [5]
   },
   {
+    "id": "0010151",
+    "name": "ミュウ",
+    "sleepType": "すやすや",
+    "specialty": "オール",
+    "mainSkillId": 34,
+    "availableMainSkillIds": [16, 1, 4, 6, 14, 8, 9, 11, 17, 15, 13, 21],
+    "fp": 25,
+    "frequency": 2900,
+    "berryId": 11,
+    "pokedexId": 151,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "availableIngredients": {
+      "slot1": [
+        { "ingredientId": 1, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 3, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 7, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 10, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 19, "c1": 2, "c2": 0, "c3": 0 }
+      ],
+      "slot2": [
+        { "ingredientId": 0, "c1": 0, "c2": 0, "c3": 0 },
+        { "ingredientId": 1, "c1": 3, "c2": 0, "c3": 0 },
+        { "ingredientId": 3, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 7, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 10, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 5, "c2": 0, "c3": 0 },
+        { "ingredientId": 19, "c1": 3, "c2": 0, "c3": 0 }
+      ],
+      "slot3": [
+        { "ingredientId": 0, "c1": 0, "c2": 0, "c3": 0 },
+        { "ingredientId": 1, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 3, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 5, "c2": 0, "c3": 0 },
+        { "ingredientId": 7, "c1": 7, "c2": 0, "c3": 0 },
+        { "ingredientId": 10, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 7, "c2": 0, "c3": 0 },
+        { "ingredientId": 19, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 14, "c1": 2, "c2": 0, "c3": 0 }
+      ]
+    },
+    "fieldIds": []
+  },
+  {
     "id": "0010152",
     "name": "チコリータ",
     "sleepType": "うとうと",

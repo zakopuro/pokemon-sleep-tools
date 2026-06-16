@@ -1,5 +1,6 @@
 import type { PokemonSettings, PokemonSettingsStore, PokemonInstancesSettings } from '../types/pokemon-settings';
 import type { SubskillByLevel } from '../types/pokemon';
+import type { Pokemon } from '../../config/schema';
 import { SUBSKILL_LEVELS } from '../constants/pokemon';
 import { getIngredient } from './pokemon';
 
@@ -23,18 +24,24 @@ const getPokemonIngredients = (pokemon: any) => {
   ].filter(Boolean);
 };
 
+const availableIngredientSlotKeys = ['slot1', 'slot2', 'slot3'] as const;
+type ConfigurablePokemon = Pick<Pokemon, 'availableIngredients' | 'availableMainSkillIds' | 'mainSkillId'>;
+
+const getDefaultAvailableIngredients = (pokemon: ConfigurablePokemon): number[] => {
+  return availableIngredientSlotKeys.map((slotKey, index) =>
+    pokemon.availableIngredients?.[slotKey]?.[0]?.ingredientId ?? index + 1
+  );
+};
+
 // デフォルト設定を生成
 export const createDefaultSettings = (pokemon?: any): PokemonSettings => {
   // ポケモンが指定されている場合は、その所持食材をデフォルトにする
   let defaultIngredients: number[] = [];
+  const defaultMainSkillId = pokemon?.availableMainSkillIds?.[0] || pokemon?.mainSkillId || 1;
   if (pokemon) {
     // 「オール」特性ポケモンの場合
     if (pokemon.availableIngredients) {
-      defaultIngredients = [
-        pokemon.availableIngredients.slot1[0]?.ingredientId || 1,
-        pokemon.availableIngredients.slot2[0]?.ingredientId || 2,
-        pokemon.availableIngredients.slot3[0]?.ingredientId || 3
-      ];
+      defaultIngredients = getDefaultAvailableIngredients(pokemon);
     } else {
       // 通常ポケモンの場合
       const ingredientIds = getPokemonIngredients(pokemon)
@@ -52,9 +59,55 @@ export const createDefaultSettings = (pokemon?: any): PokemonSettings => {
     downParam: 'なし',
     selectedNeutralNature: null,
     managementStatus: '未設定',
+    selectedMainSkillId: defaultMainSkillId,
     mainSkillLevel: 1,
     memo: ''
   };
+};
+
+const normalizeSelectedMainSkillId = (pokemon: ConfigurablePokemon | undefined, settings: PokemonSettings): PokemonSettings => {
+  const availableMainSkillIds = pokemon?.availableMainSkillIds;
+  const normalizedMainSkillId = Array.isArray(availableMainSkillIds) && availableMainSkillIds.length > 0
+    ? (availableMainSkillIds.includes(settings.selectedMainSkillId)
+      ? settings.selectedMainSkillId
+      : availableMainSkillIds[0])
+    : (pokemon?.mainSkillId ?? settings.selectedMainSkillId);
+
+  if (settings.selectedMainSkillId === normalizedMainSkillId) {
+    return settings;
+  }
+
+  return {
+    ...settings,
+    selectedMainSkillId: normalizedMainSkillId
+  };
+};
+
+const normalizeSelectedIngredients = (pokemon: ConfigurablePokemon | undefined, settings: PokemonSettings): PokemonSettings => {
+  if (!pokemon?.availableIngredients) {
+    return settings;
+  }
+
+  const availableIngredients = pokemon.availableIngredients;
+  const selectedIngredients = settings.selectedIngredients;
+  const hasValidSelection = Array.isArray(selectedIngredients)
+    && selectedIngredients.length >= availableIngredientSlotKeys.length
+    && availableIngredientSlotKeys.every((slotKey, index) =>
+      availableIngredients[slotKey].some(option => option.ingredientId === selectedIngredients[index])
+    );
+
+  if (hasValidSelection) {
+    return settings;
+  }
+
+  return {
+    ...settings,
+    selectedIngredients: getDefaultAvailableIngredients(pokemon)
+  };
+};
+
+const normalizePokemonSettings = (pokemon: ConfigurablePokemon | undefined, settings: PokemonSettings): PokemonSettings => {
+  return normalizeSelectedMainSkillId(pokemon, normalizeSelectedIngredients(pokemon, settings));
 };
 
 // 旧形式データを新形式に移行（優先度括弧の半角化も対応）
@@ -120,10 +173,10 @@ export const loadPokemonInstanceSettings = (pokemon: any, instanceId: string = '
   const pokemonInstances = allSettings[pokemonKey];
   
   if (pokemonInstances && pokemonInstances[instanceId]) {
-    return {
+    return normalizePokemonSettings(pokemon, {
       ...createDefaultSettings(pokemon),
       ...pokemonInstances[instanceId]
-    };
+    });
   }
   
   return createDefaultSettings(pokemon);
@@ -151,7 +204,7 @@ export const savePokemonInstanceSettings = (pokemon: any, instanceId: string, se
       allSettings[pokemonKey] = {};
     }
     
-    allSettings[pokemonKey][instanceId] = settings;
+    allSettings[pokemonKey][instanceId] = normalizePokemonSettings(pokemon, settings);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(allSettings));
   } catch (error) {
     console.warn('Failed to save pokemon instance settings:', error);

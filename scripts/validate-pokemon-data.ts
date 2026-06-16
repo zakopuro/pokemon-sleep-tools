@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { INGREDIENTS } from '../config/ingredients.ts';
 import { MAINSKILLS } from '../config/mainskills.ts';
 import { POKEMONS } from '../config/pokemons.ts';
 
@@ -9,6 +10,8 @@ const validForms = new Set(['normal', 'halloween', 'holiday', 'alolan', 'paldean
 const errors: string[] = [];
 const seenIds = new Set<string>();
 const seenMainSkillIds = new Set<number>();
+const seenIngredientIds = new Set(INGREDIENTS.map(ingredient => ingredient.id));
+const blankInitialIngredientPokemonNames = new Set(['ミュウ', 'ダークライ']);
 
 for (const mainSkill of MAINSKILLS) {
   const label = `mainSkill ${mainSkill.id} ${mainSkill.name}`;
@@ -71,6 +74,48 @@ for (const pokemon of POKEMONS) {
 
   if (!seenMainSkillIds.has(pokemon.mainSkillId)) {
     errors.push(`${label}: unknown mainSkillId ${pokemon.mainSkillId}`);
+  }
+
+  if (pokemon.availableMainSkillIds) {
+    if (pokemon.availableMainSkillIds.length === 0) {
+      errors.push(`${label}: availableMainSkillIds must not be empty`);
+    }
+
+    for (const mainSkillId of pokemon.availableMainSkillIds) {
+      if (!seenMainSkillIds.has(mainSkillId)) {
+        errors.push(`${label}: unknown availableMainSkillId ${mainSkillId}`);
+      }
+    }
+  }
+
+  if (pokemon.availableIngredients) {
+    if (
+      blankInitialIngredientPokemonNames.has(pokemon.name)
+      && (pokemon.availableIngredients.slot2[0]?.ingredientId !== 0 || pokemon.availableIngredients.slot3[0]?.ingredientId !== 0)
+    ) {
+      errors.push(`${label}: slot2 and slot3 initial ingredients must be blank`);
+    }
+
+    for (const slotName of ['slot1', 'slot2', 'slot3'] as const) {
+      const slot = pokemon.availableIngredients[slotName];
+      if (!slot || slot.length === 0) {
+        errors.push(`${label}: availableIngredients.${slotName} must not be empty`);
+        continue;
+      }
+
+      for (const option of slot) {
+        if (!seenIngredientIds.has(option.ingredientId)) {
+          errors.push(`${label}: unknown ingredientId ${option.ingredientId} in availableIngredients.${slotName}`);
+        }
+
+        for (const countKey of ['c1', 'c2', 'c3'] as const) {
+          const count = option[countKey];
+          if (count !== undefined && count < 0) {
+            errors.push(`${label}: ${slotName}.${countKey} must not be negative`);
+          }
+        }
+      }
+    }
   }
 
   const imagePath = resolve('public/image/pokemon', `${pokemon.id}.png`);

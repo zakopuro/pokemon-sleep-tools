@@ -128,9 +128,9 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
     
     // 各スロットの最初の食材を初期選択
     const defaultIngredients = [
-      selectedPokemon.availableIngredients?.slot1[0]?.ingredientId || 1,
-      selectedPokemon.availableIngredients?.slot2[0]?.ingredientId || 2,
-      selectedPokemon.availableIngredients?.slot3[0]?.ingredientId || 3
+      selectedPokemon.availableIngredients?.slot1[0]?.ingredientId ?? 1,
+      selectedPokemon.availableIngredients?.slot2[0]?.ingredientId ?? 2,
+      selectedPokemon.availableIngredients?.slot3[0]?.ingredientId ?? 3
     ];
     onIngredientsChange(defaultIngredients);
   }, [selectedPokemon, skipAutoInit, isAllSpecialtyPokemon]);
@@ -196,7 +196,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
             {[0, 1, 2].map(slotIndex => {
               const slotKey = `slot${slotIndex + 1}` as keyof typeof selectedPokemon.availableIngredients;
               const slotOptions = selectedPokemon.availableIngredients![slotKey];
-              const selectedId = selectedIngredients[slotIndex] || slotOptions[0]?.ingredientId;
+              const selectedId = selectedIngredients[slotIndex] ?? slotOptions[0]?.ingredientId;
               const selectedInfo = getSelectedIngredientInfo(slotIndex, selectedId);
 
               return (

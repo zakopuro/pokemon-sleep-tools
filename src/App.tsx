@@ -40,6 +40,7 @@ function App() {
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>(initialSettings.selectedIngredients);
   const [managementStatus, setManagementStatus] = useState<string>(initialSettings.managementStatus);
   const [selectedNeutralNature, setSelectedNeutralNature] = useState<any>(initialSettings.selectedNeutralNature);
+  const [selectedMainSkillId, setSelectedMainSkillId] = useState<number>(initialSettings.selectedMainSkillId || POKEMONS[0].mainSkillId);
   const [mainSkillLevel, setMainSkillLevel] = useState<number>(initialSettings.mainSkillLevel || 1);
   const [memo, setMemo] = useState<string>(initialSettings.memo || '');
   const [isMemoOpen, setIsMemoOpen] = useState(false);
@@ -83,6 +84,7 @@ function App() {
       downParam,
       selectedNeutralNature,
       managementStatus,
+      selectedMainSkillId,
       mainSkillLevel,
       memo
     };
@@ -96,7 +98,7 @@ function App() {
     } catch (error) {
       console.warn('Backup creation failed during save:', error);
     }
-  }, [selectedPokemon, currentInstanceId, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel, memo]);
+  }, [selectedPokemon, currentInstanceId, level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, selectedMainSkillId, mainSkillLevel, memo]);
 
   // ポケモン選択時の処理
   const handlePokemonSelect = useCallback((pokemon: Pokemon, instanceId?: string) => {
@@ -115,6 +117,7 @@ function App() {
     setDownParam(newSettings.downParam);
     setSelectedNeutralNature(newSettings.selectedNeutralNature);
     setManagementStatus(newSettings.managementStatus);
+    setSelectedMainSkillId(newSettings.selectedMainSkillId || pokemon.mainSkillId);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
     setMemo(newSettings.memo || '');
     setIsMemoOpen(false);
@@ -135,6 +138,7 @@ function App() {
     setDownParam(newSettings.downParam);
     setSelectedNeutralNature(newSettings.selectedNeutralNature);
     setManagementStatus(newSettings.managementStatus);
+    setSelectedMainSkillId(newSettings.selectedMainSkillId || selectedPokemon.mainSkillId);
     setMainSkillLevel(newSettings.mainSkillLevel || 1);
     setMemo(newSettings.memo || '');
     setIsMemoOpen(false);
@@ -162,6 +166,7 @@ function App() {
           setDownParam(newSettings.downParam);
           setSelectedNeutralNature(newSettings.selectedNeutralNature);
           setManagementStatus(newSettings.managementStatus);
+          setSelectedMainSkillId(newSettings.selectedMainSkillId || selectedPokemon.mainSkillId);
           setMainSkillLevel(newSettings.mainSkillLevel || 1);
           setMemo(newSettings.memo || '');
           setIsMemoOpen(false);
@@ -233,7 +238,7 @@ function App() {
     saveCurrentSettings();
     // ポケモン状態更新をトリガー
     setRefreshTrigger(prev => prev + 1);
-  }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, mainSkillLevel, memo]);
+  }, [level, selectedIngredients, subskillByLevel, upParam, downParam, selectedNeutralNature, managementStatus, selectedMainSkillId, mainSkillLevel, memo]);
 
   // 動的なviewport高さの管理
   useEffect(() => {
@@ -468,6 +473,7 @@ function App() {
                     setDownParam(newSettings.downParam);
                     setSelectedNeutralNature(newSettings.selectedNeutralNature);
                     setManagementStatus(newSettings.managementStatus);
+                    setSelectedMainSkillId(newSettings.selectedMainSkillId || selectedPokemon.mainSkillId);
                     setMainSkillLevel(newSettings.mainSkillLevel || 1);
                     setMemo(newSettings.memo || '');
                     setIsMemoOpen(false);
@@ -525,6 +531,8 @@ function App() {
                 >
                   <MainSkillSelector
                     selectedPokemon={selectedPokemon}
+                    selectedMainSkillId={selectedMainSkillId}
+                    onMainSkillChange={setSelectedMainSkillId}
                     mainSkillLevel={mainSkillLevel}
                     onMainSkillLevelChange={setMainSkillLevel}
                   />
