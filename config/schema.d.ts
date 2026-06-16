@@ -54,6 +54,7 @@ export interface Berry {
     sleepType: 'うとうと' | 'すやすや' | 'ぐっすり'
     specialty: '食材' | 'きのみ' | 'スキル' | 'オール'
     mainSkillId: number
+    availableMainSkillIds?: number[]
     fp: number
     frequency: number
     berryId: number

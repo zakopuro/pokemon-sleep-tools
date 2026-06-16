@@ -602,6 +602,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 6, 7]
   },
   {
+    "id": "0010027",
+    "name": "サンド",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 29,
+    "fp": 5,
+    "frequency": 5300,
+    "berryId": 9,
+    "ing1": {
+      "ingredientId": 18,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 16,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 7
+    },
+    "pokedexId": 27,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010028",
+    "name": "サンドパン",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 29,
+    "fp": 12,
+    "frequency": 2800,
+    "berryId": 9,
+    "ing1": {
+      "ingredientId": 18,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 16,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 7
+    },
+    "pokedexId": 28,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
     "id": "0010035",
     "name": "ピッピ",
     "sleepType": "すやすや",
@@ -2106,6 +2166,54 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": false,
     "fieldIds": [5]
+  },
+  {
+    "id": "0010151",
+    "name": "ミュウ",
+    "sleepType": "すやすや",
+    "specialty": "オール",
+    "mainSkillId": 34,
+    "availableMainSkillIds": [16, 1, 4, 6, 14, 8, 9, 11, 17, 15, 13, 21],
+    "fp": 25,
+    "frequency": 2900,
+    "berryId": 11,
+    "pokedexId": 151,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "availableIngredients": {
+      "slot1": [
+        { "ingredientId": 1, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 3, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 7, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 10, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 2, "c2": 0, "c3": 0 },
+        { "ingredientId": 19, "c1": 2, "c2": 0, "c3": 0 }
+      ],
+      "slot2": [
+        { "ingredientId": 0, "c1": 0, "c2": 0, "c3": 0 },
+        { "ingredientId": 1, "c1": 3, "c2": 0, "c3": 0 },
+        { "ingredientId": 3, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 7, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 10, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 5, "c2": 0, "c3": 0 },
+        { "ingredientId": 19, "c1": 3, "c2": 0, "c3": 0 }
+      ],
+      "slot3": [
+        { "ingredientId": 0, "c1": 0, "c2": 0, "c3": 0 },
+        { "ingredientId": 1, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 3, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 6, "c1": 5, "c2": 0, "c3": 0 },
+        { "ingredientId": 7, "c1": 7, "c2": 0, "c3": 0 },
+        { "ingredientId": 10, "c1": 6, "c2": 0, "c3": 0 },
+        { "ingredientId": 15, "c1": 7, "c2": 0, "c3": 0 },
+        { "ingredientId": 19, "c1": 4, "c2": 0, "c3": 0 },
+        { "ingredientId": 14, "c1": 2, "c2": 0, "c3": 0 }
+      ]
+    },
+    "fieldIds": []
   },
   {
     "id": "0010152",
@@ -4514,7 +4622,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "isSeedPokemon": false,
     "fieldIds": [8]
   },
-    {
+  {
     "id": "0010373",
     "name": "ボーマンダ",
     "sleepType": "うとうと",
@@ -4543,6 +4651,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": false,
     "fieldIds": [8]
+  },
+  {
+    "id": "0010380",
+    "name": "ラティアス",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 32,
+    "fp": 30,
+    "frequency": 2800,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 12,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 18,
+      "c2": 1,
+      "c3": 2
+    },
+    "ing3": {
+      "ingredientId": 2,
+      "c3": 2
+    },
+    "pokedexId": 380,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 5, 7, 8]
+  },
+  {
+    "id": "0010381",
+    "name": "ラティオス",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 33,
+    "fp": 30,
+    "frequency": 2800,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 12,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 3,
+      "c2": 2,
+      "c3": 3
+    },
+    "ing3": {
+      "ingredientId": 8,
+      "c3": 4
+    },
+    "pokedexId": 381,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 5, 7, 8]
   },
   {
     "id": "0010403",
@@ -5454,6 +5622,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 2, 4, 7, 8]
   },
   {
+    "id": "0010696",
+    "name": "チゴラス",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 15,
+    "fp": 5,
+    "frequency": 5200,
+    "berryId": 13,
+    "ing1": {
+      "ingredientId": 7,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 5,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 3
+    },
+    "pokedexId": 696,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010697",
+    "name": "ガチゴラス",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 15,
+    "fp": 20,
+    "frequency": 2800,
+    "berryId": 13,
+    "ing1": {
+      "ingredientId": 7,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 5,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 3
+    },
+    "pokedexId": 697,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
     "id": "0010700",
     "name": "ニンフィア",
     "sleepType": "すやすや",
@@ -5573,6 +5801,67 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": false,
     "fieldIds": [1, 6, 7, 8]
+  },
+
+  {
+    "id": "0010714",
+    "name": "オンバット",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 4,
+    "fp": 5,
+    "frequency": 5100,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 5,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c1": 1,
+      "c2": 2
+    },
+    "ing3": {
+      "ingredientId": 7,
+      "c1": 3
+    },
+    "pokedexId": 714,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010715",
+    "name": "オンバーン",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 4,
+    "fp": 12,
+    "frequency": 2700,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 5,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c1": 1,
+      "c2": 2
+    },
+    "ing3": {
+      "ingredientId": 7,
+      "c1": 3
+    },
+    "pokedexId": 715,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
   },
 
   {
@@ -5876,6 +6165,36 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": true,
     "fieldIds": [1, 6, 7]
+  },
+  {
+    "id": "0010780",
+    "name": "ジジーロン",
+    "sleepType": "うとうと",
+    "specialty": "食材",
+    "mainSkillId": 17,
+    "fp": 16,
+    "frequency": 3500,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 15,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 19,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 7,
+      "c1": 7
+    },
+    "pokedexId": 780,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 5, 7, 8]
   },
   {
     "id": "0010845",
