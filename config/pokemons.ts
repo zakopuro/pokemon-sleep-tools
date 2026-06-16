@@ -602,6 +602,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 6, 7]
   },
   {
+    "id": "0010027",
+    "name": "サンド",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 29,
+    "fp": 5,
+    "frequency": 5300,
+    "berryId": 9,
+    "ing1": {
+      "ingredientId": 18,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 16,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 7
+    },
+    "pokedexId": 27,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010028",
+    "name": "サンドパン",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 29,
+    "fp": 12,
+    "frequency": 2800,
+    "berryId": 9,
+    "ing1": {
+      "ingredientId": 18,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 16,
+      "c1": 4,
+      "c2": 6
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 7
+    },
+    "pokedexId": 28,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
     "id": "0010035",
     "name": "ピッピ",
     "sleepType": "すやすや",
@@ -5454,6 +5514,66 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 2, 4, 7, 8]
   },
   {
+    "id": "0010696",
+    "name": "チゴラス",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 15,
+    "fp": 5,
+    "frequency": 5200,
+    "berryId": 13,
+    "ing1": {
+      "ingredientId": 7,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 5,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 3
+    },
+    "pokedexId": 696,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010697",
+    "name": "ガチゴラス",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 15,
+    "fp": 20,
+    "frequency": 2800,
+    "berryId": 13,
+    "ing1": {
+      "ingredientId": 7,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 5,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 3
+    },
+    "pokedexId": 697,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
     "id": "0010700",
     "name": "ニンフィア",
     "sleepType": "すやすや",
@@ -5937,6 +6057,36 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": true,
     "fieldIds": [1, 6, 7]
+  },
+  {
+    "id": "0010780",
+    "name": "ジジーロン",
+    "sleepType": "うとうと",
+    "specialty": "食材",
+    "mainSkillId": 17,
+    "fp": 16,
+    "frequency": 3500,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 15,
+      "c1": 2,
+      "c2": 5,
+      "c3": 7
+    },
+    "ing2": {
+      "ingredientId": 19,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 7,
+      "c1": 7
+    },
+    "pokedexId": 780,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 5, 7, 8]
   },
   {
     "id": "0010845",
