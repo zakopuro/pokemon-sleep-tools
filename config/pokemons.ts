@@ -5576,6 +5576,67 @@ export const POKEMONS: readonly Pokemon[] = [
   },
 
   {
+    "id": "0010714",
+    "name": "オンバット",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 4,
+    "fp": 5,
+    "frequency": 5100,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 5,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c1": 1,
+      "c2": 2
+    },
+    "ing3": {
+      "ingredientId": 7,
+      "c1": 3
+    },
+    "pokedexId": 714,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010715",
+    "name": "オンバーン",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 4,
+    "fp": 12,
+    "frequency": 2700,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 5,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c1": 1,
+      "c2": 2
+    },
+    "ing3": {
+      "ingredientId": 7,
+      "c1": 3
+    },
+    "pokedexId": 715,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
+  },
+
+  {
     "id": "0010736",
     "name": "アゴジムシ",
     "sleepType": "うとうと",
