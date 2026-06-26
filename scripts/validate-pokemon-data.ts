@@ -4,6 +4,14 @@ import { FIELDS } from '../config/fields.ts';
 import { INGREDIENTS } from '../config/ingredients.ts';
 import { MAINSKILLS } from '../config/mainskills.ts';
 import { POKEMONS } from '../config/pokemons.ts';
+import {
+  calculateRequiredCandy,
+  DREAM_SHARDS_PER_CANDY,
+  getExpToNextLevel,
+  isValidLevelRange,
+  MAX_CANDY_LEVEL,
+  TOTAL_EXP_TO_LEVEL,
+} from '../src/utils/candy-calculator.ts';
 import { getPokemonIngredientPatterns } from '../src/utils/ingredient-patterns.ts';
 
 const validSleepTypes = new Set(['うとうと', 'すやすや', 'ぐっすり']);
@@ -32,6 +40,12 @@ const expectedDrifloonLineIngredientPatterns = [
   '16:1|10:3|4:4',
 ];
 const blankInitialIngredientPokemonNames = new Set(['ミュウ', 'ダークライ']);
+
+function expectEqual<T>(actual: T, expected: T, label: string) {
+  if (actual !== expected) {
+    errors.push(`${label}: expected ${expected}, got ${actual}`);
+  }
+}
 
 for (const mainSkill of MAINSKILLS) {
   const label = `mainSkill ${mainSkill.id} ${mainSkill.name}`;
@@ -182,6 +196,39 @@ for (const pokedexId of [425, 426]) {
     }
   }
 }
+
+expectEqual(MAX_CANDY_LEVEL, 70, 'candy calculator max level');
+expectEqual(TOTAL_EXP_TO_LEVEL[MAX_CANDY_LEVEL], 82162, 'Lv70 total exp');
+expectEqual(DREAM_SHARDS_PER_CANDY[MAX_CANDY_LEVEL], 1272, 'Lv70 dream shards per candy');
+expectEqual(getExpToNextLevel(65, 600), 3095, 'Lv65 to Lv66 exp');
+expectEqual(getExpToNextLevel(69, 600), 3255, 'Lv69 to Lv70 exp');
+expectEqual(getExpToNextLevel(70, 600), 0, 'Lv70 next level exp');
+expectEqual(isValidLevelRange(65, 70), true, 'Lv65 to Lv70 range');
+expectEqual(isValidLevelRange(70, 70), false, 'Lv70 to Lv70 range');
+
+const level10To30Candy = calculateRequiredCandy({
+  currentLevel: 10,
+  targetLevel: 30,
+  expType: 600,
+  nature: 'normal',
+  eventType: 'none',
+  remainingExp: getExpToNextLevel(10, 600),
+});
+expectEqual(level10To30Candy.requiredCandies, 273, 'Lv10 to Lv30 required candies');
+expectEqual(level10To30Candy.requiredDreamShards, 22688, 'Lv10 to Lv30 dream shards');
+expectEqual(level10To30Candy.requiredExp, 10432, 'Lv10 to Lv30 required exp');
+
+const level65To70Candy = calculateRequiredCandy({
+  currentLevel: 65,
+  targetLevel: 70,
+  expType: 600,
+  nature: 'normal',
+  eventType: 'none',
+  remainingExp: getExpToNextLevel(65, 600),
+});
+expectEqual(level65To70Candy.requiredCandies, 632, 'Lv65 to Lv70 required candies');
+expectEqual(level65To70Candy.requiredDreamShards, 691983, 'Lv65 to Lv70 dream shards');
+expectEqual(level65To70Candy.requiredExp, 15799, 'Lv65 to Lv70 required exp');
 
 if (errors.length > 0) {
   throw new Error(`Pokemon data validation failed:\n${errors.join('\n')}`);

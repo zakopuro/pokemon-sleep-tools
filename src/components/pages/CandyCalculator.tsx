@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { calculateRequiredCandy, isValidLevelRange, getExpToNextLevel, type CandyCalculationInput, type CandyCalculationResult } from '../../utils/candy-calculator';
+import { calculateRequiredCandy, isValidLevelRange, getExpToNextLevel, MAX_CANDY_LEVEL, type CandyCalculationInput, type CandyCalculationResult } from '../../utils/candy-calculator';
 
 // AdSenseの型定義
 declare global {
   interface Window {
-    adsbygoogle: any[];
+    adsbygoogle: unknown[];
   }
 }
 
 const CandyCalculator: React.FC = () => {
   const [input, setInput] = useState<CandyCalculationInput>({
     currentLevel: 10,
-    targetLevel: 50,
+    targetLevel: MAX_CANDY_LEVEL,
     expType: 600,
     nature: 'normal',
     eventType: 'none',
@@ -56,7 +56,10 @@ const CandyCalculator: React.FC = () => {
     setResult(calculationResult);
   }, [input]);
 
-  const handleInputChange = (field: keyof CandyCalculationInput, value: any) => {
+  const handleInputChange = <K extends keyof CandyCalculationInput>(
+    field: K,
+    value: CandyCalculationInput[K],
+  ) => {
     setInput(prev => {
       const newInput = {
         ...prev,
@@ -65,9 +68,11 @@ const CandyCalculator: React.FC = () => {
       
       // レベルまたは経験値タイプが変更された場合、remainingExpを最大値にリセット
       if (field === 'currentLevel' || field === 'expType') {
+        const nextCurrentLevel = field === 'currentLevel' ? Number(value) : newInput.currentLevel;
+        const nextExpType = field === 'expType' ? value as CandyCalculationInput['expType'] : newInput.expType;
         const maxExp = getExpToNextLevel(
-          field === 'currentLevel' ? value : newInput.currentLevel,
-          field === 'expType' ? value : newInput.expType
+          nextCurrentLevel,
+          nextExpType
         );
         newInput.remainingExp = maxExp;
       }
@@ -158,7 +163,7 @@ const CandyCalculator: React.FC = () => {
                     {input.currentLevel}
                   </div>
                   <button
-                    onClick={() => handleInputChange('currentLevel', Math.min(65, input.currentLevel + 1))}
+                    onClick={() => handleInputChange('currentLevel', Math.min(MAX_CANDY_LEVEL, input.currentLevel + 1))}
                     style={{
                       width: 24,
                       height: 24,
@@ -180,7 +185,7 @@ const CandyCalculator: React.FC = () => {
                 <input
                   type="range"
                   min="1"
-                  max="65"
+                  max={MAX_CANDY_LEVEL}
                   value={input.currentLevel}
                   onChange={(e) => handleInputChange('currentLevel', parseInt(e.target.value))}
                   style={{
@@ -326,7 +331,7 @@ const CandyCalculator: React.FC = () => {
                     {input.targetLevel}
                   </div>
                   <button
-                    onClick={() => handleInputChange('targetLevel', Math.min(65, input.targetLevel + 1))}
+                    onClick={() => handleInputChange('targetLevel', Math.min(MAX_CANDY_LEVEL, input.targetLevel + 1))}
                     style={{
                       width: 24,
                       height: 24,
@@ -348,7 +353,7 @@ const CandyCalculator: React.FC = () => {
                 <input
                   type="range"
                   min="1"
-                  max="65"
+                  max={MAX_CANDY_LEVEL}
                   value={input.targetLevel}
                   onChange={(e) => handleInputChange('targetLevel', parseInt(e.target.value))}
                   style={{
@@ -445,7 +450,7 @@ const CandyCalculator: React.FC = () => {
                 ].map(expType => (
                   <button
                     key={expType.value}
-                    onClick={() => handleInputChange('expType', expType.value)}
+                    onClick={() => handleInputChange('expType', expType.value as CandyCalculationInput['expType'])}
                     style={{
                       flex: 1,
                       padding: '8px 4px',
@@ -484,7 +489,7 @@ const CandyCalculator: React.FC = () => {
                 ].map(option => (
                   <button
                     key={option.value}
-                    onClick={() => handleInputChange('nature', option.value)}
+                    onClick={() => handleInputChange('nature', option.value as CandyCalculationInput['nature'])}
                     style={{
                       width: 48,
                       height: 36,
@@ -526,7 +531,7 @@ const CandyCalculator: React.FC = () => {
                 ].map(option => (
                   <button
                     key={option.value}
-                    onClick={() => handleInputChange('eventType', option.value)}
+                    onClick={() => handleInputChange('eventType', option.value as CandyCalculationInput['eventType'])}
                     style={{
                       flex: 1,
                       padding: '8px 6px',
