@@ -1,32 +1,34 @@
 import type { PokemonSettings, PokemonSettingsStore, PokemonInstancesSettings } from '../types/pokemon-settings';
 import type { SubskillByLevel } from '../types/pokemon';
-import type { Pokemon } from '../../config/schema';
-import { SUBSKILL_LEVELS } from '../constants/pokemon';
+import type { Ingredient, Pokemon } from '../../config/schema';
+import { normalizeSubskillByLevel, SUBSKILL_LEVELS } from '../constants/pokemon';
 import { getIngredient } from './pokemon';
 
 const STORAGE_KEY = 'pokemon-sleep-settings';
+type UnknownRecord = Record<string, unknown>;
+
+const isRecord = (value: unknown): value is UnknownRecord => {
+  return typeof value === 'object' && value !== null;
+};
 const MAX_INSTANCES = 10; // 1ポケモンあたりの最大個体数
 
 // ポケモンの一意キーを生成（ID + 名前の組み合わせ）
-export const getPokemonKey = (pokemon: any): string => {
-  if (typeof pokemon === 'object' && pokemon.id && pokemon.name) {
-    return `${pokemon.id}-${pokemon.name}`;
+export const getPokemonKey = (pokemon: Pokemon | string): string => {
+  if (typeof pokemon === 'string') {
+    return pokemon;
   }
-  return String(pokemon);
+  return `${pokemon.id}-${pokemon.name}`;
 };
 
 // ポケモンの所持食材を取得（重複排除）
-const getPokemonIngredients = (pokemon: any) => {
-  return [
-    pokemon.ing1 ? getIngredient(pokemon.ing1.ingredientId) : null,
-    pokemon.ing2 ? getIngredient(pokemon.ing2.ingredientId) : null,
-    pokemon.ing3 ? getIngredient(pokemon.ing3.ingredientId) : null,
-  ].filter(Boolean);
+const getPokemonIngredients = (pokemon: Pokemon): Ingredient[] => {
+  return [pokemon.ing1, pokemon.ing2, pokemon.ing3]
+    .map(slot => slot ? getIngredient(slot.ingredientId) : undefined)
+    .filter((ingredient): ingredient is Ingredient => ingredient !== undefined);
 };
 
 const availableIngredientSlotKeys = ['slot1', 'slot2', 'slot3'] as const;
 type ConfigurablePokemon = Pick<Pokemon, 'availableIngredients' | 'availableMainSkillIds' | 'mainSkillId'>;
-
 const getDefaultAvailableIngredients = (pokemon: ConfigurablePokemon): number[] => {
   return availableIngredientSlotKeys.map((slotKey, index) =>
     pokemon.availableIngredients?.[slotKey]?.[0]?.ingredientId ?? index + 1
@@ -34,7 +36,7 @@ const getDefaultAvailableIngredients = (pokemon: ConfigurablePokemon): number[] 
 };
 
 // デフォルト設定を生成
-export const createDefaultSettings = (pokemon?: any): PokemonSettings => {
+export const createDefaultSettings = (pokemon?: Pokemon): PokemonSettings => {
   // ポケモンが指定されている場合は、その所持食材をデフォルトにする
   let defaultIngredients: number[] = [];
   const defaultMainSkillId = pokemon?.availableMainSkillIds?.[0] || pokemon?.mainSkillId || 1;
@@ -106,17 +108,28 @@ const normalizeSelectedIngredients = (pokemon: ConfigurablePokemon | undefined, 
   };
 };
 
+const normalizeSubskillSettings = (settings: PokemonSettings): PokemonSettings => {
+  return {
+    ...settings,
+    subskillByLevel: normalizeSubskillByLevel(settings.subskillByLevel)
+  };
+};
+
 const normalizePokemonSettings = (pokemon: ConfigurablePokemon | undefined, settings: PokemonSettings): PokemonSettings => {
-  return normalizeSelectedMainSkillId(pokemon, normalizeSelectedIngredients(pokemon, settings));
+  return normalizeSubskillSettings(normalizeSelectedMainSkillId(pokemon, normalizeSelectedIngredients(pokemon, settings)));
 };
 
 // 旧形式データを新形式に移行（優先度括弧の半角化も対応）
-const migrateOldData = (data: any): PokemonSettingsStore => {
+const migrateOldData = (data: unknown): PokemonSettingsStore => {
   const migrated: PokemonSettingsStore = {};
+
+  if (!isRecord(data)) {
+    return migrated;
+  }
   
   for (const [pokemonKey, settings] of Object.entries(data)) {
     // 既に新形式の場合はそのまま
-    if (typeof settings === 'object' && settings !== null && !('level' in settings)) {
+    if (isRecord(settings) && !('level' in settings)) {
       const instancesSettings = settings as PokemonInstancesSettings;
       const migratedInstances: PokemonInstancesSettings = {};
       
@@ -167,7 +180,7 @@ export const loadAllPokemonSettings = (): PokemonSettingsStore => {
 };
 
 // 特定のポケモンの特定個体の設定を読み込み
-export const loadPokemonInstanceSettings = (pokemon: any, instanceId: string = '1'): PokemonSettings => {
+export const loadPokemonInstanceSettings = (pokemon: Pokemon, instanceId: string = '1'): PokemonSettings => {
   const allSettings = loadAllPokemonSettings();
   const pokemonKey = getPokemonKey(pokemon);
   const pokemonInstances = allSettings[pokemonKey];
@@ -183,19 +196,19 @@ export const loadPokemonInstanceSettings = (pokemon: any, instanceId: string = '
 };
 
 // 特定のポケモンの設定を読み込み（互換性のため、個体1番を返す）
-export const loadPokemonSettings = (pokemon: any): PokemonSettings => {
+export const loadPokemonSettings = (pokemon: Pokemon): PokemonSettings => {
   return loadPokemonInstanceSettings(pokemon, '1');
 };
 
 // 特定のポケモンの全個体設定を読み込み
-export const loadAllInstancesForPokemon = (pokemon: any): PokemonInstancesSettings => {
+export const loadAllInstancesForPokemon = (pokemon: Pokemon): PokemonInstancesSettings => {
   const allSettings = loadAllPokemonSettings();
   const pokemonKey = getPokemonKey(pokemon);
   return allSettings[pokemonKey] || {};
 };
 
 // 特定のポケモンの特定個体の設定を保存
-export const savePokemonInstanceSettings = (pokemon: any, instanceId: string, settings: PokemonSettings): void => {
+export const savePokemonInstanceSettings = (pokemon: Pokemon, instanceId: string, settings: PokemonSettings): void => {
   try {
     const allSettings = loadAllPokemonSettings();
     const pokemonKey = getPokemonKey(pokemon);
@@ -212,12 +225,12 @@ export const savePokemonInstanceSettings = (pokemon: any, instanceId: string, se
 };
 
 // 特定のポケモンの設定を保存（互換性のため、個体1番に保存）
-export const savePokemonSettings = (pokemon: any, settings: PokemonSettings): void => {
+export const savePokemonSettings = (pokemon: Pokemon, settings: PokemonSettings): void => {
   savePokemonInstanceSettings(pokemon, '1', settings);
 };
 
 // 特定のポケモンの特定個体の設定を削除
-export const deletePokemonInstanceSettings = (pokemon: any, instanceId: string): void => {
+export const deletePokemonInstanceSettings = (pokemon: Pokemon, instanceId: string): void => {
   try {
     const allSettings = loadAllPokemonSettings();
     const pokemonKey = getPokemonKey(pokemon);
@@ -238,7 +251,7 @@ export const deletePokemonInstanceSettings = (pokemon: any, instanceId: string):
 };
 
 // 特定のポケモンの設定を削除（互換性のため、全個体を削除）
-export const deletePokemonSettings = (pokemon: any): void => {
+export const deletePokemonSettings = (pokemon: Pokemon): void => {
   try {
     const allSettings = loadAllPokemonSettings();
     const pokemonKey = getPokemonKey(pokemon);
@@ -250,7 +263,7 @@ export const deletePokemonSettings = (pokemon: any): void => {
 };
 
 // 利用可能な個体番号を取得（1-10で未使用の番号）
-export const getAvailableInstanceIds = (pokemon: any): string[] => {
+export const getAvailableInstanceIds = (pokemon: Pokemon): string[] => {
   const instances = loadAllInstancesForPokemon(pokemon);
   const usedIds = Object.keys(instances);
   const availableIds: string[] = [];
@@ -265,13 +278,13 @@ export const getAvailableInstanceIds = (pokemon: any): string[] => {
 };
 
 // 次の利用可能な個体番号を取得
-export const getNextAvailableInstanceId = (pokemon: any): string | null => {
+export const getNextAvailableInstanceId = (pokemon: Pokemon): string | null => {
   const available = getAvailableInstanceIds(pokemon);
   return available.length > 0 ? available[0] : null;
 };
 
 // 特定のポケモンの使用中個体番号一覧を取得
-export const getUsedInstanceIds = (pokemon: any): string[] => {
+export const getUsedInstanceIds = (pokemon: Pokemon): string[] => {
   const instances = loadAllInstancesForPokemon(pokemon);
   return Object.keys(instances).sort((a, b) => parseInt(a) - parseInt(b));
 };

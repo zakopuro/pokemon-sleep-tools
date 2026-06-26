@@ -12,6 +12,7 @@ import {
   MAX_CANDY_LEVEL,
   TOTAL_EXP_TO_LEVEL,
 } from '../src/utils/candy-calculator.ts';
+import { normalizeSubskillByLevel, SUBSKILL_LEVELS } from '../src/constants/pokemon.ts';
 import { getPokemonIngredientPatterns } from '../src/utils/ingredient-patterns.ts';
 
 const validSleepTypes = new Set(['うとうと', 'すやすや', 'ぐっすり']);
@@ -229,6 +230,20 @@ const level65To70Candy = calculateRequiredCandy({
 expectEqual(level65To70Candy.requiredCandies, 632, 'Lv65 to Lv70 required candies');
 expectEqual(level65To70Candy.requiredDreamShards, 691983, 'Lv65 to Lv70 dream shards');
 expectEqual(level65To70Candy.requiredExp, 15799, 'Lv65 to Lv70 required exp');
+
+expectEqual(JSON.stringify(SUBSKILL_LEVELS), JSON.stringify([10, 25, 50, 70, 80]), 'subskill unlock levels');
+
+const migratedSubskills = normalizeSubskillByLevel({
+  10: 1,
+  25: 2,
+  50: 3,
+  75: 4,
+  100: 5,
+});
+expectEqual(migratedSubskills[70], 4, 'legacy Lv75 subskill migrates to Lv70');
+expectEqual(migratedSubskills[80], 5, 'legacy Lv100 subskill migrates to Lv80');
+expectEqual(Object.prototype.hasOwnProperty.call(migratedSubskills, 75), false, 'legacy Lv75 subskill key is removed');
+expectEqual(Object.prototype.hasOwnProperty.call(migratedSubskills, 100), false, 'legacy Lv100 subskill key is removed');
 
 if (errors.length > 0) {
   throw new Error(`Pokemon data validation failed:\n${errors.join('\n')}`);
