@@ -4980,7 +4980,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 4, 7, 8]
+    "fieldIds": [1, 4, 7, 8]
   },
   {
     "id": "0010442",

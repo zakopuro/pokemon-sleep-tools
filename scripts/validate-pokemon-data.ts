@@ -25,7 +25,7 @@ const seenIngredientIds = new Set(INGREDIENTS.map(ingredient => ingredient.id));
 const seenFieldIds = new Set(FIELDS.map(field => field.id));
 const fieldPokemonCounts = new Map(FIELDS.map(field => [field.id, 0]));
 const expectedUpdatedFieldPokemonCounts = new Map<number, number>([
-  [2, 50],
+  [2, 49],
   [3, 54],
   [4, 45],
   [5, 53],
@@ -196,6 +196,13 @@ for (const pokedexId of [425, 426]) {
       errors.push(`${pokemon.id} ${pokemon.name}: missing ingredient pattern ${expectedPattern}`);
     }
   }
+}
+
+const happiny = POKEMONS.find(item => item.pokedexId === 440);
+if (!happiny) {
+  errors.push('pokedex 440: missing Happiny');
+} else if (happiny.fieldIds.includes(2)) {
+  errors.push(`${happiny.id} ${happiny.name}: must not appear in Cyan Beach`);
 }
 
 expectEqual(MAX_CANDY_LEVEL, 70, 'candy calculator max level');
