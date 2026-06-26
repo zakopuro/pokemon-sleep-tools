@@ -1,5 +1,6 @@
 // サブスキルレベル定数
 export const SUBSKILL_LEVELS = [10, 25, 50, 70, 80];
+export const POKEMON_LEVEL_PRESETS = [10, 25, 30, 50, 60, 70];
 
 type SubskillByLevelRecord = Record<number, number | null>;
 

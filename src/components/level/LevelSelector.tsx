@@ -1,4 +1,5 @@
 import React from 'react';
+import { POKEMON_LEVEL_PRESETS } from '../../constants/pokemon';
 
 interface LevelSelectorProps {
   level: number;
@@ -90,7 +91,7 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({ level, onLevelChange, onM
             />
           </div>
           <div style={{ display: 'flex', gap: 2, flexWrap: 'nowrap', justifyContent: 'space-between', marginTop: 2 }}>
-            {[10, 25, 30, 50, 60, 75].map(preset => (
+            {POKEMON_LEVEL_PRESETS.map(preset => (
               <button
                 key={preset}
                 onClick={() => handleLevelPreset(preset)}

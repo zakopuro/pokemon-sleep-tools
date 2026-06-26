@@ -12,7 +12,7 @@ import {
   MAX_CANDY_LEVEL,
   TOTAL_EXP_TO_LEVEL,
 } from '../src/utils/candy-calculator.ts';
-import { normalizeSubskillByLevel, SUBSKILL_LEVELS } from '../src/constants/pokemon.ts';
+import { normalizeSubskillByLevel, POKEMON_LEVEL_PRESETS, SUBSKILL_LEVELS } from '../src/constants/pokemon.ts';
 import { getPokemonIngredientPatterns } from '../src/utils/ingredient-patterns.ts';
 
 const validSleepTypes = new Set(['うとうと', 'すやすや', 'ぐっすり']);
@@ -232,6 +232,7 @@ expectEqual(level65To70Candy.requiredDreamShards, 691983, 'Lv65 to Lv70 dream sh
 expectEqual(level65To70Candy.requiredExp, 15799, 'Lv65 to Lv70 required exp');
 
 expectEqual(JSON.stringify(SUBSKILL_LEVELS), JSON.stringify([10, 25, 50, 70, 80]), 'subskill unlock levels');
+expectEqual(JSON.stringify(POKEMON_LEVEL_PRESETS), JSON.stringify([10, 25, 30, 50, 60, 70]), 'pokemon level presets');
 
 const migratedSubskills = normalizeSubskillByLevel({
   10: 1,
