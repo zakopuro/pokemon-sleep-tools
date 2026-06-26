@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { FIELDS } from '../config/fields.ts';
 import { INGREDIENTS } from '../config/ingredients.ts';
 import { MAINSKILLS } from '../config/mainskills.ts';
 import { POKEMONS } from '../config/pokemons.ts';
@@ -11,6 +12,16 @@ const errors: string[] = [];
 const seenIds = new Set<string>();
 const seenMainSkillIds = new Set<number>();
 const seenIngredientIds = new Set(INGREDIENTS.map(ingredient => ingredient.id));
+const seenFieldIds = new Set(FIELDS.map(field => field.id));
+const fieldPokemonCounts = new Map(FIELDS.map(field => [field.id, 0]));
+const expectedUpdatedFieldPokemonCounts = new Map<number, number>([
+  [2, 50],
+  [3, 54],
+  [4, 45],
+  [5, 53],
+  [6, 47],
+  [8, 45],
+]);
 const blankInitialIngredientPokemonNames = new Set(['ミュウ', 'ダークライ']);
 
 for (const mainSkill of MAINSKILLS) {
@@ -76,6 +87,20 @@ for (const pokemon of POKEMONS) {
     errors.push(`${label}: unknown mainSkillId ${pokemon.mainSkillId}`);
   }
 
+  const pokemonFieldIds = new Set<number>();
+  for (const fieldId of pokemon.fieldIds) {
+    if (!seenFieldIds.has(fieldId)) {
+      errors.push(`${label}: unknown fieldId ${fieldId}`);
+    }
+
+    if (pokemonFieldIds.has(fieldId)) {
+      errors.push(`${label}: duplicate fieldId ${fieldId}`);
+    }
+
+    pokemonFieldIds.add(fieldId);
+    fieldPokemonCounts.set(fieldId, (fieldPokemonCounts.get(fieldId) ?? 0) + 1);
+  }
+
   if (pokemon.availableMainSkillIds) {
     if (pokemon.availableMainSkillIds.length === 0) {
       errors.push(`${label}: availableMainSkillIds must not be empty`);
@@ -121,6 +146,13 @@ for (const pokemon of POKEMONS) {
   const imagePath = resolve('public/image/pokemon', `${pokemon.id}.png`);
   if (!existsSync(imagePath)) {
     errors.push(`${label}: missing image ${imagePath}`);
+  }
+}
+
+for (const [fieldId, expectedCount] of expectedUpdatedFieldPokemonCounts) {
+  const actualCount = fieldPokemonCounts.get(fieldId) ?? 0;
+  if (actualCount !== expectedCount) {
+    errors.push(`field ${fieldId}: expected ${expectedCount} Pokemon, got ${actualCount}`);
   }
 }
 
