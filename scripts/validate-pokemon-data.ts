@@ -4,6 +4,7 @@ import { FIELDS } from '../config/fields.ts';
 import { INGREDIENTS } from '../config/ingredients.ts';
 import { MAINSKILLS } from '../config/mainskills.ts';
 import { POKEMONS } from '../config/pokemons.ts';
+import { getPokemonIngredientPatterns } from '../src/utils/ingredient-patterns.ts';
 
 const validSleepTypes = new Set(['うとうと', 'すやすや', 'ぐっすり']);
 const validSpecialties = new Set(['食材', 'きのみ', 'スキル', 'オール']);
@@ -22,6 +23,14 @@ const expectedUpdatedFieldPokemonCounts = new Map<number, number>([
   [6, 47],
   [8, 45],
 ]);
+const expectedDrifloonLineIngredientPatterns = [
+  '16:1|16:2|16:4',
+  '16:1|16:2|10:4',
+  '16:1|16:2|4:4',
+  '16:1|10:3|16:4',
+  '16:1|10:3|10:4',
+  '16:1|10:3|4:4',
+];
 const blankInitialIngredientPokemonNames = new Set(['ミュウ', 'ダークライ']);
 
 for (const mainSkill of MAINSKILLS) {
@@ -153,6 +162,24 @@ for (const [fieldId, expectedCount] of expectedUpdatedFieldPokemonCounts) {
   const actualCount = fieldPokemonCounts.get(fieldId) ?? 0;
   if (actualCount !== expectedCount) {
     errors.push(`field ${fieldId}: expected ${expectedCount} Pokemon, got ${actualCount}`);
+  }
+}
+
+for (const pokedexId of [425, 426]) {
+  const pokemon = POKEMONS.find(item => item.pokedexId === pokedexId);
+  if (!pokemon) {
+    errors.push(`pokedex ${pokedexId}: missing Drifloon line Pokemon`);
+    continue;
+  }
+
+  const actualPatterns = getPokemonIngredientPatterns(pokemon).map(pattern =>
+    pattern.map(item => `${item.id}:${item.num}`).join('|')
+  );
+
+  for (const expectedPattern of expectedDrifloonLineIngredientPatterns) {
+    if (!actualPatterns.includes(expectedPattern)) {
+      errors.push(`${pokemon.id} ${pokemon.name}: missing ingredient pattern ${expectedPattern}`);
+    }
   }
 }
 

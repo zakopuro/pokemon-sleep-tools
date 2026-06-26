@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { INGREDIENTS } from '../../config';
 import { getIngredient, getIngredientImageName } from '../../utils/pokemon';
+import { getPokemonIngredientPatterns } from '../../utils/ingredient-patterns';
 import type { Pokemon } from '../../../config/schema';
 
 interface IngredientSelectorProps {
@@ -32,67 +33,6 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
     ].filter(Boolean);
   };
 
-  // ポケモンごとの食材構成パターンを返すヘルパー
-  const getPokemonIngredientPatterns = (pokemon: Pokemon) => {
-    const patterns = [];
-
-    // AAA パターン (ing1のみ3つ) - 1枠目、2枠目、3枠目の個数
-    if (pokemon.ing1) {
-      patterns.push([
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c1 || 2 },  // 1枠目
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c2 || 2 },  // 2枠目
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c3 || 2 }   // 3枠目
-      ]);
-    }
-
-    // AAB パターン (ing1 2つ + ing2 1つ)
-    if (pokemon.ing1 && pokemon.ing2) {
-      patterns.push([
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c1 || 2 },  // ing1の1枠目
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c2 || 2 },  // ing1の2枠目
-        { id: pokemon.ing2.ingredientId, num: pokemon.ing2.c2 || 2 }   // ing2の2枠目
-      ]);
-    }
-
-    // AAC パターン (ing1 2つ + ing3 1つ)
-    if (pokemon.ing1 && pokemon.ing3) {
-      patterns.push([
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c1 || 2 },  // ing1の1枠目
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c2 || 2 },  // ing1の2枠目
-        { id: pokemon.ing3.ingredientId, num: pokemon.ing3.c1 || 2 }   // ing3の1枠目
-      ]);
-    }
-
-    // ABA パターン (ing1 1つ + ing2 1つ + ing1 1つ)
-    if (pokemon.ing1 && pokemon.ing2) {
-      patterns.push([
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c1 || 2 },  // ing1の1枠目
-        { id: pokemon.ing2.ingredientId, num: pokemon.ing2.c1 || 2 },  // ing2の1枠目
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c2 || 2 }   // ing1の2枠目
-      ]);
-    }
-
-    // ABB パターン (ing1 1つ + ing2 2つ)
-    if (pokemon.ing1 && pokemon.ing2) {
-      patterns.push([
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c1 || 2 },  // ing1の1枠目
-        { id: pokemon.ing2.ingredientId, num: pokemon.ing2.c1 || 2 },  // ing2の1枠目
-        { id: pokemon.ing2.ingredientId, num: pokemon.ing2.c2 || 2 }   // ing2の2枠目
-      ]);
-    }
-
-    // ABC パターン (ing1 1つ + ing2 1つ + ing3 1つ)
-    if (pokemon.ing1 && pokemon.ing2 && pokemon.ing3) {
-      patterns.push([
-        { id: pokemon.ing1.ingredientId, num: pokemon.ing1.c1 || 2 },  // ing1の1枠目
-        { id: pokemon.ing2.ingredientId, num: pokemon.ing2.c1 || 2 },  // ing2の1枠目
-        { id: pokemon.ing3.ingredientId, num: pokemon.ing3.c1 || 2 }   // ing3の1枠目
-      ]);
-    }
-
-    return patterns;
-  };
-
   // 初期化: ポケモンが変更された時はポケモンの所持食材を重複なしで表示（保存された設定がない場合のみ）
   useEffect(() => {
     if (skipAutoInit) return;
@@ -102,7 +42,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
       .filter((id): id is number => id !== undefined);
     const uniqueIngredients = [...new Set(ingredientIds)];
     onIngredientsChange(uniqueIngredients);
-  }, [selectedPokemon, skipAutoInit]);
+  }, [selectedPokemon, skipAutoInit, onIngredientsChange]);
 
   // 外側クリックでドロップダウンを閉じる
   useEffect(() => {
@@ -133,7 +73,7 @@ const IngredientSelector: React.FC<IngredientSelectorProps> = ({
       selectedPokemon.availableIngredients?.slot3[0]?.ingredientId ?? 3
     ];
     onIngredientsChange(defaultIngredients);
-  }, [selectedPokemon, skipAutoInit, isAllSpecialtyPokemon]);
+  }, [selectedPokemon, skipAutoInit, isAllSpecialtyPokemon, onIngredientsChange]);
 
   // 「オール」特性ポケモン用のスロット別選択UI
   const renderAllSpecialtySelector = () => {
