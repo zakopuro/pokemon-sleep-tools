@@ -4713,6 +4713,276 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": [1, 5, 7, 8]
   },
   {
+    "id": "0010387",
+    "name": "ナエトル",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 11,
+    "fp": 5,
+    "frequency": 4500,
+    "berryId": 5,
+    "ing1": {
+      "ingredientId": 2,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 4,
+      "c2": 3,
+      "c3": 5
+    },
+    "ing3": {
+      "ingredientId": 11,
+      "c3": 6
+    },
+    "pokedexId": 387,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 5, 7]
+  },
+  {
+    "id": "0010388",
+    "name": "ハヤシガメ",
+    "sleepType": "うとうと",
+    "specialty": "スキル",
+    "mainSkillId": 11,
+    "fp": 12,
+    "frequency": 3700,
+    "berryId": 5,
+    "ing1": {
+      "ingredientId": 2,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 4,
+      "c2": 3,
+      "c3": 5
+    },
+    "ing3": {
+      "ingredientId": 11,
+      "c3": 6
+    },
+    "pokedexId": 388,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 5, 7]
+  },
+  {
+    "id": "0010389",
+    "name": "ドダイトス",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 11,
+    "fp": 20,
+    "frequency": 2900,
+    "berryId": 9,
+    "ing1": {
+      "ingredientId": 2,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 4,
+      "c2": 3,
+      "c3": 5
+    },
+    "ing3": {
+      "ingredientId": 11,
+      "c3": 6
+    },
+    "pokedexId": 389,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 5, 7]
+  },
+  {
+    "id": "0010390",
+    "name": "ヒコザル",
+    "sleepType": "すやすや",
+    "specialty": "スキル",
+    "mainSkillId": 21,
+    "fp": 5,
+    "frequency": 4100,
+    "berryId": 2,
+    "ing1": {
+      "ingredientId": 6,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 11,
+      "c2": 3,
+      "c3": 4
+    },
+    "ing3": {
+      "ingredientId": 17,
+      "c3": 3
+    },
+    "pokedexId": 390,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010391",
+    "name": "モウカザル",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 21,
+    "fp": 12,
+    "frequency": 3100,
+    "berryId": 4,
+    "ing1": {
+      "ingredientId": 6,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 11,
+      "c2": 3,
+      "c3": 4
+    },
+    "ing3": {
+      "ingredientId": 17,
+      "c3": 3
+    },
+    "pokedexId": 391,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010392",
+    "name": "ゴウカザル",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 21,
+    "fp": 20,
+    "frequency": 2400,
+    "berryId": 4,
+    "ing1": {
+      "ingredientId": 6,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 11,
+      "c2": 3,
+      "c3": 4
+    },
+    "ing3": {
+      "ingredientId": 17,
+      "c3": 3
+    },
+    "pokedexId": 392,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 3, 7, 8]
+  },
+  {
+    "id": "0010393",
+    "name": "ポッチャマ",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 13,
+    "fp": 5,
+    "frequency": 4500,
+    "berryId": 3,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c2": 1,
+      "c3": 2
+    },
+    "ing3": {
+      "ingredientId": 9,
+      "c3": 4
+    },
+    "pokedexId": 393,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 2, 4, 7]
+  },
+  {
+    "id": "0010394",
+    "name": "ポッタイシ",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 13,
+    "fp": 12,
+    "frequency": 3700,
+    "berryId": 3,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c2": 1,
+      "c3": 2
+    },
+    "ing3": {
+      "ingredientId": 9,
+      "c3": 4
+    },
+    "pokedexId": 394,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 4, 7]
+  },
+  {
+    "id": "0010395",
+    "name": "エンペルト",
+    "sleepType": "ぐっすり",
+    "specialty": "きのみ",
+    "mainSkillId": 13,
+    "fp": 20,
+    "frequency": 3200,
+    "berryId": 15,
+    "ing1": {
+      "ingredientId": 3,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 1,
+      "c2": 1,
+      "c3": 2
+    },
+    "ing3": {
+      "ingredientId": 9,
+      "c3": 4
+    },
+    "pokedexId": 395,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 4, 7]
+  },
+  {
     "id": "0010403",
     "name": "コリンク",
     "sleepType": "すやすや",

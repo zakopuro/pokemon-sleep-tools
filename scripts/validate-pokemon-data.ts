@@ -25,12 +25,12 @@ const seenIngredientIds = new Set(INGREDIENTS.map(ingredient => ingredient.id));
 const seenFieldIds = new Set(FIELDS.map(field => field.id));
 const fieldPokemonCounts = new Map(FIELDS.map(field => [field.id, 0]));
 const expectedUpdatedFieldPokemonCounts = new Map<number, number>([
-  [2, 49],
-  [3, 54],
-  [4, 45],
-  [5, 53],
+  [2, 52],
+  [3, 60],
+  [4, 48],
+  [5, 56],
   [6, 47],
-  [8, 45],
+  [8, 48],
 ]);
 const expectedDrifloonLineIngredientPatterns = [
   '16:1|16:2|16:4',
@@ -41,6 +41,125 @@ const expectedDrifloonLineIngredientPatterns = [
   '16:1|10:3|4:4',
 ];
 const blankInitialIngredientPokemonNames = new Set(['ミュウ', 'ダークライ']);
+const expectedSinnohStarters = [
+  {
+    id: '0010387',
+    pokedexId: 387,
+    name: 'ナエトル',
+    sleepType: 'うとうと',
+    specialty: 'スキル',
+    mainSkillId: 11,
+    fp: 5,
+    frequency: 4500,
+    berryId: 5,
+    fieldIds: [1, 3, 5, 7],
+    ingredientPattern: ['2:1/2/4', '4:-/3/5', '11:-/-/6'],
+  },
+  {
+    id: '0010388',
+    pokedexId: 388,
+    name: 'ハヤシガメ',
+    sleepType: 'うとうと',
+    specialty: 'スキル',
+    mainSkillId: 11,
+    fp: 12,
+    frequency: 3700,
+    berryId: 5,
+    fieldIds: [1, 3, 5, 7],
+    ingredientPattern: ['2:1/2/4', '4:-/3/5', '11:-/-/6'],
+  },
+  {
+    id: '0010389',
+    pokedexId: 389,
+    name: 'ドダイトス',
+    sleepType: 'ぐっすり',
+    specialty: 'スキル',
+    mainSkillId: 11,
+    fp: 20,
+    frequency: 2900,
+    berryId: 9,
+    fieldIds: [1, 3, 5, 7],
+    ingredientPattern: ['2:1/2/4', '4:-/3/5', '11:-/-/6'],
+  },
+  {
+    id: '0010390',
+    pokedexId: 390,
+    name: 'ヒコザル',
+    sleepType: 'すやすや',
+    specialty: 'スキル',
+    mainSkillId: 21,
+    fp: 5,
+    frequency: 4100,
+    berryId: 2,
+    fieldIds: [1, 3, 7, 8],
+    ingredientPattern: ['6:1/2/4', '11:-/3/4', '17:-/-/3'],
+  },
+  {
+    id: '0010391',
+    pokedexId: 391,
+    name: 'モウカザル',
+    sleepType: 'ぐっすり',
+    specialty: 'スキル',
+    mainSkillId: 21,
+    fp: 12,
+    frequency: 3100,
+    berryId: 4,
+    fieldIds: [1, 3, 7, 8],
+    ingredientPattern: ['6:1/2/4', '11:-/3/4', '17:-/-/3'],
+  },
+  {
+    id: '0010392',
+    pokedexId: 392,
+    name: 'ゴウカザル',
+    sleepType: 'ぐっすり',
+    specialty: 'スキル',
+    mainSkillId: 21,
+    fp: 20,
+    frequency: 2400,
+    berryId: 4,
+    fieldIds: [1, 3, 7, 8],
+    ingredientPattern: ['6:1/2/4', '11:-/3/4', '17:-/-/3'],
+  },
+  {
+    id: '0010393',
+    pokedexId: 393,
+    name: 'ポッチャマ',
+    sleepType: 'ぐっすり',
+    specialty: 'きのみ',
+    mainSkillId: 13,
+    fp: 5,
+    frequency: 4500,
+    berryId: 3,
+    fieldIds: [1, 2, 4, 7],
+    ingredientPattern: ['3:1/2/4', '1:-/1/2', '9:-/-/4'],
+  },
+  {
+    id: '0010394',
+    pokedexId: 394,
+    name: 'ポッタイシ',
+    sleepType: 'ぐっすり',
+    specialty: 'きのみ',
+    mainSkillId: 13,
+    fp: 12,
+    frequency: 3700,
+    berryId: 3,
+    fieldIds: [1, 2, 4, 7],
+    ingredientPattern: ['3:1/2/4', '1:-/1/2', '9:-/-/4'],
+  },
+  {
+    id: '0010395',
+    pokedexId: 395,
+    name: 'エンペルト',
+    sleepType: 'ぐっすり',
+    specialty: 'きのみ',
+    mainSkillId: 13,
+    fp: 20,
+    frequency: 3200,
+    berryId: 15,
+    fieldIds: [1, 2, 4, 7],
+    ingredientPattern: ['3:1/2/4', '1:-/1/2', '9:-/-/4'],
+  },
+] as const;
 
 function expectEqual<T>(actual: T, expected: T, label: string) {
   if (actual !== expected) {
@@ -203,6 +322,39 @@ if (!happiny) {
   errors.push('pokedex 440: missing Happiny');
 } else if (happiny.fieldIds.includes(2)) {
   errors.push(`${happiny.id} ${happiny.name}: must not appear in Cyan Beach`);
+}
+
+for (const expected of expectedSinnohStarters) {
+  const pokemon = POKEMONS.find(item => item.pokedexId === expected.pokedexId);
+  if (!pokemon) {
+    errors.push(`pokedex ${expected.pokedexId}: missing ${expected.name}`);
+    continue;
+  }
+
+  const ingredientPattern = [pokemon.ing1, pokemon.ing2, pokemon.ing3].map(ingredient =>
+    ingredient
+      ? `${ingredient.ingredientId}:${ingredient.c1 ?? '-'}/${ingredient.c2 ?? '-'}/${ingredient.c3 ?? '-'}`
+      : '-'
+  );
+  const actual = {
+    id: pokemon.id,
+    pokedexId: pokemon.pokedexId,
+    name: pokemon.name,
+    sleepType: pokemon.sleepType,
+    specialty: pokemon.specialty,
+    mainSkillId: pokemon.mainSkillId,
+    fp: pokemon.fp,
+    frequency: pokemon.frequency,
+    berryId: pokemon.berryId,
+    fieldIds: pokemon.fieldIds,
+    ingredientPattern,
+  };
+
+  expectEqual(
+    JSON.stringify(actual),
+    JSON.stringify(expected),
+    `pokedex ${expected.pokedexId} ${expected.name} data`
+  );
 }
 
 expectEqual(MAX_CANDY_LEVEL, 70, 'candy calculator max level');
