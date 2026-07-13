@@ -40,6 +40,30 @@ const expectedDrifloonLineIngredientPatterns = [
   '16:1|10:3|10:4',
   '16:1|10:3|4:4',
 ];
+const expectedTurtwigLineIngredientPatterns = [
+  '2:1|2:2|2:4',
+  '2:1|2:2|4:5',
+  '2:1|2:2|11:6',
+  '2:1|4:3|2:4',
+  '2:1|4:3|4:5',
+  '2:1|4:3|11:6',
+];
+const expectedChimcharLineIngredientPatterns = [
+  '6:1|6:2|6:4',
+  '6:1|6:2|11:4',
+  '6:1|6:2|17:3',
+  '6:1|11:3|6:4',
+  '6:1|11:3|11:4',
+  '6:1|11:3|17:3',
+];
+const expectedPiplupLineIngredientPatterns = [
+  '3:1|3:2|3:4',
+  '3:1|3:2|1:2',
+  '3:1|3:2|9:4',
+  '3:1|1:1|3:4',
+  '3:1|1:1|1:2',
+  '3:1|1:1|9:4',
+];
 const blankInitialIngredientPokemonNames = new Set(['ミュウ', 'ダークライ']);
 const expectedSinnohStarters = [
   {
@@ -53,7 +77,8 @@ const expectedSinnohStarters = [
     frequency: 4500,
     berryId: 5,
     fieldIds: [1, 3, 5, 7],
-    ingredientPattern: ['2:1/2/4', '4:-/3/5', '11:-/-/6'],
+    ingredientPattern: ['2:1/2/4', '4:3/5/-', '11:6/-/-'],
+    selectionPatterns: expectedTurtwigLineIngredientPatterns,
   },
   {
     id: '0010388',
@@ -66,7 +91,8 @@ const expectedSinnohStarters = [
     frequency: 3700,
     berryId: 5,
     fieldIds: [1, 3, 5, 7],
-    ingredientPattern: ['2:1/2/4', '4:-/3/5', '11:-/-/6'],
+    ingredientPattern: ['2:1/2/4', '4:3/5/-', '11:6/-/-'],
+    selectionPatterns: expectedTurtwigLineIngredientPatterns,
   },
   {
     id: '0010389',
@@ -79,7 +105,8 @@ const expectedSinnohStarters = [
     frequency: 2900,
     berryId: 9,
     fieldIds: [1, 3, 5, 7],
-    ingredientPattern: ['2:1/2/4', '4:-/3/5', '11:-/-/6'],
+    ingredientPattern: ['2:1/2/4', '4:3/5/-', '11:6/-/-'],
+    selectionPatterns: expectedTurtwigLineIngredientPatterns,
   },
   {
     id: '0010390',
@@ -92,7 +119,8 @@ const expectedSinnohStarters = [
     frequency: 4100,
     berryId: 2,
     fieldIds: [1, 3, 7, 8],
-    ingredientPattern: ['6:1/2/4', '11:-/3/4', '17:-/-/3'],
+    ingredientPattern: ['6:1/2/4', '11:3/4/-', '17:3/-/-'],
+    selectionPatterns: expectedChimcharLineIngredientPatterns,
   },
   {
     id: '0010391',
@@ -105,7 +133,8 @@ const expectedSinnohStarters = [
     frequency: 3100,
     berryId: 4,
     fieldIds: [1, 3, 7, 8],
-    ingredientPattern: ['6:1/2/4', '11:-/3/4', '17:-/-/3'],
+    ingredientPattern: ['6:1/2/4', '11:3/4/-', '17:3/-/-'],
+    selectionPatterns: expectedChimcharLineIngredientPatterns,
   },
   {
     id: '0010392',
@@ -118,7 +147,8 @@ const expectedSinnohStarters = [
     frequency: 2400,
     berryId: 4,
     fieldIds: [1, 3, 7, 8],
-    ingredientPattern: ['6:1/2/4', '11:-/3/4', '17:-/-/3'],
+    ingredientPattern: ['6:1/2/4', '11:3/4/-', '17:3/-/-'],
+    selectionPatterns: expectedChimcharLineIngredientPatterns,
   },
   {
     id: '0010393',
@@ -131,7 +161,8 @@ const expectedSinnohStarters = [
     frequency: 4500,
     berryId: 3,
     fieldIds: [1, 2, 4, 7],
-    ingredientPattern: ['3:1/2/4', '1:-/1/2', '9:-/-/4'],
+    ingredientPattern: ['3:1/2/4', '1:1/2/-', '9:4/-/-'],
+    selectionPatterns: expectedPiplupLineIngredientPatterns,
   },
   {
     id: '0010394',
@@ -144,7 +175,8 @@ const expectedSinnohStarters = [
     frequency: 3700,
     berryId: 3,
     fieldIds: [1, 2, 4, 7],
-    ingredientPattern: ['3:1/2/4', '1:-/1/2', '9:-/-/4'],
+    ingredientPattern: ['3:1/2/4', '1:1/2/-', '9:4/-/-'],
+    selectionPatterns: expectedPiplupLineIngredientPatterns,
   },
   {
     id: '0010395',
@@ -157,7 +189,8 @@ const expectedSinnohStarters = [
     frequency: 3200,
     berryId: 15,
     fieldIds: [1, 2, 4, 7],
-    ingredientPattern: ['3:1/2/4', '1:-/1/2', '9:-/-/4'],
+    ingredientPattern: ['3:1/2/4', '1:1/2/-', '9:4/-/-'],
+    selectionPatterns: expectedPiplupLineIngredientPatterns,
   },
 ] as const;
 
@@ -348,6 +381,9 @@ for (const expected of expectedSinnohStarters) {
     berryId: pokemon.berryId,
     fieldIds: pokemon.fieldIds,
     ingredientPattern,
+    selectionPatterns: getPokemonIngredientPatterns(pokemon).map(pattern =>
+      pattern.map(item => `${item.id}:${item.num}`).join('|')
+    ),
   };
 
   expectEqual(

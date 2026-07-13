@@ -4729,12 +4729,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 4,
-      "c2": 3,
-      "c3": 5
+      "c1": 3,
+      "c2": 5
     },
     "ing3": {
       "ingredientId": 11,
-      "c3": 6
+      "c1": 6
     },
     "pokedexId": 387,
     "form": "normal",
@@ -4759,12 +4759,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 4,
-      "c2": 3,
-      "c3": 5
+      "c1": 3,
+      "c2": 5
     },
     "ing3": {
       "ingredientId": 11,
-      "c3": 6
+      "c1": 6
     },
     "pokedexId": 388,
     "form": "normal",
@@ -4789,12 +4789,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 4,
-      "c2": 3,
-      "c3": 5
+      "c1": 3,
+      "c2": 5
     },
     "ing3": {
       "ingredientId": 11,
-      "c3": 6
+      "c1": 6
     },
     "pokedexId": 389,
     "form": "normal",
@@ -4819,12 +4819,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 11,
-      "c2": 3,
-      "c3": 4
+      "c1": 3,
+      "c2": 4
     },
     "ing3": {
       "ingredientId": 17,
-      "c3": 3
+      "c1": 3
     },
     "pokedexId": 390,
     "form": "normal",
@@ -4849,12 +4849,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 11,
-      "c2": 3,
-      "c3": 4
+      "c1": 3,
+      "c2": 4
     },
     "ing3": {
       "ingredientId": 17,
-      "c3": 3
+      "c1": 3
     },
     "pokedexId": 391,
     "form": "normal",
@@ -4879,12 +4879,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 11,
-      "c2": 3,
-      "c3": 4
+      "c1": 3,
+      "c2": 4
     },
     "ing3": {
       "ingredientId": 17,
-      "c3": 3
+      "c1": 3
     },
     "pokedexId": 392,
     "form": "normal",
@@ -4909,12 +4909,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 1,
-      "c2": 1,
-      "c3": 2
+      "c1": 1,
+      "c2": 2
     },
     "ing3": {
       "ingredientId": 9,
-      "c3": 4
+      "c1": 4
     },
     "pokedexId": 393,
     "form": "normal",
@@ -4939,12 +4939,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 1,
-      "c2": 1,
-      "c3": 2
+      "c1": 1,
+      "c2": 2
     },
     "ing3": {
       "ingredientId": 9,
-      "c3": 4
+      "c1": 4
     },
     "pokedexId": 394,
     "form": "normal",
@@ -4969,12 +4969,12 @@ export const POKEMONS: readonly Pokemon[] = [
     },
     "ing2": {
       "ingredientId": 1,
-      "c2": 1,
-      "c3": 2
+      "c1": 1,
+      "c2": 2
     },
     "ing3": {
       "ingredientId": 9,
-      "c3": 4
+      "c1": 4
     },
     "pokedexId": 395,
     "form": "normal",
