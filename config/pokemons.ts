@@ -4840,7 +4840,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "mainSkillId": 21,
     "fp": 12,
     "frequency": 3100,
-    "berryId": 4,
+    "berryId": 7,
     "ing1": {
       "ingredientId": 6,
       "c1": 1,
@@ -4870,7 +4870,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "mainSkillId": 21,
     "fp": 20,
     "frequency": 2400,
-    "berryId": 4,
+    "berryId": 7,
     "ing1": {
       "ingredientId": 6,
       "c1": 1,
@@ -4960,7 +4960,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "mainSkillId": 13,
     "fp": 20,
     "frequency": 3200,
-    "berryId": 15,
+    "berryId": 17,
     "ing1": {
       "ingredientId": 3,
       "c1": 1,
