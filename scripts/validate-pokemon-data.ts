@@ -14,10 +14,11 @@ import {
 } from '../src/utils/candy-calculator.ts';
 import { normalizeSubskillByLevel, POKEMON_LEVEL_PRESETS, SUBSKILL_LEVELS } from '../src/constants/pokemon.ts';
 import { getPokemonIngredientPatterns } from '../src/utils/ingredient-patterns.ts';
+import { detectFormFromName, generatePokemonId } from '../src/utils/pokemon-id.ts';
 
 const validSleepTypes = new Set(['うとうと', 'すやすや', 'ぐっすり']);
 const validSpecialties = new Set(['食材', 'きのみ', 'スキル', 'オール']);
-const validForms = new Set(['normal', 'halloween', 'holiday', 'alolan', 'paldean']);
+const validForms = new Set(['normal', 'halloween', 'holiday', 'alolan', 'paldean', 'captain']);
 const errors: string[] = [];
 const seenIds = new Set<string>();
 const seenMainSkillIds = new Set<number>();
@@ -25,13 +26,20 @@ const seenIngredientIds = new Set(INGREDIENTS.map(ingredient => ingredient.id));
 const seenFieldIds = new Set(FIELDS.map(field => field.id));
 const fieldPokemonCounts = new Map(FIELDS.map(field => [field.id, 0]));
 const expectedUpdatedFieldPokemonCounts = new Map<number, number>([
-  [2, 52],
+  [2, 56],
   [3, 60],
   [4, 48],
-  [5, 56],
-  [6, 47],
+  [5, 57],
+  [6, 50],
   [8, 48],
+  [9, 54],
 ]);
+const expectedCyanExPokedexIds = [
+  7, 8, 9, 35, 36, 39, 40, 54, 55, 83, 113, 127, 132, 133, 147, 148, 149,
+  158, 159, 160, 173, 174, 213, 214, 242, 245, 252, 253, 254, 258, 259, 260,
+  393, 394, 395, 440, 453, 454, 468, 627, 628, 700, 701, 736, 737, 738, 742,
+  743, 764, 780, 845, 957, 958, 959,
+];
 const expectedDrifloonLineIngredientPatterns = [
   '16:1|16:2|16:4',
   '16:1|16:2|10:4',
@@ -160,7 +168,7 @@ const expectedSinnohStarters = [
     fp: 5,
     frequency: 4500,
     berryId: 3,
-    fieldIds: [1, 2, 4, 7],
+    fieldIds: [1, 2, 4, 7, 9],
     ingredientPattern: ['3:1/2/4', '1:1/2/-', '9:4/-/-'],
     selectionPatterns: expectedPiplupLineIngredientPatterns,
   },
@@ -174,7 +182,7 @@ const expectedSinnohStarters = [
     fp: 12,
     frequency: 3700,
     berryId: 3,
-    fieldIds: [1, 2, 4, 7],
+    fieldIds: [1, 2, 4, 7, 9],
     ingredientPattern: ['3:1/2/4', '1:1/2/-', '9:4/-/-'],
     selectionPatterns: expectedPiplupLineIngredientPatterns,
   },
@@ -188,9 +196,92 @@ const expectedSinnohStarters = [
     fp: 20,
     frequency: 3200,
     berryId: 17,
-    fieldIds: [1, 2, 4, 7],
+    fieldIds: [1, 2, 4, 7, 9],
     ingredientPattern: ['3:1/2/4', '1:1/2/-', '9:4/-/-'],
     selectionPatterns: expectedPiplupLineIngredientPatterns,
+  },
+] as const;
+
+const expectedNewPokemon = [
+  {
+    id: '0060025',
+    pokedexId: 25,
+    name: 'ピカチュウ(キャプテン)',
+    form: 'captain',
+    sleepType: 'すやすや',
+    specialty: 'きのみ',
+    mainSkillId: 14,
+    fp: 7,
+    frequency: 2500,
+    berryId: 4,
+    isFinalEvolution: true,
+    isSeedPokemon: false,
+    fieldIds: [1],
+    ingredientPattern: ['5:1/2/4', '11:2/3/-', '3:3/-/-'],
+  },
+  {
+    id: '0010701',
+    pokedexId: 701,
+    name: 'ルチャブル',
+    form: 'normal',
+    sleepType: 'ぐっすり',
+    specialty: 'スキル',
+    mainSkillId: 29,
+    fp: 16,
+    frequency: 2400,
+    berryId: 10,
+    isFinalEvolution: true,
+    isSeedPokemon: true,
+    fieldIds: [1, 2, 5, 7, 9],
+    ingredientPattern: ['6:1/2/4', '11:3/4/-', '7:5/-/-'],
+  },
+  {
+    id: '0010957',
+    pokedexId: 957,
+    name: 'カヌチャン',
+    form: 'normal',
+    sleepType: 'すやすや',
+    specialty: 'きのみ',
+    mainSkillId: 4,
+    fp: 5,
+    frequency: 4500,
+    berryId: 18,
+    isFinalEvolution: false,
+    isSeedPokemon: true,
+    fieldIds: [1, 2, 6, 7, 9],
+    ingredientPattern: ['12:1/2/4', '13:2/3/-', '4:3/-/-'],
+  },
+  {
+    id: '0010958',
+    pokedexId: 958,
+    name: 'ナカヌチャン',
+    form: 'normal',
+    sleepType: 'すやすや',
+    specialty: 'きのみ',
+    mainSkillId: 4,
+    fp: 12,
+    frequency: 3300,
+    berryId: 18,
+    isFinalEvolution: false,
+    isSeedPokemon: false,
+    fieldIds: [1, 2, 6, 7, 9],
+    ingredientPattern: ['12:1/2/4', '13:2/3/-', '4:3/-/-'],
+  },
+  {
+    id: '0010959',
+    pokedexId: 959,
+    name: 'デカヌチャン',
+    form: 'normal',
+    sleepType: 'すやすや',
+    specialty: 'きのみ',
+    mainSkillId: 4,
+    fp: 20,
+    frequency: 2400,
+    berryId: 18,
+    isFinalEvolution: true,
+    isSeedPokemon: false,
+    fieldIds: [1, 2, 6, 7, 9],
+    ingredientPattern: ['12:1/2/4', '13:2/3/-', '4:3/-/-'],
   },
 ] as const;
 
@@ -332,6 +423,25 @@ for (const [fieldId, expectedCount] of expectedUpdatedFieldPokemonCounts) {
   }
 }
 
+const cyanEx = FIELDS.find(field => field.id === 9);
+if (!cyanEx) {
+  errors.push('field 9: missing Cyan Beach EX');
+} else {
+  expectEqual(cyanEx.name, 'シアンの砂浜EX', 'field 9 name');
+  expectEqual(cyanEx.abbreviation, 'シアンEX', 'field 9 abbreviation');
+  expectEqual(JSON.stringify(cyanEx.berries), JSON.stringify([3, 18, 10]), 'field 9 main berry candidates');
+}
+
+const cyanExPokedexIds = POKEMONS
+  .filter(pokemon => pokemon.fieldIds.includes(9))
+  .map(pokemon => pokemon.pokedexId)
+  .sort((a, b) => a - b);
+expectEqual(
+  JSON.stringify(cyanExPokedexIds),
+  JSON.stringify(expectedCyanExPokedexIds),
+  'Cyan Beach EX Pokemon membership'
+);
+
 for (const pokedexId of [425, 426]) {
   const pokemon = POKEMONS.find(item => item.pokedexId === pokedexId);
   if (!pokemon) {
@@ -392,6 +502,49 @@ for (const expected of expectedSinnohStarters) {
     `pokedex ${expected.pokedexId} ${expected.name} data`
   );
 }
+
+for (const expected of expectedNewPokemon) {
+  const pokemon = POKEMONS.find(item => item.id === expected.id);
+  if (!pokemon) {
+    errors.push(`${expected.id}: missing ${expected.name}`);
+    continue;
+  }
+
+  const ingredientPattern = [pokemon.ing1, pokemon.ing2, pokemon.ing3].map(ingredient =>
+    ingredient
+      ? `${ingredient.ingredientId}:${ingredient.c1 ?? '-'}/${ingredient.c2 ?? '-'}/${ingredient.c3 ?? '-'}`
+      : '-'
+  );
+  const actual = {
+    id: pokemon.id,
+    pokedexId: pokemon.pokedexId,
+    name: pokemon.name,
+    form: pokemon.form,
+    sleepType: pokemon.sleepType,
+    specialty: pokemon.specialty,
+    mainSkillId: pokemon.mainSkillId,
+    fp: pokemon.fp,
+    frequency: pokemon.frequency,
+    berryId: pokemon.berryId,
+    isFinalEvolution: pokemon.isFinalEvolution,
+    isSeedPokemon: pokemon.isSeedPokemon,
+    fieldIds: pokemon.fieldIds,
+    ingredientPattern,
+  };
+
+  expectEqual(
+    JSON.stringify(actual),
+    JSON.stringify(expected),
+    `${expected.id} ${expected.name} data`
+  );
+}
+
+expectEqual(POKEMONS.length, 240, 'Pokemon count after August 2026 additions');
+expectEqual(
+  generatePokemonId(25, detectFormFromName('ピカチュウ(キャプテン)')),
+  '0060025',
+  'Captain Pikachu id generation'
+);
 
 expectEqual(MAX_CANDY_LEVEL, 70, 'candy calculator max level');
 expectEqual(TOTAL_EXP_TO_LEVEL[MAX_CANDY_LEVEL], 82162, 'Lv70 total exp');

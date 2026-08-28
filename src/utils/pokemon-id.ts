@@ -10,6 +10,7 @@ export const getFormBaseNumber = (form: string): string => {
     case 'holiday': return '003';
     case 'alolan': return '004';
     case 'paldean': return '005';
+    case 'captain': return '006';
     default: return '001';
   }
 };
@@ -39,6 +40,7 @@ export const detectFormFromName = (name: string): string => {
   if (name.includes('(ホリデー)')) return 'holiday';
   if (name.includes('(アローラ)')) return 'alolan';
   if (name.includes('(パルデア)')) return 'paldean';
+  if (name.includes('(キャプテン)')) return 'captain';
   return 'normal';
 };
 

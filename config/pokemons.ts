@@ -209,7 +209,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010008",
@@ -239,7 +239,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010009",
@@ -269,7 +269,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010010",
@@ -572,6 +572,36 @@ export const POKEMONS: readonly Pokemon[] = [
     "fieldIds": []
   },
   {
+    "id": "0060025",
+    "name": "ピカチュウ(キャプテン)",
+    "sleepType": "すやすや",
+    "specialty": "きのみ",
+    "mainSkillId": 14,
+    "fp": 7,
+    "frequency": 2500,
+    "berryId": 4,
+    "ing1": {
+      "ingredientId": 5,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 11,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 3,
+      "c1": 3
+    },
+    "pokedexId": 25,
+    "form": "captain",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1]
+  },
+  {
     "id": "0010026",
     "name": "ライチュウ",
     "sleepType": "すやすや",
@@ -689,7 +719,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8]
+    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   {
     "id": "0010036",
@@ -719,7 +749,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8]
+    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   {
     "id": "0010037",
@@ -869,7 +899,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2]
+    "fieldIds": [1, 2, 9]
   },
   {
     "id": "0010040",
@@ -899,7 +929,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2]
+    "fieldIds": [1, 2, 9]
   },
   {
     "id": "0010050",
@@ -1041,7 +1071,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2]
+    "fieldIds": [1, 2, 9]
   },
   {
     "id": "0010055",
@@ -1071,7 +1101,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [2]
+    "fieldIds": [2, 9]
   },
   {
     "id": "0010056",
@@ -1513,7 +1543,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 6, 7]
+    "fieldIds": [1, 2, 6, 7, 9]
   },
   {
     "id": "0010084",
@@ -1775,7 +1805,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 4, 7, 8]
+    "fieldIds": [1, 4, 7, 8, 9]
   },
   {
     "id": "0010115",
@@ -1865,7 +1895,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7, 8]
+    "fieldIds": [1, 2, 7, 8, 9]
   },
   {
     "id": "0010132",
@@ -1895,7 +1925,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8]
+    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   {
     "id": "0010133",
@@ -1925,7 +1955,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7, 8]
+    "fieldIds": [1, 2, 7, 8, 9]
   },
   {
     "id": "0030133",
@@ -2105,7 +2135,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [5]
+    "fieldIds": [5, 9]
   },
   {
     "id": "0010148",
@@ -2135,7 +2165,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [5]
+    "fieldIds": [5, 9]
   },
   {
     "id": "0010149",
@@ -2165,7 +2195,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [5]
+    "fieldIds": [5, 9]
   },
   {
     "id": "0010151",
@@ -2419,7 +2449,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010159",
@@ -2445,7 +2475,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010160",
@@ -2471,7 +2501,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010172",
@@ -2531,7 +2561,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8]
+    "fieldIds": [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   {
     "id": "0010174",
@@ -2561,7 +2591,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2]
+    "fieldIds": [1, 2, 9]
   },
   {
     "id": "0010175",
@@ -3089,7 +3119,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 3, 7]
+    "fieldIds": [1, 2, 3, 7, 9]
   },
   {
     "id": "0010214",
@@ -3119,7 +3149,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7, 8]
+    "fieldIds": [1, 2, 7, 8, 9]
   },
   {
     "id": "0010215",
@@ -3269,7 +3299,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 4, 7, 8]
+    "fieldIds": [1, 4, 7, 8, 9]
   },
   {
     "id": "0010243",
@@ -3359,7 +3389,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 5, 7]
+    "fieldIds": [1, 2, 5, 7, 9]
   },
   {
     "id": "0010246",
@@ -3479,7 +3509,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 5, 7]
+    "fieldIds": [1, 2, 5, 7, 9]
   },
   {
     "id": "0010253",
@@ -3509,7 +3539,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 5, 7]
+    "fieldIds": [1, 2, 5, 7, 9]
   },
   {
     "id": "0010254",
@@ -3539,7 +3569,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 5, 7]
+    "fieldIds": [1, 2, 5, 7, 9]
   },
   {
     "id": "0010255",
@@ -3659,7 +3689,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 3, 7]
+    "fieldIds": [1, 3, 7, 9]
   },
   {
     "id": "0010259",
@@ -3689,7 +3719,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 3, 7]
+    "fieldIds": [1, 3, 7, 9]
   },
   {
     "id": "0010260",
@@ -3719,7 +3749,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 3, 7]
+    "fieldIds": [1, 3, 7, 9]
   },
   {
     "id": "0010280",
@@ -4920,7 +4950,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 4, 7]
+    "fieldIds": [1, 2, 4, 7, 9]
   },
   {
     "id": "0010394",
@@ -4950,7 +4980,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 4, 7]
+    "fieldIds": [1, 2, 4, 7, 9]
   },
   {
     "id": "0010395",
@@ -4980,7 +5010,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 4, 7]
+    "fieldIds": [1, 2, 4, 7, 9]
   },
   {
     "id": "0010403",
@@ -5250,7 +5280,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 4, 7, 8]
+    "fieldIds": [1, 4, 7, 8, 9]
   },
   {
     "id": "0010442",
@@ -5366,7 +5396,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2]
+    "fieldIds": [1, 2, 9]
   },
   {
     "id": "0010454",
@@ -5392,7 +5422,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2]
+    "fieldIds": [1, 2, 9]
   },
   {
     "id": "0010459",
@@ -5538,7 +5568,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1]
+    "fieldIds": [1, 9]
   },
   {
     "id": "0010470",
@@ -5859,7 +5889,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7, 8]
+    "fieldIds": [1, 2, 7, 8, 9]
   },
   {
     "id": "0010628",
@@ -5889,7 +5919,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 7, 8]
+    "fieldIds": [1, 7, 8, 9]
   },
   {
     "id": "0010696",
@@ -5979,7 +6009,37 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 7]
+    "fieldIds": [1, 7, 9]
+  },
+  {
+    "id": "0010701",
+    "name": "ルチャブル",
+    "sleepType": "ぐっすり",
+    "specialty": "スキル",
+    "mainSkillId": 29,
+    "fp": 16,
+    "frequency": 2400,
+    "berryId": 10,
+    "ing1": {
+      "ingredientId": 6,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 11,
+      "c1": 3,
+      "c2": 4
+    },
+    "ing3": {
+      "ingredientId": 7,
+      "c1": 5
+    },
+    "pokedexId": 701,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 2, 5, 7, 9]
   },
   {
     "id": "0010702",
@@ -6162,7 +6222,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [6]
+    "fieldIds": [6, 9]
   },
   {
     "id": "0010737",
@@ -6192,7 +6252,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": false,
-    "fieldIds": [6]
+    "fieldIds": [6, 9]
   },
   {
     "id": "0010738",
@@ -6222,7 +6282,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [6]
+    "fieldIds": [6, 9]
   },
 
   {
@@ -6253,7 +6313,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": false,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010743",
@@ -6283,7 +6343,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": false,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
 
   {
@@ -6374,7 +6434,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 7]
+    "fieldIds": [1, 2, 7, 9]
   },
   {
     "id": "0010777",
@@ -6464,7 +6524,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 5, 7, 8]
+    "fieldIds": [1, 5, 7, 8, 9]
   },
   {
     "id": "0010845",
@@ -6494,7 +6554,7 @@ export const POKEMONS: readonly Pokemon[] = [
     "form": "normal",
     "isFinalEvolution": true,
     "isSeedPokemon": true,
-    "fieldIds": [1, 2, 4, 7]
+    "fieldIds": [1, 2, 4, 7, 9]
   },
   {
     "id": "0010848",
@@ -6946,6 +7006,96 @@ export const POKEMONS: readonly Pokemon[] = [
     "isFinalEvolution": true,
     "isSeedPokemon": false,
     "fieldIds": [4, 6, 7]
+  },
+  {
+    "id": "0010957",
+    "name": "カヌチャン",
+    "sleepType": "すやすや",
+    "specialty": "きのみ",
+    "mainSkillId": 4,
+    "fp": 5,
+    "frequency": 4500,
+    "berryId": 18,
+    "ing1": {
+      "ingredientId": 12,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 13,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 3
+    },
+    "pokedexId": 957,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": true,
+    "fieldIds": [1, 2, 6, 7, 9]
+  },
+  {
+    "id": "0010958",
+    "name": "ナカヌチャン",
+    "sleepType": "すやすや",
+    "specialty": "きのみ",
+    "mainSkillId": 4,
+    "fp": 12,
+    "frequency": 3300,
+    "berryId": 18,
+    "ing1": {
+      "ingredientId": 12,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 13,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 3
+    },
+    "pokedexId": 958,
+    "form": "normal",
+    "isFinalEvolution": false,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 6, 7, 9]
+  },
+  {
+    "id": "0010959",
+    "name": "デカヌチャン",
+    "sleepType": "すやすや",
+    "specialty": "きのみ",
+    "mainSkillId": 4,
+    "fp": 20,
+    "frequency": 2400,
+    "berryId": 18,
+    "ing1": {
+      "ingredientId": 12,
+      "c1": 1,
+      "c2": 2,
+      "c3": 4
+    },
+    "ing2": {
+      "ingredientId": 13,
+      "c1": 2,
+      "c2": 3
+    },
+    "ing3": {
+      "ingredientId": 4,
+      "c1": 3
+    },
+    "pokedexId": 959,
+    "form": "normal",
+    "isFinalEvolution": true,
+    "isSeedPokemon": false,
+    "fieldIds": [1, 2, 6, 7, 9]
   },
   {
     "id": "0010974",
